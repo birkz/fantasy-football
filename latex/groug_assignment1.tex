@@ -1,0 +1,178 @@
+\documentclass{article}
+\input{grunn_uppsetn_hd}
+\usepackage[utf8]{inputenc}
+%\lhead{Þróun hugbúnaðar \\ Group assignment 1 - Group: F2a}
+%\rhead{Teachers: Matthias Book \& Kristín Fjóla Tómasdóttir \\ Students: Einar Helgi, Hannes Pétur \& Sigurður Birkir}
+\usepackage{framed}
+
+%\begin{ustory}{title}{duration}{priority}
+% 1 or more \task
+%\end{ustory}
+\newenvironment{ustory}[3]
+{ \begin{minipage}{0.495\textwidth} \begin{framed} \rule{1ex}{1ex} #1 \hspace{\stretch{1}} \rule{1ex}{1ex} \raisebox{0.3cm}{\rule{1\textwidth}{0.4pt}} \begin{flushright}\vspace*{-0.65cm}\textbf{#2, Priority: #3} \end{flushright} \textbf{\textit{Tasks:}} \begin{enumerate}[a)]}
+{\end{enumerate} \end{framed} \end{minipage}}
+\definecolor{altgreen}{rgb}{0.1, 0.55, 0.2}
+
+%\task[duration]{task}{assigned to who?}
+%
+% Case 0: ???
+% Case 1: Einar
+% Case 2: Hannes
+% Case 3: Sigurður
+\newcommand{\task}[3][? days]{
+	\ifcase#3
+		\item #2 \\ \textbf{             {\color{red} }} \hfill\textbf{(#1)}
+	\or
+		\item #2 \\ \textbf{Assigned to: {\color{red} Einar}} \hfill \textbf{(#1)}
+	\or
+		\item #2 \\ \textbf{Assigned to: {\color{altgreen} Hannes}} \hfill \textbf{(#1)}
+	\or
+		\item #2 \\ \textbf{Assigned to: {\color{blue} Sigurður}} \hfill \textbf{(#1)}
+	\fi
+	\vspace*{0.1cm}
+}
+
+\usepackage{paralist}
+\renewenvironment{enumerate}[1]{\begin{compactenum}#1}{\end{compactenum}}
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+
+\textsc{}\\[2cm] 
+
+\includegraphics[width=6cm]{Haskoli_Islands_rett.jpg}\\[0.5cm]
+
+\HRule \\[0.6cm]
+{ \huge \bfseries Group assignment 1}\\[0.2cm]
+\HRule \\[0.4cm]
+
+\textsc{\normalsize Þróun hugbúnaðar} \\
+\textsc{Spring 2015} \\[1.5cm]
+
+\begin{minipage}{0.45\textwidth}
+\begin{flushleft} \large
+\textit{Students:} (Group F2a)\\
+\textsc{Einar Helgi Þrastarson} \\
+\textsc{Hannes Pétur Eggertsson} \\
+\textsc{Sigurður Birkir Sigurðsson} \\
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+\begin{flushright} \large
+\textit{Teachers:} \\
+\textsc{Matthias Book}\\
+\textsc{Kristín Fjóla Tómasdóttir}\\
+\textsc{ }\\
+\end{flushright}
+\end{minipage}
+
+\end{center}
+\end{titlepage}
+
+
+% Description of the project
+\section{Project plan}
+In this document there's the project plan for group F2a. Group members are: Einar Helgi Þrastarson (personal ID number: 110287-2919), Hannes Pétur Eggertsson (240889-2939) and Sigurður Birkir Sigurðsson (120589-2539). The project involves creating an UI for a fantasy football game. The presenter for this planning on Wednesday will be Einar Helgi.
+
+\section{User stories}
+User stories were split among three 2-week long iterations.
+
+\subsection{Iteration 1 (14,5 days of work planned)}
+% 3
+\begin{ustory}{As a user, I want to have money or at least have some countable currency, to buy players.}{1,5 days}{10}
+\task[1 day]{Create a object that keeps track of ow much money users have.}{0}
+\task[4 hours]{Figure out a reasonable starting sum of money for players depending on the average price of a football player.}{0}
+\end{ustory}
+% 2
+\begin{ustory}{As a user, I want to be able to choose and buy players for my roster, to create my team.}{4 days}{10}
+\task[1 day]{Create visual system for displaying football players.}{0}
+\task[1 day]{Give user a list of available players.}{0}
+\task[1,5 days]{Implement a buy/sell system for football players.}{0}
+\task[4 hours]{Prevent user from having too many football players their team, and limit how many are allowed for each position.}{0}
+\end{ustory}
+% 1
+\begin{ustory}{As a user, I want to have an interface.}{1 day}{10}
+\task[4 hours]{Create basic user interface in Java Swing.}{0}
+\task[4 hours]{Setup basic layout.} {0}
+\end{ustory}
+% 4
+\begin{ustory}{As a user, I want to have some kind of visual system to manage my roster, makes managing my team easier.}{2 days}{10}
+\task[1 day]{Create the roster management layout.}{0}
+\task[1 day]{Add to the layout the football players of the roster.}{0}
+\end{ustory}
+% 5
+\begin{ustory}{As a user, I want to be able to exchange football players after each round, if their performance is not to my liking.}{3 days}{20}
+\task[2 days]{Add a sell functionality to the football players a user owns.}{0}
+\task[4 hours]{Add sell button next to the football player in the roster manager.}{0}
+\task[4 hours]{Add ability for users to buy new football players in the roster manager if their team is not full.}{0}
+\end{ustory}
+%6
+\begin{ustory}{As a user, I want to be able to end my turn, to keep the game going.}{1 day}{20}
+\task[1 day]{Create a button that makes the game simulate the next round.}{0}
+\end{ustory}
+%7
+\begin{ustory}{As a user, I want to have a point system, to value and see my progress.}{1 day}{20}
+\task[6 hours]{Request the simulation for the points of all football players and hold onto them in an scores object.}{0}
+\task[2 hours]{Do a summary of the points.}{0}
+\end{ustory}
+%8
+\begin{ustory}{As a user, I want to see the points I get and the points each football player gets, to get detailed progress of my roster.}{1 day}{30}
+\task[4 hours]{Get points from the scores object and display on screen.}{0}
+\task[4 hours]{Create layout for the points on screen.}{0}
+\end{ustory}
+
+\subsection{Iteration 2 (14 days of work planned)}
+% 1
+\begin{ustory}{As a user, I want the game to be multiplayer, so the game can be played with friends.}{4 days}{20}
+\task[2 days]{At the start of each game, add a frame/window to add users.}{0}
+\task[2 days]{Update code to handle more than one users (if needed).}{0}
+\end{ustory}
+% 2
+\begin{ustory}{As a user, I want to see a scoreboard with statistics when the round is finished, makes it more fun when competing against other people.}{4 days}{30}
+\task[1 day]{Create an object that holds together all scores from all users.}{0}
+\task[1 day]{Create an object that holds together all results and key events in matches.}{0}
+\task[1 day]{Create a function that can show user graph of scores.}{0}
+\task[1 day]{Create an interface to show the above tasks.}{0}
+\end{ustory}
+% 3
+\begin{ustory}{As a user, I want to be able to substitute football players on the field if they get injured, to keep uninjured players on the field.}{1 day}{50}
+\task[4 hours]{Create a function that will check for injured football players.}{0}
+\task[4 hours]{Let users know football player is injured.}{0}
+\end{ustory}
+% 4
+\begin{ustory}{As a user, I want to be able to search for football players from available pool, to make choosing them easier.}{4,5 days}{50}
+\task[2 days]{Create a basic search UI, with a search field and results area.}{0}
+\task[2 days]{Ability to search football players by name.}{0}
+\task[2 hours]{Ability to search by football player attribute.}{0}
+\task[2 hours]{Ability to search by team name.}{0}
+\end{ustory}
+% 5
+\begin{ustory}{As a user, I want to choose a team captain and I want him to get points depending on my roster performance, this might benefit my roster.}{4 hours}{50}
+\task[2 hours]{Create an attribute in the roster manager for the captain.}{0}
+\task[2 hours]{Collect scores from the team and add extra scores for the team captain accordingly.}{0}
+\end{ustory}
+
+\subsection{Iteration 3 (6,5 days of work planned)}
+% 1
+\begin{ustory}{As a user, I want to be able to choose formations for football players on the field, to have my roster set up the way I like.}{4 days}{60}
+\task[1 day]{Create an object for the team formations.}{0}
+\task[3 day]{Create UI of the team formations in roster manager.}{0}
+\end{ustory}
+% 2
+\begin{ustory}{As a user, I want to be able to let the game go through more than one round at a time, so I can play the game faster.}{4 hours}{60}
+\task[4 hours]{Create an auto 'end turn' feature.}{0}
+\end{ustory}
+% 3
+\begin{ustory}{As a user, I want the game to be good looking, have some imagery, makes it more appealing to play.}{2 days}{70}
+\task[2 days]{Go through every visual part of the game and improve it visually where possible.}{0}
+\end{ustory}
+
+\section{Conclusion}
+Our iterations are 14 days long.
+Subtracting Saturdays (2 days) and other school homework(5 days) leaves $\approx 7$ days. Of those, only 70\%, i.e. $7 \cdot 0.7 =$ \textbf{5 productive days} can actually be used for the project. We are 3 people on the team, so we can fit at most $5 \cdot 3 =$ \textbf{15 person-days} into an iteration.
+
+So according to our planning we should be able to barely finish the user stories within iteration 1 \& 2 where we plan that they take around \textbf{14 days} where we plan to have about \textbf{15 days} to finish them. In iteration 3 we will spend roughly half of the time implementing the user stories and the other half in integration.
+
+
+\end{document}

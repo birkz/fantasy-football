@@ -1,0 +1,181 @@
+% Útgáfa 1.5
+
+% pakkar fyrir töflur; array er notað í "math-mode"; arydshln fyrir brotalínur í töflum
+\usepackage{array,tabularx}%,arydshln}  
+% íslenskt letur, orðaskiptingar ...
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+% númera jöfnur, töflur, myndir, ...
+\usepackage{enumerate}
+% fyrir krækjur
+\usepackage[colorlinks,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+% ýmis tákn, leturgerðir, ... ATH amsmath fyrir \text{} skipunina
+\usepackage{amsmath,amssymb,euscript}   
+% til að setja inn *.eps myndir ef við notum dvi og ps skjöl...
+\usepackage{epsfig}    % \epsfig{...}
+% ... en ef við notum pdf beint, þá er þetta pakkinn sem við þurfum
+\usepackage{graphicx}  % \includegraphics[...]{...}
+% litamöguleikar fyrir texta
+\usepackage{color}
+% til þess að myndir og töflur standi þar sem þær eiga að standa!
+\usepackage{here}
+%
+\setlength{\textwidth}{6in}
+\setlength{\textheight}{9in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{6pt}
+\setlength{\topskip}{0in}
+\setlength{\topmargin}{0cm}
+\setlength{\oddsidemargin}{0in}
+% dregur fyrstu línu í hverri málsgrein inn - nota 0cm fyrir engan inndrátt fyrir allar málsgreinar en \noindent í upphafi málsgreinar til að hafa engan inndrátt í þeirri málsgrein einni:
+\setlength{\parindent}{0cm}
+% viljum hafa eitt línubil milli efnisgreina
+\setlength{\parskip}{1.5ex plus 0.75ex minus 0.5ex}
+% 1.5 í línubil
+\renewcommand{\baselinestretch}{1.025}
+
+% Environments
+\newenvironment{alist}[1][$\quad\,$1.]{
+\vspace*{-8pt} \begin{enumerate}[label=\alph*),itemsep=4pt,parsep=3pt]}
+{\end{enumerate}\vspace*{-3pt}}
+
+\newenvironment{ttafla}[1][$\quad\,$1.]{
+\begin{tabular}{rcl} \renewcommand\arraystretch{2} }
+{\end{tabular}}
+
+
+
+%Bætt við af mér (Hannesi)
+% Þjappa saman
+\widowpenalty=600
+\clubpenalty=600
+\usepackage[compact]{titlesec}
+\titlespacing{\section}{0pt}{2ex plus 0.75ex minus 0.75ex}{1ex plus 0.3ex minus 0.3ex}
+\titlespacing{\subsection}{0pt}{1ex plus 0.25ex minus 0.25ex}{0ex plus 0.1ex minus 0.1ex}
+\titlespacing{\subsubsection}{0pt}{0.5ex plus 0.1ex minus 0.1ex}{0ex plus 0.1ex minus 0.1ex}
+
+% Bolda caption
+\usepackage[hang,small,bf]{caption}
+
+% Efnaformúlur og myndir
+%\usepackage[version=3]{mhchem}
+\usepackage{chemfig}
+
+% Komma í stað punkts
+\usepackage{icomma}
+
+% Annað
+\usepackage{subfig}
+\usepackage{array}
+\usepackage{bigstrut}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{enumerate}
+%\usepackage{enumitem}
+\usepackage{wrapfig}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\usepackage{ulem}
+%\usepackage[thinspace,mediumqspace,amssymb]{SIunits}
+
+%Tikz
+\usepackage{tikz}
+\usetikzlibrary{fit,arrows,decorations.pathmorphing,decorations.text,backgrounds,positioning,fit,petri,3d,calc}
+%% 3d hnitakerfi
+\usepackage{tikz-3dplot}
+\tdplotsetmaincoords{75}{130}
+%\begin{tikzpicture}[scale=5,tdplot_main_coords]
+%
+%%set up some coordinates 
+%%-----------------------
+%\coordinate (O) at (0,0,0);
+%
+%%determine a coordinate (P) using (r,\theta,\phi) coordinates.  This command
+%%also determines (Pxy), (Pxz), and (Pyz): the xy-, xz-, and yz-projections
+%%of the point (P).
+%%syntax: \tdplotsetcoord{Coordinate name without parentheses}{r}{\theta}{\phi}
+%\tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
+
+
+%%%%%%%%%%%%%%% SKIPANIR %%%%%%%%%%%%%%%%%%%%%%%%
+%% LITASTYTTINGAR
+%
+\definecolor{dgreen}{rgb}{0,0.8,0}
+\newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\green}[1]{{\color{dgreen} #1}}
+\newcommand{\blue}[1]{{\color{blue} #1}}
+\newcommand{\black}[1]{{\color{black} #1}}
+%
+% ALLS KYNS STÆRÐFRÆÐIDÓT
+%
+\newcommand{\lvec}{\overrightarrow}
+%
+% ýmsar diffurstyttingar
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\dx}{\,\mathrm{d}x}
+\newcommand{\dy}{\,\mathrm{d}y}
+\newcommand{\dz}{\,\mathrm{d}z}
+\newcommand{\dt}{\,\mathrm{d}t}
+% afleiður og hlutafleiður
+\renewcommand{\d}[2]{\frac{\dif{#1}}{\dif{#2}}}
+\newcommand{\dd}[3]{\frac{\dif^{#1}{#2}}{\dif^{#1}{#3}}}
+\newcommand{\p}[2]{\frac{\partial{#1}}{\partial {#2}}}
+\newcommand{\pp}[3]{\frac{\partial^{#1}{#2}}{\partial{#3}^{#1}}}
+%
+% bil, millistig \; og \quad
+\newcommand{\bil}{\hspace*{6pt}}
+\newcommand{\Bil}{\hspace*{10pt}}
+\newcommand{\vbil}{\vspace*{-6pt}}
+\newcommand{\vBil}{\vspace*{-10pt}}
+
+% samasemmerki með aukaplássi á báða bóga
+\newcommand{\bils}{\bil=\bil}
+%
+\newcommand{\bc}{\begin{center}}
+\newcommand{\ec}{\end{center}}
+%
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+%
+\newcommand{\beqa}{\begin{eqnarray*}}
+\newcommand{\eeqa}{\end{eqnarray*}}
+%
+\newcommand{\ba}{\begin{array}}
+\newcommand{\ea}{\end{array}}
+%
+\newcommand{\bma}{\begin{matrix}}
+\newcommand{\ema}{\end{matrix}}
+%
+\newcommand{\bmh}{\left[\begin{matrix}}
+\newcommand{\emh}{\end{matrix}\right]}
+%
+\newcommand{\ts}{\textstyle}
+\newcommand{\ds}{\displaystyle}
+
+% Frá mér (Hannesi)
+\newcommand{\lausn}{\textbf{\textit{Lausn:}}}
+\newcommand{\solution}{\textbf{\textit{Solution:}}}
+\newcommand{\daemi}{\textbf{\textit{Dæmi:}}}
+\newcommand{\bt}{\begin{table}[H]}
+\newcommand{\et}{\end{table}}
+\newcommand{\atm}{\text{atm}}
+\newcommand{\calories}{\text{cal}}
+\everymath{\displaystyle} % Svo allar jöfnur taka aldrei minna pláss
+\renewcommand\tabcolsep{2pt} % Bil dalka í töflum
+\setlength{\arraycolsep}{1.5pt}
+%\usepackage{fancyhdr}
+%\setlength{\headheight}{25pt}
+%\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
+%\usepackage[top=2.5in, bottom=1.5in, left=1in, right=1in]{geometry}
+\usepackage{amssymb}
+\usepackage{pifont}
+\newcommand{\cmark}{\text{\ding{51}}}%
+\newcommand{\xmark}{\text{\ding{55}}}%
+
+\usepackage{pbox}
+%\usepackage{fancyvrb}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}

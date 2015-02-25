@@ -15,3 +15,9 @@ hs_err_pid*
 .metadata/*
 .classpath
 .project
+
+# Latex files
+*.aux
+*.log
+*.out
+*.synctex.gz
