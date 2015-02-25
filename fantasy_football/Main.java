@@ -1,43 +1,71 @@
 package fantasy_football;
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 public class Main {
 	
-	private static JFrame f;
-	private static AddImage panel3;
+	private static JFrame frame;
+	private static AddImage left;
+	private static AddImage right;
+	private static JPanel innerPanel;
 	
 	static public void createAndShowGUI() {
 		//AddImage panel = new AddImage(new ImageIcon("src/Images/CetpbfB.png").getImage());
-		//AddImage panel2 = new AddImage(new ImageIcon("src/Images/hair_dryer_breakfast.png").getImage());
-		panel3 = new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage());
-		f = new JFrame();
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JButton button = new JButton("Testing!!");
+		right = new AddImage(new ImageIcon("src/Images/hair_dryer_breakfast.png").getImage());
+		left = new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage());
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		innerPanel = new JPanel();
+		JPanel buttons = new JPanel();
+		
+		JButton button = new JButton("New Panel");
         //Add action listener to button
         button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("You clicked the button");	
-				switchImage(new AddImage(new ImageIcon("src/Images/hair_dryer_breakfast.png").getImage()));
+				switchImage(new AddImage(new ImageIcon("src/Images/CetpbfB.png").getImage()));
 			}
         }); 
-		f.setLayout(new GridLayout(2, 1));
-	    f.add(button);
-		f.getContentPane().add(panel3);
-	    f.pack();
-        f.setVisible(true);
+        JButton button2 = new JButton("Old panel");
+        //Add action listener to button
+        button2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				switchImage(new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage()));
+			}
+        }); 
+
+        buttons.add(button);
+        buttons.add(button2);
+		
+		
+		innerPanel = new JPanel();
+		innerPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		innerPanel.setLayout(new BorderLayout(0, 0));
+		frame.setContentPane(innerPanel);
+		
+		innerPanel.add(left, BorderLayout.WEST);
+		
+		innerPanel.add(right, BorderLayout.EAST);
+		
+		innerPanel.add(buttons, BorderLayout.NORTH);
+		
+	    frame.pack();
+        frame.setVisible(true);
 	}
 	
 	static public void switchImage(AddImage panel) {
-		f.getContentPane().remove(panel3);
-		panel3 = panel;
-		f.getContentPane().add(panel);
-	    f.pack();
-        f.setVisible(true);
+		innerPanel.remove(left);
+		left = panel;
+		innerPanel.add(left);
+		innerPanel.setVisible(true);
+		frame.pack();
+        frame.setVisible(true);
 	}
 	
 	public static void main(String[] args) {
