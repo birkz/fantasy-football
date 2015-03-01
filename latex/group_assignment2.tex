@@ -1,54 +1,20 @@
 \documentclass{article}
 \input{grunn_uppsetn_hd}
 \usepackage[utf8]{inputenc}
-%\lhead{Þróun hugbúnaðar \\ Group assignment 1 - Group: F2a}
-%\rhead{Teachers: Matthias Book \& Kristín Fjóla Tómasdóttir \\ Students: Einar Helgi, Hannes Pétur \& Sigurður Birkir}
 \usepackage{framed}
-
-%\begin{ustory}{title}{duration}{priority}
-% 1 or more \task
-%\end{ustory}
-\newenvironment{ustory}[3]
-{ \begin{minipage}{0.495\textwidth} \begin{framed} \rule{1ex}{1ex} #1 \hspace{\stretch{1}} \rule{1ex}{1ex} \raisebox{0.3cm}{\rule{1\textwidth}{0.4pt}} \begin{flushright}\vspace*{-0.65cm}\textbf{#2, Priority: #3} \end{flushright} \textbf{\textit{Tasks:}} \begin{enumerate}[a)]}
-{\end{enumerate} \end{framed} \end{minipage}}
-\definecolor{altgreen}{rgb}{0.1, 0.55, 0.2}
-
-\newcommand\xput[2][0.5]{%
-    \rule{#1\textwidth}{0pt}\makebox[0pt][c]{#2}\hfill}
-
-%\task[duration]{task}{assigned to who?}
-%
-% Case 0: ???
-% Case 1: Einar
-% Case 2: Hannes
-% Case 3: Sigurður
-\newcommand{\task}[3][? days]{
-	\ifcase#3
-		\item #2 \\ \textbf{             {\color{red} }} \hfill\textbf{(#1)}
-	\or
-		\item #2 \\ \textbf{Assigned to: {\color{red} Einar}} \hfill \textbf{(#1)}
-	\or
-		\item #2 \\ \textbf{Assigned to: {\color{altgreen} Hannes}} \hfill \textbf{(#1)}
-	\or
-		\item #2 \\ \textbf{Assigned to: {\color{blue} Sigurður}} \hfill \textbf{(#1)}
-	\fi
-	\vspace*{0.1cm}
-}
-
 \usepackage{paralist}
 \renewenvironment{enumerate}[1]{\begin{compactenum}#1}{\end{compactenum}}
-\usetikzlibrary{shapes.multipart,positioning}
+\usetikzlibrary{shapes.multipart,positioning,arrows}
 
 \begin{document}
 \begin{titlepage}
 \begin{center}
-
 \textsc{}\\[2cm] 
 
 \includegraphics[width=6cm]{Haskoli_Islands_rett.jpg}\\[0.5cm]
 
 \HRule \\[0.6cm]
-{ \huge \bfseries Group assignment 2: }\\[0.2cm]
+{ \huge \bfseries Group assignment 2: Class diagram}\\[0.2cm]
 \HRule \\[0.4cm]
 
 \textsc{\normalsize Þróun hugbúnaðar} \\
@@ -76,23 +42,23 @@
 
 
 % Description of the project
-\section{Class diagram}
-In this document there's the class diagram for group F2a. Group members are: Einar Helgi Þrastarson (personal ID number: 110287-2919), Hannes Pétur Eggertsson (240889-2939) and Sigurður Birkir Sigurðsson (120589-2539). Our project is to build an user interface for a fantasy football game. In our class diagram we felt it made sense to split the classes into two categories, back-end classes and front-end classes.
+\section{Introduction}
+In this document there's the class diagram for group F2a. Group members are: Einar Helgi Þrastarson (personal ID number: 110287-2919), Hannes Pétur Eggertsson (240889-2939) and Sigurður Birkir Sigurðsson (120589-2539). Our project is to build an user interface for a fantasy football game. In our class diagram we felt it made sense to split the classes into two categories, back-end classes and front-end classes. The presenter on Wednesday, March 4 2015, will be Hannes Pétur Eggertsson.
 
+\subsection{Notation}
 In our class diagrams we use the following notation:\vspace*{-0.5cm}
 \begin{itemize}\itemsep-4pt
 \item[--] means a private variable or method (not directly accessable by other classed).
 \item[+] means a public variable or method (directly accessable by other methods).
 \end{itemize}
 
-\tikzset{
-    umlclass/.style={
+\tikzset{umlclass/.style={
         draw=black,fill=yellow!16,rectangle split,align=center, rectangle split part align={center,left}, minimum width=4cm,rounded corners},draw,rectangle split parts=4}
 
 Also, each class in the diagram has four sections:
 \begin{center}
 \begin{tikzpicture}
-\begin{scope}[xshift=0cm,yshift=0cm]
+\begin{scope}[xshift=8cm,yshift=0cm]
 \node[umlclass] (t1)
  {\textbf{\large \textit{The class' name.}}
  \nodepart{two}
@@ -105,18 +71,41 @@ Also, each class in the diagram has four sections:
   The class' variables and their type listed\\
   on the format:\\
    --/+ \texttt{type1 variable1}\\
-   --/+ \texttt{type2 variable2}\\
+   --/+ \texttt{anotherClass variable2}\\
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
    The class' methods listed on the format:\\
-   --/+ \texttt{type methodName(type variable,...)}\\
+   --/+ \texttt{type1 method1(type variable,...)}\\
+   --/+ \texttt{type2 method2(...)}\\
   \end{tabular}
  };
 \end{scope}
 \end{tikzpicture}
 \end{center}
-The presenter on Wednesday will be Hannes Pétur Eggertsson.
+Classes are then connected using arrows:
+
+\begin{tikzpicture}
+\draw[arrows={-angle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0.08cm] {\hspace*{3cm}\textit{uses}} node[right]{Class B};
+\begin{scope}[yshift=-0.8cm]
+\draw[arrows={-open triangle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0.08cm] {\hspace*{3cm}\textit{extends}} node[right]{Class B};
+\end{scope}
+\end{tikzpicture}
+
+In many we know many classes 'Class A' and 'Class B' will be associated with, this is shown by placing an arrow at the beginning and end of an arrow, e.g.
+
+\begin{tikzpicture}
+\draw[arrows={-angle 60},thick] node[left]{Class A} node[above right]{1} (0,0) to (3,0)node[draw=none,midway,above=0.08cm] {\hspace*{3cm}\textit{uses}} node[above left]{0--10} node[right]{Class B};
+\end{tikzpicture}
+
+if each instance of 'Class A' will use 'Class B' in a range of 0 to 10 instances.
+
+\subsection{Terminologies and Concepts}
+\paragraph{User} A (human) user actually playing the game.
+\paragraph{Player} A football player in the game, e.g. Gylfi Sigurðsson.
+\paragraph{Team} An actual football team in the game, e.g. Manchester United.
+\paragraph{Roster} The user's bought players, the players could be from multiple teams. Note that the roster includes both players which user has set on and off the field.
+
 
 \newpage
 \section{Class diagram}
@@ -130,8 +119,8 @@ The presenter on Wednesday will be Hannes Pétur Eggertsson.
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   This class keeps track of all information\\
-   about each user playing the game.\\
+   This class keeps track of all information about\\
+   each user playing the game.\\
    
   \end{tabular}}
  \nodepart{three}
@@ -162,9 +151,7 @@ The presenter on Wednesday will be Hannes Pétur Eggertsson.
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   Keeps track of which football players are in which user\\
-   team/roster.
-   
+   Keeps track of which football players are in which user team/roster.
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
@@ -193,7 +180,7 @@ The presenter on Wednesday will be Hannes Pétur Eggertsson.
 %% ==========================================
 %% scoreboard
 %% ==========================================
-\begin{scope}[xshift=-1.07cm,yshift=-5cm]
+\begin{scope}[xshift=1cm,yshift=-4.6cm]
 \node[umlclass] (scoreboard)
  {\textbf{\large \textit{Scoreboard}}
  \nodepart{two}
@@ -213,14 +200,89 @@ The presenter on Wednesday will be Hannes Pétur Eggertsson.
 \end{scope}
 
 %% ==========================================
+%% Player
+%% ==========================================
+\begin{scope}[xshift=8cm,yshift=-4.5cm]
+\node[umlclass,rectangle split parts=2] (player)
+ {\textbf{\large \textit{Player}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   This class will be implemented by group\\
+   F1a. Each instance will contain information\\
+   about each football player.\\
+  \end{tabular}}
+ \nodepart{three}
+ \nodepart{four}
+ };
+\end{scope}
+
+%% ==========================================
+%% Market
+%% ==========================================
+\begin{scope}[xshift=9cm,yshift=-8cm]
+\node[umlclass] (market)
+ {\textbf{\large \textit{Market}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Handles listing, buying and selling players.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{Player[] players}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{void fetchPlayersByName()}\\
+   + \texttt{void fetchPlayersByTeam()}\\
+   + \texttt{public void buyPlayer(Player player)}\\
+   + \texttt{public void sellPlayer(Player player)}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% generic template
+%% ==========================================
+%\begin{scope}[xshift=0cm,yshift=0cm]
+%\node[umlclass] (generic)
+% {\textbf{\large \textit{Generic}}
+% \nodepart{two}
+%  {\footnotesize
+%  \begin{tabular}{l} 
+%   Desc.
+%  \end{tabular}}
+% \nodepart{three}
+%  \begin{tabular}{l}
+%   -- \texttt{type var}\\
+%  \end{tabular}
+% \nodepart{four}
+%  \begin{tabular}{l}
+%   + \texttt{type method(type var)}\\
+%  \end{tabular}
+% };
+%\end{scope}
+
+%% ==========================================
 %% Allar örvar teiknaðar hér
 %% ==========================================
+% user to roster
 \draw[arrows={-angle 60},thick] ([yshift=-14pt]user.three east) node[above right]{1} to [out=0, in=180](roster.text west) node[above left]{1};
+
+% scoreboard to user
 \draw[arrows={-angle 60},thick]
-[out=0, in=90](scoreboard.three east) node[below right]{1} to [out=0, in=0](user.text east) node[above right]{1-N};
-  
-%\draw[arrows={angle 60-latex},thick] ([yshift=10pt] user.three east) to [out=0, in=180](roster.two west) node[above left]{1};
+[out=0, in=90](scoreboard.three east) node[below right]{1} to [out=70, in=-70](user.text east) node[right]{1--N};
+
+% roster to player
+\draw[arrows={angle 60-},thick] (player.text west) node[above right=0.25cm and -0.2cm]{0--15} to [out=110, in=-140]([yshift=-1.5cm]roster.three west) node[left]{1};
+
+% market to player
+\draw[arrows={angle 60-},thick] ([yshift=-0.1cm]player.text west) node[below left]{$P$} to [out=-110, in=120](market.three west) node[left]{1};
+
 \end{tikzpicture}
+
+Where $N$ is er number of total users in the current game and $P$ is the total amount of football players in the game.
 
 \newpage
 \section*{Appendix}
