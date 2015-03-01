@@ -87,12 +87,10 @@ In our class diagrams we use the following notation:\vspace*{-0.5cm}
 
 \tikzset{
     umlclass/.style={
-        draw=black,fill=yellow!16,rectangle split,align=center, rectangle split part align={center,left}, minimum width=5cm,rounded corners},draw,rectangle split parts=4}
+        draw=black,fill=yellow!16,rectangle split,align=center, rectangle split part align={center,left}, minimum width=4cm,rounded corners},draw,rectangle split parts=4}
 
 Also, each class in the diagram has four sections:
 \begin{center}
-
-
 \begin{tikzpicture}
 \begin{scope}[xshift=0cm,yshift=0cm]
 \node[umlclass] (t1)
@@ -106,25 +104,28 @@ Also, each class in the diagram has four sections:
   \begin{tabular}{l}
   The class' variables and their type listed\\
   on the format:\\
-   --/+ \texttt{type variable}\\
+   --/+ \texttt{type1 variable1}\\
+   --/+ \texttt{type2 variable2}\\
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
    The class' methods listed on the format:\\
-   --/+ \texttt{void changeScore(int dScore)}\\
+   --/+ \texttt{type methodName(type variable,...)}\\
   \end{tabular}
  };
 \end{scope}
 \end{tikzpicture}
 \end{center}
-
-
+The presenter on Wednesday will be Hannes Pétur Eggertsson.
 
 \newpage
 \section{Class diagram}
 \begin{tikzpicture}
-\begin{scope}[xshift=0cm,yshift=0cm]
-\node[umlclass] (t1)
+%% ==========================================
+%% user
+%% ==========================================
+\begin{scope}[yshift=0cm]
+\node[umlclass] (user)
  {\textbf{\large \textit{User}}
  \nodepart{two}
   {\footnotesize
@@ -139,35 +140,86 @@ Also, each class in the diagram has four sections:
    -- \texttt{int score}\\
    -- \texttt{String name}\\
    -- \texttt{Roster roster}\\
-   -- \texttt{Scoreboard scoreB}
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
-   + \texttt{changeMoney(int dMoney)}\\
-   + \texttt{changeScore(int dScore)}\\
+   + \texttt{boolean changeMoney(int dMoney)}\\
+   + \texttt{void changeScore(int dScore)}\\
+   + \texttt{void setName(String s)}\\
+   + \texttt{String getName()}\\
+   + \texttt{void setRoster(Roster r)}\\
+   + \texttt{Roster getRoster()}
   \end{tabular}
  };
 \end{scope}
-  %\draw (t1.text split) -- (t1.two split);
 
-  \begin{scope}[xshift=7cm]
-    \node[rectangle split, rectangle split parts=5,
-          draw, minimum width=4cm,font=\small,
-         rectangle split part align={center}] (t2)
-     {                \textbf{Name : glyph}
-       \nodepart{two}
-                      prev \hspace*{4ex} next
-       \nodepart{three}
-                      width: 15pt  
-       \nodepart{four}
-                      height: 15pt 
-       \nodepart{five}
-                      list}; 
-    \draw (t2.text split) -- (t2.two split);
-  \end{scope}
+%% ==========================================
+%% roster
+%% ==========================================
+\begin{scope}[xshift=9.5cm,yshift=1cm]
+\node[umlclass] (roster)
+ {\textbf{\large \textit{Roster}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Keeps track of which football players are in which user\\
+   team/roster.
+   
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{Player[2] goalkeepers}\\
+   -- \texttt{Player[2] goalkeepersOnField}\\
+   -- \texttt{Player[5] defenders}\\
+   -- \texttt{Player[5] defendersOnField}\\
+   -- \texttt{Player[5] midfielders}\\
+   -- \texttt{Player[5] midfieldersOnField}\\
+   -- \texttt{Player[3] strikers}\\
+   -- \texttt{Player[3] strikersOnField}\\
+   -- \texttt{Player captain}\\
+   -- \texttt{int numberOfPlayersOnField}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{void removePlayerFromTeam(Player player)}\\
+   + \texttt{boolean addPlayerToTeam(Player player)}\\
+   + \texttt{void changeCaptain(Player newCaptain)}\\
+   + \texttt{boolean putPlayerOnField(Player player)}\\
+   + \texttt{boolean removePlayerFromField(Player player)}\\
+  \end{tabular}
+ };
+\end{scope}
 
-  \draw[arrows={angle 60-latex},thick] (t1.three east) to [out=0, in=170](t2.text west) node[above left]{1};
-  \draw[arrows={angle 60-latex},thick] ([yshift=10pt] t1.three east) to [out=0, in=170](t2.two west) node[above left]{1};
+%% ==========================================
+%% scoreboard
+%% ==========================================
+\begin{scope}[xshift=-1.07cm,yshift=-5cm]
+\node[umlclass] (scoreboard)
+ {\textbf{\large \textit{Scoreboard}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Keeps track of all users' scores.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{User[] users}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{int[] getScores()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% Allar örvar teiknaðar hér
+%% ==========================================
+\draw[arrows={-angle 60},thick] ([yshift=-14pt]user.three east) node[above right]{1} to [out=0, in=180](roster.text west) node[above left]{1};
+\draw[arrows={-angle 60},thick]
+[out=0, in=90](scoreboard.three east) node[below right]{1} to [out=0, in=0](user.text east) node[above right]{1-N};
+  
+%\draw[arrows={angle 60-latex},thick] ([yshift=10pt] user.three east) to [out=0, in=180](roster.two west) node[above left]{1};
 \end{tikzpicture}
 
 \newpage
