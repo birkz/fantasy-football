@@ -43,7 +43,7 @@
 
 % Description of the project
 \section{Introduction}
-In this document there's the class diagram for group F2a. Group members are: Einar Helgi Þrastarson (personal ID number: 110287-2919), Hannes Pétur Eggertsson (240889-2939) and Sigurður Birkir Sigurðsson (120589-2539). Our project is to build an user interface for a fantasy football game. In our class diagram we felt it made sense to split the classes into two categories, back-end classes and front-end classes. The presenter on Wednesday, March 4 2015, will be Hannes Pétur Eggertsson.
+In this document there's the class diagram for group F2a. Group members are: Einar Helgi Þrastarson (personal ID number: 110287-2919), Hannes Pétur Eggertsson (240889-2939) and Sigurður Birkir Sigurðsson (120589-2539). Our project is to build an user interface for a fantasy football game. In our class diagram we felt it made sense to split the classes into two categories, back-end classes and front-end classes. In the appendix we put our current idea how the UI will look like when the game is ready. The presenter on Wednesday, March 4th 2015, will be Hannes Pétur Eggertsson.
 
 \subsection{Notation}
 In our class diagrams we use the following notation:\vspace*{-0.5cm}
@@ -92,7 +92,7 @@ Classes are then connected using arrows:
 \end{scope}
 \end{tikzpicture}
 
-In many we know many classes 'Class A' and 'Class B' will be associated with, this is shown by placing an arrow at the beginning and end of an arrow, e.g.
+In most cases we can tell how many classes 'Class A' and 'Class B' will be associated with, this is shown by placing an arrow at the beginning and end of an arrow, e.g.
 
 \begin{tikzpicture}
 \draw[arrows={-angle 60},thick] node[left]{Class A} node[above right]{1} (0,0) to (3,0)node[draw=none,midway,above=0.08cm] {\hspace*{3cm}\textit{uses}} node[above left]{0--10} node[right]{Class B};
@@ -103,17 +103,18 @@ if each instance of 'Class A' will use 'Class B' in a range of 0 to 10 instances
 \subsection{Terminologies and Concepts}
 \paragraph{User} A (human) user actually playing the game.
 \paragraph{Player} A football player in the game, e.g. Gylfi Sigurðsson.
-\paragraph{Team} An actual football team in the game, e.g. Manchester United.
-\paragraph{Roster} The user's bought players, the players could be from multiple teams. Note that the roster includes both players which user has set on and off the field.
-
+\paragraph{Team} A football team in the game, e.g. Manchester United.
+\paragraph{Roster} The user's bought players, the players could be from multiple teams. Note that the roster includes both players which user has set on and off the field. A roster can have up to 15 players.
 
 \newpage
 \section{Class diagram}
+We decided to split our class diagram into two figures: \textbf{Back-end classes} and \textbf{Front-end classes}. The back-end classes take care of storing and keeping track of all information as the game is running. The front-end classes take care of displaying the information to the users playing the game as well as handling their input.
+\subsection{Back-end classes}
 \begin{tikzpicture}
 %% ==========================================
 %% user
 %% ==========================================
-\begin{scope}[yshift=0cm]
+\begin{scope}[yshift=-6cm]
 \node[umlclass] (user)
  {\textbf{\large \textit{User}}
  \nodepart{two}
@@ -143,7 +144,7 @@ if each instance of 'Class A' will use 'Class B' in a range of 0 to 10 instances
 \end{scope}
 
 %% ==========================================
-%% roster
+%% Roster
 %% ==========================================
 \begin{scope}[xshift=9.5cm,yshift=1cm]
 \node[umlclass] (roster)
@@ -178,22 +179,28 @@ if each instance of 'Class A' will use 'Class B' in a range of 0 to 10 instances
 \end{scope}
 
 %% ==========================================
-%% scoreboard
+%% MainGame
 %% ==========================================
-\begin{scope}[xshift=1cm,yshift=-4.6cm]
-\node[umlclass] (scoreboard)
- {\textbf{\large \textit{Scoreboard}}
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (maingame)
+ {\textbf{\large \textit{MainGame}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   Keeps track of all users' scores.
+   The main back-end class. Keeps track of\\
+   the state of the game.
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
    -- \texttt{User[] users}\\
+   -- \texttt{int round}\\
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
+   + \texttt{void createUser(String name)}\\
+   + \texttt{void setNumUsers(int num)}\\
+   + \texttt{void startGame()}\\
+   + \texttt{void nextUser()}\\
    + \texttt{int[] getScores()}\\
   \end{tabular}
  };
@@ -268,25 +275,61 @@ if each instance of 'Class A' will use 'Class B' in a range of 0 to 10 instances
 %% Allar örvar teiknaðar hér
 %% ==========================================
 % user to roster
-\draw[arrows={-angle 60},thick] ([yshift=-14pt]user.three east) node[above right]{1} to [out=0, in=180](roster.text west) node[above left]{1};
+\draw[arrows={-angle 60},thick] ([yshift=-20pt]user.three east) node[right]{1} to [out=45, in=180](roster.text west) node[above left]{1};
 
-% scoreboard to user
+% maingame to user
 \draw[arrows={-angle 60},thick]
-[out=0, in=90](scoreboard.three east) node[below right]{1} to [out=70, in=-70](user.text east) node[right]{1--N};
+[out=0, in=90](maingame.three east) node[right]{1} to [out=-70, in=70](user.text east) node[right]{0--N};
 
 % roster to player
 \draw[arrows={angle 60-},thick] (player.text west) node[above right=0.25cm and -0.2cm]{0--15} to [out=110, in=-140]([yshift=-1.5cm]roster.three west) node[left]{1};
 
 % market to player
 \draw[arrows={angle 60-},thick] ([yshift=-0.1cm]player.text west) node[below left]{$P$} to [out=-110, in=120](market.three west) node[left]{1};
-
 \end{tikzpicture}
 
 Where $N$ is er number of total users in the current game and $P$ is the total amount of football players in the game.
 
 \newpage
+\subsection{Front-end classes}
+\begin{tikzpicture}
+%% ==========================================
+%% generic template
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (generic)
+ {\textbf{\large \textit{Generic}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{type var}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{type method(type var)}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% Allar örvar teiknaðar hér
+%% ==========================================
+
+% market to player
+%\draw[arrows={angle 60-},thick] ([yshift=-0.1cm]player.text west) node[below left]{$P$} to [out=-110, in=120](market.three west) node[left]{1};
+\end{tikzpicture}
+
+\newpage
 \section*{Appendix}
 \subsection*{User interface}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.99\textwidth]{ffUI.png}
+\end{figure}
 
 
 \end{document}
