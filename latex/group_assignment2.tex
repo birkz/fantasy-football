@@ -86,16 +86,19 @@ Also, each class in the diagram has four sections:
 Classes are then connected using arrows:
 
 \begin{tikzpicture}
-\draw[arrows={-angle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0.08cm] {\hspace*{3cm}\textit{uses}} node[right]{Class B};
+\draw[arrows={-angle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{uses}} node[right]{Class B};
 \begin{scope}[yshift=-0.8cm]
-\draw[arrows={-open triangle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0.08cm] {\hspace*{3cm}\textit{extends}} node[right]{Class B};
+\draw[arrows={-open triangle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{extends}} node[right]{Class B};
+\end{scope}
+\begin{scope}[yshift=-1.6cm]
+\draw[arrows={-triangle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{implements}} node[right]{Class B};
 \end{scope}
 \end{tikzpicture}
 
 In most cases we can tell how many classes 'Class A' and 'Class B' will be associated with, this is shown by placing an arrow at the beginning and end of an arrow, e.g.
 
 \begin{tikzpicture}
-\draw[arrows={-angle 60},thick] node[left]{Class A} node[above right]{1} (0,0) to (3,0)node[draw=none,midway,above=0.08cm] {\hspace*{3cm}\textit{uses}} node[above left]{0--10} node[right]{Class B};
+\draw[arrows={-angle 60},thick] node[left]{Class A} node[above right]{1} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{uses}} node[above left]{0--10} node[right]{Class B};
 \end{tikzpicture}
 
 if each instance of 'Class A' will use 'Class B' in a range of 0 to 10 instances.
@@ -188,7 +191,8 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
   {\footnotesize
   \begin{tabular}{l} 
    The main back-end class. Keeps track of\\
-   the state of the game.
+   the state of the game. It exists always\\
+   while the game is running.
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
@@ -294,19 +298,130 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 \subsection{Front-end classes}
 \begin{tikzpicture}
 %% ==========================================
-%% generic template
+%% JFrame
 %% ==========================================
-\begin{scope}[xshift=0cm,yshift=0cm]
-\node[umlclass] (generic)
- {\textbf{\large \textit{Generic}}
+\begin{scope}[xshift=8cm,yshift=2cm]
+\node[umlclass,rectangle split parts=2] (jframe)
+ {\textbf{\large \textit{JFrame}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   Desc.
+   This class is implemented in Java Swing.
+  \end{tabular}}
+ };
+\end{scope}
+
+%% ==========================================
+%% JPanel
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=-5cm]
+\node[umlclass,rectangle split parts=2] (jpanel)
+ {\textbf{\large \textit{JPanel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   This class is implemented in Java Swing.
+  \end{tabular}}
+ };
+\end{scope}
+
+%% ==========================================
+%% Main
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (main)
+ {\textbf{\large \textit{Main}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   The main front-end class. It is initialized at\\
+   the start of the game and runs until the game\\
+   is terminated.
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
-   -- \texttt{type var}\\
+   -- \texttt{JFrame frame}\\
+   -- \texttt{TopPanel topPanel}\\
+%   -- \texttt{SearchPanel searchPanel}\\%
+   -- \texttt{RosterPanel rosterPanel}\\
+   -- \texttt{FieldViewerPanel fieldViewerPanel}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{void startGame()}\\
+   + \texttt{void setPanelAsRoster()}\\
+   + \texttt{void setPanelAsMarket()}\\
+   + \texttt{void setPanelAsScore()}\\
+   + \texttt{void update()}\\
+   + \texttt{void main(String[] args)}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% StartPanel
+%% ==========================================
+\begin{scope}[xshift=8cm,yshift=0cm]
+\node[umlclass,rectangle split parts=2] (startpanel)
+ {\textbf{\large \textit{StartPanel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Panel that shows up that the start of the game.\\
+   It displays a user creation area.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% MarketPanel
+%% ==========================================
+\begin{scope}[xshift=8cm,yshift=-3cm]
+\node[umlclass,rectangle split parts=3] (marketpanel)
+ {\textbf{\large \textit{MarketPanel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Panel that displays the market. Handles\\
+   buying/selling inputs from the user.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+	Uses:\\
+	\texttt{  Market.fetchPlayersByName()}\\
+	\texttt{  Market.fetchPlayersByTeam()}\\
+	\texttt{  Market.buyPlayer(Player p)}\\
+	\texttt{  Market.sellPlayer(Player p)}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% ScorePanel
+%% ==========================================
+\begin{scope}[xshift=8cm,yshift=-6cm]
+\node[umlclass,rectangle split parts=3] (scorepanel)
+ {\textbf{\large \textit{ScorePanel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Displays the current game score.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   + \texttt{void graphScores()}\\
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
@@ -316,11 +431,173 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 \end{scope}
 
 %% ==========================================
+%% RosterPanel
+%% ==========================================
+\begin{scope}[xshift=8cm,yshift=-8cm]
+\node[umlclass,rectangle split parts=2] (rosterpanel)
+ {\textbf{\large \textit{RosterPanel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Displays the users' roster.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% FieldViewerPanel
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=-6.8cm]
+\node[umlclass,rectangle split parts=2] (fieldpanel)
+ {\textbf{\large \textit{FieldViewerPanel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Displays the current on field players.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% LeaguePanel
+%% ==========================================
+\begin{scope}[xshift=8cm,yshift=-10cm]
+\node[umlclass,rectangle split parts=2] (leaguepanel)
+ {\textbf{\large \textit{LeaguePanel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Displays the teams and standings\\
+    in the current league.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% ActionListener
+%% ==========================================
+\begin{scope}[xshift=8cm,yshift=-12cm]
+\node[umlclass,rectangle split parts=2] (actionlistener)
+ {\texttt{<<interface>>}\\\textbf{\large \textit{ActionListener}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Interface in Java Swing that\\
+   handles actions/input.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% Handle Buttons
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=-10.5cm]
+\node[umlclass] (handlebuttons)
+ {\textbf{\large \textit{HandleButtons}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Handles button presses.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   + \texttt{void actionPerformed(ActionEvent arg0)}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   Uses:\\
+   \texttt{  Main.setPanelAsMarket()}\\
+   \texttt{  Main.setPanelAsScore()}\\
+   \texttt{  Main.setPanelAsRoster()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% generic template
+%% ==========================================
+%\begin{scope}[xshift=0cm,yshift=0cm]
+%\node[umlclass] (generic)
+% {\textbf{\large \textit{Generic}}
+% \nodepart{two}
+%  {\footnotesize
+%  \begin{tabular}{l} 
+%   Desc.
+%  \end{tabular}}
+% \nodepart{three}
+%  \begin{tabular}{l}
+%   -- \texttt{type var}\\
+%  \end{tabular}
+% \nodepart{four}
+%  \begin{tabular}{l}
+%   + \texttt{type method(type var)}\\
+%  \end{tabular}
+% };
+%\end{scope}
+
+%% ==========================================
 %% Allar örvar teiknaðar hér
 %% ==========================================
 
-% market to player
-%\draw[arrows={angle 60-},thick] ([yshift=-0.1cm]player.text west) node[below left]{$P$} to [out=-110, in=120](market.three west) node[left]{1};
+% main to jpanel
+%\draw[arrows={-angle 60},thick] ([yshift=-0.7cm]main.three east) node[below left]{} to [out=-75, in=45]([yshift=0.2cm]jpanel.text east) node[left]{};
+
+% main to jframe
+\draw[arrows={-angle 60},thick] ([yshift=0.9cm]main.three east) node[below right]{1} to [out=40, in=200]([yshift=0.02cm]jframe.text west) node[above left]{1};
+
+% startpanel to jframe
+\draw[arrows={-open triangle 60},thick] (startpanel.text west) node[below left]{} to [out=-120, in=5]([yshift=0.15cm]jpanel.text east) node[left]{};
+
+% marketpanel to jframe
+\draw[arrows={-open triangle 60},thick] (marketpanel.text west) node[below left]{} to [out=-130, in=-10]([yshift=0.05cm]jpanel.text east) node[left]{};
+
+% scorepanel to jframe
+\draw[arrows={-open triangle 60},thick] (scorepanel.text west) node[below left]{} to [out=160, in=-35]([yshift=-0.05cm]jpanel.text east) node[left]{};
+
+% rosterpanel to jframe
+\draw[arrows={-open triangle 60},thick] (rosterpanel.text west) node[below left]{} to [out=150, in=-50]([yshift=-0.2cm]jpanel.text east) node[left]{};
+
+% leaguepanel to jframe
+\draw[arrows={-open triangle 60},thick] (leaguepanel.text west) node[below left]{} to [out=140, in=-60]([yshift=-0.35cm]jpanel.text east) node[left]{};
+
+% fieldpanel to jframe
+\draw[arrows={-open triangle 60},thick] (fieldpanel.text east) node[below left]{} to [out=60, in=-100]([yshift=-0.85cm,xshift=-0.3cm]jpanel.text east) node[left]{};
+
+% handlebuttons to actionlisteners
+\draw[arrows={-triangle 60},thick] (handlebuttons.two east) node[below left]{} to [out=-10, in=180](actionlistener.text west) node[left]{};
+
 \end{tikzpicture}
 
 \newpage
