@@ -1,0 +1,89 @@
+\documentclass{article}
+\input{grunn_uppsetn_hd}
+\usepackage[utf8]{inputenc}
+%\lhead{Þróun hugbúnaðar \\ Group assignment 1 - Group: F2a}
+%\rhead{Teachers: Matthias Book \& Kristín Fjóla Tómasdóttir \\ Students: Einar Helgi, Hannes Pétur \& Sigurður Birkir}
+\usepackage{framed}
+
+%\begin{ustory}{title}{duration}{priority}
+% 1 or more \task
+%\end{ustory}
+\newenvironment{ustory}[3]
+{ \begin{minipage}{0.495\textwidth} \begin{framed} \rule{1ex}{1ex} #1 \hspace{\stretch{1}} \rule{1ex}{1ex} \raisebox{0.3cm}{\rule{1\textwidth}{0.4pt}} \begin{flushright}\vspace*{-0.65cm}\textbf{#2, Priority: #3} \end{flushright} \textbf{\textit{Tasks:}} \begin{enumerate}[a)]}
+{\end{enumerate} \end{framed} \end{minipage}}
+\definecolor{altgreen}{rgb}{0.1, 0.55, 0.2}
+
+%\task[duration]{task}{assigned to who?}
+%
+% Case 0: ???
+% Case 1: Einar
+% Case 2: Hannes
+% Case 3: Sigurður
+\newcommand{\task}[3][? days]{
+	\ifcase#3
+		\item #2 \\ \textbf{             {\color{red} }} \hfill\textbf{(#1)}
+	\or
+		\item #2 \\ \textbf{Assigned to: {\color{red} Einar}} \hfill \textbf{(#1)}
+	\or
+		\item #2 \\ \textbf{Assigned to: {\color{altgreen} Hannes}} \hfill \textbf{(#1)}
+	\or
+		\item #2 \\ \textbf{Assigned to: {\color{blue} Sigurður}} \hfill \textbf{(#1)}
+	\fi
+	\vspace*{0.1cm}
+}
+
+\usepackage{paralist}
+\renewenvironment{enumerate}[1]{\begin{compactenum}#1}{\end{compactenum}}
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+
+\textsc{}\\[2cm] 
+
+\includegraphics[width=6cm]{Haskoli_Islands_rett.jpg}\\[0.5cm]
+
+\HRule \\[0.6cm]
+{ \huge \bfseries Group assignment 2: }\\[0.2cm]
+\HRule \\[0.4cm]
+
+\textsc{\normalsize Þróun hugbúnaðar} \\
+\textsc{Spring 2015} \\[1.5cm]
+
+\begin{minipage}{0.45\textwidth}
+\begin{flushleft} \large
+\textit{Students:} (Group F2a)\\
+\textsc{Einar Helgi Þrastarson} \\
+\textsc{Hannes Pétur Eggertsson} \\
+\textsc{Sigurður Birkir Sigurðsson} \\
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+\begin{flushright} \large
+\textit{Teachers:} \\
+\textsc{Matthias Book}\\
+\textsc{Kristín Fjóla Tómasdóttir}\\
+\textsc{ }\\
+\end{flushright}
+\end{minipage}
+
+\end{center}
+\end{titlepage}
+
+
+% Description of the project
+\section{Class diagram}
+In this document there's the class diagram for group F2a. Group members are: Einar Helgi Þrastarson (personal ID number: 110287-2919), Hannes Pétur Eggertsson (240889-2939) and Sigurður Birkir Sigurðsson (120589-2539). Our project is to build an user interface for a fantasy football game. In our class diagram we felt it made sense to split the classes into two categories, back-end classes and front-end classes.
+
+%
+\subsection{Back-end classes}
+
+%
+\subsection{Front-end classes}
+
+\newpage
+\section*{Appendix}
+\subsection*{User interface}
+
+
+\end{document}
