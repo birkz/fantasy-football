@@ -46,7 +46,7 @@
 In this document there's the class diagram for group F2a. Group members are: Einar Helgi Þrastarson (personal ID number: 110287-2919), Hannes Pétur Eggertsson (240889-2939) and Sigurður Birkir Sigurðsson (120589-2539). Our project is to build an user interface for a fantasy football game. In our class diagram we felt it made sense to split the classes into two categories, back-end classes and front-end classes. In the appendix we put our current idea how the UI will look like when the game is ready. The presenter on Wednesday, March 4th 2015, will be Hannes Pétur Eggertsson.
 
 \subsection{Notation}
-In our class diagrams we use the following notation:\vspace*{-0.5cm}
+In our class diagrams we use the following notation:\vspace*{-0.3cm}
 \begin{itemize}\itemsep-4pt
 \item[--] means a private variable or method (not directly accessable by other classed).
 \item[+] means a public variable or method (directly accessable by other methods).
@@ -56,7 +56,7 @@ In our class diagrams we use the following notation:\vspace*{-0.5cm}
         draw=black,fill=yellow!16,rectangle split,align=center, rectangle split part align={center,left}, minimum width=4cm,rounded corners},draw,rectangle split parts=4}
 
 Also, each class in the diagram has four sections:
-\begin{center}
+\begin{center} \vspace*{-0.15cm}
 \begin{tikzpicture}
 \begin{scope}[xshift=8cm,yshift=0cm]
 \node[umlclass] (t1)
@@ -82,8 +82,8 @@ Also, each class in the diagram has four sections:
  };
 \end{scope}
 \end{tikzpicture}
-\end{center}
-Classes are then connected using arrows:
+\end{center}\vspace*{-0.15cm}
+If the class wasn't created by us it is filled with red. Classes are then connected using arrows:
 
 \begin{tikzpicture}
 \draw[arrows={-angle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{uses}} node[right]{Class B};
@@ -215,13 +215,13 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% Player
 %% ==========================================
 \begin{scope}[xshift=8cm,yshift=-5.5cm]
-\node[umlclass,rectangle split parts=2] (player)
+\node[umlclass,rectangle split parts=2,fill=red!32] (player)
  {\textbf{\large \textit{Player}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   This class will be implemented by group\\
-   F1a. Each instance will contain information\\
+   This class will be made by group F1a.\\
+   Each instance will contain information\\
    about each football player.\\
   \end{tabular}}
  \nodepart{three}
@@ -358,12 +358,12 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 %% JFrame
 %% ==========================================
 \begin{scope}[xshift=8cm,yshift=2cm]
-\node[umlclass,rectangle split parts=2] (jframe)
+\node[umlclass,rectangle split parts=2,fill=red!32] (jframe)
  {\textbf{\large \textit{JFrame}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   This class is implemented in Java Swing.
+   This class is part of Java Swing.
   \end{tabular}}
  };
 \end{scope}
@@ -372,12 +372,12 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 %% JPanel
 %% ==========================================
 \begin{scope}[xshift=0cm,yshift=-5cm]
-\node[umlclass,rectangle split parts=2] (jpanel)
+\node[umlclass,rectangle split parts=2,fill=red!32] (jpanel)
  {\textbf{\large \textit{JPanel}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   This class is implemented in Java Swing.
+   This class is part of Java Swing.
   \end{tabular}}
  };
 \end{scope}
@@ -418,18 +418,20 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 %% ==========================================
 %% StartPanel
 %% ==========================================
-\begin{scope}[xshift=8cm,yshift=0cm]
-\node[umlclass,rectangle split parts=2] (startpanel)
+\begin{scope}[xshift=8cm,yshift=-0.5cm]
+\node[umlclass,rectangle split parts=3] (startpanel)
  {\textbf{\large \textit{StartPanel}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   Panel that shows up that the start of the game.\\
-   It displays a user creation area.
+   Panel that shows up that the start of the\\
+   game. It displays a user creation area.
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
-
+    + \texttt{BufferedImage logo}\\
+	+ \texttt{JButton submit}\\
+	+ \texttt{JTextField enterName}\\
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
@@ -441,8 +443,8 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 %% ==========================================
 %% MarketPanel
 %% ==========================================
-\begin{scope}[xshift=8cm,yshift=-3cm]
-\node[umlclass,rectangle split parts=3] (marketpanel)
+\begin{scope}[xshift=8cm,yshift=-4.5cm]
+\node[umlclass,rectangle split parts=4] (marketpanel)
  {\textbf{\large \textit{MarketPanel}}
  \nodepart{two}
   {\footnotesize
@@ -452,15 +454,15 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
+    + \texttt{JList playerlist}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
 	Uses:\\
 	\texttt{  Market.fetchPlayersByName()}\\
 	\texttt{  Market.fetchPlayersByTeam()}\\
 	\texttt{  Market.buyPlayer(Player p)}\\
 	\texttt{  Market.sellPlayer(Player p)}\\
-  \end{tabular}
- \nodepart{four}
-  \begin{tabular}{l}
-
   \end{tabular}
  };
 \end{scope}
@@ -468,21 +470,25 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 %% ==========================================
 %% ScorePanel
 %% ==========================================
-\begin{scope}[xshift=8cm,yshift=-6cm]
-\node[umlclass,rectangle split parts=3] (scorepanel)
+\begin{scope}[xshift=8cm,yshift=-9cm]
+\node[umlclass,rectangle split parts=5] (scorepanel)
  {\textbf{\large \textit{ScorePanel}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   Displays the current game score.
+   Displays the current game score and stats.
   \end{tabular}}
- \nodepart{three}
+ \nodepart{four}
   \begin{tabular}{l}
    + \texttt{void graphScores()}\\
   \end{tabular}
- \nodepart{four}
+ \nodepart{five}
   \begin{tabular}{l}
-   + \texttt{type method(type var)}\\
+   Uses the StatsHistory class.
+  \end{tabular}
+ \nodepart{three}
+  \begin{tabular}{l}
+   + \texttt{JTable statsTable}\\
   \end{tabular}
  };
 \end{scope}
@@ -490,8 +496,8 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 %% ==========================================
 %% RosterPanel
 %% ==========================================
-\begin{scope}[xshift=8cm,yshift=-8cm]
-\node[umlclass,rectangle split parts=2] (rosterpanel)
+\begin{scope}[xshift=8cm,yshift=-12cm]
+\node[umlclass,rectangle split parts=3] (rosterpanel)
  {\textbf{\large \textit{RosterPanel}}
  \nodepart{two}
   {\footnotesize
@@ -500,7 +506,7 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
-   
+    + \texttt{JList rosterlist}\\
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
@@ -512,8 +518,8 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 %% ==========================================
 %% FieldViewerPanel
 %% ==========================================
-\begin{scope}[xshift=0cm,yshift=-6.8cm]
-\node[umlclass,rectangle split parts=2] (fieldpanel)
+\begin{scope}[xshift=0cm,yshift=-10cm]
+\node[umlclass,rectangle split parts=3] (fieldpanel)
  {\textbf{\large \textit{FieldViewerPanel}}
  \nodepart{two}
   {\footnotesize
@@ -522,7 +528,8 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
-   
+   + \texttt{BufferedImage field}\\
+   + \texttt{JTextField[] playersOnField}\\
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
@@ -534,18 +541,18 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 %% ==========================================
 %% LeaguePanel
 %% ==========================================
-\begin{scope}[xshift=8cm,yshift=-10cm]
-\node[umlclass,rectangle split parts=2] (leaguepanel)
+\begin{scope}[xshift=8cm,yshift=-14.5cm]
+\node[umlclass,rectangle split parts=3] (leaguepanel)
  {\textbf{\large \textit{LeaguePanel}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
    Displays the teams and standings\\
-    in the current league.
+   in the current league.
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
-   
+   + \texttt{JTable standings}\\
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
@@ -557,8 +564,8 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 %% ==========================================
 %% ActionListener
 %% ==========================================
-\begin{scope}[xshift=8cm,yshift=-12cm]
-\node[umlclass,rectangle split parts=2] (actionlistener)
+\begin{scope}[xshift=8cm,yshift=-17cm]
+\node[umlclass,rectangle split parts=2,fill=red!32] (actionlistener)
  {\texttt{<<interface>>}\\\textbf{\large \textit{ActionListener}}
  \nodepart{two}
   {\footnotesize
@@ -580,7 +587,7 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 %% ==========================================
 %% Handle Buttons
 %% ==========================================
-\begin{scope}[xshift=0cm,yshift=-10.5cm]
+\begin{scope}[xshift=0cm,yshift=-16cm]
 \node[umlclass] (handlebuttons)
  {\textbf{\large \textit{HandleButtons}}
  \nodepart{two}
@@ -660,6 +667,7 @@ Where $N$ is er number of total users in the current game and $P$ is the total a
 \newpage
 \section*{Appendix}
 \subsection*{User interface}
+The figure below illustrates how we currently image the UI will look like in the final product.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.99\textwidth]{ffUI.png}
