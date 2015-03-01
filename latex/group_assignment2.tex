@@ -109,13 +109,12 @@ if each instance of 'Class A' will use 'Class B' in a range of 0 to 10 instances
 \paragraph{Team} A football team in the game, e.g. Manchester United.
 \paragraph{Roster} The user's bought players, the players could be from multiple teams. Note that the roster includes both players which user has set on and off the field. A roster can have up to 15 players.
 
-\newpage
 \section{Class diagram}
 We decided to split our class diagram into two figures: \textbf{Back-end classes} and \textbf{Front-end classes}. The back-end classes take care of storing and keeping track of all information as the game is running. The front-end classes take care of displaying the information to the users playing the game as well as handling their input.
 \subsection{Back-end classes}
 \begin{tikzpicture}
 %% ==========================================
-%% user
+%% User
 %% ==========================================
 \begin{scope}[yshift=-6cm]
 \node[umlclass] (user)
@@ -136,12 +135,12 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
+   + \texttt{void User(String name, Roster r)}\\
    + \texttt{boolean changeMoney(int dMoney)}\\
    + \texttt{void changeScore(int dScore)}\\
-   + \texttt{void setName(String s)}\\
    + \texttt{String getName()}\\
-   + \texttt{void setRoster(Roster r)}\\
-   + \texttt{Roster getRoster()}
+   + \texttt{Roster getRoster()}\\
+   + \texttt{void addScoresToStats()}
   \end{tabular}
  };
 \end{scope}
@@ -149,7 +148,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% ==========================================
 %% Roster
 %% ==========================================
-\begin{scope}[xshift=9.5cm,yshift=1cm]
+\begin{scope}[xshift=9.5cm,yshift=0.7cm]
 \node[umlclass] (roster)
  {\textbf{\large \textit{Roster}}
  \nodepart{two}
@@ -172,6 +171,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
+   + \texttt{Roster()}\\
    + \texttt{void removePlayerFromTeam(Player player)}\\
    + \texttt{boolean addPlayerToTeam(Player player)}\\
    + \texttt{void changeCaptain(Player newCaptain)}\\
@@ -184,7 +184,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% ==========================================
 %% MainGame
 %% ==========================================
-\begin{scope}[xshift=0cm,yshift=0cm]
+\begin{scope}[xshift=0cm,yshift=1.5cm]
 \node[umlclass] (maingame)
  {\textbf{\large \textit{MainGame}}
  \nodepart{two}
@@ -201,6 +201,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
+   + \texttt{MainGame()}\\
    + \texttt{void createUser(String name)}\\
    + \texttt{void setNumUsers(int num)}\\
    + \texttt{void startGame()}\\
@@ -213,7 +214,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% ==========================================
 %% Player
 %% ==========================================
-\begin{scope}[xshift=8cm,yshift=-4.5cm]
+\begin{scope}[xshift=8cm,yshift=-5.5cm]
 \node[umlclass,rectangle split parts=2] (player)
  {\textbf{\large \textit{Player}}
  \nodepart{two}
@@ -231,7 +232,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% ==========================================
 %% Market
 %% ==========================================
-\begin{scope}[xshift=9cm,yshift=-8cm]
+\begin{scope}[xshift=9cm,yshift=-9cm]
 \node[umlclass] (market)
  {\textbf{\large \textit{Market}}
  \nodepart{two}
@@ -245,10 +246,63 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
+   + \texttt{void Market()}\\
    + \texttt{void fetchPlayersByName()}\\
    + \texttt{void fetchPlayersByTeam()}\\
    + \texttt{public void buyPlayer(Player player)}\\
    + \texttt{public void sellPlayer(Player player)}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% StatsHistory
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=-12cm]
+\node[umlclass] (statshistory)
+ {\textbf{\large \textit{StatsHistory}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   A class that has statistical information.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{PlayerScores[] allplayerscores}\\
+   -- \texttt{int[] rosterscores}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+  + \texttt{void Stats()}\\
+  + \texttt{void setPlayerScore(String n, int s)}\\
+  + \texttt{int[] getPlayerScoresHist(String name)}\\
+  + \texttt{void calcTeamScore()}\\
+  + \texttt{int[] getTeamScoresHist()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% PlayerScores
+%% ==========================================
+\begin{scope}[xshift=8cm,yshift=-14cm]
+\node[umlclass] (playerscores)
+ {\textbf{\large \textit{PlayerScores}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   A class with information about each player.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{String name}\\
+   -- \texttt{int[] scores}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{PlayerScores(String name)}\\
+   + \texttt{void setScore(int score)}\\
+   + \texttt{int[] getScores()}\\
   \end{tabular}
  };
 \end{scope}
@@ -279,17 +333,20 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% Allar örvar teiknaðar hér
 %% ==========================================
 % user to roster
-\draw[arrows={-angle 60},thick] ([yshift=-20pt]user.three east) node[right]{1} to [out=45, in=180](roster.text west) node[above left]{1};
+\draw[arrows={-angle 60},thick] ([yshift=-20pt]user.three east) node[right]{1} to [out=45, in=-150](roster.text west) node[above left]{1};
 
 % maingame to user
 \draw[arrows={-angle 60},thick]
-[out=0, in=90](maingame.three east) node[right]{1} to [out=-70, in=70](user.text east) node[right]{0--N};
+[out=0, in=90](maingame.three east) node[right]{1} to [out=-80, in=80](user.text east) node[right]{0--N};
 
 % roster to player
-\draw[arrows={angle 60-},thick] (player.text west) node[above right=0.25cm and -0.2cm]{0--15} to [out=110, in=-140]([yshift=-1.5cm]roster.three west) node[left]{1};
+\draw[arrows={angle 60-},thick] (player.text west) node[above right=0.25cm and -0.2cm]{0--15} to [out=105, in=-120]([yshift=-1.5cm]roster.three west) node[left]{1};
 
 % market to player
 \draw[arrows={angle 60-},thick] ([yshift=-0.1cm]player.text west) node[below left]{$P$} to [out=-110, in=120](market.three west) node[left]{1};
+
+% StatsHistory to PlayerScores
+\draw[arrows={-angle 60},thick] ([yshift=0.2cm]statshistory.three east) node[right]{$P$} to [out=-45, in=150](playerscores.text west) node[below left]{1};
 \end{tikzpicture}
 
 Where $N$ is er number of total users in the current game and $P$ is the total amount of football players in the game.
