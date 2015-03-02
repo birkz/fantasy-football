@@ -1,6 +1,7 @@
 package fantasy_football;
 
 import java.awt.BorderLayout;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -36,17 +37,22 @@ public class Main {
 		//Add action listener to button
 		marketButton.addActionListener(actionList); 
         
-        JButton scoreButton = new JButton("Score");
+        JButton scoreButton = new JButton("Scoreboard");
         //Add action listener to button
         scoreButton.addActionListener(actionList); 
         
         JButton rosterButton = new JButton("Roster");
         //Add action listener to button
         rosterButton.addActionListener(actionList); 
+        
+        JButton leagueButton = new JButton("League");
+        //Add action listener to button
+        leagueButton.addActionListener(actionList); 
 
         buttons.add(marketButton);
         buttons.add(scoreButton);
         buttons.add(rosterButton);
+        buttons.add(leagueButton);
         
         frame.setLayout(new BorderLayout(0, 0));
 		frame.add(left, BorderLayout.WEST);
@@ -78,6 +84,7 @@ public class Main {
 	public static void setPanelAsMarket() {
 		change.removeAll();
 		//change.add(new MarketPanel());
+		change.add(new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage()));
 		frame.pack();
         frame.setVisible(true);
 	}
@@ -85,13 +92,23 @@ public class Main {
 	public static void setPanelAsScore() {
 		change.removeAll();
 		//change.add(new ScorePanel());
+		change.add(new AddImage(new ImageIcon("src/Images/CetpbfB.png").getImage()));
+		frame.pack();
+        frame.setVisible(true);
+	}
+	
+	public static void setPanelAsRoster() {
+		change.removeAll();
+		//change.add(new RosterPanel());
+		change.add(new AddImage(new ImageIcon("src/Images/hair_dryer_breakfast.png").getImage()));
 		frame.pack();
         frame.setVisible(true);
 	}
 	
 	public static void setPanelAsLeague() {
 		change.removeAll();
-		//change.add(new RosterPanel());
+		//change.add(new LeaguePanel());
+		change.add(new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage()));
 		frame.pack();
         frame.setVisible(true);
 	}
