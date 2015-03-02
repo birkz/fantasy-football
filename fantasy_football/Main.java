@@ -1,7 +1,6 @@
 package fantasy_football;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -11,37 +10,18 @@ public class Main {
 	private static JPanel left;
 	private static JPanel right;
 	private static JPanel change;
-	private static JPanel startPanel;
-	private static HandleButtons actionList = new HandleButtons();
 	
 	public static void createAndShowGUI() {
 		frame = new JFrame();
-		startPanel = new JPanel();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JButton startButton = new JButton("One Player");
-		JButton startButton2 = new JButton("Two Players");
-		JButton startButton3 = new JButton("Three Players");
-		
-        //Add action listener to buttons
-		startButton.addActionListener(actionList);
-		startButton2.addActionListener(actionList);
-		startButton3.addActionListener(actionList);
-		
-		startPanel.setBorder(new EmptyBorder(100, 100, 100, 100));
-		startPanel.setLayout(new GridLayout(3, 1, 5, 5));
-		startPanel.add(startButton);
-		startPanel.add(startButton2);
-		startPanel.add(startButton3);
-		
-		frame.add(startPanel);
+		frame.add(new StartPanel());
 	    frame.pack();
         frame.setVisible(true);
 	}
 	
 	public static void startGame() {
-		frame.remove(startPanel);
-		startPanel = null;
+		HandleButtons actionList = new HandleButtons();
+		frame.getContentPane().removeAll();
 		
 		AddImage panel = new AddImage(new ImageIcon("src/Images/CetpbfB.png").getImage());
 		AddImage panel2 = new AddImage(new ImageIcon("src/Images/hair_dryer_breakfast.png").getImage());
@@ -52,16 +32,21 @@ public class Main {
 		right = new JPanel();
 		change = new JPanel();
 		
-		JButton button = new JButton("New Panel");
+		JButton marketButton = new JButton("Market");
 		//Add action listener to button
-        button.addActionListener(actionList); 
+		marketButton.addActionListener(actionList); 
         
-        JButton button2 = new JButton("Old Panel");
+        JButton scoreButton = new JButton("Score");
         //Add action listener to button
-        button2.addActionListener(actionList); 
+        scoreButton.addActionListener(actionList); 
+        
+        JButton rosterButton = new JButton("Roster");
+        //Add action listener to button
+        rosterButton.addActionListener(actionList); 
 
-        buttons.add(button);
-        buttons.add(button2);
+        buttons.add(marketButton);
+        buttons.add(scoreButton);
+        buttons.add(rosterButton);
         
         frame.setLayout(new BorderLayout(0, 0));
 		frame.add(left, BorderLayout.WEST);
@@ -80,11 +65,33 @@ public class Main {
 		
 	    frame.pack();
         frame.setVisible(true);
+        frame.validate();
 	}
 	
 	public static void switchImage(AddImage panel) {
 		change.removeAll();
 		change.add(panel);
+		frame.pack();
+        frame.setVisible(true);
+	}
+	
+	public static void setPanelAsMarket() {
+		change.removeAll();
+		//change.add(new MarketPanel());
+		frame.pack();
+        frame.setVisible(true);
+	}
+	
+	public static void setPanelAsScore() {
+		change.removeAll();
+		//change.add(new ScorePanel());
+		frame.pack();
+        frame.setVisible(true);
+	}
+	
+	public static void setPanelAsLeague() {
+		change.removeAll();
+		//change.add(new RosterPanel());
 		frame.pack();
         frame.setVisible(true);
 	}

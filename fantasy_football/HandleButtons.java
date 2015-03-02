@@ -16,14 +16,17 @@ public class HandleButtons implements ActionListener{
 		
 		if(arg == "Three Players") Main.startGame();
 		
-		if(arg == "New Panel") {
+		if(arg == "Market") {
 			Main.switchImage(new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage()));
 		}
 		
-		if(arg == "Old Panel") {
+		if(arg == "Score") {
 			Main.switchImage(new AddImage(new ImageIcon("src/Images/CetpbfB.png").getImage()));
 		}
 		
+		if(arg == "Roster") {
+			Main.switchImage(new AddImage(new ImageIcon("src/Images/hair_dryer_breakfast.png").getImage()));
+		}
 	}
 
 }
