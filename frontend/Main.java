@@ -85,14 +85,14 @@ public class Main {
 	}
 	
 	public static void restartFrame() {
-		AddImage panel3 = new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage());
 
 		setPanelAsScore();
+		
 		BorderLayout layout = (BorderLayout) right.getLayout();
 		right.remove(layout.getLayoutComponent(BorderLayout.NORTH));
-		right.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-		right.add(panel3, BorderLayout.CENTER);
 		right.add(new NameChange(), BorderLayout.NORTH);
+		
+		setPanelAsFieldViewer(layout);
 		
 	    frame.pack();
         frame.setVisible(true);
@@ -136,6 +136,14 @@ public class Main {
 		change.add(new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage()));
 		frame.pack();
         frame.setVisible(true);
+	}
+	
+	public static void setPanelAsFieldViewer(BorderLayout layout) {
+		AddImage panel3 = new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage());
+		
+		right.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+		right.add(panel3, BorderLayout.CENTER);
+		//right.add(new FieldViewerPanel, BorderLayout.CENTER);
 	}
 	
 	public static void main(String[] args) {
