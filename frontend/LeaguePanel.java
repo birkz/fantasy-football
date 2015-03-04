@@ -1,8 +1,8 @@
-package fantasy_football;
+package frontend;
 
 import javax.swing.JPanel;
 
-public class MarketPanel extends JPanel {
+public class LeaguePanel extends JPanel {
 
 	/**
 	 * 
@@ -12,7 +12,7 @@ public class MarketPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MarketPanel() {
+	public LeaguePanel() {
 
 	}
 

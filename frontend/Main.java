@@ -1,4 +1,4 @@
-package fantasy_football;
+package frontend;
 
 import java.awt.BorderLayout;
 
@@ -25,7 +25,6 @@ public class Main {
 		frame.getContentPane().removeAll();
 		
 		AddImage panel = new AddImage(new ImageIcon("src/Images/CetpbfB.png").getImage());
-		AddImage panel2 = new AddImage(new ImageIcon("src/Images/hair_dryer_breakfast.png").getImage());
 		AddImage panel3 = new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage());
 		
 		JPanel buttons = new JPanel();
@@ -48,11 +47,19 @@ public class Main {
         JButton leagueButton = new JButton("League");
         //Add action listener to button
         leagueButton.addActionListener(actionList); 
+        
+        JButton endTurnButton = new JButton("END TURN");
+        //Add action listener to button
+        endTurnButton.addActionListener(actionList); 
 
         buttons.add(marketButton);
         buttons.add(scoreButton);
         buttons.add(rosterButton);
         buttons.add(leagueButton);
+        
+        JPanel endPanel = new JPanel();
+        endPanel.setSize(50, 50);
+        endPanel.add(endTurnButton);
         
         frame.setLayout(new BorderLayout(0, 0));
 		frame.add(left, BorderLayout.WEST);
@@ -67,7 +74,7 @@ public class Main {
 		right.setBorder(new EmptyBorder(5, 5, 5, 5));
 		right.setLayout(new BorderLayout(0, 0));
 		right.add(panel3, BorderLayout.NORTH);
-		right.add(panel2, BorderLayout.SOUTH);
+		right.add(endPanel, BorderLayout.SOUTH);
 		
 	    frame.pack();
         frame.setVisible(true);

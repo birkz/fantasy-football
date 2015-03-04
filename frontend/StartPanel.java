@@ -1,4 +1,4 @@
-package fantasy_football;
+package frontend;
 
 import java.awt.GridLayout;
 

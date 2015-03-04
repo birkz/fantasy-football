@@ -1,4 +1,4 @@
-package fantasy_football;
+package frontend;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +7,7 @@ public class HandleButtons implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String arg = e.getActionCommand(); // ætti kannski að setja þetta inn í switch
+		String arg = e.getActionCommand(); // ï¿½tti kannski aï¿½ setja ï¿½etta inn ï¿½ switch
 		
 		if(arg == "One Player") Main.startGame();
 		
@@ -22,6 +22,8 @@ public class HandleButtons implements ActionListener{
 		if(arg == "Roster") Main.setPanelAsRoster();
 		
 		if(arg == "League") Main.setPanelAsLeague();
+		
+		if(arg == "END TURN") System.out.println("ending turn");
 	}
 
 }
