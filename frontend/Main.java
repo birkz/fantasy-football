@@ -20,7 +20,9 @@ public class Main {
         frame.setVisible(true);
 	}
 	
-	public static void startGame() {
+	public static void startGame(int i) {
+		//backend.MainGame.createUser("player0");
+		
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
 		

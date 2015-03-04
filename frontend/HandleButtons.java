@@ -7,13 +7,13 @@ public class HandleButtons implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String arg = e.getActionCommand(); // �tti kannski a� setja �etta inn � switch
+		String arg = e.getActionCommand();
 		
-		if(arg == "One Player") Main.startGame();
+		if(arg == "One Player") Main.startGame(1);
 		
-		if(arg == "Two Players") Main.startGame();
+		if(arg == "Two Players") Main.startGame(2);
 		
-		if(arg == "Three Players") Main.startGame();
+		if(arg == "Three Players") Main.startGame(3);
 		
 		if(arg == "Market") Main.setPanelAsMarket();
 		
