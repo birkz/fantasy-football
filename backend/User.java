@@ -25,6 +25,10 @@ public class User {
 		
 	}
 	
+	public void changeName(String newname) {
+		this.name = newname;
+	}
+	
 	public String getName() {
 		return name;
 	}

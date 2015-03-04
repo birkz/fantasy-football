@@ -21,7 +21,7 @@ public class Main {
 	}
 	
 	public static void startGame(int i) {
-		//backend.MainGame.createUser("player0");
+		backend.MainGame.setNumUsers(i);
 		
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
@@ -75,8 +75,24 @@ public class Main {
 		
 		right.setBorder(new EmptyBorder(5, 5, 5, 5));
 		right.setLayout(new BorderLayout(0, 0));
-		right.add(panel3, BorderLayout.NORTH);
+		right.add(new NameChange(), BorderLayout.NORTH);
+		right.add(panel3, BorderLayout.CENTER);
 		right.add(endPanel, BorderLayout.SOUTH);
+		
+	    frame.pack();
+        frame.setVisible(true);
+        frame.validate();
+	}
+	
+	public static void restartFrame() {
+		AddImage panel3 = new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage());
+
+		setPanelAsScore();
+		BorderLayout layout = (BorderLayout) right.getLayout();
+		right.remove(layout.getLayoutComponent(BorderLayout.NORTH));
+		right.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+		right.add(panel3, BorderLayout.CENTER);
+		right.add(new NameChange(), BorderLayout.NORTH);
 		
 	    frame.pack();
         frame.setVisible(true);

@@ -23,7 +23,7 @@ public class HandleButtons implements ActionListener{
 		
 		if(arg == "League") Main.setPanelAsLeague();
 		
-		if(arg == "END TURN") System.out.println("ending turn");
+		if(arg == "END TURN") backend.MainGame.nextUser();
 	}
 
 }
