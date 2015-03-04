@@ -1,5 +1,6 @@
 package frontend;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,7 +29,7 @@ public class NameChange extends JPanel {
 		});
 		
 		name.setText(backend.MainGame.getCurrentUser().getName());
-		
+		name.setPreferredSize(new Dimension(200, 30));
 		add(name);
 		add(change);
 	}

@@ -30,7 +30,7 @@ public class MainGame {
 	}
 	
 	public static int[] getScore() {
-		int[] a = new int[1];
+		int[] a = new int[1];//just a placeholder
 		return a;
 	}
 	

@@ -71,7 +71,7 @@ public class Main {
 		left.setLayout(new BorderLayout(0, 0));
 		left.add(buttons, BorderLayout.NORTH);
 		change.add(panel);
-		left.add(change, BorderLayout.SOUTH);
+		left.add(change, BorderLayout.CENTER);
 		
 		right.setBorder(new EmptyBorder(5, 5, 5, 5));
 		right.setLayout(new BorderLayout(0, 0));
