@@ -4,6 +4,7 @@ public class Player {
 	
 	private static String[] names = {"Einar", "Hannes", "Birkir"};
 	private static String[] teams = {"KR", "FH", "Fylkir"};
+	private static final int count = 3;
 	private String name;
 	private String team;
 	
@@ -18,5 +19,9 @@ public class Player {
 	
 	public String getTeam() {
 		return this.team;
+	}
+	
+	public static int count() {
+		return count;
 	}
 }
