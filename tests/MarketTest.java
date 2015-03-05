@@ -5,8 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import java.util.List;
 
 import backend.Market;
+import backend.Player;
 
 public class MarketTest {
 	
@@ -29,7 +31,10 @@ public class MarketTest {
 	
 	@Test
 	public void testTeam() {
-		assertEquals("Fylkir", market.getPlayersByTeam("Fylkir").get(0).getTeam());
+		List<Player> teamtest = market.getPlayersByTeam("Fylkir");
+		for(Player temp : teamtest) {
+			assertEquals("Fylkir", temp.getTeam());
+		}
 	}
 
 }
