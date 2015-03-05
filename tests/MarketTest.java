@@ -23,6 +23,11 @@ public class MarketTest {
 	public static void tearDownAfterClass() throws Exception {
 		market = null;
 	}
+	
+	@Test
+	public void testIfEmpty() {
+		assertNotNull(market.getAllPlayers());
+	}
 
 	@Test
 	public void testName() {
