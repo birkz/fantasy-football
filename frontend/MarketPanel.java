@@ -1,5 +1,7 @@
 package frontend;
 
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
 
 public class MarketPanel extends JPanel {
@@ -15,5 +17,10 @@ public class MarketPanel extends JPanel {
 	public MarketPanel() {
 
 	}
+	
+	@Override
+    public Dimension getPreferredSize() {
+        return new Dimension(400,400);
+    }
 
 }

@@ -1,5 +1,7 @@
 package frontend;
 
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
 
 public class LeaguePanel extends JPanel {
@@ -15,5 +17,10 @@ public class LeaguePanel extends JPanel {
 	public LeaguePanel() {
 
 	}
+	
+	@Override
+    public Dimension getPreferredSize() {
+        return new Dimension(400,400);
+    }
 
 }

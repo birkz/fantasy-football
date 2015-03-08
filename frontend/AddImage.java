@@ -1,6 +1,7 @@
 package frontend;
 
 import java.awt.*;
+
 import javax.swing.*;
 
 public class AddImage extends JPanel{
@@ -27,5 +28,10 @@ public class AddImage extends JPanel{
 
 	  public void paintComponent(Graphics g) {
 	    g.drawImage(img, 0, 0, null);
+	  }
+	  
+	  @Override
+	  public Dimension getPreferredSize() {
+		return new Dimension(400,400);
 	  }
 }
