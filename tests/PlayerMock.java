@@ -1,20 +1,32 @@
 package tests;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class PlayerMock implements PlayerInterface {
 
-	private static String name;
-	private static PositionMock position;
+	private String name;
+	private PositionMock position;
+	private String positionName;
 	
-	public static String getName(){
-		return name;
+	public PlayerMock(String name, String pos){
+		this.name = name;
+		this.positionName = pos;
+	}
+	
+	public String getName(){
+		return this.name;
 	}
 	
 	@Override
-	public boolean setPosition(PositionMock pos){
-		
+	public String getPositionName() {
+		return this.positionName;
+	}
+	
+	@Override
+	public void setPosition(PositionMock pos) throws InvalidPosition{
+		if (pos.equals("Goalkeeper") || pos.equals("Defender") || pos.equals("Midfielder") || pos.equals("Striker")){
+			this.position = pos;
+		} else {
+			throw new InvalidPosition(pos+" is not a valid position. Only Goalkeeper, Defender, Midfielder, and Striker are valid.");
+		}
 	}
 	
 	@Override
@@ -22,11 +34,4 @@ public class PlayerMock implements PlayerInterface {
 		return position;
 	}
 	
-	@Override
-	public String getPositionName() {
-		return position.getNameOfPos();
-	}
-	
-	
-
 }

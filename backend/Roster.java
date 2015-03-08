@@ -76,4 +76,21 @@ public class Roster {
 		}
 		return false;
 	}
+	
+	public String getNamesOfPlayersInList(List<PlayerInterface> list){
+		String names = "";
+		for(int i = 0 ; i < list.size() ; i++){
+			names += list.get(i).getName();
+		}
+		return names;
+	}
+	
+	public String[] getNamesOfPlayersInRoster(){
+		String[] names = new String[4];
+		names[0] = getNamesOfPlayersInList(goalkeepers);
+		names[1] = getNamesOfPlayersInList(defenders);
+		names[2] = getNamesOfPlayersInList(midfielders);
+		names[3] = getNamesOfPlayersInList(strikers);
+		return names;
+	}
 }

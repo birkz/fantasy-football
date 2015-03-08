@@ -5,8 +5,8 @@ package tests;
  */
 
 public interface PlayerInterface {
-	
-	public boolean setPosition(PositionMock pos);
+	public String getName();
+	public void setPosition(PositionMock pos) throws InvalidPosition;
 	public PositionMock getPosition();
 	public String getPositionName();
 	
