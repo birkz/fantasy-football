@@ -7,7 +7,6 @@ public class PlayerMock implements PlayerInterface {
 
 	private static String name;
 	private static PositionMock position;
-	private static List<String> valid_positions = Arrays.asList("Goalkeeper","Defender","Midfielder","Striker");
 	
 	public static String getName(){
 		return name;
