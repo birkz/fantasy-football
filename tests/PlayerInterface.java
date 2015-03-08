@@ -1,11 +1,13 @@
 package tests;
 
-import tests.PositionInterface;
 /**
- * 
+ *  This is a interface for a class that group F1a will create.
  */
 
 public interface PlayerInterface {
-	PositionInterface getPosition();
+	
+	public boolean setPosition(PositionMock pos);
+	public PositionMock getPosition();
+	public String getPositionName();
 	
 }
