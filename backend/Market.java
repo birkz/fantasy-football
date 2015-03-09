@@ -2,28 +2,22 @@ package backend;
 
 import java.util.ArrayList;
 import java.util.List;
+import tests.PlayerInterface;
 
 public class Market {
 	
-	private static List<Player> players;
+	private static List<PlayerInterface> players;
 	
 	public Market() {
-		fillWithAllPlayers();
+		
 	}
 	
-	public static void fillWithAllPlayers() {
-		players = new ArrayList<Player>();
-		for(int i = 0; i < Player.count(); i++){
-			players.add(new Player(i));
-		}
-	}
-	
-	public List<Player> getAllPlayers() {
+	public List<PlayerInterface> getAllPlayers() {
 		return players;
 	}
 	
-	public Player getPlayerByName(String name){
-		for(Player temp : players) {
+	public PlayerInterface getPlayerByName(String name){
+		for(PlayerInterface temp : players) {
 			if(name.equals(temp.getName())) {
 				return temp;
 			}
@@ -31,13 +25,9 @@ public class Market {
 		return null;
 	}
 	
-	public List<Player> getPlayersByTeam(String team) {
-		List<Player> allteam = new ArrayList<Player>();
-		for(Player temp : players) {
-			if(team.equals(temp.getTeam())) {
-				allteam.add(temp);
-			}
-		}
+	public List<PlayerInterface> getPlayersByTeam(String team) {
+		List<PlayerInterface> allteam = new ArrayList<PlayerInterface>();
+		
 		return allteam;
 	}
 
