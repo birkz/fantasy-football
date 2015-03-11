@@ -25,8 +25,12 @@ public class User {
 		
 	}
 	
-	public void addScore(int i, int score) {
-		this.score[i] += score;
+	public int getScore(int round) {
+		return this.score[round];
+	}
+	
+	public void addScore(int round, int score) {
+		this.score[round] += score;
 	}
 	
 	public void changeName(String newname) {

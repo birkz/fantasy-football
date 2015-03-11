@@ -21,10 +21,11 @@ public class MainGame {
 	
 	public static void nextUser() {
 		currentUser++;
-		round++;
 		if(currentUser==numUsers) {
 			currentUser = 0;
 			//here call for simulation of a round
+			tests.RoundMock.SimRound(numUsers, round);
+			round++;
 		}
 		frontend.Main.restartFrame();
 	}
