@@ -3,12 +3,13 @@ package backend;
 public class User {
 
 	private int money;
-	private int score;
+	private int[] score;
 	private String name;
 	private Roster roster;
 	
 	public User(String name) {
 		this.name = name;
+		this.score = new int[10];
 		this.roster = new Roster();
 	}
 	
@@ -17,12 +18,15 @@ public class User {
 	}
 	
 	public Roster getRoster() {
-		
-		return new Roster();
+		return this.roster;
 	}
 	
 	public void addScoreToStats() {
 		
+	}
+	
+	public void addScore(int i, int score) {
+		this.score[i] += score;
 	}
 	
 	public void changeName(String newname) {

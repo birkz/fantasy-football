@@ -19,7 +19,7 @@ public class NameChange extends JPanel {
 	 * Create the panel.
 	 */
 	public NameChange() {
-		JTextField name = new JTextField();
+		final JTextField name = new JTextField();
 		JButton change = new JButton("Change Name");
 		
 		change.addActionListener(new ActionListener() {
