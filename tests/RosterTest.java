@@ -20,7 +20,7 @@ public class RosterTest {
 	public static void setUpBeforeClass() throws Exception {
 		roster = new Roster();
 		PlayerMock newplayer1 = new PlayerMock("Player 1","Goalkeeper");
-		PlayerMock newplayer1 = new PlayerMock("Player 2","Goalkeeper");
+		PlayerMock newplayer2 = new PlayerMock("Player 2","Goalkeeper");
 		players = new ArrayList<PlayerMock>();
 		players.add(newplayer1);
 		players.add(newplayer2);
@@ -35,20 +35,20 @@ public class RosterTest {
 	@Test
 	public void testIfEmpty() {
 		String[] names = roster.getNamesOfPlayersInRoster();
-		assertEquals(names,new String[4]{"", "", "", ""});
+		assertEquals(names,new String[]{"", "", "", ""});
 	}
 	
 	@Test
 	public void testIfOnePlayer() {
 		roster.addPlayerToTeam(players.get(0));
 		String[] names = roster.getNamesOfPlayersInRoster();
-		assertEquals(names,new String[4]{"Player 1", "", "", ""});
+		assertEquals(names,new String[]{"Player 1", "", "", ""});
 	}
 
 	@Test
 	public void testIfTwoPlayer() {
 		roster.addPlayerToTeam(players.get(0));
 		String[] names = roster.getNamesOfPlayersInRoster();
-		assertEquals(names,new String[4]{"Player 1, Player 2", "", "", ""});
+		assertEquals(names,new String[]{"Player 1, Player 2", "", "", ""});
 	}
 }
