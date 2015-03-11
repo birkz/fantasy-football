@@ -1,0 +1,10 @@
+
+
+Fyrir 														Eftir
+Leitarskilyrði   [] Leita í liði: []  Leita eftir stöðu 	Niðurstaða
+Rooney                       	   x Striker				"Wayne Rooney, ...?"
+Rooney           x Chelsea      							""
+Rooney                             x Goalkeeper         	""
+Rooney                                          			"Wayne Rooney, Andy Rooney, ...."
+Rooney           x Manchester Utd.                         	"Wayne Rooney"
+Chelsea          x Manchester Utd.                         	""
