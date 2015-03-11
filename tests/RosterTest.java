@@ -19,35 +19,36 @@ public class RosterTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		roster = new Roster();
-		PlayerMock newplayer = new PlayerMock("Player 1","Goalkeeper");
+		PlayerMock newplayer1 = new PlayerMock("Player 1","Goalkeeper");
+		PlayerMock newplayer1 = new PlayerMock("Player 2","Goalkeeper");
 		players = new ArrayList<PlayerMock>();
-		players.add(newplayer);
-		
+		players.add(newplayer1);
+		players.add(newplayer2);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		roster = null;
+		players = null;
 	}
 	
 	@Test
 	public void testIfEmpty() {
 		String[] names = roster.getNamesOfPlayersInRoster();
-		String out = "";
-		for(int i = 0 ; i < names.length ; i++){
-			out += names[i]+":";
-		}
-		assertEquals(out,"::::");
+		assertEquals(names,new String[4]{"", "", "", ""});
 	}
 	
 	@Test
-	public void testIfNotEmpty() {
+	public void testIfOnePlayer() {
 		roster.addPlayerToTeam(players.get(0));
 		String[] names = roster.getNamesOfPlayersInRoster();
-		String out = "";
-		for(int i = 0 ; i < names.length ; i++){
-			out += names[i]+":";
-		}
-		assertEquals(out,"Player 1::::");
+		assertEquals(names,new String[4]{"Player 1", "", "", ""});
+	}
+
+	@Test
+	public void testIfTwoPlayer() {
+		roster.addPlayerToTeam(players.get(0));
+		String[] names = roster.getNamesOfPlayersInRoster();
+		assertEquals(names,new String[4]{"Player 1, Player 2", "", "", ""});
 	}
 }

@@ -81,6 +81,9 @@ public class Roster {
 		String names = "";
 		for(int i = 0 ; i < list.size() ; i++){
 			names += list.get(i).getName();
+			if (i != list.size()-1){
+				names += ", ";
+			}
 		}
 		return names;
 	}
