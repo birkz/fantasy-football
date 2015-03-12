@@ -13,7 +13,8 @@ import javax.swing.JPanel;
 
 public class GraphData extends JPanel {
 	
-	private static int[] y;
+	private int numUsers;
+	private static Color[] col = {Color.red, Color.green, Color.blue};
 
 	/**
 	 * 
@@ -23,12 +24,14 @@ public class GraphData extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public GraphData(int[] data) {
-		y = data;
+	public GraphData() {
+		this.numUsers = backend.MainGame.getNumUsers();
 		setBorder(BorderFactory.createLineBorder(Color.black));
-		JLabel one = new JLabel("player0");
-		one.setForeground (Color.red);
-		add(one);
+		for (int i=0; i<numUsers; ++i) {
+			JLabel one = new JLabel("player"+i);
+			one.setForeground (col[i]);
+			add(one);
+		}
 	}
 	
 	@Override
@@ -40,15 +43,20 @@ public class GraphData extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D draw = (Graphics2D) g;
-		GeneralPath line = new GeneralPath();
-		
-		draw.setColor(Color.RED);
-        draw.setStroke(new BasicStroke(2));
-        line.moveTo(0, 400);
-        for(int i=0; i<y.length; ++i) {
-        	line.lineTo(i*40, 400-y[i]);
-        }
-        draw.draw(line);
+
+		int[] score;
+		int round = backend.MainGame.getRound();
+		for(int i=0; i<numUsers; ++i) {
+			score = backend.MainGame.getUser(i).getScore();
+			draw.setColor(col[i]);
+	        draw.setStroke(new BasicStroke(3));
+	        GeneralPath line = new GeneralPath();
+	        line.moveTo(0, 400);
+	        for(int k=0; k<round; ++k) {
+	        	line.lineTo(k*40+40, 400-(score[k]/2));
+	        }
+	        draw.draw(line);
+		}
     }
 
 }

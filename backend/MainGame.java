@@ -19,15 +19,23 @@ public class MainGame {
 		}
 	}
 	
+	public static int getNumUsers() {
+		return numUsers;
+	}
+	
 	public static void nextUser() {
-		currentUser++;
-		if(currentUser==numUsers) {
+		if(currentUser<numUsers && round<10)currentUser++;
+		if(currentUser==numUsers && round<10) {
 			currentUser = 0;
 			//here call for simulation of a round
 			tests.RoundMock.SimRound(numUsers, round);
 			round++;
 		}
 		frontend.Main.restartFrame();
+	}
+	
+	public static int getRound() {
+		return round;
 	}
 	
 	public static int[] getScore() {

@@ -14,7 +14,9 @@ public class User {
 	}
 	
 	public boolean changeMoney(int dMoney) {
-		return false;
+		if(this.money + dMoney <0) return false;
+		this.money += dMoney;
+		return true;
 	}
 	
 	public Roster getRoster() {
@@ -25,8 +27,8 @@ public class User {
 		
 	}
 	
-	public int getScore(int round) {
-		return this.score[round];
+	public int[] getScore() {
+		return this.score;
 	}
 	
 	public void addScore(int round, int score) {

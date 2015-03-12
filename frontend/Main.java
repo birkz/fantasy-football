@@ -118,8 +118,7 @@ public class Main {
 		change.removeAll();
 		//change.add(new ScorePanel());
 		//change.add(new AddImage(new ImageIcon("src/Images/CetpbfB.png").getImage()));
-		int[] a = {1, 30, 50, 70, 140};
-		change.add(new GraphData(a));
+		change.add(new GraphData());
 		frame.pack();
         frame.setVisible(true);
 	}
