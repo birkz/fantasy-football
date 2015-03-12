@@ -15,11 +15,10 @@ public class Roster {
 	private List<PlayerInterface> strikers;
 	private List<PlayerInterface> strikersOnField;
 	// private PlayerInterface captain;
-	private int numberOfPlayersOnField = 0;
+	private int numberOfPlayersOnField;
 	
 	public Roster(){
-//		this.numberOfPlayersOnTeam = 0;
-//		this.numberOfPlayersOnField = 0;
+		this.numberOfPlayersOnField = 0;
 		this.goalkeepers = new ArrayList<PlayerInterface>(2);
 		this.goalkeeperOnField = new ArrayList<PlayerInterface>(1);
 		this.defenders = new ArrayList<PlayerInterface>(5);
@@ -30,43 +29,58 @@ public class Roster {
 		this.strikersOnField = new ArrayList<PlayerInterface>(3);
 	}
 	
+	// Usage: i = getNumberOfPlayersOnField()
+	// Before:Nothing.
+	// After: i is the number of players currently on the field.
 	public int getNumberOfPlayersOnField(){
 		return this.numberOfPlayersOnField;
 	}
 	
-	public void removePlayerFromList(PlayerInterface player,List<PlayerInterface> list){
-		for(int i = 0 ; i < list.size() ; i++){
-			if(list.get(i).equals(player)){
-				list.remove(i);
-				return;
-			}
-		}
-	}
-	
-	public void removePlayer(PlayerInterface player, boolean removeFromTeam){
+	// Usage: removePlayer(player,b)
+	// Before:player is of type PlayerInterface and b is a boolean variable (true or false)
+	// After: If b is true then player will be removed both from the field and the roster. If
+	//        b is false then the player will only be removed from the field. If the player
+	//        provided is not in the roster then a InvalidPlayer exception will be thrown.
+	public void removePlayer(PlayerInterface player, boolean removeFromRoster) throws InvalidPlayer{
 		String posName = player.getPositionName();
 		if (posName.toLowerCase().equals("goalkeeper")){
-			if (removeFromTeam) removePlayerFromList(player,goalkeepers);
-			removePlayerFromList(player,goalkeeperOnField);
+			if (removeFromRoster){
+				boolean b = goalkeepers.remove(player);
+				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
+			}
+			goalkeeperOnField.remove(player);
+			numberOfPlayersOnField--;
 		} else if (posName.toLowerCase().equals("defender")){
-			if (removeFromTeam) removePlayerFromList(player,defenders);
-			removePlayerFromList(player,defendersOnField);
+			if (removeFromRoster){
+				boolean b = defenders.remove(player);
+				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
+			}
+			defendersOnField.remove(player);
+			numberOfPlayersOnField--;
 		} else if (posName.toLowerCase().equals("midfielder")){
-			if (removeFromTeam) removePlayerFromList(player,midfielders);
-			removePlayerFromList(player,midfieldersOnField);
+			if (removeFromRoster){
+				boolean b = midfielders.remove(player);
+				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
+			}
+			midfieldersOnField.remove(player);
+			numberOfPlayersOnField--;
 		} else if (posName.toLowerCase().equals("striker")){
-			if (removeFromTeam) removePlayerFromList(player,strikers);
-			removePlayerFromList(player,strikersOnField);
+			if (removeFromRoster){
+				boolean b = strikers.remove(player);
+				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
+			}
+			strikersOnField.remove(player);
+			numberOfPlayersOnField--;
 		}
 	}
 	
-	// Usage: b = addPlayerToTeam(player)
+	// Usage: b = addPlayerToRoster(player)
 	// Before:player is of type PlayerInferface and is not null
-	// After: If there is room for the player in team in the position that he plays then he's
-	//        added to the team and b is returned as true. If there is no room him in his
+	// After: If there is room for the player in roster in the position that he plays then he's
+	//        added to the roster and b is returned as true. If there is no room him in his
 	//        position then b is returned as false. If the player's position is not "Goalkeeper",
 	//        "Defender", "Midfielder", or "Striker" then InvalidPosition exception is thrown.
-	public boolean addPlayerToTeam(PlayerInterface player) throws InvalidPosition{
+	public boolean addPlayerToRoster(PlayerInterface player) throws InvalidPosition{
 		String posName = player.getPositionName();
 		if (posName.toLowerCase().equals("goalkeeper")){
 			if (this.goalkeepers.size() == 2) return false;
@@ -92,7 +106,7 @@ public class Roster {
 	// Usage: b = addPlayerToField(player)
 	// Before:player is of type PlayerInterface
 	// After: If the player isn't in the roster then an InvalidPlayer exception is thrown. Otherwise, and
-	//        if the player's position and team on field are not full, the player will be added to the field
+	//        if the player's position and roster on field are not full, the player will be added to the field
 	//        and b will be returned as true. Otherwise b will be returned as false.
 	public boolean addPlayerToField(PlayerInterface player) throws InvalidPlayer{
 		if (this.goalkeepers.contains(player)){
@@ -124,10 +138,15 @@ public class Roster {
 			this.numberOfPlayersOnField++;
 			return true;
 		} else {
-			throw new tests.InvalidPlayer(player.getName()+" is currently not in the team.");
+			throw new tests.InvalidPlayer(player.getName()+" is currently not in the roster.");
 		}
 	}
 	
+	// Usage: getPlayersInRoster()
+	// Before:Nothing
+	// After: List containing a list of all players in the current roster. There will always be 4 inner
+	//        lists, the first for goalkeepers, second for defenders, third for midfielders, and the
+	//        4th for strikers.
 	public List<List<PlayerInterface>> getPlayersInRoster(){
 		List<List<PlayerInterface>> names = new ArrayList<List<PlayerInterface>>(4);
 		names.add(goalkeepers);

@@ -167,7 +167,7 @@ public class RosterTest {
 	@Test
 	public void testIfOnePlayer() throws IllegalStateException, InvalidPosition {
 		// Add the player "Goalkeeper 1" to the roster
-		boolean add = roster.addPlayerToTeam(players.get("Goalkeeper 1"));
+		boolean add = roster.addPlayerToRoster(players.get("Goalkeeper 1"));
 		assertTrue(add);
 		
 		// Get the roster players
@@ -186,7 +186,7 @@ public class RosterTest {
 		Throwable exception = null;
 		// Add the player "Football fan" to the roster
 		try{
-			roster.addPlayerToTeam(players.get("Football fan"));
+			roster.addPlayerToRoster(players.get("Football fan"));
 		} catch (Throwable e) {
 			exception = e;
 		}
@@ -194,16 +194,16 @@ public class RosterTest {
 		assertSame(InvalidPosition.class,exception.getClass());
 	}
 	
-	// This test will check if we will receive "false" from the addPlayerToTeam() method if we try
+	// This test will check if we will receive "false" from the addPlayerToRoster() method if we try
 	// to add too many players to the same position.
 	@SuppressWarnings("serial")
 	@Test
 	public void testIfThreePlayers() throws InvalidPosition {
 		// Add the player "Goalkeeper 1" to the roster
-		roster.addPlayerToTeam(players.get("Goalkeeper 1"));
-		boolean add = roster.addPlayerToTeam(players.get("Goalkeeper 2"));
+		roster.addPlayerToRoster(players.get("Goalkeeper 1"));
+		boolean add = roster.addPlayerToRoster(players.get("Goalkeeper 2"));
 		assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Goalkeeper 3"));
+		add = roster.addPlayerToRoster(players.get("Goalkeeper 3"));
 		assertFalse(add);
 		
 		// Get the roster players
@@ -220,24 +220,24 @@ public class RosterTest {
 	// This test will check if we can successfully add 15 players (maximum allowed roster size) to the roster.
 	@SuppressWarnings("serial")
 	@Test
-	public void testIfFullTeam() throws InvalidPosition {
+	public void testIfFullRoster() throws InvalidPosition {
 		// Add the player "Goalkeeper 1" to the roster
-		roster.addPlayerToTeam(players.get("Goalkeeper 1"));
-		roster.addPlayerToTeam(players.get("Goalkeeper 2"));
+		roster.addPlayerToRoster(players.get("Goalkeeper 1"));
+		roster.addPlayerToRoster(players.get("Goalkeeper 2"));
 		boolean add;
-		add = roster.addPlayerToTeam(players.get("Defender 1"));	assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Defender 2"));	assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Defender 3"));	assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Defender 4"));	assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Defender 5"));	assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Midfielder 1"));	assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Midfielder 2"));	assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Midfielder 3"));	assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Midfielder 4"));	assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Midfielder 5"));	assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Striker 1"));		assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Striker 2"));		assertTrue(add);
-		add = roster.addPlayerToTeam(players.get("Striker 3"));		assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Defender 1"));	assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Defender 2"));	assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Defender 3"));	assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Defender 4"));	assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Defender 5"));	assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Midfielder 1"));	assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Midfielder 2"));	assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Midfielder 3"));	assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Midfielder 4"));	assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Midfielder 5"));	assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Striker 1"));		assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Striker 2"));		assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Striker 3"));		assertTrue(add);
 		
 		// Get the roster players
 		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
@@ -266,8 +266,8 @@ public class RosterTest {
 	// This test will check if 
 	@Test
 	public void testIfAddGoalkeepers() throws InvalidPlayer, InvalidPosition {
-		roster.addPlayerToTeam(players.get("Goalkeeper 1"));
-		roster.addPlayerToTeam(players.get("Goalkeeper 2"));
+		roster.addPlayerToRoster(players.get("Goalkeeper 1"));
+		roster.addPlayerToRoster(players.get("Goalkeeper 2"));
 		boolean b = roster.addPlayerToField(players.get("Goalkeeper 1"));
 		assertTrue(b);
 		b = roster.addPlayerToField(players.get("Goalkeeper 2"));
@@ -277,21 +277,21 @@ public class RosterTest {
 	@Test
 	public void testIfAddElevenAndTwelveToField() throws InvalidPlayer, InvalidPosition {
 		// All 15 test players available in roster
-		roster.addPlayerToTeam(players.get("Goalkeeper 1"));
-		roster.addPlayerToTeam(players.get("Goalkeeper 2"));
-		roster.addPlayerToTeam(players.get("Defender 1"));
-		roster.addPlayerToTeam(players.get("Defender 2"));
-		roster.addPlayerToTeam(players.get("Defender 3"));
-		roster.addPlayerToTeam(players.get("Defender 4"));
-		roster.addPlayerToTeam(players.get("Defender 5"));
-		roster.addPlayerToTeam(players.get("Midfielder 1"));
-		roster.addPlayerToTeam(players.get("Midfielder 2"));
-		roster.addPlayerToTeam(players.get("Midfielder 3"));
-		roster.addPlayerToTeam(players.get("Midfielder 4"));
-		roster.addPlayerToTeam(players.get("Midfielder 5"));
-		roster.addPlayerToTeam(players.get("Striker 1"));
-		roster.addPlayerToTeam(players.get("Striker 2"));
-		roster.addPlayerToTeam(players.get("Striker 3"));
+		roster.addPlayerToRoster(players.get("Goalkeeper 1"));
+		roster.addPlayerToRoster(players.get("Goalkeeper 2"));
+		roster.addPlayerToRoster(players.get("Defender 1"));
+		roster.addPlayerToRoster(players.get("Defender 2"));
+		roster.addPlayerToRoster(players.get("Defender 3"));
+		roster.addPlayerToRoster(players.get("Defender 4"));
+		roster.addPlayerToRoster(players.get("Defender 5"));
+		roster.addPlayerToRoster(players.get("Midfielder 1"));
+		roster.addPlayerToRoster(players.get("Midfielder 2"));
+		roster.addPlayerToRoster(players.get("Midfielder 3"));
+		roster.addPlayerToRoster(players.get("Midfielder 4"));
+		roster.addPlayerToRoster(players.get("Midfielder 5"));
+		roster.addPlayerToRoster(players.get("Striker 1"));
+		roster.addPlayerToRoster(players.get("Striker 2"));
+		roster.addPlayerToRoster(players.get("Striker 3"));
 		
 		boolean b;
 		roster.addPlayerToField(players.get("Goalkeeper 1"));	
@@ -306,7 +306,7 @@ public class RosterTest {
 		b = roster.addPlayerToField(players.get("Striker 2"));		assertTrue(b);
 		b = roster.addPlayerToField(players.get("Striker 3"));		assertTrue(b);
 		
-		// Test if adding a player that is not in the team will throw the InvalidPlayer exception
+		// Test if adding a player that is not in the roster will throw the InvalidPlayer exception
 		Throwable exception = null;
 		try{
 			roster.addPlayerToField(players.get("Football fan"));
@@ -321,4 +321,43 @@ public class RosterTest {
 		assertFalse(b);
 	}
 	
+	@SuppressWarnings("serial")
+	@Test
+	public void testRemoveFromRoster() throws InvalidPosition, InvalidPlayer{
+		roster.addPlayerToRoster(players.get("Goalkeeper 1"));
+		roster.removePlayer(players.get("Goalkeeper 1"), true);
+		
+		// Check if the roster is empty
+		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
+		List<List<String>> excepted = new ArrayList<List<String>>(4) {{add(goalkeepers);add(defenders);add(midfielders);add(strikers);}};
+		assertEquals(0,compareListsOfLists(excepted, actual));
+	}
+	
+	@Test
+	public void testRemoveInvalidPlayer() {
+		Throwable exception = null;
+		try{
+			roster.removePlayer(players.get("Goalkeeper 1"), true);
+		} catch (Throwable e) {
+			exception = e;
+		}
+		assertNotNull(exception);
+		assertSame(InvalidPlayer.class,exception.getClass());
+	}
+	
+	@Test
+	public void testNumberOfPlayersOnField() throws InvalidPosition, InvalidPlayer {
+		assertEquals(0,roster.getNumberOfPlayersOnField());
+		roster.addPlayerToRoster(players.get("Goalkeeper 1"));
+		roster.addPlayerToRoster(players.get("Defender 2"));
+		assertEquals(0,roster.getNumberOfPlayersOnField());
+		roster.addPlayerToField(players.get("Goalkeeper 1"));
+		assertEquals(1,roster.getNumberOfPlayersOnField());
+		roster.addPlayerToField(players.get("Defender 2"));
+		assertEquals(2,roster.getNumberOfPlayersOnField());
+		roster.removePlayer(players.get("Goalkeeper 1"), false);
+		assertEquals(1,roster.getNumberOfPlayersOnField());
+		roster.removePlayer(players.get("Defender 2"), true);
+		assertEquals(0,roster.getNumberOfPlayersOnField());
+	}
 }
