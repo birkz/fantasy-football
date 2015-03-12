@@ -15,10 +15,11 @@ public class Roster {
 	private List<PlayerInterface> strikers;
 	private List<PlayerInterface> strikersOnField;
 	// private PlayerInterface captain;
-	private int numberOfPlayersOnField;
+	private int numberOfPlayersOnField = 0;
 	
 	public Roster(){
-		this.numberOfPlayersOnField = 0;
+//		this.numberOfPlayersOnTeam = 0;
+//		this.numberOfPlayersOnField = 0;
 		this.goalkeepers = new ArrayList<PlayerInterface>(2);
 		this.goalkeeperOnField = new ArrayList<PlayerInterface>(1);
 		this.defenders = new ArrayList<PlayerInterface>(5);
@@ -44,50 +45,86 @@ public class Roster {
 	
 	public void removePlayer(PlayerInterface player, boolean removeFromTeam){
 		String posName = player.getPositionName();
-		if (posName.equals("Goalkeeper")){
+		if (posName.toLowerCase().equals("goalkeeper")){
 			if (removeFromTeam) removePlayerFromList(player,goalkeepers);
 			removePlayerFromList(player,goalkeeperOnField);
-		} else if (posName.equals("Defender")){
+		} else if (posName.toLowerCase().equals("defender")){
 			if (removeFromTeam) removePlayerFromList(player,defenders);
 			removePlayerFromList(player,defendersOnField);
-		} else if (posName.equals("Midfielder")){
+		} else if (posName.toLowerCase().equals("midfielder")){
 			if (removeFromTeam) removePlayerFromList(player,midfielders);
 			removePlayerFromList(player,midfieldersOnField);
-		} else if (posName.equals("Striker")){
+		} else if (posName.toLowerCase().equals("striker")){
 			if (removeFromTeam) removePlayerFromList(player,strikers);
 			removePlayerFromList(player,strikersOnField);
 		}
 	}
 	
-	// Notkun: addPlayerToTeam(player)
-	// Fyrir: player er af tagi PlayerInferface, má ekki vera null
-	// Eftir: Ef pláss er fyrir leikmanninn í liði í þeirri stöðu sem hann er skráður á
-	//        þá er honum bætt við liðið og skilað er true. Ef ekki er pláss fyrir leik-
-	//        manninn er skilað false.
+	// Usage: b = addPlayerToTeam(player)
+	// Before:player is of type PlayerInferface and is not null
+	// After: If there is room for the player in team in the position that he plays then he's
+	//        added to the team and b is returned as true. If there is no room him in his
+	//        position then b is returned as false. If the player's position is not "Goalkeeper",
+	//        "Defender", "Midfielder", or "Striker" then InvalidPosition exception is thrown.
 	public boolean addPlayerToTeam(PlayerInterface player) throws InvalidPosition{
 		String posName = player.getPositionName();
-		if (posName.equals("Goalkeeper")){
-			if (goalkeepers.size() == 2) return false;
+		if (posName.toLowerCase().equals("goalkeeper")){
+			if (this.goalkeepers.size() == 2) return false;
 			this.goalkeepers.add(player);
-			this.numberOfPlayersOnField++;
 			return true;
-		} else if (posName.equals("Defender")){
+		} else if (posName.toLowerCase().equals("defender")){
 			if (this.defenders.size() == 5) return false;
 			this.defenders.add(player);
-			this.numberOfPlayersOnField++;
 			return true;
-		} else if (posName.equals("Midfielder")){
+		} else if (posName.toLowerCase().equals("midfielder")){
 			if (midfielders.size() == 5) return false;
 			this.midfielders.add(player);
-			this.numberOfPlayersOnField++;
 			return true;
-		} else if (posName.equals("Striker")){
+		} else if (posName.toLowerCase().equals("striker")){
 			if (strikers.size() == 3) return false;
 			this.strikers.add(player);
-			this.numberOfPlayersOnField++;
 			return true;
 		} else {
 			throw new InvalidPosition(posName+" is not a valid position. Only Goalkeeper, Defender, Midfielder, and Striker are valid.");
+		}
+	}
+	
+	// Usage: b = addPlayerToField(player)
+	// Before:player is of type PlayerInterface
+	// After: If the player isn't in the roster then an InvalidPlayer exception is thrown. Otherwise, and
+	//        if the player's position and team on field are not full, the player will be added to the field
+	//        and b will be returned as true. Otherwise b will be returned as false.
+	public boolean addPlayerToField(PlayerInterface player) throws InvalidPlayer{
+		if (this.goalkeepers.contains(player)){
+			if (this.goalkeeperOnField.size() >= 1 || this.numberOfPlayersOnField >= 11){
+				return false;
+			}
+			this.goalkeeperOnField.add(player);
+			this.numberOfPlayersOnField++;
+			return true;
+		} else if (this.defenders.contains(player)){
+			if (this.defendersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
+				return false;
+			}
+			this.defendersOnField.add(player);
+			this.numberOfPlayersOnField++;
+			return true;
+		} else if (this.midfielders.contains(player)){
+			if (this.midfieldersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
+				return false;
+			}
+			this.midfieldersOnField.add(player);
+			this.numberOfPlayersOnField++;
+			return true;
+		} else if (this.strikers.contains(player)){
+			if (this.strikersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
+				return false;
+			}
+			this.strikersOnField.add(player);
+			this.numberOfPlayersOnField++;
+			return true;
+		} else {
+			throw new tests.InvalidPlayer(player.getName()+" is currently not in the team.");
 		}
 	}
 	

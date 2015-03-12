@@ -9,5 +9,4 @@ public interface PlayerInterface {
 	public void setPosition(PositionMock pos) throws InvalidPosition;
 	public PositionMock getPosition();
 	public String getPositionName();
-	
 }
