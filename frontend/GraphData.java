@@ -13,15 +13,11 @@ import javax.swing.JPanel;
 
 public class GraphData extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
 	private final int numUsers;
 	private final Color[] col = {Color.red, Color.green, Color.blue, Color.CYAN};
 	private final int height;
 	private final int width;
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Create the panel.
@@ -35,7 +31,7 @@ public class GraphData extends JPanel {
 			add(one);
 		}
 		height = 2*Main.getFrameSize().height/3;
-		width = Main.getFrameSize().width/2;
+		width = Main.getFrameSize().width/2-40;
 		setSize(new Dimension(width, height));
 	}
 	

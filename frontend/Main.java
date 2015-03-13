@@ -29,9 +29,6 @@ public class Main {
 		frame.setMinimumSize(new Dimension(1200,700));
 		frame.setLocationRelativeTo(null);
 		
-		AddImage panel = new AddImage(new ImageIcon("src/Images/CetpbfB.png").getImage());
-		AddImage panel3 = new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage());
-		
 		JPanel buttons = new JPanel();
 		left = new JPanel();
 		right = new JPanel();
@@ -72,12 +69,12 @@ public class Main {
 		
 		left.setLayout(new BorderLayout(0, 0));
 		left.add(buttons, BorderLayout.NORTH);
-		change.add(panel);
+		setPanelAsScore();
 		left.add(change, BorderLayout.CENTER);
 		
 		right.setLayout(new BorderLayout(0, 0));
 		right.add(new NameChange(), BorderLayout.NORTH);
-		right.add(panel3, BorderLayout.CENTER);
+		right.add(new FieldViewerPanel(), BorderLayout.CENTER);
 		right.add(endPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
@@ -121,7 +118,6 @@ public class Main {
 		change.add(new AddImage(new ImageIcon("src/Images/hair_dryer_breakfast.png").getImage()));
 		change.setVisible(false);
 		change.setVisible(true);
-        //frame.setVisible(true);
 	}
 	
 	public static void setPanelAsLeague() {
@@ -133,11 +129,8 @@ public class Main {
 	}
 	
 	public static void setPanelAsFieldViewer(BorderLayout layout) {
-		AddImage panel3 = new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage());
-		
 		right.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-		right.add(panel3, BorderLayout.CENTER);
-		//right.add(new FieldViewerPanel, BorderLayout.CENTER);
+		right.add(new FieldViewerPanel(), BorderLayout.CENTER);
 		right.setVisible(false);
 		right.setVisible(true);
 	}

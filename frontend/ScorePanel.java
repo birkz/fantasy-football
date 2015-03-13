@@ -13,7 +13,7 @@ public class ScorePanel extends JPanel {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private final static long serialVersionUID = 1L;
 
 	/**
 	 * Create the panel.
