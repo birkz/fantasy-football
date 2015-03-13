@@ -11,27 +11,21 @@ public class AddImage extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Image img;
+	private int height;
+	private int width;
 
-	  public AddImage(String img) {
-	    this(new ImageIcon(img).getImage());
-	  }
-
-	  public AddImage(Image img) {
+	public AddImage(Image img) {
 	    this.img = img;
-	    Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
-	    setPreferredSize(size);
-	    setMinimumSize(size);
-	    setMaximumSize(size);
-	    setSize(size);
-	    setLayout(null);
-	  }
+	    this.height = Main.getFrameSize().height-20;
+	    this.width = Main.getFrameSize().width/2;
+	}
 
-	  public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) {
 	    g.drawImage(img, 0, 0, null);
-	  }
+	}
 	  
-	  @Override
-	  public Dimension getPreferredSize() {
-		return new Dimension(400,400);
-	  }
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(this.width, this.height);
+	}
 }

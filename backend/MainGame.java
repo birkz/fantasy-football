@@ -15,7 +15,7 @@ public class MainGame {
 	public static void setNumUsers(int num) {
 		users = new User[num];
 		for(int i=0; i<num; ++i) {
-			createUser("Player" + i);
+			createUser("Player" + (i+1));
 		}
 	}
 	

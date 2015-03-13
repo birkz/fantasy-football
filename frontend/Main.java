@@ -1,9 +1,9 @@
 package frontend;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 public class Main {
 	
@@ -17,6 +17,7 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(new StartPanel());
 	    frame.pack();
+	    frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 	}
 	
@@ -25,6 +26,8 @@ public class Main {
 		
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
+		frame.setMinimumSize(new Dimension(1200,700));
+		frame.setLocationRelativeTo(null);
 		
 		AddImage panel = new AddImage(new ImageIcon("src/Images/CetpbfB.png").getImage());
 		AddImage panel3 = new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage());
@@ -67,19 +70,16 @@ public class Main {
 		frame.add(left, BorderLayout.WEST);
 		frame.add(right, BorderLayout.EAST);
 		
-		left.setBorder(new EmptyBorder(5, 5, 5, 5));
 		left.setLayout(new BorderLayout(0, 0));
 		left.add(buttons, BorderLayout.NORTH);
 		change.add(panel);
 		left.add(change, BorderLayout.CENTER);
 		
-		right.setBorder(new EmptyBorder(5, 5, 5, 5));
 		right.setLayout(new BorderLayout(0, 0));
 		right.add(new NameChange(), BorderLayout.NORTH);
 		right.add(panel3, BorderLayout.CENTER);
 		right.add(endPanel, BorderLayout.SOUTH);
-		
-	    frame.pack();
+
         frame.setVisible(true);
         frame.validate();
 	}
@@ -93,50 +93,43 @@ public class Main {
 		right.add(new NameChange(), BorderLayout.NORTH);
 		
 		setPanelAsFieldViewer(layout);
-		
-	    frame.pack();
+
         frame.setVisible(true);
         frame.validate();
-	}
-	
-	public static void switchImage(AddImage panel) {
-		change.removeAll();
-		change.add(panel);
-		frame.pack();
-        frame.setVisible(true);
 	}
 	
 	public static void setPanelAsMarket() {
 		change.removeAll();
 		//change.add(new MarketPanel());
 		change.add(new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage()));
-		frame.pack();
-        frame.setVisible(true);
+		change.setVisible(false);
+		change.setVisible(true);
 	}
 	
 	public static void setPanelAsScore() {
 		change.removeAll();
-		//change.add(new ScorePanel());
-		//change.add(new AddImage(new ImageIcon("src/Images/CetpbfB.png").getImage()));
-		change.add(new GraphData());
-		frame.pack();
-        frame.setVisible(true);
+		change.setLayout(new BorderLayout(0, 0));
+		change.add(new GraphData(), BorderLayout.NORTH);
+		change.add(new ScorePanel(), BorderLayout.SOUTH);
+		change.setVisible(false);
+		change.setVisible(true);
 	}
 	
 	public static void setPanelAsRoster() {
 		change.removeAll();
 		//change.add(new RosterPanel());
 		change.add(new AddImage(new ImageIcon("src/Images/hair_dryer_breakfast.png").getImage()));
-		frame.pack();
-        frame.setVisible(true);
+		change.setVisible(false);
+		change.setVisible(true);
+        //frame.setVisible(true);
 	}
 	
 	public static void setPanelAsLeague() {
 		change.removeAll();
 		//change.add(new LeaguePanel());
 		change.add(new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage()));
-		frame.pack();
-        frame.setVisible(true);
+		change.setVisible(false);
+		change.setVisible(true);
 	}
 	
 	public static void setPanelAsFieldViewer(BorderLayout layout) {
@@ -145,6 +138,8 @@ public class Main {
 		right.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 		right.add(panel3, BorderLayout.CENTER);
 		//right.add(new FieldViewerPanel, BorderLayout.CENTER);
+		right.setVisible(false);
+		right.setVisible(true);
 	}
 	
 	public static void main(String[] args) {
@@ -154,6 +149,10 @@ public class Main {
                 createAndShowGUI();
             }
         });
+	}
+	
+	public static Dimension getFrameSize() {
+		return frame.getSize();
 	}
 }
 
