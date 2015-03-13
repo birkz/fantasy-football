@@ -50,4 +50,8 @@ public class MainGame {
 	public static User getCurrentUser() {
 		return users[currentUser];
 	}
+	
+	public static int getCurrendUserID() {
+		return currentUser;
+	}
 }

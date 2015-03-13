@@ -15,6 +15,8 @@ public class HandleButtons implements ActionListener{
 		
 		if(arg == "Three Players") Main.startGame(3);
 		
+		if(arg == "Four Players") Main.startGame(4);
+		
 		if(arg == "Market") Main.setPanelAsMarket();
 		
 		if(arg == "Scoreboard") Main.setPanelAsScore();

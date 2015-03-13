@@ -22,17 +22,20 @@ public class StartPanel extends JPanel {
 		JButton startButton = new JButton("One Player");
 		JButton startButton2 = new JButton("Two Players");
 		JButton startButton3 = new JButton("Three Players");
+		JButton startButton4 = new JButton("Four Players");
 		
         //Add action listener to buttons
 		startButton.addActionListener(actionList);
 		startButton2.addActionListener(actionList);
 		startButton3.addActionListener(actionList);
+		startButton4.addActionListener(actionList);
 		
 		setBorder(new EmptyBorder(100, 100, 100, 100));
-		setLayout(new GridLayout(3, 1, 5, 5));
+		setLayout(new GridLayout(4, 1, 5, 5));
 		add(startButton);
 		add(startButton2);
 		add(startButton3);
+		add(startButton4);
 	}
 
 }

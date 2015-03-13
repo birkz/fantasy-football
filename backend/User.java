@@ -26,7 +26,10 @@ public class User {
 	public void addScoreToStats() {
 		
 	}
-	
+
+	// Usage: i = getScore()
+	// Before:Nothing.
+	// After: i is an array of scores of this user
 	public int[] getScore() {
 		return this.score;
 	}

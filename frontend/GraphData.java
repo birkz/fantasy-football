@@ -13,10 +13,10 @@ import javax.swing.JPanel;
 
 public class GraphData extends JPanel {
 	
-	private int numUsers;
-	private static Color[] col = {Color.red, Color.green, Color.blue};
-	private static int height;
-	private static int width;
+	private final int numUsers;
+	private final Color[] col = {Color.red, Color.green, Color.blue, Color.CYAN};
+	private final int height;
+	private final int width;
 
 	/**
 	 * 
