@@ -36,12 +36,20 @@ public class Roster {
 		return this.numberOfPlayersOnField;
 	}
 	
+	public void removePlayerFromField(PlayerInterface player) throws InvalidPlayer{
+		removePlayer(player, false);
+	}
+	
+	public void removePlayerFromRoster(PlayerInterface player) throws InvalidPlayer{
+		removePlayer(player, true);
+	}
+	
 	// Usage: removePlayer(player,b)
 	// Before:player is of type PlayerInterface and b is a boolean variable (true or false)
 	// After: If b is true then player will be removed both from the field and the roster. If
 	//        b is false then the player will only be removed from the field. If the player
 	//        provided is not in the roster then a InvalidPlayer exception will be thrown.
-	public void removePlayer(PlayerInterface player, boolean removeFromRoster) throws InvalidPlayer{
+	private void removePlayer(PlayerInterface player, boolean removeFromRoster) throws InvalidPlayer{
 		String posName = player.getPositionName();
 		if (posName.toLowerCase().equals("goalkeeper")){
 			if (removeFromRoster){

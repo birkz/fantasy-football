@@ -325,7 +325,7 @@ public class RosterTest {
 	@Test
 	public void testRemoveFromRoster() throws InvalidPosition, InvalidPlayer{
 		roster.addPlayerToRoster(players.get("Goalkeeper 1"));
-		roster.removePlayer(players.get("Goalkeeper 1"), true);
+		roster.removePlayerFromRoster(players.get("Goalkeeper 1"));
 		
 		// Check if the roster is empty
 		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
@@ -337,7 +337,7 @@ public class RosterTest {
 	public void testRemoveInvalidPlayer() {
 		Throwable exception = null;
 		try{
-			roster.removePlayer(players.get("Goalkeeper 1"), true);
+			roster.removePlayerFromRoster(players.get("Goalkeeper 1"));
 		} catch (Throwable e) {
 			exception = e;
 		}
@@ -355,9 +355,9 @@ public class RosterTest {
 		assertEquals(1,roster.getNumberOfPlayersOnField());
 		roster.addPlayerToField(players.get("Defender 2"));
 		assertEquals(2,roster.getNumberOfPlayersOnField());
-		roster.removePlayer(players.get("Goalkeeper 1"), false);
+		roster.removePlayerFromField(players.get("Goalkeeper 1"));
 		assertEquals(1,roster.getNumberOfPlayersOnField());
-		roster.removePlayer(players.get("Defender 2"), true);
+		roster.removePlayerFromField(players.get("Defender 2"));
 		assertEquals(0,roster.getNumberOfPlayersOnField());
 	}
 }
