@@ -102,7 +102,7 @@ public class RosterTest {
 		midfielders = new ArrayList<String>(5);
 		strikers = new ArrayList<String>(3);
 	}
-
+	
 	@After
 	public void tearDown() throws Exception {
 		roster = null;
@@ -263,7 +263,7 @@ public class RosterTest {
 		assertEquals(15,compareListsOfLists(excepted, actual));
 	}
 	
-	// This test will check if 
+	// This test will check if we can add two players to the same position
 	@Test
 	public void testIfAddGoalkeepers() throws InvalidPlayer, InvalidPosition {
 		roster.addPlayerToRoster(players.get("Goalkeeper 1"));
@@ -274,6 +274,7 @@ public class RosterTest {
 		assertFalse(b);
 	}
 	
+	// This test will check if we can successfully add eleven players to the field and can't add the twelfth
 	@Test
 	public void testIfAddElevenAndTwelveToField() throws InvalidPlayer, InvalidPosition {
 		// All 15 test players available in roster
@@ -321,11 +322,12 @@ public class RosterTest {
 		assertFalse(b);
 	}
 	
+	// Test if we remove a player that's in the roster.
 	@SuppressWarnings("serial")
 	@Test
 	public void testRemoveFromRoster() throws InvalidPosition, InvalidPlayer{
 		roster.addPlayerToRoster(players.get("Goalkeeper 1"));
-		roster.removePlayer(players.get("Goalkeeper 1"), true);
+		roster.removePlayerFromRoster(players.get("Goalkeeper 1"));
 		
 		// Check if the roster is empty
 		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
@@ -333,11 +335,12 @@ public class RosterTest {
 		assertEquals(0,compareListsOfLists(excepted, actual));
 	}
 	
+	// Test if we remove a player that's NOT in the roster.
 	@Test
 	public void testRemoveInvalidPlayer() {
 		Throwable exception = null;
 		try{
-			roster.removePlayer(players.get("Goalkeeper 1"), true);
+			roster.removePlayerFromRoster(players.get("Goalkeeper 1"));
 		} catch (Throwable e) {
 			exception = e;
 		}
@@ -345,6 +348,7 @@ public class RosterTest {
 		assertSame(InvalidPlayer.class,exception.getClass());
 	}
 	
+	// This test if check if the variable NumberOfPlayersOfField is accurate.
 	@Test
 	public void testNumberOfPlayersOnField() throws InvalidPosition, InvalidPlayer {
 		assertEquals(0,roster.getNumberOfPlayersOnField());
@@ -355,9 +359,9 @@ public class RosterTest {
 		assertEquals(1,roster.getNumberOfPlayersOnField());
 		roster.addPlayerToField(players.get("Defender 2"));
 		assertEquals(2,roster.getNumberOfPlayersOnField());
-		roster.removePlayer(players.get("Goalkeeper 1"), false);
+		roster.removePlayerFromField(players.get("Goalkeeper 1"));
 		assertEquals(1,roster.getNumberOfPlayersOnField());
-		roster.removePlayer(players.get("Defender 2"), true);
+		roster.removePlayerFromField(players.get("Defender 2"));
 		assertEquals(0,roster.getNumberOfPlayersOnField());
 	}
 }
