@@ -11,6 +11,7 @@ public class User {
 		this.name = name;
 		this.score = new int[10];
 		this.roster = new Roster();
+		this.money = 0;
 	}
 	
 	public boolean changeMoney(int dMoney) {
