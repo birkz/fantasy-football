@@ -74,7 +74,10 @@ In this document there's information about the tests for group F2a. Group member
 The presenter on Wednesday, March 11th 2015, will be Sigurður Birkir Sigurðsson.
 
 \section{Test fixtures}
-We created test fixture using JUnit to constantly test our core functionality. The core functionality we decided to test was the roster class. We have made some small changes to the class and currently it looks as such:
+We created test fixture using JUnit to constantly test our core functionality. The core functionality we decided to test some of functionality on the roster class and the user class.
+
+\subsection{Roster test fixtures}
+We have made some small changes to the class and currently it looks as such:
 
 \begin{figure}[H]
 \centering
@@ -114,7 +117,7 @@ We created test fixture using JUnit to constantly test our core functionality. T
 \end{figure}
 The class has been created and will be the target for our test fixtures. The full source code of the class can be seen in the appendix.
 
-\subsection{Set up and tear down}
+\subsubsection{Set up and tear down}
 The source code of our set up and tear down is long and boring. To make a long story short we created multiple PlayerMock (more information on those in the next section) objects on the form:
 \begin{verbatim}
 position1 = new PlayerMock("Position 1","Position");
@@ -125,7 +128,7 @@ invalid_pos1 = new PlayerMock("Football fan","Couch potato");
 \end{verbatim}
 This is test how the class will handle a player of invalid position. After all players have been created they are all added to a hash-table \texttt{players} with their name a the key. If you wish to view the full source code in can be found in the appendix.
 
-\subsection{Comparison of lists containing lists}
+\subsubsection{Comparison of lists containing lists}
 To help us in the tests it made sense to create a function that will compare two lists containing lists. One containing lists of lists with strings with the expected player names and one lists of lists containing a class of type PlayerInterface (an interface PlayerMock implemented).
 
 \begin{lstlisting}
@@ -174,8 +177,8 @@ public int compareListsOfLists(List<List<String>> expected, List<List<PlayerInte
 }
 \end{lstlisting}
 
-\subsection{Testing the addPlayerToRoster method}
-\subsubsection{Test 1: List, art thou empty?}
+\subsubsection{Testing the addPlayerToRoster method}
+\subsubsection*{Test 1: List, art thou empty?}
 This test will check if a new roster is empty.
 \begin{lstlisting}
 public void testIfEmpty() throws IllegalStateException, InvalidPosition {
@@ -185,7 +188,7 @@ public void testIfEmpty() throws IllegalStateException, InvalidPosition {
 }
 \end{lstlisting}
 
-\subsubsection{Test 2: Takes one to know one}
+\subsubsection*{Test 2: Takes one to know one}
 This test will check if we can successfully add a single player to the roster.
 \begin{lstlisting}
 public void testIfOnePlayer() throws IllegalStateException, InvalidPosition {
@@ -204,7 +207,7 @@ public void testIfOnePlayer() throws IllegalStateException, InvalidPosition {
 }
 \end{lstlisting}
 
-\subsubsection{Test 3: Who invited you?}
+\subsubsection*{Test 3: Who invited you?}
 This test will check if we get an exception when adding a player with a invalid position. We expect to get a \texttt{InvalidPosition} exception in that case.
 \begin{lstlisting}
 public void testIfInvalidPlayer() throws InvalidPosition {
@@ -220,7 +223,7 @@ public void testIfInvalidPlayer() throws InvalidPosition {
 }
 \end{lstlisting}
 
-\subsubsection{Test 4: Only two can tango}
+\subsubsection*{Test 4: Only two can tango}
 This test will check if we will receive "false" from the \texttt{addPlayerToRoster()} method if we try to add too many players to the same position.
 \begin{lstlisting}
 public void testIfThreePlayers() throws InvalidPosition {
@@ -243,7 +246,7 @@ public void testIfThreePlayers() throws InvalidPosition {
 }
 \end{lstlisting}
 
-\subsubsection{Test 5: No more room in heaven}
+\subsubsection*{Test 5: No more room in heaven}
 \begin{lstlisting}
 public void testIfFullRoster() throws InvalidPosition {
 	// Add the player "Goalkeeper 1" to the roster
@@ -288,8 +291,8 @@ public void testIfFullRoster() throws InvalidPosition {
 	assertEquals(15,compareListsOfLists(excepted, actual));
 }
 \end{lstlisting}
-\subsection{Testing the addPlayerToField method}
-\subsubsection{Test 6: We must follow the rules}
+\subsubsection{Testing the addPlayerToField method}
+\subsubsection*{Test 6: We must follow the rules}
 This test will check if we can add too many players to the same position
 \begin{lstlisting}
 public void testIfAddGoalkeepers() throws InvalidPlayer, InvalidPosition {
@@ -302,7 +305,7 @@ public void testIfAddGoalkeepers() throws InvalidPlayer, InvalidPosition {
 }
 \end{lstlisting}
 
-\subsubsection{Test 7: You can't play with us}
+\subsubsection*{Test 7: You can't play with us}
 This test will check if we can successfully add eleven players to the field and can't add the twelfth.
 \begin{lstlisting}
 public void testIfAddElevenAndTwelveToField() throws InvalidPlayer, InvalidPosition {
@@ -352,8 +355,8 @@ public void testIfAddElevenAndTwelveToField() throws InvalidPlayer, InvalidPosit
 }
 \end{lstlisting}
 
-\subsection{Testing the removeFromRoster method}
-\subsubsection{Test 8: Join us! Now leave us!}
+\subsubsection{Testing the removeFromRoster method}
+\subsubsection*{Test 8: Join us! Now leave us!}
 Test if we remove a player that's in the roster.
 \begin{lstlisting}
 public void testRemoveFromRoster() throws InvalidPosition, InvalidPlayer{
@@ -367,7 +370,7 @@ public void testRemoveFromRoster() throws InvalidPosition, InvalidPlayer{
 }
 \end{lstlisting}
 
-\subsubsection{Test 9: Go away nobody}
+\subsubsection*{Test 9: Go away nobody}
 Test if we remove a player that's NOT in the roster. We expect it to thrown an exception.
 \begin{lstlisting}
 public void testRemoveInvalidPlayer() {
@@ -382,7 +385,7 @@ public void testRemoveInvalidPlayer() {
 }
 \end{lstlisting}
 
-\subsubsection{Test 10: 1,2,3,...}
+\subsubsection*{Test 10: 1,2,3,...}
 This test if check if the variable NumberOfPlayersOfField is changed correctly.
 \begin{lstlisting}
 public void testNumberOfPlayersOnField() throws InvalidPosition, InvalidPlayer {
@@ -398,6 +401,65 @@ public void testNumberOfPlayersOnField() throws InvalidPosition, InvalidPlayer {
 	assertEquals(1,roster.getNumberOfPlayersOnField());
 	roster.removePlayer(players.get("Defender 2"), true);
 	assertEquals(0,roster.getNumberOfPlayersOnField());
+}
+\end{lstlisting}
+
+\subsection{User test fixtures}
+\subsubsection{Set up and tear down}
+This test, tests the class that holds onto the users of the game. We setup the test with one new user which takes in "user1" as its name.
+
+\begin{lstlisting}
+@BeforeClass
+public static void setUp() throws Exception {
+	user = new User("user1");
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+@AfterClass
+public static void tearDown() throws Exception {
+	user = null;
+}
+\end{lstlisting}
+
+\subsubsection{Testing the user classes}
+\subsubsection*{Test 1: Remember kids, null != empty}
+This test checks if the user has a Roster.
+\begin{lstlisting}
+@Test
+public void checkRoster() {
+	assertNotNull(user.getRoster());
+}
+
+\end{lstlisting}
+\subsubsection*{Test 2: Mannanafnanefnd}
+This test checks if a name change goes though.
+\begin{lstlisting}
+@Test 
+public void nameChange() {
+	user.changeName("user2");
+	assertEquals("user2", user.getName());
+}
+\end{lstlisting}
+\subsubsection*{Test 3: Make sure to put it in the bank}
+\begin{lstlisting}
+@Test
+public void testChangingMoney() {
+	
+	// Money is 0
+	assertTrue(user.changeMoney(1000));
+	assertEquals(1000, user.getMoney());
+	
+	// Money is 1000
+	int curr = user.getMoney();
+	assertTrue(user.changeMoney(-900));
+	assertEquals(curr-900, user.getMoney());
+	
+	// Money is 100
+	curr = user.getMoney();
+	assertFalse(user.changeMoney(-200));
+	assertEquals(curr, user.getMoney());
+	// Money is still 100 cause you can't get negative money
 }
 \end{lstlisting}
 
@@ -451,6 +513,7 @@ public interface PlayerInterface {
 	public String getPositionName();
 }
 \end{lstlisting}
+The class is made so it will work successfully on the test fixtures but doesn't include any other information or methods not used.
 
 \section{Test cases}
 We decided to create test cases for the search feature on the market panel. The goal of the feature is to provide a accurate search of all players and possible have some useful filters. The filters we chose to include in these test cases were "Teams", and "Position", i.e. you can choose a team and/or position to filter out players. The description of the function:

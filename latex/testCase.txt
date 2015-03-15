@@ -2,9 +2,12 @@
 
 Fyrir 														Eftir
 Leitarskilyrði   [] Leita í liði: []  Leita eftir stöðu 	Niðurstaða
-Rooney                       	   x Striker				"Wayne Rooney, ...?"
-Rooney           x Chelsea      							""
-Rooney                             x Goalkeeper         	""
-Rooney                                          			"Wayne Rooney, Andy Rooney, ...."
-Rooney           x Manchester Utd.                         	"Wayne Rooney"
-Chelsea          x Manchester Utd.                         	""
+"Rooney"													"Wayne Rooney, Adam Rooney, John Rooney,..." (all players with "Rooney" as a subsrting)
+"Rooney"                       	     x Striker				"Wayne Rooney, Adam Rooney,..." (all strikers having the "Rooney" substring)
+"Rooney"                             x Goalkeeper         	"" (all Rooney's in that are Goalkeepers)
+"Rooney"           x Chelsea      							"" (all Rooney's in Chelsea)
+"Rooney"           x Manchester Utd.                       	"Wayne Rooney" (all Rooney's in Manchester Utd.)
+"Rooney"           x Manchester Utd. x Striker            	"Wayne Rooney" (all Rooney's in Manchester Utd. and are strikers)
+""															"Aaron Lennon, Aaron Ramsey,..." (all players)
+"Wayne Rooney"												"Wayne Rooney" (all players with "Wayne Rooney" as a substring)
+
