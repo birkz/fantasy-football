@@ -19,12 +19,12 @@ public class User {
 		return true;
 	}
 	
-	public Roster getRoster() {
-		return this.roster;
+	public int getMoney(){
+		return this.money;
 	}
 	
-	public void addScoreToStats() {
-		
+	public Roster getRoster() {
+		return this.roster;
 	}
 
 	// Usage: i = getScore()
@@ -36,6 +36,11 @@ public class User {
 	
 	public void addScore(int round, int score) {
 		this.score[round] += score;
+		addScoreToStats();
+	}
+	
+	public void addScoreToStats() {
+		
 	}
 	
 	public void changeName(String newname) {
