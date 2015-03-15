@@ -36,10 +36,16 @@ public class Roster {
 		return this.numberOfPlayersOnField;
 	}
 	
+	// Usage: removePlayerFromField(player)
+	// Before: player is of type PlayerInterface
+	// After: player has been taken of the field
 	public void removePlayerFromField(PlayerInterface player) throws InvalidPlayer{
 		removePlayer(player, false);
 	}
 	
+	// Usage: removePlayerFromRoster(player)
+	// Before: player is of type PlayerInterface
+	// After: player has been removed from the roster
 	public void removePlayerFromRoster(PlayerInterface player) throws InvalidPlayer{
 		removePlayer(player, true);
 	}
