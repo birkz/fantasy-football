@@ -37,8 +37,8 @@ public class GraphData extends JPanel {
 	
 	@Override 
 	public void paintComponent(Graphics g) {
-		int width2 = this.getWidth();
-		int height2 = this.getHeight();
+		int width = this.getWidth();
+		int height = this.getHeight();
 		super.paintComponent(g);
 		Graphics2D draw = (Graphics2D) g;
 		int[] score;
@@ -48,9 +48,9 @@ public class GraphData extends JPanel {
 			draw.setColor(col[i]);
 	        draw.setStroke(new BasicStroke(2));
 	        GeneralPath line = new GeneralPath();
-	        line.moveTo(0, height2);
+	        line.moveTo(0, height);
 	        for(int k=0; k<round; ++k) {
-	        	line.lineTo((k+1)*width2/10, height2-(score[k]));
+	        	line.lineTo((k+1)*width/10, height-(score[k]));
 	        }
 	        draw.draw(line);
 		}

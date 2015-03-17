@@ -8,7 +8,6 @@ import javax.swing.*;
 public class Main {
 	
 	private static JFrame frame;
-	private static JPanel left;
 	private static JPanel right;
 	private static JPanel change;
 	
@@ -30,7 +29,7 @@ public class Main {
 		frame.setLocationRelativeTo(null);
 		
 		JPanel buttons = new JPanel();
-		left = new JPanel();
+		JPanel left = new JPanel();
 		right = new JPanel();
 		change = new JPanel();
 		
