@@ -1,6 +1,8 @@
 package frontend;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
@@ -15,12 +17,13 @@ public class LeaguePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public LeaguePanel() {
-
+		setBackground(Color.CYAN);
+		setLayout(new GridLayout(8, 1, 5, 5));
 	}
 	
 	@Override
     public Dimension getPreferredSize() {
-        return new Dimension(400,400);
+        return Main.returnSizeForPanel();
     }
 
 }

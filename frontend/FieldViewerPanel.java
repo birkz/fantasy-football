@@ -15,28 +15,27 @@ public class FieldViewerPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final int height;
-	private final int width;
 	private final JPanel[] players = new JPanel[]{new JPanel(), new JPanel(), new JPanel(), new JPanel()};
 
 	/**
 	 * Create the panel.
 	 */
 	public FieldViewerPanel() {
-		height = Main.getFrameSize().height/3;
-		width = (Main.getFrameSize().width/2)-40;
-		//setBackground(Color.GREEN);
-		setLayout(new GridLayout(4, 1, 5, 5));
+		setBackground(Color.GREEN);
+		setLayout(new GridLayout(8, 1, 5, 5));
 		AddToPanels();
 		for(int i=0; i<players.length; ++i) {
-			players[i].setBackground(Color.GREEN);
+			JPanel fillup = new JPanel();
+			fillup.setOpaque(false);
+			add(fillup);
+			players[i].setOpaque(false);
 			add(players[i]);
 		}
 	}
 	
 	@Override
     public Dimension getPreferredSize() {
-        return new Dimension(width, height);
+        return Main.returnSizeForPanel();
     }
 	
 	public void AddToPanels() {

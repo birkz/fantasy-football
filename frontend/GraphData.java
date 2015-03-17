@@ -16,8 +16,6 @@ public class GraphData extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private final int numUsers;
 	private final Color[] col = {Color.red, Color.green, Color.blue, Color.CYAN};
-	private final int height;
-	private final int width;
 
 	/**
 	 * Create the panel.
@@ -30,18 +28,17 @@ public class GraphData extends JPanel {
 			one.setForeground (col[i]);
 			add(one);
 		}
-		height = 2*Main.getFrameSize().height/3;
-		width = Main.getFrameSize().width/2-40;
-		setSize(new Dimension(width, height));
 	}
 	
 	@Override
     public Dimension getPreferredSize() {
-        return new Dimension(width, height);
+        return Main.returnSizeForPanel();
     }
 	
 	@Override 
 	public void paintComponent(Graphics g) {
+		int width2 = this.getWidth();
+		int height2 = this.getHeight();
 		super.paintComponent(g);
 		Graphics2D draw = (Graphics2D) g;
 		int[] score;
@@ -51,9 +48,9 @@ public class GraphData extends JPanel {
 			draw.setColor(col[i]);
 	        draw.setStroke(new BasicStroke(2));
 	        GeneralPath line = new GeneralPath();
-	        line.moveTo(0, height);
+	        line.moveTo(0, height2);
 	        for(int k=0; k<round; ++k) {
-	        	line.lineTo((k+1)*width/10, height-(score[k]));
+	        	line.lineTo((k+1)*width2/10, height2-(score[k]));
 	        }
 	        draw.draw(line);
 		}

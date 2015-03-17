@@ -34,34 +34,20 @@ public class Main {
 		right = new JPanel();
 		change = new JPanel();
 		
-		JButton marketButton = new JButton("Market");
-		//Add action listener to button
-		marketButton.addActionListener(actionList); 
-        
-        JButton scoreButton = new JButton("Scoreboard");
-        //Add action listener to button
-        scoreButton.addActionListener(actionList); 
-        
-        JButton rosterButton = new JButton("Roster");
-        //Add action listener to button
-        rosterButton.addActionListener(actionList); 
-        
-        JButton leagueButton = new JButton("League");
-        //Add action listener to button
-        leagueButton.addActionListener(actionList); 
-        
-        JButton endTurnButton = new JButton("END TURN");
-        //Add action listener to button
-        endTurnButton.addActionListener(actionList); 
-
-        buttons.add(marketButton);
-        buttons.add(scoreButton);
-        buttons.add(rosterButton);
-        buttons.add(leagueButton);
+		String[] newButtons = new String[]{"Market", "Scoreboard", "Roster", "League", "END TURN"};
+		JButton[] arrButtons = new JButton[newButtons.length];
+		for(int k=0; k<newButtons.length; ++k) {
+			arrButtons[k]= new JButton(newButtons[k]);
+			arrButtons[k].addActionListener(actionList); 
+		}
+		
+		for(int k=0; k<newButtons.length-1; ++k) {
+			buttons.add(arrButtons[k]);
+		}
         
         JPanel endPanel = new JPanel();
         endPanel.setSize(50, 50);
-        endPanel.add(endTurnButton);
+        endPanel.add(arrButtons[newButtons.length-1]);
         
         frame.setLayout(new BorderLayout(0, 0));
 		frame.add(left, BorderLayout.WEST);
@@ -97,33 +83,28 @@ public class Main {
 	
 	public static void setPanelAsMarket() {
 		change.removeAll();
-		//change.add(new MarketPanel());
-		change.add(new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage()));
+		change.add(new MarketPanel());
 		change.setVisible(false);
 		change.setVisible(true);
 	}
 	
 	public static void setPanelAsScore() {
 		change.removeAll();
-		change.setLayout(new BorderLayout(0, 0));
-		change.add(new GraphData(), BorderLayout.NORTH);
-		change.add(new ScorePanel(), BorderLayout.SOUTH);
+		change.add(new ScorePanel());
 		change.setVisible(false);
 		change.setVisible(true);
 	}
 	
 	public static void setPanelAsRoster() {
 		change.removeAll();
-		//change.add(new RosterPanel());
-		change.add(new AddImage(new ImageIcon("src/Images/hair_dryer_breakfast.png").getImage()));
+		change.add(new RosterPanel());
 		change.setVisible(false);
 		change.setVisible(true);
 	}
 	
 	public static void setPanelAsLeague() {
 		change.removeAll();
-		//change.add(new LeaguePanel());
-		change.add(new AddImage(new ImageIcon("src/Images/jetpack_speeding.png").getImage()));
+		change.add(new LeaguePanel());
 		change.setVisible(false);
 		change.setVisible(true);
 	}
@@ -144,8 +125,10 @@ public class Main {
         });
 	}
 	
-	public static Dimension getFrameSize() {
-		return frame.getSize();
+	public static Dimension returnSizeForPanel() {
+		int height = frame.getSize().height-90;
+		int width = (frame.getSize().width/2)-20;
+		return new Dimension(width, height);
 	}
 }
 
