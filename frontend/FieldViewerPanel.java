@@ -2,9 +2,12 @@ package frontend;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -21,7 +24,6 @@ public class FieldViewerPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public FieldViewerPanel() {
-		setBackground(Color.GREEN);
 		setLayout(new GridLayout(8, 1, 5, 5));
 		AddToPanels();
 		for(int i=0; i<players.length; ++i) {
@@ -31,6 +33,13 @@ public class FieldViewerPanel extends JPanel {
 			players[i].setOpaque(false);
 			add(players[i]);
 		}
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		Dimension size = Main.returnSizeForPanel();
+		Image img = new ImageIcon("src/Images/field.png").getImage();
+		g.drawImage(img, 0, 0, size.width, size.height, null);
 	}
 	
 	@Override
@@ -57,6 +66,7 @@ public class FieldViewerPanel extends JPanel {
 		label.setBorder(BorderFactory.createLineBorder(Color.black));
 		label.setPreferredSize(new Dimension(100, 50));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setOpaque(true);
 		return label;
 	}
 
