@@ -9,14 +9,6 @@ public class HandleButtons implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String arg = e.getActionCommand();
 		
-		if(arg == "One Player") Main.startGame(1);
-		
-		if(arg == "Two Players") Main.startGame(2);
-		
-		if(arg == "Three Players") Main.startGame(3);
-		
-		if(arg == "Four Players") Main.startGame(4);
-		
 		if(arg == "Market") Main.setPanelAsMarket();
 		
 		if(arg == "Scoreboard") Main.setPanelAsScore();

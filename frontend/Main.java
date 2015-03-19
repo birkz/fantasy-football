@@ -2,7 +2,7 @@ package frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-
+import java.util.List;
 import javax.swing.*;
 
 public class Main {
@@ -15,13 +15,13 @@ public class Main {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(new StartPanel());
-	    frame.pack();
+		frame.setMinimumSize(new Dimension(800,400));
 	    frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 	}
 	
-	public static void startGame(int i) {
-		backend.MainGame.setNumUsers(i);
+	public static void startGame(List<String> names) {
+		backend.MainGame.setNumUsers(names);
 		
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
@@ -74,7 +74,7 @@ public class Main {
 		right.remove(layout.getLayoutComponent(BorderLayout.NORTH));
 		right.add(new NameChange(), BorderLayout.NORTH);
 		
-		setPanelAsFieldViewer(layout);
+		setPanelAsFieldViewer();
 
         frame.setVisible(true);
         frame.validate();
@@ -108,7 +108,8 @@ public class Main {
 		change.setVisible(true);
 	}
 	
-	public static void setPanelAsFieldViewer(BorderLayout layout) {
+	public static void setPanelAsFieldViewer() {
+		BorderLayout layout = (BorderLayout) right.getLayout();
 		right.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 		right.add(new FieldViewerPanel(), BorderLayout.CENTER);
 		right.setVisible(false);

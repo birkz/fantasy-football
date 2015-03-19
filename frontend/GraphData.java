@@ -15,7 +15,8 @@ public class GraphData extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private final int numUsers;
-	private final Color[] col = {Color.red, Color.green, Color.blue, Color.CYAN};
+	private final Color[] col = {Color.red, Color.green, Color.blue, Color.CYAN, Color.DARK_GRAY,
+			Color.ORANGE, Color.PINK, Color.LIGHT_GRAY};
 
 	/**
 	 * Create the panel.

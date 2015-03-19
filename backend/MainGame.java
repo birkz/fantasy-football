@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.List;
+
 public class MainGame {
 
 	private static User[] users;
@@ -12,10 +14,11 @@ public class MainGame {
 		numUsers++;
 	}
 	
-	public static void setNumUsers(int num) {
+	public static void setNumUsers(List<String> names) {
+		int num = names.size();
 		users = new User[num];
 		for(int i=0; i<num; ++i) {
-			createUser("Player" + (i+1));
+			createUser(names.get(i));
 		}
 	}
 	
