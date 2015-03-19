@@ -22,7 +22,7 @@ public class StartPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public StartPanel() {
-		JTextField field = new JTextField();
+		final JTextField field = new JTextField();
 		field.setPreferredSize(new Dimension(200, 30));
 		
 		JButton addPlayer = new JButton("Add Player");
@@ -64,7 +64,7 @@ public class StartPanel extends JPanel {
 		center.removeAll();
 		center.setLayout(new GridLayout(8, 1, 5, 5));
 		for(int i=0; i<size; ++i) {
-			JPanel panel = new JPanel();
+			final JPanel panel = new JPanel();
 			JLabel label = new JLabel(names.get(i));
 			panel.add(label);
 			JButton button = new JButton("Remove Player");

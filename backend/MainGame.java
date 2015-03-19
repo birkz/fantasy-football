@@ -9,16 +9,12 @@ public class MainGame {
 	private static int numUsers = 0;
 	private static int currentUser = 0;
 	
-	public static void createUser(String name) {
-		users[numUsers] = new User(name);
-		numUsers++;
-	}
-	
 	public static void setNumUsers(List<String> names) {
 		int num = names.size();
 		users = new User[num];
 		for(int i=0; i<num; ++i) {
-			createUser(names.get(i));
+			users[numUsers] = new User(names.get(i));
+			numUsers++;
 		}
 	}
 	
