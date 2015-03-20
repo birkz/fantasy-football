@@ -4,12 +4,17 @@ import java.util.List;
 
 public class MainGame {
 
-	private static User[] users;
-	private static int round = 0;
-	private static int numUsers = 0;
-	private static int currentUser = 0;
+	private static final MainGame game = new MainGame();
+	private User[] users;
+	private int round = 0;
+	private int numUsers = 0;
+	private int currentUser = 0;
 	
-	public static void setNumUsers(List<String> names) {
+	public static MainGame getInstance() {
+		return game;
+	}
+	
+	public void setNumUsers(List<String> names) {
 		int num = names.size();
 		users = new User[num];
 		for(int i=0; i<num; ++i) {
@@ -18,11 +23,11 @@ public class MainGame {
 		}
 	}
 	
-	public static int getNumUsers() {
+	public int getNumUsers() {
 		return numUsers;
 	}
 	
-	public static void nextUser() {
+	public void nextUser() {
 		if(currentUser<numUsers && round<10)currentUser++;
 		if(currentUser==numUsers && round<10) {
 			currentUser = 0;
@@ -30,27 +35,27 @@ public class MainGame {
 			tests.RoundMock.SimRound(numUsers, round);
 			round++;
 		}
-		frontend.Main.restartFrame();
+		frontend.Main.getInstance().restartFrame();
 	}
 	
-	public static int getRound() {
+	public int getRound() {
 		return round;
 	}
 	
-	public static int[] getScore() {
+	public int[] getScore() {
 		int[] a = new int[1];//just a placeholder
 		return a;
 	}
 	
-	public static User getUser(int i) {
+	public User getUser(int i) {
 		return users[i];
 	}
 	
-	public static User getCurrentUser() {
+	public User getCurrentUser() {
 		return users[currentUser];
 	}
 	
-	public static int getCurrendUserID() {
+	public int getCurrendUserID() {
 		return currentUser;
 	}
 }

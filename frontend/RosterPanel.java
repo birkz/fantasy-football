@@ -23,7 +23,7 @@ public class RosterPanel extends JPanel {
 	
 	@Override
     public Dimension getPreferredSize() {
-        return Main.returnSizeForPanel();
+        return Main.getInstance().returnSizeForPanel();
     }
 
 }

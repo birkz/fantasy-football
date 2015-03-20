@@ -9,15 +9,15 @@ public class HandleButtons implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String arg = e.getActionCommand();
 		
-		if(arg == "Market") Main.setPanelAsMarket();
+		if(arg == "Market") Main.getInstance().setPanelAsMarket();
 		
-		if(arg == "Scoreboard") Main.setPanelAsScore();
+		if(arg == "Scoreboard") Main.getInstance().setPanelAsScore();
 		
-		if(arg == "Roster") Main.setPanelAsRoster();
+		if(arg == "Roster") Main.getInstance().setPanelAsRoster();
 		
-		if(arg == "League") Main.setPanelAsLeague();
+		if(arg == "League") Main.getInstance().setPanelAsLeague();
 		
-		if(arg == "END TURN") backend.MainGame.nextUser();
+		if(arg == "END TURN") backend.MainGame.getInstance().nextUser();
 	}
 
 }

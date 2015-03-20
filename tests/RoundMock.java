@@ -10,8 +10,8 @@ public class RoundMock {
 		Random rand = new Random();
 		for(int i=0; i<numUsers; ++i) {
 			int num = rand.nextInt((max - min) + 1) + min;
-			if(round>0) num += backend.MainGame.getUser(i).getScore()[round-1];
-			backend.MainGame.getUser(i).addScore(round, num);
+			if(round>0) num += backend.MainGame.getInstance().getUser(i).getScore()[round-1];
+			backend.MainGame.getInstance().getUser(i).addScore(round, num);
 		}
 	}
 

@@ -22,10 +22,10 @@ public class GraphData extends JPanel {
 	 * Create the panel.
 	 */
 	public GraphData() {
-		this.numUsers = backend.MainGame.getNumUsers();
+		this.numUsers = backend.MainGame.getInstance().getNumUsers();
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		for (int i=0; i<numUsers; ++i) {
-			JLabel one = new JLabel(backend.MainGame.getUser(i).getName());
+			JLabel one = new JLabel(backend.MainGame.getInstance().getUser(i).getName());
 			one.setForeground (col[i]);
 			add(one);
 		}
@@ -33,7 +33,7 @@ public class GraphData extends JPanel {
 	
 	@Override
     public Dimension getPreferredSize() {
-        return Main.returnSizeForPanel();
+        return Main.getInstance().returnSizeForPanel();
     }
 	
 	@Override 
@@ -43,9 +43,9 @@ public class GraphData extends JPanel {
 		super.paintComponent(g);
 		Graphics2D draw = (Graphics2D) g;
 		int[] score;
-		int round = backend.MainGame.getRound();
+		int round = backend.MainGame.getInstance().getRound();
 		for(int i=0; i<numUsers; ++i) {
-			score = backend.MainGame.getUser(i).getScore();
+			score = backend.MainGame.getInstance().getUser(i).getScore();
 			draw.setColor(col[i]);
 	        draw.setStroke(new BasicStroke(2));
 	        GeneralPath line = new GeneralPath();

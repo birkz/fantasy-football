@@ -22,8 +22,8 @@ public class ScorePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public ScorePanel() {
-		int numUsers = MainGame.getNumUsers();
-		int round = MainGame.getRound();
+		int numUsers = MainGame.getInstance().getNumUsers();
+		int round = MainGame.getInstance().getRound();
 		if(round>0) round--;
 		setLayout(new BorderLayout(0, 0));
 		
@@ -31,7 +31,7 @@ public class ScorePanel extends JPanel {
 		players.setBorder(new EmptyBorder(50, 50, 50, 50));
 		players.setLayout(new GridLayout(numUsers, 2, 5, 5));
 		for (int i=0; i<numUsers; ++i) {
-			User user = MainGame.getUser(i);
+			User user = MainGame.getInstance().getUser(i);
 			JLabel userN = new JLabel(user.getName());
 			JLabel userS = new JLabel(""+user.getScore()[round]);
 			players.add(userN);
@@ -44,7 +44,7 @@ public class ScorePanel extends JPanel {
 	
 	@Override
     public Dimension getPreferredSize() {
-        return Main.returnSizeForPanel();
+        return Main.getInstance().returnSizeForPanel();
     }
 
 }

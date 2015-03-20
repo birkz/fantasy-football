@@ -33,7 +33,7 @@ public class LeaguePanel extends JPanel {
 	
 	@Override
     public Dimension getPreferredSize() {
-        return Main.returnSizeForPanel();
+        return Main.getInstance().returnSizeForPanel();
     }
 
 }

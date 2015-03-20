@@ -4,14 +4,20 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.*;
+import backend.MainGame;
 
 public class Main {
 	
-	private static JFrame frame;
-	private static JPanel right;
-	private static JPanel change;
+	private static final Main instance = new Main();
+	private JFrame frame;
+	private JPanel right;
+	private JPanel change;
 	
-	public static void createAndShowGUI() {
+	public static Main getInstance() {
+		return instance;
+	}
+	
+	public void createAndShowGUI() {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(new StartPanel());
@@ -20,8 +26,8 @@ public class Main {
         frame.setVisible(true);
 	}
 	
-	public static void startGame(List<String> names) {
-		backend.MainGame.setNumUsers(names);
+	public void startGame(List<String> names) {
+		MainGame.getInstance().setNumUsers(names);
 		
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
@@ -66,7 +72,7 @@ public class Main {
         frame.validate();
 	}
 	
-	public static void restartFrame() {
+	public void restartFrame() {
 
 		setPanelAsScore();
 		
@@ -80,35 +86,35 @@ public class Main {
         frame.validate();
 	}
 	
-	public static void setPanelAsMarket() {
+	public void setPanelAsMarket() {
 		change.removeAll();
 		change.add(new MarketPanel());
 		change.setVisible(false);
 		change.setVisible(true);
 	}
 	
-	public static void setPanelAsScore() {
+	public void setPanelAsScore() {
 		change.removeAll();
 		change.add(new ScorePanel());
 		change.setVisible(false);
 		change.setVisible(true);
 	}
 	
-	public static void setPanelAsRoster() {
+	public void setPanelAsRoster() {
 		change.removeAll();
 		change.add(new RosterPanel());
 		change.setVisible(false);
 		change.setVisible(true);
 	}
 	
-	public static void setPanelAsLeague() {
+	public void setPanelAsLeague() {
 		change.removeAll();
 		change.add(new LeaguePanel());
 		change.setVisible(false);
 		change.setVisible(true);
 	}
 	
-	public static void setPanelAsFieldViewer() {
+	public void setPanelAsFieldViewer() {
 		BorderLayout layout = (BorderLayout) right.getLayout();
 		right.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 		right.add(new FieldViewerPanel(), BorderLayout.CENTER);
@@ -116,19 +122,19 @@ public class Main {
 		right.setVisible(true);
 	}
 	
+	public Dimension returnSizeForPanel() {
+		int height = frame.getSize().height-90;
+		int width = (frame.getSize().width/2)-20;
+		return new Dimension(width, height);
+	}
+	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run(){
-                createAndShowGUI();
+            	getInstance().createAndShowGUI();
             }
         });
-	}
-	
-	public static Dimension returnSizeForPanel() {
-		int height = frame.getSize().height-90;
-		int width = (frame.getSize().width/2)-20;
-		return new Dimension(width, height);
 	}
 }
 

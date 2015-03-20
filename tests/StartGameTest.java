@@ -15,11 +15,11 @@ public class StartGameTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		Main.createAndShowGUI();
+		Main.getInstance().createAndShowGUI();
 		List<String> names = new ArrayList<String>();
 		names.add("Jón");
 		names.add("Pétur");
-		Main.startGame(names);
+		Main.getInstance().startGame(names);
 	}
 
 	@AfterClass
@@ -28,8 +28,8 @@ public class StartGameTest {
 
 	@Test
 	public void testCreatedUsers() {
-		assertNotSame(backend.MainGame.getUser(0).getName(), "Pétur");
-		assertSame(backend.MainGame.getUser(1).getName(), "Pétur");
+		assertNotSame(backend.MainGame.getInstance().getUser(0).getName(), "Pétur");
+		assertSame(backend.MainGame.getInstance().getUser(1).getName(), "Pétur");
 	}
 
 }

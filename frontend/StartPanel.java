@@ -46,7 +46,7 @@ public class StartPanel extends JPanel {
 			 
             public void actionPerformed(ActionEvent e)
             {
-            	Main.startGame(names);
+            	Main.getInstance().startGame(names);
             }
         }); 
 		
