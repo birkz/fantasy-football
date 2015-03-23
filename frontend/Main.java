@@ -13,13 +13,16 @@ public class Main {
 	private JPanel right;
 	private JPanel change;
 	
+	private Main() {
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
 	public static Main getInstance() {
 		return instance;
 	}
 	
 	public void createAndShowGUI() {
-		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(new StartPanel());
 		frame.setMinimumSize(new Dimension(800,400));
 	    frame.setLocationRelativeTo(null);

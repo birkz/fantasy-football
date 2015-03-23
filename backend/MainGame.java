@@ -10,6 +10,10 @@ public class MainGame {
 	private int numUsers = 0;
 	private int currentUser = 0;
 	
+	private MainGame() {
+		
+	}
+	
 	public static MainGame getInstance() {
 		return game;
 	}
