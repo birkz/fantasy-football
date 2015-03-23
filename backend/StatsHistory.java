@@ -11,8 +11,8 @@ public class StatsHistory {
 	
 	public StatsHistory() {
 		this.allplayerscores = new ArrayList<ObjectScores>(150);
-		this.allrosterscores = new ArrayList<ObjectScores>(MainGame.getNumUsers());
-		this.alluserscores = new ArrayList<ObjectScores>(MainGame.getNumUsers());	
+		//this.allrosterscores = new ArrayList<ObjectScores>(MainGame.getNumUsers());
+		//this.alluserscores = new ArrayList<ObjectScores>(MainGame.getNumUsers());	
 	}
 	
 	
