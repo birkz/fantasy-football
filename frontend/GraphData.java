@@ -15,39 +15,37 @@ public class GraphData extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private final int numUsers;
-	private final Color[] col = {Color.red, Color.green, Color.blue, Color.CYAN};
-	private final int height;
-	private final int width;
+	private final Color[] col = {Color.red, Color.green, Color.blue, Color.CYAN, Color.DARK_GRAY,
+			Color.ORANGE, Color.PINK, Color.LIGHT_GRAY};
 
 	/**
 	 * Create the panel.
 	 */
 	public GraphData() {
-		this.numUsers = backend.MainGame.getNumUsers();
+		this.numUsers = backend.MainGame.getInstance().getNumUsers();
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		for (int i=0; i<numUsers; ++i) {
-			JLabel one = new JLabel(backend.MainGame.getUser(i).getName());
+			JLabel one = new JLabel(backend.MainGame.getInstance().getUser(i).getName());
 			one.setForeground (col[i]);
 			add(one);
 		}
-		height = 2*Main.getFrameSize().height/3;
-		width = Main.getFrameSize().width/2-40;
-		setSize(new Dimension(width, height));
 	}
 	
 	@Override
     public Dimension getPreferredSize() {
-        return new Dimension(width, height);
+        return Main.getInstance().returnSizeForPanel();
     }
 	
 	@Override 
 	public void paintComponent(Graphics g) {
+		int width = this.getWidth();
+		int height = this.getHeight();
 		super.paintComponent(g);
 		Graphics2D draw = (Graphics2D) g;
 		int[] score;
-		int round = backend.MainGame.getRound();
+		int round = backend.MainGame.getInstance().getRound();
 		for(int i=0; i<numUsers; ++i) {
-			score = backend.MainGame.getUser(i).getScore();
+			score = backend.MainGame.getInstance().getUser(i).getScore();
 			draw.setColor(col[i]);
 	        draw.setStroke(new BasicStroke(2));
 	        GeneralPath line = new GeneralPath();

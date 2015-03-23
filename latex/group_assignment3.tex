@@ -441,7 +441,16 @@ public void nameChange() {
 	assertEquals("user2", user.getName());
 }
 \end{lstlisting}
-\subsubsection*{Test 3: Make sure to put it in the bank}
+\subsubsection*{Test 3: What's the score coach?}
+This test checks if the score from round 0 goes to index 0
+\begin{lstlisting}
+public void scoreTest() {
+	user.addScore(0, 100);
+	assertEquals(100, user.getScore()[0]);
+}
+\end{lstlisting}
+
+\subsubsection*{Test 4: Make sure to put it in the bank}
 \begin{lstlisting}
 @Test
 public void testChangingMoney() {
@@ -784,5 +793,113 @@ public class Roster {
 }
 \end{lstlisting}
 
+\newpage\subsection*{User.java}
+\begin{lstlisting}
+public class User {
+	private int money;
+	private int[] score;
+	private String name;
+	private Roster roster;
+	
+	public User(String name) {
+		this.name = name;
+		this.score = new int[10];
+		this.roster = new Roster();
+		this.money = 0;
+	}
+	
+	public boolean changeMoney(int dMoney) {
+		if(this.money + dMoney <0) return false;
+		this.money += dMoney;
+		return true;
+	}
+	
+	public int getMoney(){
+		return this.money;
+	}
+	
+	public Roster getRoster() {
+		return this.roster;
+	}
 
+	// Usage: i = getScore()
+	// Before:Nothing.
+	// After: i is an array of scores of this user
+	public int[] getScore() {
+		return this.score;
+	}
+	
+	public void addScore(int round, int score) {
+		this.score[round] += score;
+		addScoreToStats();
+	}
+	
+	public void addScoreToStats() {
+		
+	}
+	
+	public void changeName(String newname) {
+		this.name = newname;
+	}
+	
+	public String getName() {
+		return name;
+	}
+}
+\end{lstlisting}
+
+\newpage
+\subsection*{UserTest.java}
+\begin{lstlisting}
+import static org.junit.Assert.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import backend.User;
+
+public class UserTest {
+	private static User user;
+	@BeforeClass
+	public static void setUp() throws Exception {
+		user = new User("user1");
+	}
+
+	@AfterClass
+	public static void tearDown() throws Exception {
+		user = null;
+	}
+	@Test
+	public void checkRoster() {
+		assertNotNull(user.getRoster());
+	}
+	@Test 
+	public void nameChange() {
+		user.changeName("user2");
+		assertEquals("user2", user.getName());
+	}
+	@Test
+	public void scoreTest() {
+		user.addScore(0, 100);
+		assertEquals(100, user.getScore()[0]);
+	}
+	@Test
+	public void testChangingMoney() {
+		
+		// Money is 0
+		assertTrue(user.changeMoney(1000));
+		assertEquals(1000, user.getMoney());
+		
+		// Money is 1000
+		int curr = user.getMoney();
+		assertTrue(user.changeMoney(-900));
+		assertEquals(curr-900, user.getMoney());
+		
+		// Money is 100
+		curr = user.getMoney();
+		assertFalse(user.changeMoney(-200));
+		assertEquals(curr, user.getMoney());
+		// Money is still 100 cause you can't get negative money
+	}
+}
+\end{lstlisting}
 \end{document}

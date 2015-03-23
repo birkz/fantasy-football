@@ -2,9 +2,12 @@ package frontend;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -15,28 +18,33 @@ public class FieldViewerPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final int height;
-	private final int width;
 	private final JPanel[] players = new JPanel[]{new JPanel(), new JPanel(), new JPanel(), new JPanel()};
 
 	/**
 	 * Create the panel.
 	 */
 	public FieldViewerPanel() {
-		height = Main.getFrameSize().height/3;
-		width = (Main.getFrameSize().width/2)-40;
-		//setBackground(Color.GREEN);
-		setLayout(new GridLayout(4, 1, 5, 5));
+		setLayout(new GridLayout(8, 1, 5, 5));
 		AddToPanels();
 		for(int i=0; i<players.length; ++i) {
-			players[i].setBackground(Color.GREEN);
+			JPanel fillup = new JPanel();
+			fillup.setOpaque(false);
+			add(fillup);
+			players[i].setOpaque(false);
 			add(players[i]);
 		}
 	}
 	
 	@Override
+	public void paintComponent(Graphics g) {
+		Dimension size = Main.getInstance().returnSizeForPanel();
+		Image img = new ImageIcon("src/Images/field.png").getImage();
+		g.drawImage(img, 0, 0, size.width, size.height, null);
+	}
+	
+	@Override
     public Dimension getPreferredSize() {
-        return new Dimension(width, height);
+        return Main.getInstance().returnSizeForPanel();
     }
 	
 	public void AddToPanels() {
@@ -58,6 +66,7 @@ public class FieldViewerPanel extends JPanel {
 		label.setBorder(BorderFactory.createLineBorder(Color.black));
 		label.setPreferredSize(new Dimension(100, 50));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setOpaque(true);
 		return label;
 	}
 
