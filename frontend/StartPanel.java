@@ -93,7 +93,7 @@ public class StartPanel extends JPanel {
 	}
 	
 	/*
-	 * Handle events when a player is added, by pressing "ENTER" og by clicking the "Add Player" button.
+	 * Handle events when a player is added, by pressing "ENTER" and by clicking the "Add Player" button.
 	 */
 	private void addPlayerHandler() {
 		String name = field.getText();
