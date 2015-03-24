@@ -17,8 +17,8 @@ public class StartGameTest {
 	public static void setUpBeforeClass() throws Exception {
 		Main.getInstance().createAndShowGUI();
 		List<String> names = new ArrayList<String>();
-		names.add("Jón");
-		names.add("Pétur");
+		names.add("JÃ³n");
+		names.add("PÃ©tur");
 		Main.getInstance().startGame(names);
 	}
 
@@ -28,8 +28,8 @@ public class StartGameTest {
 
 	@Test
 	public void testCreatedUsers() {
-		assertNotSame(backend.MainGame.getInstance().getUser(0).getName(), "Pétur");
-		assertSame(backend.MainGame.getInstance().getUser(1).getName(), "Pétur");
+		assertNotSame(backend.MainGame.getInstance().getUser(0).getName(), "PÃ©tur");
+		assertSame(backend.MainGame.getInstance().getUser(1).getName(), "PÃ©tur");
 	}
 
 }

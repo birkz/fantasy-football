@@ -117,7 +117,6 @@ public class StartPanel extends JPanel {
 	/*
 	 *  Keeps the center panel nicely looking
 	 */
-	
 	private void changeCenter() {
 		int size = names.size();
 		center.removeAll();
