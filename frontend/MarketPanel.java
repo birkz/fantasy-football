@@ -2,9 +2,9 @@ package frontend;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class MarketPanel extends JPanel {
 
@@ -19,7 +19,17 @@ public class MarketPanel extends JPanel {
 	 */
 	public MarketPanel() {
 		setBackground(Color.ORANGE);
-		setLayout(new GridLayout(8, 1, 5, 5));
+		JPanel main = new JPanel();
+		main.add(createEntry());
+		main.add(createEntry());
+		JScrollPane scroll = new JScrollPane(main);
+		add(scroll);
+	}
+	
+	public JPanel createEntry() {
+		JPanel panel = new JPanel();
+		panel.add(new JLabel("hello what´s up?"));
+		return panel;
 	}
 	
 	@Override
