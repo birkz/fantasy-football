@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.*;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.swing.*;
 
 public class MarketPanel extends JPanel {
@@ -72,7 +73,7 @@ public class MarketPanel extends JPanel {
 	
 	public JPanel createEntry() {
 		JPanel panel = new JPanel();
-		panel.add(new JLabel("hello what´s up?"));
+		panel.add(new JLabel("hello what's up?"));
 		return panel;
 	}
 	
@@ -84,7 +85,8 @@ public class MarketPanel extends JPanel {
 		final JComboBox<String> cb = new JComboBox<String>(choose);
 		cb.setVisible(true);
 		cb.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
+            @SuppressWarnings("unchecked")
+			public void actionPerformed(ActionEvent e)
             {
             	JComboBox<String> cb = (JComboBox<String>) e.getSource();
                 String chosen = (String)cb.getSelectedItem();
