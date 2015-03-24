@@ -12,7 +12,7 @@ public class MainGame {
 	private int currentUser = 0;
 	
 	private MainGame() {
-		//stats = new StatsHistory();
+		stats = new StatsHistory();
 	}
 	
 	public static MainGame getInstance() {
@@ -24,7 +24,7 @@ public class MainGame {
 		users = new User[num];
 		for(int i=0; i<num; ++i) {
 			users[numUsers] = new User(names.get(i));
-			//stats.createUserScoreObject(users[numUsers]); // Is this nasty?
+			stats.createUserScoreObject(users[numUsers]); // Is this nasty?
 			numUsers++;
 		}
 	}

@@ -13,8 +13,8 @@ public class StatsHistory {
 	
 	public StatsHistory() {
 		this.allplayerscores = new ArrayList<ObjectScores>(150);
-		this.allrosterscores = new ArrayList<ObjectScores>(MainGame.getInstance().getNumUsers());
-		this.alluserscores = new ArrayList<ObjectScores>(MainGame.getInstance().getNumUsers());
+		this.allrosterscores = new ArrayList<ObjectScores>();
+		this.alluserscores = new ArrayList<ObjectScores>();
 	}
 	
 	public void createUserScoreObject(Object user) {
@@ -22,7 +22,7 @@ public class StatsHistory {
 	}
 	
 	public List<Integer> getUserScores(User user) throws InvalidUser {
-		for(ObjectScores temp : this.allrosterscores) {
+		for(ObjectScores temp : this.alluserscores) {
 			if(((User)temp.getObject()).equals(user)) {
 				return temp.getScores();
 			}
@@ -32,7 +32,7 @@ public class StatsHistory {
 	
 	public void addScoreToUser(User user, int score) throws InvalidUser {
 		boolean userfound = false;
-		for(ObjectScores temp : this.allrosterscores) {
+		for(ObjectScores temp : this.alluserscores) {
 			if(((User)temp.getObject()).equals(user)) {
 				temp.addScore(score);
 				userfound = true;
