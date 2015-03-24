@@ -5,13 +5,14 @@ import java.util.List;
 public class MainGame {
 
 	private static final MainGame game = new MainGame();
+	private StatsHistory stats;
 	private User[] users;
 	private int round = 0;
 	private int numUsers = 0;
 	private int currentUser = 0;
 	
 	private MainGame() {
-		
+		stats = new StatsHistory();
 	}
 	
 	public static MainGame getInstance() {
@@ -23,6 +24,7 @@ public class MainGame {
 		users = new User[num];
 		for(int i=0; i<num; ++i) {
 			users[numUsers] = new User(names.get(i));
+			stats.createUserScoreObject(users[numUsers]); // Is this nasty?
 			numUsers++;
 		}
 	}
@@ -53,6 +55,10 @@ public class MainGame {
 	
 	public User getUser(int i) {
 		return users[i];
+	}
+	
+	public StatsHistory getStatsHistory() {
+		return stats;
 	}
 	
 	public User getCurrentUser() {
