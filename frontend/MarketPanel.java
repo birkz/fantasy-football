@@ -47,39 +47,36 @@ public class MarketPanel extends JPanel {
 		field = new JTextField();
 		field.setPreferredSize(new Dimension(150, 30));
 		field.addKeyListener(new KeyListener(){
-        	
+			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode() == 10) {
-					System.out.println(field.getText() );
-					player_choice = field.getText();
-					refreshJTable();
-				}
-			}
-
-			@Override
-			public void keyTyped(KeyEvent e) {
 				char ch = e.getKeyChar();
+				//System.out.println("Char: "+ch);
 				
 				if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')){
 					System.out.println(field.getText()+e.getKeyChar());
 					player_choice = field.getText()+e.getKeyChar();
 					refreshJTable();
 				// If backspace is pressed
-				} else if(e.getKeyCode() == 0) {
+				} else if(e.getKeyCode() == 8) {
 					if(field.getText().length() >= 1){
-						System.out.println(field.getText().substring(0, field.getText().length()));
-						player_choice = field.getText().substring(0, field.getText().length());
-						refreshJTable();
+						System.out.println(field.getText().substring(0, field.getText().length()-1));
+						player_choice = field.getText().substring(0, field.getText().length()-1);
+					} else {
+						player_choice = "";
 					}
+					
+					refreshJTable();
 				} else {
 					System.out.println("Strange button: "+e.getKeyCode()+field.getText());
 				}
 			}
 
 			@Override
-			public void keyPressed(KeyEvent arg0) {
-				// TODO Auto-generated method stub
+			public void keyTyped(KeyEvent e) {/* Not used*/}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
 				
 			}
 			
@@ -140,6 +137,7 @@ public class MarketPanel extends JPanel {
 	 * Draw JTable
 	 */
 	private void refreshJTable(){
+		
 		if(jtable!=null){
 			remove(jtable);
 			remove(scroll);
@@ -152,13 +150,13 @@ public class MarketPanel extends JPanel {
 		add(scroll);
 		add(scroll, BorderLayout.CENTER);
 		
-		JButton search = new JButton("SEARCH");
+		/*JButton search = new JButton("SEARCH");
 		search.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
             	System.out.println(e.getActionCommand() );
             }
-        }); 
+        }); */
 
 		List<TeamMock> teams = this.league.getTeams();
 		Iterator<TeamMock> teams_it = teams.iterator();
@@ -170,16 +168,16 @@ public class MarketPanel extends JPanel {
 		}
 
 		List<String> pos_choices = Arrays.asList("Any","Goalkeeper","Defender","Midfielder","Striker");
-		
 		wrapper = new JPanel();
 		wrapper.add(field);
 		wrapper.add(addComboBox(team_choices,"Team"));
 		wrapper.add(addComboBox(pos_choices,"Pos"));
-		wrapper.add(search);
+		//wrapper.add(search);
 		
 		add(wrapper, BorderLayout.NORTH);
 		
 		field.requestFocus();
+		
 		validate();
 	}
 	
