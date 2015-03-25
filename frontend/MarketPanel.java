@@ -75,9 +75,22 @@ public class MarketPanel extends JPanel {
 
 		List<String> choices2 = Arrays.asList("Goalkeeper","Defender","Midfielder","Striker");
 		
-		String[] columnNames = {"Player","Team","Position","Price"};
+		String[] columnNames = {"Player","Team","Position","Price",""};
 		Object[][] data = getTableData();
 		JTable table = new JTable(data, columnNames);
+		
+		Action buy_or_sell_action = new AbstractAction()
+		{
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e)
+		    {
+		        // Buy (or sell) player 
+		    }
+		};
+		
+		ButtonColumn buttonColumn = new ButtonColumn(table, buy_or_sell_action, 4);
+		buttonColumn.setMnemonic(KeyEvent.VK_B);
 		
 		table.setEnabled(false);
 		table.getColumn("Player").setPreferredWidth(250);
@@ -125,7 +138,7 @@ public class MarketPanel extends JPanel {
     }
 	
 	private Object[][] getTableData(){
-		Object[][] data = new Object[180][4];
+		Object[][] data = new Object[180][5];
 		
 		List<TeamMock> teams = this.league.getTeams();
 		Iterator<TeamMock> teams_it = teams.iterator();
@@ -145,6 +158,7 @@ public class MarketPanel extends JPanel {
 				data[i][1] = team.getName();
 				data[i][2] = player.getPositionName();
 				data[i][3] = player.getPrice();
+				data[i][4] = "Buy";
 				i++;
 			}
 			
