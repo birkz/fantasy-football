@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tests.InvalidUser;
+import tests.InvalidPlayer;
+import tests.PlayerInterface;
 
 public class StatsHistory {
 	
@@ -13,12 +15,29 @@ public class StatsHistory {
 	
 	public StatsHistory() {
 		this.allplayerscores = new ArrayList<ObjectScores>(150);
-		this.allrosterscores = new ArrayList<ObjectScores>();
 		this.alluserscores = new ArrayList<ObjectScores>();
+		this.allrosterscores = new ArrayList<ObjectScores>();
+	}
+	
+	public void createPlayerScoreObject(Object player) {
+		this.allplayerscores.add(new ObjectScores(player));
 	}
 	
 	public void createUserScoreObject(Object user) {
 		this.alluserscores.add(new ObjectScores(user));
+	}
+	
+	public void createRosterScoreObject(Object roster) {
+		this.allrosterscores.add(new ObjectScores(roster));
+	}
+	
+	public List<Integer> getPlayerScores(PlayerInterface player) throws InvalidPlayer {
+		for(ObjectScores temp : this.allplayerscores) {
+			if(((PlayerInterface)temp.getObject()).equals(player)) {
+				return temp.getScores();
+			}
+		}
+		throw new InvalidPlayer(player.getName() + " is not a player");
 	}
 	
 	public List<Integer> getUserScores(User user) throws InvalidUser {
