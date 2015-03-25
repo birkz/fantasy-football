@@ -18,7 +18,7 @@ public class StartPanel extends JPanel {
 	 * Constants
 	 */
 	private static final long serialVersionUID = 1L;
-	private final int MAX_USERS = 24;
+	private final int MAX_USERS = 8;
 	private final int MIN_USERS = 1;
 	
 	/**
