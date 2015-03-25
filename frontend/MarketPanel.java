@@ -27,6 +27,8 @@ public class MarketPanel extends JPanel {
 	private String team_choice;
 	private String pos_choice;
 	private JTable jtable;
+	private JScrollPane scroll;
+	private JPanel wrapper;
 
 	/**
 	 * Create the panel.
@@ -37,6 +39,8 @@ public class MarketPanel extends JPanel {
 		this.team_choice = "Any";
 		this.pos_choice = "Any";
 		this.jtable = null;
+		this.scroll = null;
+		this.wrapper = null;
 		
 		setLayout(new BorderLayout(0, 0)); 
 		
@@ -123,9 +127,12 @@ public class MarketPanel extends JPanel {
 	 * Draw JTable
 	 */
 	private void refreshJTable(){
-		jtable = getJTable(player_choice,team_choice,pos_choice);
-		JScrollPane scroll = new JScrollPane(jtable);
+		if(jtable!=null) remove(jtable);
 		removeAll();
+		
+		jtable = getJTable(player_choice,team_choice,pos_choice);
+		
+		scroll = new JScrollPane(jtable);
 		add(scroll);
 		add(scroll, BorderLayout.CENTER);
 		
@@ -148,12 +155,15 @@ public class MarketPanel extends JPanel {
 
 		List<String> pos_choices = Arrays.asList("Any","Goalkeeper","Defender","Midfielder","Striker");
 		
-		JPanel wrapper = new JPanel();
-		wrapper.add(field);
-		wrapper.add(addComboBox(team_choices,"Team"));
-		wrapper.add(addComboBox(pos_choices,"Pos"));
-		wrapper.add(search);
-		
+		if(wrapper==null){
+			wrapper = new JPanel();
+			wrapper.add(field);
+			wrapper.add(addComboBox(team_choices,"Team"));
+			wrapper.add(addComboBox(pos_choices,"Pos"));
+			wrapper.add(search);
+			
+			
+		}
 		add(wrapper, BorderLayout.NORTH);
 		
 		setVisible(false);
@@ -204,7 +214,7 @@ public class MarketPanel extends JPanel {
 		List<TeamMock> teams = this.league.getTeams();
 		Iterator<TeamMock> teams_it = teams.iterator();
 		
-		// i is the player counter
+		// i is the counter for matched players
 		int i = 0;
 		
 		while(teams_it.hasNext()){
@@ -216,7 +226,7 @@ public class MarketPanel extends JPanel {
 				PlayerMock player = (PlayerMock) players_it.next();
 				
 				// Filter
-				System.out.println(team.getName()+"  "+player.getName()+"  "+player_choice+"  "+player.getPositionName()+"  "+this.pos_choice);
+				//System.out.println(team.getName()+"  "+player.getName()+"  "+player_choice+"  "+player.getPositionName()+"  "+this.pos_choice);
 				if(!player.getName().toLowerCase().contains(player_choice)){
 					continue;
 				}
