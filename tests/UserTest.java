@@ -66,7 +66,4 @@ public class UserTest {
 		assertEquals(curr, user.getMoney());
 		// Money is still 100 cause you can't get negative money
 	}
-	
-	
-
 }

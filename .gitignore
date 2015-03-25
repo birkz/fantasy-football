@@ -22,3 +22,6 @@ hs_err_pid*
 *.out
 *.synctex.gz
 *.dvi
+
+# Enough of the thumbs
+Thumbs.db

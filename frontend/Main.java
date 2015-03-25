@@ -91,7 +91,7 @@ public class Main {
 	
 	public void setPanelAsMarket() {
 		change.removeAll();
-		change.add(new MarketPanel());
+		change.add(new JScrollPane(new MarketPanel()));
 		change.setVisible(false);
 		change.setVisible(true);
 	}

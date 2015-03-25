@@ -20,12 +20,11 @@ public class MainGame {
 	}
 	
 	public void setNumUsers(List<String> names) {
-		int num = names.size();
-		users = new User[num];
-		for(int i=0; i<num; ++i) {
-			users[numUsers] = new User(names.get(i));
-			stats.createUserScoreObject(users[numUsers]); // Is this nasty?
-			numUsers++;
+		numUsers = names.size();
+		users = new User[numUsers];
+		for(int i=0; i<numUsers; ++i) {
+			users[i] = new User(names.get(i));
+			stats.createUserScoreObject(users[i]); // Is this nasty?
 		}
 	}
 	
@@ -34,7 +33,7 @@ public class MainGame {
 	}
 	
 	public void nextUser() {
-		if(currentUser<numUsers && round<10)currentUser++;
+		if(currentUser<numUsers && round<10) currentUser++;
 		if(currentUser==numUsers && round<10) {
 			currentUser = 0;
 			//here call for simulation of a round
