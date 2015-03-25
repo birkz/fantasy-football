@@ -10,13 +10,13 @@ import tests.PlayerInterface;
 public class StatsHistory {
 	
 	List<ObjectScores> allplayerscores;
-	List<ObjectScores> allrosterscores;
 	List<ObjectScores> alluserscores;
+	List<ObjectScores> allrosterscores; // Er þörf fyrir roster scores? Er það ekki sama og userscores?
 	
 	public StatsHistory() {
 		this.allplayerscores = new ArrayList<ObjectScores>(150);
 		this.alluserscores = new ArrayList<ObjectScores>();
-		this.allrosterscores = new ArrayList<ObjectScores>();
+		// this.allrosterscores = new ArrayList<ObjectScores>(); 
 	}
 	
 	public void createPlayerScoreObject(Object player) {
@@ -47,6 +47,17 @@ public class StatsHistory {
 			}
 		}
 		throw new InvalidUser(user.getName() + " is not a user");
+	}
+	
+	public void addScoreToPlayer(PlayerInterface player, int score) throws InvalidPlayer{
+		boolean playerfound = false;
+		for(ObjectScores temp : this.allrosterscores) {
+			if(((PlayerInterface)temp.getObject()).equals(player)) {
+				temp.addScore(score);
+				playerfound = true;
+			}
+		}
+		if(!playerfound) throw new InvalidPlayer("Player" + player.getName() + " was not found");
 	}
 	
 	public void addScoreToUser(User user, int score) throws InvalidUser {
