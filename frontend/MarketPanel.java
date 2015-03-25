@@ -59,9 +59,22 @@ public class MarketPanel extends JPanel {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
-				System.out.println(field.getText()+e.getKeyChar());
-				player_choice = field.getText()+e.getKeyChar();
-				refreshJTable();
+				char ch = e.getKeyChar();
+				
+				if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')){
+					System.out.println(field.getText()+e.getKeyChar());
+					player_choice = field.getText()+e.getKeyChar();
+					refreshJTable();
+				// If backspace is pressed
+				} else if(e.getKeyCode() == 0) {
+					if(field.getText().length() >= 1){
+						System.out.println(field.getText().substring(0, field.getText().length()));
+						player_choice = field.getText().substring(0, field.getText().length());
+						refreshJTable();
+					}
+				} else {
+					System.out.println("Strange button: "+e.getKeyCode()+field.getText());
+				}
 			}
 
 			@Override
@@ -127,8 +140,11 @@ public class MarketPanel extends JPanel {
 	 * Draw JTable
 	 */
 	private void refreshJTable(){
-		if(jtable!=null) remove(jtable);
-		removeAll();
+		if(jtable!=null){
+			remove(jtable);
+			remove(scroll);
+			remove(wrapper);
+		}
 		
 		jtable = getJTable(player_choice,team_choice,pos_choice);
 		
@@ -155,19 +171,16 @@ public class MarketPanel extends JPanel {
 
 		List<String> pos_choices = Arrays.asList("Any","Goalkeeper","Defender","Midfielder","Striker");
 		
-		if(wrapper==null){
-			wrapper = new JPanel();
-			wrapper.add(field);
-			wrapper.add(addComboBox(team_choices,"Team"));
-			wrapper.add(addComboBox(pos_choices,"Pos"));
-			wrapper.add(search);
-			
-			
-		}
+		wrapper = new JPanel();
+		wrapper.add(field);
+		wrapper.add(addComboBox(team_choices,"Team"));
+		wrapper.add(addComboBox(pos_choices,"Pos"));
+		wrapper.add(search);
+		
 		add(wrapper, BorderLayout.NORTH);
 		
-		setVisible(false);
-		setVisible(true);
+		field.requestFocus();
+		validate();
 	}
 	
 	/*
@@ -227,7 +240,7 @@ public class MarketPanel extends JPanel {
 				
 				// Filter
 				//System.out.println(team.getName()+"  "+player.getName()+"  "+player_choice+"  "+player.getPositionName()+"  "+this.pos_choice);
-				if(!player.getName().toLowerCase().contains(player_choice)){
+				if(!player.getName().toLowerCase().contains(player_choice.toLowerCase())){
 					continue;
 				}
 				
