@@ -68,7 +68,7 @@ public class MarketPanel extends JPanel {
 					player_choice = text;
 					refreshJTable();
 				// If backspace is pressed
-				} else if(e.getKeyCode() == 8) {
+				} else if(e.getKeyCode() == 8 || e.getKeyCode() == 32) {
 					if(text.length() >= 1){
 						System.out.println(text.substring(0, text.length()));
 						player_choice = text.substring(0, text.length());
