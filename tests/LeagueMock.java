@@ -7,6 +7,9 @@ public class LeagueMock {
 
 	private List<TeamMock> teams;
 	
+	/*
+	 * Constructor
+	 */
 	public LeagueMock(){
 		
 		this.teams = new ArrayList<TeamMock>(10);
@@ -21,5 +24,12 @@ public class LeagueMock {
 		this.teams.add(new TeamMock(8));
 		this.teams.add(new TeamMock(9));
 		
+	}
+	
+	/*
+	 * Returns all teams in a list.
+	 */
+	public List<TeamMock> getTeams(){
+		return this.teams;
 	}
 }

@@ -1,14 +1,21 @@
 package tests;
 
+import java.util.Random;
+
 public class PlayerMock implements PlayerInterface {
 
 	private String name;
+	private String team;
 	private PositionMock position;
 	private String positionName;
+	private Double price;
 	
 	public PlayerMock(String name, String pos){
 		this.name = name;
 		this.positionName = pos;
+		
+		Random randomno = new Random();
+		this.price = randomno.nextDouble()*1000;
 	}
 	
 	public String getName(){
@@ -32,6 +39,14 @@ public class PlayerMock implements PlayerInterface {
 	@Override
 	public PositionMock getPosition() {
 		return position;
+	}
+	
+	public String getTeam() {
+		return this.team;
+	}
+	
+	public Double getPrice() {
+		return this.price;
 	}
 	
 }
