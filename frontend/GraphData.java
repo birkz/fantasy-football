@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
-
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,8 +20,6 @@ public class GraphData extends JPanel {
 			 new Color(255,140,0), new Color(124,252,0), new Color(0,100,0), new Color(0,255,255), new Color(32,178,170),
 			 new Color(100,149,237), new Color(138,43,226), new Color(139,0,139), new Color(255,182,193), new Color(139,69,19),
 			 new Color(210,105,30), new Color(244,164,96), new Color(188,143,143), new Color(127,255,212), new Color(0,100,0)};
-			// = {Color.red, Color.green, Color.blue, Color.CYAN, Color.DARK_GRAY,
-			//Color.ORANGE, Color.PINK, Color.LIGHT_GRAY, new Color(250, 50, 250)};
 
 	/**
 	 * Create the panel.
@@ -50,6 +47,16 @@ public class GraphData extends JPanel {
 		Graphics2D draw = (Graphics2D) g;
 		int[] score;
 		int round = backend.MainGame.getInstance().getRound();
+		int highscore = 10;
+		for(int i=0; i<numUsers; ++i) {
+			if(round>0) {
+				int x = backend.MainGame.getInstance().getUser(i).getScore()[round-1]/10;
+				if(highscore < x) {
+					highscore = x;
+				}
+			}
+		}
+		int maxscore = (int) (Math.ceil(((double)highscore) /10)*10.0);
 		for(int i=0; i<numUsers; ++i) {
 			score = backend.MainGame.getInstance().getUser(i).getScore();
 			draw.setColor(col[i]);
@@ -57,7 +64,7 @@ public class GraphData extends JPanel {
 	        GeneralPath line = new GeneralPath();
 	        line.moveTo(0, height);
 	        for(int k=0; k<round; ++k) {
-	        	line.lineTo((k+1)*width/10, height-(score[k]));
+	        	line.lineTo((k+1)*width/10, height-height/maxscore*(score[k]/10));
 	        }
 	        draw.draw(line);
 		}
