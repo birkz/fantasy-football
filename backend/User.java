@@ -14,11 +14,11 @@ public class User {
 	private Roster roster;
 	private final Boolean TEST = true;
 	
-	public User(String name, MainGame game, int id) throws InvalidPlayer, InvalidPosition {
+	public User(String name, int id) throws InvalidPlayer, InvalidPosition {
 		this.id = id;
 		this.name = name;
 		this.score = new int[10];
-		this.roster = new Roster(game);
+		this.roster = new Roster();
 		if (this.TEST && this.id==0) addRandomPlayersToRoster();
 		this.money = 10000;
 	}

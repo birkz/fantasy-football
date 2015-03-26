@@ -28,11 +28,13 @@ public class NameChange extends JPanel {
 		
 		JLabel money = new JLabel("  Money: "+backend.MainGame.getInstance().getCurrentUser().getMoney());
 		JLabel score = new JLabel("  Score: "+backend.MainGame.getInstance().getCurrentUser().getTotalScore());
+		JLabel round = new JLabel("  Round: "+backend.MainGame.getInstance().getRound());
 		
 		add(explain);
 		add(name);
 		add(money);
 		add(score);
+		add(round);
 	}
 	
 	public void changeName(String newName) {

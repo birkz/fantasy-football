@@ -17,6 +17,24 @@ import backend.Roster;
 import tests.PlayerInterface;
 
 public class RosterTest {
+	/*
+	 * Constants
+	 */
+	private final int MAX_GOALKEEPERS = res.Contants.MAX_GOALKEEPERS;
+	//private final int MAX_GOALKEEPERS_ON_FIELD = res.Contants.MAX_GOALKEEPERS_ON_FIELD;
+	
+	private final int MAX_DEFENDERS = res.Contants.MAX_DEFENDERS;
+	//private final int MAX_DEFENDERS_ON_FIELD = res.Contants.MAX_DEFENDERS_ON_FIELD;
+	
+	private final int MAX_MIDFIELDERS = res.Contants.MAX_MIDFIELDERS;
+	//private final int MAX_MIDFIELDERS_ON_FIELD = res.Contants.MAX_MIDFIELDERS_ON_FIELD;
+	
+	private final int MAX_STRIKERS = res.Contants.MAX_STRIKERS;
+	//private final int MAX_STRIKERS_ON_FIELD = res.Contants.MAX_STRIKERS_ON_FIELD;
+	
+	/*
+	 * Instance variables
+	 */
 	private static Roster roster;
 	public static Map<String, PlayerMock> players;
 	private static List<String> goalkeepers;
@@ -27,6 +45,7 @@ public class RosterTest {
 	private static PlayerMock goalkeeper1;
 	private static PlayerMock goalkeeper2;
 	private static PlayerMock goalkeeper3;
+	private static PlayerMock goalkeeper4;
 	
 	private static PlayerMock invalid_pos1;
 	
@@ -51,6 +70,7 @@ public class RosterTest {
 		goalkeeper1 = new PlayerMock("Goalkeeper 1","Goalkeeper");
 		goalkeeper2 = new PlayerMock("Goalkeeper 2","Goalkeeper");
 		goalkeeper3 = new PlayerMock("Goalkeeper 3","Goalkeeper");
+		goalkeeper4 = new PlayerMock("Goalkeeper 4","Goalkeeper");
 		
 		invalid_pos1 = new PlayerMock("Football fan","Couch potato");
 		
@@ -74,6 +94,7 @@ public class RosterTest {
 		players.put(goalkeeper1.getName(),goalkeeper1);
 		players.put(goalkeeper2.getName(),goalkeeper2);
 		players.put(goalkeeper3.getName(),goalkeeper3);
+		players.put(goalkeeper4.getName(),goalkeeper4);
 		
 		players.put(invalid_pos1.getName(),invalid_pos1);
 		
@@ -96,11 +117,11 @@ public class RosterTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		roster = new Roster(null);
-		goalkeepers = new ArrayList<String>(2);
-		defenders = new ArrayList<String>(5);
-		midfielders = new ArrayList<String>(5);
-		strikers = new ArrayList<String>(3);
+		roster = new Roster();
+		goalkeepers = new ArrayList<String>(MAX_GOALKEEPERS);
+		defenders = new ArrayList<String>(MAX_DEFENDERS);
+		midfielders = new ArrayList<String>(MAX_MIDFIELDERS);
+		strikers = new ArrayList<String>(MAX_STRIKERS);
 	}
 	
 	@After
@@ -142,8 +163,9 @@ public class RosterTest {
 			
 			while(player_iterator.hasNext()){
 				String expected_player = expected_player_iterator.next();
-				if(player_iterator.next().getName() != expected_player){
-					return -1;
+				PlayerInterface player = player_iterator.next();
+				if(!player.getName().equals(expected_player)){
+					throw new IllegalStateException("Player: "+player.getName()+" not the same as "+expected_player);
 				}
 				else{
 					matches++;
@@ -200,21 +222,26 @@ public class RosterTest {
 	@Test
 	public void testIfThreePlayers() throws InvalidPosition {
 		// Add the player "Goalkeeper 1" to the roster
-		roster.addPlayerToRoster(players.get("Goalkeeper 1"));
-		boolean add = roster.addPlayerToRoster(players.get("Goalkeeper 2"));
-		assertTrue(add);
-		add = roster.addPlayerToRoster(players.get("Goalkeeper 3"));
+		Integer i;
+		for(i = 1 ; i<MAX_GOALKEEPERS+1 ; i++){
+			System.out.println("Goalkeeper "+i);
+			boolean add = roster.addPlayerToRoster(players.get("Goalkeeper "+i));
+			assertTrue(add);
+		}
+		boolean add = roster.addPlayerToRoster(players.get("Goalkeeper "+i));
 		assertFalse(add);
 		
 		// Get the roster players
 		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
 		
 		// Create the expected outcome of the test
-		goalkeepers.add("Goalkeeper 1");
-		goalkeepers.add("Goalkeeper 2");
+		for(int j = 1 ; j<MAX_GOALKEEPERS+1 ; j++){
+			goalkeepers.add("Goalkeeper "+j);
+		}
+		
 		List<List<String>> excepted = new ArrayList<List<String>>(4) {{add(goalkeepers);add(defenders);add(midfielders);add(strikers);}};
 		
-		assertEquals(2,compareListsOfLists(excepted, actual));
+		assertEquals(3,compareListsOfLists(excepted, actual));
 	}
 	
 	// This test will check if we can successfully add 15 players (maximum allowed roster size) to the roster.

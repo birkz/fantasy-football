@@ -7,7 +7,7 @@ import tests.*;
 
 public class Roster {
 	private List<PlayerInterface> goalkeepers;
-	private List<PlayerInterface> goalkeeperOnField;
+	private List<PlayerInterface> goalkeepersOnField;
 	private List<PlayerInterface> defenders;
 	private List<PlayerInterface> defendersOnField;
 	private List<PlayerInterface> midfielders;
@@ -16,10 +16,26 @@ public class Roster {
 	private List<PlayerInterface> strikersOnField;
 	// private PlayerInterface captain;
 	private int numberOfPlayersOnField;
-	public Roster(MainGame game){
+	
+	/*
+	 * Constants
+	 */
+	private final int MAX_GOALKEEPERS = res.Contants.MAX_GOALKEEPERS;
+	private final int MAX_GOALKEEPERS_ON_FIELD = res.Contants.MAX_GOALKEEPERS_ON_FIELD;
+	
+	private final int MAX_DEFENDERS = res.Contants.MAX_DEFENDERS;
+	private final int MAX_DEFENDERS_ON_FIELD = res.Contants.MAX_DEFENDERS_ON_FIELD;
+	
+	private final int MAX_MIDFIELDERS = res.Contants.MAX_MIDFIELDERS;
+	private final int MAX_MIDFIELDERS_ON_FIELD = res.Contants.MAX_MIDFIELDERS_ON_FIELD;
+	
+	private final int MAX_STRIKERS = res.Contants.MAX_STRIKERS;
+	private final int MAX_STRIKERS_ON_FIELD = res.Contants.MAX_STRIKERS_ON_FIELD;
+	
+	public Roster(){
 		this.numberOfPlayersOnField = 0;
 		this.goalkeepers = new ArrayList<PlayerInterface>(2);
-		this.goalkeeperOnField = new ArrayList<PlayerInterface>(1);
+		this.goalkeepersOnField = new ArrayList<PlayerInterface>(1);
 		this.defenders = new ArrayList<PlayerInterface>(5);
 		this.defendersOnField = new ArrayList<PlayerInterface>(5);
 		this.midfielders = new ArrayList<PlayerInterface>(5);
@@ -61,7 +77,7 @@ public class Roster {
 				boolean b = goalkeepers.remove(player);
 				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
 			}
-			goalkeeperOnField.remove(player);
+			goalkeepersOnField.remove(player);
 			numberOfPlayersOnField--;
 		} else if (posName.toLowerCase().equals("defender")){
 			if (removeFromRoster){
@@ -95,22 +111,27 @@ public class Roster {
 	//        "Defender", "Midfielder", or "Striker" then InvalidPosition exception is thrown.
 	public boolean addPlayerToRoster(PlayerInterface player) throws InvalidPosition{
 		String posName = player.getPositionName();
+		
 		if (posName.toLowerCase().equals("goalkeeper")){
-			if (this.goalkeepers.size() == 2) return false;
+			if (this.goalkeepers.size() == MAX_GOALKEEPERS) return false;
 			this.goalkeepers.add(player);
 			return true;
+			
 		} else if (posName.toLowerCase().equals("defender")){
-			if (this.defenders.size() == 5) return false;
+			if (this.defenders.size() == MAX_DEFENDERS) return false;
 			this.defenders.add(player);
 			return true;
+			
 		} else if (posName.toLowerCase().equals("midfielder")){
-			if (midfielders.size() == 5) return false;
+			if (midfielders.size() == MAX_MIDFIELDERS) return false;
 			this.midfielders.add(player);
 			return true;
+			
 		} else if (posName.toLowerCase().equals("striker")){
-			if (strikers.size() == 3) return false;
+			if (strikers.size() == MAX_STRIKERS) return false;
 			this.strikers.add(player);
 			return true;
+			
 		} else {
 			throw new InvalidPosition(posName+" is not a valid position. Only Goalkeeper, Defender, Midfielder, and Striker are valid.");
 		}
@@ -123,33 +144,39 @@ public class Roster {
 	//        and b will be returned as true. Otherwise b will be returned as false.
 	public boolean addPlayerToField(PlayerInterface player) throws InvalidPlayer{
 		if (this.goalkeepers.contains(player)){
-			if (this.goalkeeperOnField.size() >= 1 || this.numberOfPlayersOnField >= 11){
+			if (this.goalkeepersOnField.size() >= MAX_GOALKEEPERS_ON_FIELD || this.goalkeepersOnField.contains(player)
+					|| this.numberOfPlayersOnField >= 11){
 				return false;
 			}
-			this.goalkeeperOnField.add(player);
+			this.goalkeepersOnField.add(player);
 			this.numberOfPlayersOnField++;
 			return true;
+			
 		} else if (this.defenders.contains(player)){
-			if (this.defendersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
+			if (this.defendersOnField.size() >= MAX_DEFENDERS_ON_FIELD || this.defendersOnField.contains(player)
+					|| this.numberOfPlayersOnField >= 11){
 				return false;
 			}
 			this.defendersOnField.add(player);
 			this.numberOfPlayersOnField++;
 			return true;
+			
 		} else if (this.midfielders.contains(player)){
-			if (this.midfieldersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
+			if (this.midfieldersOnField.size() >= MAX_MIDFIELDERS_ON_FIELD || this.midfieldersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
 				return false;
 			}
 			this.midfieldersOnField.add(player);
 			this.numberOfPlayersOnField++;
 			return true;
+			
 		} else if (this.strikers.contains(player)){
-			if (this.strikersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
+			if (this.strikersOnField.size() >= MAX_STRIKERS_ON_FIELD || this.strikersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
 				return false;
 			}
 			this.strikersOnField.add(player);
 			this.numberOfPlayersOnField++;
 			return true;
+			
 		}
 		throw new tests.InvalidPlayer(player.getName()+" is currently not in the roster.");
 	}
@@ -173,7 +200,7 @@ public class Roster {
 	 */
 	public List<List<PlayerInterface>> getPlayersOnField(){
 		List<List<PlayerInterface>> names = new ArrayList<List<PlayerInterface>>(4);
-		names.add(goalkeeperOnField);
+		names.add(goalkeepersOnField);
 		names.add(defendersOnField);
 		names.add(midfieldersOnField);
 		names.add(strikersOnField);
@@ -205,7 +232,7 @@ public class Roster {
 		String pos = player.getPositionName();
 		
 		if (pos.toLowerCase().equals("goalkeeper")){
-			return goalkeeperOnField.contains(player);
+			return goalkeepersOnField.contains(player);
 		} else if (pos.toLowerCase().equals("defender")){
 			return defendersOnField.contains(player);
 		} else if (pos.toLowerCase().equals("midfielder")){

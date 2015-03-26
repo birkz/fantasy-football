@@ -10,7 +10,7 @@ public class MainGame {
 	private static final MainGame game = new MainGame();
 	private StatsHistory stats;
 	private User[] users;
-	private int round = 0;
+	private int round = 1;
 	private int numUsers = 0;
 	private int currentUser = 0;
 	
@@ -26,7 +26,7 @@ public class MainGame {
 		numUsers = names.size();
 		users = new User[numUsers];
 		for(int i=0; i<numUsers; ++i) {
-			users[i] = new User(names.get(i),game,i);
+			users[i] = new User(names.get(i),i);
 			stats.createUserScoreObject(users[i]);
 		}
 	}

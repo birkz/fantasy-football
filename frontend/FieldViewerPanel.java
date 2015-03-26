@@ -47,7 +47,7 @@ public class FieldViewerPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		Dimension size = Main.getInstance().returnSizeForPanel();
-		Image img = new ImageIcon("src/Images/field.png").getImage();
+		Image img = new ImageIcon("src/res/Images/field.png").getImage();
 		g.drawImage(img, 0, 0, size.width, size.height, null);
 	}
 	
