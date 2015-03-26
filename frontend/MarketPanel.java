@@ -52,7 +52,7 @@ public class MarketPanel extends JPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				
-				System.out.println("Before: "+text+"  After: "+local_text);
+				System.out.println("Before: "+text+"  After: "+field.getText());
 				// If enter or backspace is pressed, update is forced
 				if(e.getKeyCode() != 8 && e.getKeyCode() != 10){
 					char ch = e.getKeyChar();
