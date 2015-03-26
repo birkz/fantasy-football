@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import tests.InvalidPlayer;
 import tests.InvalidPosition;
@@ -35,7 +37,7 @@ public class RosterPanel extends JPanel {
 	 */
 	public RosterPanel(MainGame game) throws InvalidPlayer, InvalidPosition {
 		
-		setLayout(new GridLayout(8, 1, 5, 5));
+		setLayout(new GridLayout(4, 1, 5, 10));
 		
 		this.roster = game.getCurrentUser().getRoster();
 		
@@ -44,35 +46,48 @@ public class RosterPanel extends JPanel {
 			addRandomPlayersToRoster();
 		}
 		
-		String[] columnNames = {"Name", "Price"};
-		
 		List<List<PlayerInterface>> roster_lists = this.roster.getPlayersInRoster();
 		Iterator<List<PlayerInterface>> roster_lists_it = roster_lists.iterator();
 		String[] Labels = new String[]{"Goalkeepers", "Defenders", "Midfielders", "Forwarders"};
 		int j = 0;
 		
 		while(roster_lists_it.hasNext()){
-			JLabel label = new JLabel(Labels[j++]);
-			add(label);
+			String[] columnNames = {Labels[j], "Price", "On Field"};
 			
 			List<PlayerInterface> players = roster_lists_it.next();
 			
 			int player_size = players.size();
-			Object[][] data = new Object[player_size][2];
+			Object[][] data = new Object[player_size][3];
 			
 			Iterator<PlayerInterface> player_it = players.iterator();
 			int i = 0;
+			
 			while(player_it.hasNext()){
 				PlayerInterface player = player_it.next();
 				data[i][0] = player.getName();
 				data[i][1] = player.getPrice();
+				data[i][2] = Boolean.FALSE;
 				i++;
 			}
 			
-			JTable table = new JTable(data, columnNames);
+			DefaultTableModel dtm = new DefaultTableModel(data,columnNames);
+			JTable table = new JTable(dtm){
+				private static final long serialVersionUID = 1L;
+
+				@Override
+			    public boolean isCellEditable(int row, int column) {
+			    	//all cells false except column 3
+				    return column == 2;
+			    }
+			};
+			
 			table.setEnabled(true);
+			table.setFillsViewportHeight(true);
+			TableColumn tc = table.getColumnModel().getColumn(2);
+		    tc.setCellEditor(table.getDefaultEditor(Boolean.class));
+		    tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
 			JScrollPane scroll = new JScrollPane(table);
-			add(scroll);
+			add(scroll,j++);
 		}
 		
 	}
@@ -88,5 +103,12 @@ public class RosterPanel extends JPanel {
 		this.roster.addPlayerToRoster(new PlayerMock("Sigmar", "Defender"));
 		this.roster.addPlayerToRoster(new PlayerMock("Harpa", "Midfielder"));
 		this.roster.addPlayerToRoster(new PlayerMock("Klemmi", "Midfielder"));
+		this.roster.addPlayerToRoster(new PlayerMock("Mikki Mús", "Striker"));
+		this.roster.addPlayerToRoster(new PlayerMock("Andrés Önd", "Striker"));
+		this.roster.addPlayerToRoster(new PlayerMock("Guffi", "Striker"));
+		this.roster.addPlayerToRoster(new PlayerMock("Amma Önd", "Midfielder"));
+		this.roster.addPlayerToRoster(new PlayerMock("Ripp", "Midfielder"));
+		this.roster.addPlayerToRoster(new PlayerMock("Rapp", "Midfielder"));
+		this.roster.addPlayerToRoster(new PlayerMock("Rupp", "Defender"));
 	}
 }
