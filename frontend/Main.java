@@ -3,7 +3,9 @@ package frontend;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
+
 import javax.swing.*;
+
 import backend.MainGame;
 
 public class Main {

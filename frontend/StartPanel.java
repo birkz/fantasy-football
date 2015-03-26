@@ -2,6 +2,7 @@ package frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,8 +39,8 @@ public class StartPanel extends JPanel {
 		field = new JTextField();
 		field.setPreferredSize(new Dimension(200, 30));
 		
-		addPlayer = new JButton("Add Player");
-		//Add action listener to button
+		addPlayer = DesignedButton.orangeStyle("  ADD PLAYER  ", Font.PLAIN, 20);
+
         addPlayer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
