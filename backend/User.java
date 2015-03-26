@@ -108,6 +108,5 @@ public class User {
 		this.roster.addPlayerToField(player9);
 		this.roster.addPlayerToField(player10);
 		this.roster.addPlayerToField(player11);
-		this.roster.addPlayerToField(player12);
 	}
 }

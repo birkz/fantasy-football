@@ -109,7 +109,7 @@ public class Main {
 		change.setVisible(true);
 	}
 	
-	public void setPanelAsRoster() {
+	public void setPanelAsRoster() throws InvalidPlayer {
 		change.removeAll();
 		change.add(new RosterPanel());
 		change.setVisible(false);

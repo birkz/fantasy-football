@@ -150,9 +150,8 @@ public class Roster {
 			this.strikersOnField.add(player);
 			this.numberOfPlayersOnField++;
 			return true;
-		} else {
-			throw new tests.InvalidPlayer(player.getName()+" is currently not in the roster.");
 		}
+		throw new tests.InvalidPlayer(player.getName()+" is currently not in the roster.");
 	}
 	
 	// Usage: getPlayersInRoster()
@@ -179,5 +178,41 @@ public class Roster {
 		names.add(midfieldersOnField);
 		names.add(strikersOnField);
 		return names;
+	}
+	
+	/*
+	 * Is this player in roster?
+	 */
+	public boolean isInRoster(PlayerInterface player) throws InvalidPlayer{
+		String pos = player.getPositionName();
+		
+		if (pos.toLowerCase().equals("goalkeeper")){
+			return goalkeepers.contains(player);
+		} else if (pos.toLowerCase().equals("defender")){
+			return defenders.contains(player);
+		} else if (pos.toLowerCase().equals("midfielder")){
+			return midfielders.contains(player);
+		} else if (pos.toLowerCase().equals("striker")){
+			return strikers.contains(player);
+		}
+		throw new tests.InvalidPlayer(pos+" is a invalid position for a player.");
+	}
+	
+	/*
+	 * Is this player on the field?
+	 */
+	public boolean isOnField(PlayerInterface player) throws InvalidPlayer{
+		String pos = player.getPositionName();
+		
+		if (pos.toLowerCase().equals("goalkeeper")){
+			return goalkeeperOnField.contains(player);
+		} else if (pos.toLowerCase().equals("defender")){
+			return defendersOnField.contains(player);
+		} else if (pos.toLowerCase().equals("midfielder")){
+			return midfieldersOnField.contains(player);
+		} else if (pos.toLowerCase().equals("striker")){
+			return strikersOnField.contains(player);
+		}
+		throw new tests.InvalidPlayer(pos+" is a invalid position for a player.");
 	}
 }
