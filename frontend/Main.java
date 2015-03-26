@@ -95,7 +95,7 @@ public class Main {
         frame.validate();
 	}
 	
-	public void setPanelAsMarket() {
+	public void setPanelAsMarket() throws InvalidPlayer {
 		change.removeAll();
 		change.add(new JScrollPane(new MarketPanel()));
 		change.setVisible(false);

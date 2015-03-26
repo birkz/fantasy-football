@@ -11,7 +11,12 @@ public class HandleButtons implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String arg = e.getActionCommand();
 		
-		if(arg == "Market") Main.getInstance().setPanelAsMarket();
+		if(arg == "Market")
+			try {
+				Main.getInstance().setPanelAsMarket();
+			} catch (InvalidPlayer e2) {
+				e2.printStackTrace();
+			}
 		
 		if(arg == "Scoreboard") Main.getInstance().setPanelAsScore();
 		

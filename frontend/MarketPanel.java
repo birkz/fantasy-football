@@ -10,9 +10,9 @@ import java.util.List;
 
 import javax.swing.*;
 
+import tests.InvalidPlayer;
 import tests.LeagueMock;
 import tests.PlayerInterface;
-import tests.PlayerMock;
 import tests.TeamMock;
 
 public class MarketPanel extends JPanel {
@@ -22,7 +22,7 @@ public class MarketPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JTextField field = new JTextField();
-	private LeagueMock league = new LeagueMock();
+	private static LeagueMock league = new LeagueMock();
 	private String player_choice;
 	private String team_choice;
 	private String pos_choice;
@@ -30,11 +30,16 @@ public class MarketPanel extends JPanel {
 	private JScrollPane scroll;
 	private JPanel wrapper;
 	private String text;
+	
+	public static LeagueMock getLeague(){
+		return league;
+	}
 
 	/**
 	 * Create the panel.
+	 * @throws InvalidPlayer 
 	 */
-	public MarketPanel() {
+	public MarketPanel() throws InvalidPlayer {
 		this.player_choice = "";
 		this.team_choice = "Any";
 		this.pos_choice = "Any";
@@ -56,8 +61,10 @@ public class MarketPanel extends JPanel {
 				// If enter or backspace is pressed, update is forced
 				if(e.getKeyCode() != 8 && e.getKeyCode() != 10){
 					char ch = e.getKeyChar();
-					if((ch < 'a' || ch > 'z') && (ch < 'A' || ch > 'Z') && (ch < '0' || ch > '9') && e.getKeyCode() != 32)
+					if((ch < 'a' || ch > 'z') && (ch < 'A' || ch > 'Z') && (ch < '0' || ch > '9') && e.getKeyCode() != 32){
+						e.consume();
 						return;
+					}
 					
 					String local_text = field.getText();
 					
@@ -76,7 +83,11 @@ public class MarketPanel extends JPanel {
 					text = field.getText();
 					player_choice = text;
 				}
-				refreshJTable();
+				try {
+					refreshJTable();
+				} catch (InvalidPlayer e1) {
+					e1.printStackTrace();
+				}
 			}
 
 			@Override
@@ -113,12 +124,20 @@ public class MarketPanel extends JPanel {
                 if(flag.equals("Team") && !team_choice.equals(chosen)){
                 	System.out.println("TEAM: "+chosen);
                 	team_choice = chosen;
-                	refreshJTable();
+                	try {
+						refreshJTable();
+					} catch (InvalidPlayer e1) {
+						e1.printStackTrace();
+					}
                 	
                 } else if(flag.equals("Pos") && !pos_choice.equals(chosen)){
                 	System.out.println("POS: "+chosen);
                 	pos_choice = chosen;
-                	refreshJTable();
+                	try {
+						refreshJTable();
+					} catch (InvalidPlayer e1) {
+						e1.printStackTrace();
+					}
                 }
                 
             }
@@ -134,7 +153,7 @@ public class MarketPanel extends JPanel {
 	/*
 	 * Draw JTable
 	 */
-	private void refreshJTable(){
+	private void refreshJTable() throws InvalidPlayer{
 		
 		if(jtable!=null){
 			remove(jtable);
@@ -172,7 +191,7 @@ public class MarketPanel extends JPanel {
 	/*
 	 * get a new JTable object
 	 */
-	private JTable getJTable(String player_searched, String team_searched, String pos_searched){
+	private JTable getJTable(String player_searched, String team_searched, String pos_searched) throws InvalidPlayer{
 		String[] columnNames = {"Player","Team","Position","Price",""};
 		Object[][] data = getTableData();
 		JTable table = new JTable(data, columnNames){
@@ -207,7 +226,7 @@ public class MarketPanel extends JPanel {
 	/*
 	 *  get the table data given some filters
 	 */
-	private Object[][] getTableData(){
+	private Object[][] getTableData() throws InvalidPlayer{
 		Object[][] data = new Object[180][5];
 		
 		List<TeamMock> teams = this.league.getTeams();
@@ -222,7 +241,7 @@ public class MarketPanel extends JPanel {
 			Iterator<PlayerInterface> players_it = players_in_team.iterator();
 			
 			while(players_it.hasNext()){
-				PlayerMock player = (PlayerMock) players_it.next();
+				PlayerInterface player = players_it.next();
 				
 				// Filter
 				//System.out.println(team.getName()+"  "+player.getName()+"  "+player_choice+"  "+player.getPositionName()+"  "+this.pos_choice);
@@ -243,7 +262,20 @@ public class MarketPanel extends JPanel {
 				data[i][1] = team.getName();
 				data[i][2] = player.getPositionName();
 				data[i][3] = player.getPrice();
-				data[i][4] = "Buy";
+				if(player.getName().equals("Svampur Sveinsson")){
+					System.out.println("Svampur hér!");
+					System.out.println(backend.MainGame.getInstance().getCurrentUser().getRoster().getPlayersInRoster().get(0).get(0).equals(player));
+					System.out.println(backend.MainGame.getInstance().getCurrentUser().getRoster().getPlayersInRoster().get(0).get(0).getName().equals(player.getName()));
+				}
+				
+				if(backend.MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player)){
+					data[i][4] = "Sell";
+				} else {
+					data[i][4] = "Buy";
+					if(player.getName().equals("Svampur Sveinsson")){
+						System.out.println("Svampur hér líka!");
+					}
+				}
 				i++;
 			}
 			

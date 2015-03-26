@@ -391,4 +391,15 @@ public class RosterTest {
 		roster.removePlayerFromField(players.get("Defender 2"));
 		assertEquals(0,roster.getNumberOfPlayersOnField());
 	}
+	
+	// This test will test the isInRoster function.
+	@Test
+	public void testIsInRoster() throws InvalidPosition, InvalidPlayer{
+		roster.addPlayerToRoster(players.get("Goalkeeper 1"));
+		roster.addPlayerToRoster(players.get("Defender 2"));
+		assertTrue(roster.isInRoster(players.get("Goalkeeper 1")));
+		assertFalse(roster.isInRoster(players.get("Goalkeeper 2")));
+		assertTrue(roster.isInRoster(players.get("Defender 2")));
+		
+	}
 }
