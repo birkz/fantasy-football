@@ -2,6 +2,9 @@ package backend;
 
 import java.util.List;
 
+import tests.InvalidPlayer;
+import tests.InvalidPosition;
+
 public class MainGame {
 
 	private static final MainGame game = new MainGame();
@@ -19,7 +22,7 @@ public class MainGame {
 		return game;
 	}
 	
-	public void setNumUsers(List<String> names) {
+	public void setNumUsers(List<String> names) throws InvalidPlayer, InvalidPosition {
 		numUsers = names.size();
 		users = new User[numUsers];
 		for(int i=0; i<numUsers; ++i) {

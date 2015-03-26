@@ -26,8 +26,13 @@ public class NameChange extends JPanel {
 		name.setPreferredSize(new Dimension(200, 30));
 		addChangeListener();
 		
+		JLabel money = new JLabel("  Money: "+backend.MainGame.getInstance().getCurrentUser().getMoney());
+		JLabel score = new JLabel("  Score: "+backend.MainGame.getInstance().getCurrentUser().getTotalScore());
+		
 		add(explain);
 		add(name);
+		add(money);
+		add(score);
 	}
 	
 	public void changeName(String newName) {

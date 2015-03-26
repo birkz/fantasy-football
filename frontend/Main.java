@@ -35,7 +35,7 @@ public class Main {
         frame.setVisible(true);
 	}
 	
-	public void startGame(List<String> names) {
+	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition {
 		game.setNumUsers(names);
 		
 		HandleButtons actionList = new HandleButtons();
@@ -109,9 +109,9 @@ public class Main {
 		change.setVisible(true);
 	}
 	
-	public void setPanelAsRoster() throws InvalidPlayer, InvalidPosition {
+	public void setPanelAsRoster() {
 		change.removeAll();
-		change.add(new RosterPanel(this.game));
+		change.add(new RosterPanel());
 		change.setVisible(false);
 		change.setVisible(true);
 	}

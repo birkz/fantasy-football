@@ -16,10 +16,7 @@ public class Roster {
 	private List<PlayerInterface> strikersOnField;
 	// private PlayerInterface captain;
 	private int numberOfPlayersOnField;
-	private final MainGame game;
-	
 	public Roster(MainGame game){
-		this.game = game;
 		this.numberOfPlayersOnField = 0;
 		this.goalkeepers = new ArrayList<PlayerInterface>(2);
 		this.goalkeeperOnField = new ArrayList<PlayerInterface>(1);
@@ -169,6 +166,18 @@ public class Roster {
 		names.add(defenders);
 		names.add(midfielders);
 		names.add(strikers);
+		return names;
+	}
+	
+	/*
+	 * Get on players on the field
+	 */
+	public List<List<PlayerInterface>> getPlayersOnField(){
+		List<List<PlayerInterface>> names = new ArrayList<List<PlayerInterface>>(4);
+		names.add(goalkeeperOnField);
+		names.add(defendersOnField);
+		names.add(midfieldersOnField);
+		names.add(strikersOnField);
 		return names;
 	}
 }
