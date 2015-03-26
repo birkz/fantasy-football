@@ -52,22 +52,31 @@ public class MarketPanel extends JPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				
-				System.out.println(text+"  "+field.getText());
-				// Workaround for the head slamming problem
-				if(field.getText().equals(text) || field.getText().length() > text.length()+2 ||
-						field.getText().length() < text.length()-2 || field.getText().length() == text.length()){
-					return;
-				}
-				
-				char ch = e.getKeyChar();
-				
-				if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || e.getKeyCode() == 8 || e.getKeyCode() == 32){
+				System.out.println("Before: "+text+"  After: "+local_text);
+				// If enter or backspace is pressed, update is forced
+				if(e.getKeyCode() != 8 && e.getKeyCode() != 10){
+					char ch = e.getKeyChar();
+					if((ch < 'a' || ch > 'z') && (ch < 'A' || ch > 'Z') && (ch < '0' || ch > '9') && e.getKeyCode() != 32)
+						return;
+					
+					String local_text = field.getText();
+					
+					if(local_text.equals(text)){
+						return;
+					} else if(local_text.length() >= text.length()+2 ){
+						text += local_text.substring(text.length(),text.length()+1);
+						return;
+					} else if(local_text.length() <= text.length()-2 ){
+						text = text.substring(0,text.length()-1);
+						return;
+					}
+					text = local_text;
+					player_choice = local_text;
+				} else {
 					text = field.getText();
 					player_choice = text;
-					refreshJTable();
-				} else {
-					System.out.println("Strange button: "+e.getKeyCode()+". Will not refresh results.");
 				}
+				refreshJTable();
 			}
 
 			@Override
