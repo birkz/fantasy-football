@@ -13,6 +13,9 @@ import java.util.List;
 
 import javax.swing.*;
 
+import tests.InvalidPlayer;
+import tests.InvalidPosition;
+
 public class StartPanel extends JPanel {
 
 	/**
@@ -75,7 +78,12 @@ public class StartPanel extends JPanel {
 			 
             public void actionPerformed(ActionEvent e)
             {
-            	Main.getInstance().startGame(names);
+            	try {
+					Main.getInstance().startGame(names);
+				} catch (InvalidPlayer | InvalidPosition e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         }); 
 		
