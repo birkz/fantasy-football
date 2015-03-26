@@ -16,8 +16,10 @@ public class Roster {
 	private List<PlayerInterface> strikersOnField;
 	// private PlayerInterface captain;
 	private int numberOfPlayersOnField;
+	private final MainGame game;
 	
-	public Roster(){
+	public Roster(MainGame game){
+		this.game = game;
 		this.numberOfPlayersOnField = 0;
 		this.goalkeepers = new ArrayList<PlayerInterface>(2);
 		this.goalkeeperOnField = new ArrayList<PlayerInterface>(1);

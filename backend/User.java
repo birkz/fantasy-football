@@ -2,16 +2,20 @@ package backend;
 
 public class User {
 
+	private int id;
 	private int money;
 	private int[] score;
 	private String name;
 	private Roster roster;
+	private final MainGame game;
 	
-	public User(String name) {
+	public User(String name, MainGame game, int id) {
+		this.id = id;
 		this.name = name;
 		this.score = new int[10];
-		this.roster = new Roster();
+		this.roster = new Roster(game);
 		this.money = 0;
+		this.game = game;
 	}
 	
 	public boolean changeMoney(int dMoney) {

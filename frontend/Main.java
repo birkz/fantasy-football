@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.swing.*;
 
+import tests.InvalidPlayer;
+import tests.InvalidPosition;
 import backend.MainGame;
 
 public class Main {
@@ -14,8 +16,10 @@ public class Main {
 	private JFrame frame;
 	private JPanel right;
 	private JPanel change;
+	private MainGame game;
 	
 	private Main() {
+		this.game = MainGame.getInstance();
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -32,7 +36,7 @@ public class Main {
 	}
 	
 	public void startGame(List<String> names) {
-		MainGame.getInstance().setNumUsers(names);
+		game.setNumUsers(names);
 		
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
@@ -105,9 +109,9 @@ public class Main {
 		change.setVisible(true);
 	}
 	
-	public void setPanelAsRoster() {
+	public void setPanelAsRoster() throws InvalidPlayer, InvalidPosition {
 		change.removeAll();
-		change.add(new RosterPanel());
+		change.add(new RosterPanel(this.game));
 		change.setVisible(false);
 		change.setVisible(true);
 	}

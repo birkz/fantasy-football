@@ -3,6 +3,9 @@ package frontend;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import tests.InvalidPlayer;
+import tests.InvalidPosition;
+
 public class HandleButtons implements ActionListener{
 
 	@Override
@@ -13,7 +16,14 @@ public class HandleButtons implements ActionListener{
 		
 		if(arg == "Scoreboard") Main.getInstance().setPanelAsScore();
 		
-		if(arg == "Roster") Main.getInstance().setPanelAsRoster();
+		if(arg == "Roster")
+			try {
+				Main.getInstance().setPanelAsRoster();
+			} catch (InvalidPlayer e1) {
+				e1.printStackTrace();
+			} catch (InvalidPosition e1) {
+				e1.printStackTrace();
+			}
 		
 		if(arg == "League") Main.getInstance().setPanelAsLeague();
 		

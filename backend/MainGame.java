@@ -23,8 +23,8 @@ public class MainGame {
 		numUsers = names.size();
 		users = new User[numUsers];
 		for(int i=0; i<numUsers; ++i) {
-			users[i] = new User(names.get(i));
-			stats.createUserScoreObject(users[i]); // Is this nasty?
+			users[i] = new User(names.get(i),game,i);
+			stats.createUserScoreObject(users[i]);
 		}
 	}
 	

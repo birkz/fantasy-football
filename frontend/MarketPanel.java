@@ -89,12 +89,6 @@ public class MarketPanel extends JPanel {
 		refreshJTable();
 	}
 	
-	public JPanel createEntry() {
-		JPanel panel = new JPanel();
-		panel.add(new JLabel("hello what's up?"));
-		return panel;
-	}
-	
 	private JComboBox<String> addComboBox(List<String> choices, String flag) {
 		String[] choose = new String[choices.size()];
 		for(int i=0; i<choices.size(); ++i) {
@@ -151,16 +145,7 @@ public class MarketPanel extends JPanel {
 		jtable = getJTable(player_choice,team_choice,pos_choice);
 		
 		scroll = new JScrollPane(jtable);
-		add(scroll);
 		add(scroll, BorderLayout.CENTER);
-		
-		/*JButton search = new JButton("SEARCH");
-		search.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-            	System.out.println(e.getActionCommand() );
-            }
-        }); */
 
 		List<TeamMock> teams = this.league.getTeams();
 		Iterator<TeamMock> teams_it = teams.iterator();
@@ -176,7 +161,6 @@ public class MarketPanel extends JPanel {
 		wrapper.add(field);
 		wrapper.add(addComboBox(team_choices,"Team"));
 		wrapper.add(addComboBox(pos_choices,"Pos"));
-		//wrapper.add(search);
 		
 		add(wrapper, BorderLayout.NORTH);
 		

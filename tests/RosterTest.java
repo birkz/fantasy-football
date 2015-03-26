@@ -96,7 +96,7 @@ public class RosterTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		roster = new Roster();
+		roster = new Roster(null);
 		goalkeepers = new ArrayList<String>(2);
 		defenders = new ArrayList<String>(5);
 		midfielders = new ArrayList<String>(5);

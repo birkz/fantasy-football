@@ -17,7 +17,7 @@ public class UserTest {
 	
 	@BeforeClass
 	public static void setUp() throws Exception {
-		user = new User("user1");
+		user = new User("user1", null, 0);
 	}
 
 	@AfterClass
