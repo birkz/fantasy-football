@@ -69,7 +69,7 @@ public class StartPanel extends JPanel {
 			
 		});
         
-		startGame = new JButton("Start Game");
+		startGame = DesignedButton.orangeStyle("  START GAME  ", Font.PLAIN, 20);
 		//Add action listener to button
 		startGame.addActionListener(new ActionListener() {
 			 
