@@ -22,7 +22,7 @@ public class MarketPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JTextField field = new JTextField();
-	private LeagueMock league;
+	private LeagueMock league = new LeagueMock();
 	private String player_choice;
 	private String team_choice;
 	private String pos_choice;
@@ -35,7 +35,6 @@ public class MarketPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public MarketPanel() {
-		this.league = new LeagueMock();
 		this.player_choice = "";
 		this.team_choice = "Any";
 		this.pos_choice = "Any";
@@ -50,48 +49,32 @@ public class MarketPanel extends JPanel {
 		field.setFocusable( true );
 		field.addKeyListener(new KeyListener(){
 			
-			
 			@Override
 			public void keyReleased(KeyEvent e) {
+				
 				System.out.println(text+"  "+field.getText());
 				// Workaround for the head slamming problem
-				if(field.getText().equals(text) || field.getText().length() > text.length()+2 || field.getText().length() < text.length()-2){
-					e.consume();
+				if(field.getText().equals(text) || field.getText().length() > text.length()+2 ||
+						field.getText().length() < text.length()-2 || field.getText().length() == text.length()){
 					return;
 				}
-				text = field.getText();
-				char ch = e.getKeyChar();
-				//System.out.println("Char: "+ch);
 				
-				if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')){
-					//System.out.println(text);
+				char ch = e.getKeyChar();
+				
+				if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || e.getKeyCode() == 8 || e.getKeyCode() == 32){
+					text = field.getText();
 					player_choice = text;
 					refreshJTable();
-				// If backspace is pressed
-				} else if(e.getKeyCode() == 8 || e.getKeyCode() == 32) {
-					if(text.length() >= 1){
-						System.out.println(text.substring(0, text.length()));
-						player_choice = text.substring(0, text.length());
-					} else {
-						player_choice = "";
-						
-					}
-					
-					refreshJTable();
 				} else {
-					System.out.println("Strange button: "+e.getKeyCode()+"  "+text);
+					System.out.println("Strange button: "+e.getKeyCode()+". Will not refresh results.");
 				}
 			}
 
 			@Override
-			public void keyTyped(KeyEvent e) {
-			}
+			public void keyTyped(KeyEvent e) {/* Not used */}
 			
 			@Override
-			public void keyPressed(KeyEvent e) {
-				
-			}
-			
+			public void keyPressed(KeyEvent e) {/* Not used */}
 		});
 		
 		refreshJTable();

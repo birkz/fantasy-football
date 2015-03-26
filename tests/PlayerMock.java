@@ -8,14 +8,15 @@ public class PlayerMock implements PlayerInterface {
 	private String team;
 	private PositionMock position;
 	private String positionName;
-	private Double price;
+	private Integer price;
 	
 	public PlayerMock(String name, String pos){
 		this.name = name;
 		this.positionName = pos;
 		
 		Random randomno = new Random();
-		this.price = randomno.nextDouble()*1000;
+		Double price = randomno.nextDouble()*1000;
+		this.price = price.intValue();
 	}
 	
 	public String getName(){
@@ -45,7 +46,7 @@ public class PlayerMock implements PlayerInterface {
 		return this.team;
 	}
 	
-	public Double getPrice() {
+	public Integer getPrice() {
 		return this.price;
 	}
 	
