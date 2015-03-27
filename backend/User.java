@@ -22,7 +22,7 @@ public class User {
 		this.score = new int[10];
 		this.roster = new Roster();
 		if (this.TEST && this.id==0) addRandomPlayersToRoster();
-		this.money = 10000;
+		this.money = 2000;
 	}
 	
 	public boolean changeMoney(int dMoney) {

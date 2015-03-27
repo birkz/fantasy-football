@@ -13,7 +13,7 @@ public class HandleButtons implements ActionListener{
 		
 		if(arg == "Market")
 			try {
-				Main.getInstance().setPanelAsMarket();
+				Main.getInstance().setPanelAsMarket(null, 0);
 			} catch (InvalidPlayer e2) {
 				e2.printStackTrace();
 			}

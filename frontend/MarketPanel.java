@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.*;
 
 import tests.InvalidPlayer;
+import tests.InvalidPosition;
 import tests.LeagueMock;
 import tests.PlayerInterface;
 import tests.TeamMock;
@@ -22,14 +23,16 @@ public class MarketPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JTextField field = new JTextField();
+	// Þetta static er bara til bráðabirgða
 	private static LeagueMock league = new LeagueMock();
 	private String player_choice;
 	private String team_choice;
 	private String pos_choice;
 	private JTable jtable;
-	private JScrollPane scroll;
+	private JScrollPane scroll = null;
 	private JPanel wrapper;
 	private String text;
+	private List<PlayerInterface> results;
 	
 	public static LeagueMock getLeague(){
 		return league;
@@ -39,12 +42,24 @@ public class MarketPanel extends JPanel {
 	 * Create the panel.
 	 * @throws InvalidPlayer 
 	 */
-	public MarketPanel() throws InvalidPlayer {
+	public MarketPanel(JScrollPane scroll, int value) throws InvalidPlayer {
 		this.player_choice = "";
 		this.team_choice = "Any";
 		this.pos_choice = "Any";
 		this.jtable = null;
-		this.scroll = null;
+		if(scroll!=null){
+			this.scroll = scroll;
+			Runnable doScroll = new Runnable() {
+	             public void run() {
+	            	 scroll.getVerticalScrollBar().setValue(value);
+	             }
+	        };
+			SwingUtilities.invokeLater(doScroll);
+		}
+		else{
+			this.scroll = new JScrollPane(jtable);
+		}
+		
 		this.wrapper = null;
 		this.text = "";
 		
@@ -157,16 +172,21 @@ public class MarketPanel extends JPanel {
 		
 		if(jtable!=null){
 			remove(jtable);
-			remove(scroll);
+			//remove(scroll);
 			remove(wrapper);
 		}
 		
 		jtable = getJTable(player_choice,team_choice,pos_choice);
 		
-		scroll = new JScrollPane(jtable);
+		// scroll = new JScrollPane(jtable);
+		jtable.invalidate();
+		scroll.getViewport().add(jtable);
+		scroll.validate();
+		scroll.repaint();
+		
 		add(scroll, BorderLayout.CENTER);
 
-		List<TeamMock> teams = this.league.getTeams();
+		List<TeamMock> teams = MarketPanel.league.getTeams();
 		Iterator<TeamMock> teams_it = teams.iterator();
 		List<String> team_choices = new ArrayList<String>();
 		team_choices.add("Any");
@@ -214,7 +234,42 @@ public class MarketPanel extends JPanel {
 
 			public void actionPerformed(ActionEvent e)
 		    {
-		        // Buy (or sell) player 
+				System.out.println("You pressed "+table.getValueAt(Integer.parseInt(e.getActionCommand()), 4));
+		        PlayerInterface player = results.get(Integer.parseInt(e.getActionCommand()));
+	        	System.out.println(player.getName());
+	        	
+	        	Integer value = scroll.getVerticalScrollBar().getValue();
+	        	System.out.println(value);
+	        	
+		        if(table.getValueAt(Integer.parseInt(e.getActionCommand()), 4) == "Buy"){
+		        	try {
+						backend.MainGame.getInstance().getCurrentUser().getRoster().buyPlayer(player);
+					} catch (InvalidPosition e1) {
+						e1.printStackTrace();
+					} catch (InvalidPlayer e1) {
+						e1.printStackTrace();
+					}
+		        } else {
+		        	try {
+						backend.MainGame.getInstance().getCurrentUser().getRoster().sellPlayer(player);
+					} catch (InvalidPlayer e1) {
+						e1.printStackTrace();
+					}
+		        }
+		        try {
+		        	
+					/*scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+					scroll.getVerticalScrollBar().setVisibleAmount(0);
+					scroll.getVerticalScrollBar().setValue(scroll.getVerticalScrollBar().getMaximum());
+					scroll.getVerticalScrollBar().setValue(value);*/
+					//jtable.invalidate();
+					scroll.getViewport().add(jtable);
+					frontend.Main.getInstance().restartFrame();
+					frontend.Main.getInstance().setPanelAsMarket(scroll,value);
+					frontend.Main.getInstance().setPanelAsFieldViewer();
+				} catch (InvalidPlayer e1) {
+					e1.printStackTrace();
+				}
 		    }
 		};
 		
@@ -227,9 +282,11 @@ public class MarketPanel extends JPanel {
 	 *  get the table data given some filters
 	 */
 	private Object[][] getTableData() throws InvalidPlayer{
+		this.results = new ArrayList<PlayerInterface>(180);
+		
 		Object[][] data = new Object[180][5];
 		
-		List<TeamMock> teams = this.league.getTeams();
+		List<TeamMock> teams = MarketPanel.league.getTeams();
 		Iterator<TeamMock> teams_it = teams.iterator();
 		
 		// i is the counter for matched players
@@ -244,7 +301,6 @@ public class MarketPanel extends JPanel {
 				PlayerInterface player = players_it.next();
 				
 				// Filter
-				//System.out.println(team.getName()+"  "+player.getName()+"  "+player_choice+"  "+player.getPositionName()+"  "+this.pos_choice);
 				if(!player.getName().toLowerCase().contains(player_choice.toLowerCase())){
 					continue;
 				}
@@ -262,20 +318,13 @@ public class MarketPanel extends JPanel {
 				data[i][1] = team.getName();
 				data[i][2] = player.getPositionName();
 				data[i][3] = player.getPrice();
-				if(player.getName().equals("Svampur Sveinsson")){
-					System.out.println("Svampur hér!");
-					System.out.println(backend.MainGame.getInstance().getCurrentUser().getRoster().getPlayersInRoster().get(0).get(0).equals(player));
-					System.out.println(backend.MainGame.getInstance().getCurrentUser().getRoster().getPlayersInRoster().get(0).get(0).getName().equals(player.getName()));
-				}
 				
 				if(backend.MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player)){
 					data[i][4] = "Sell";
 				} else {
 					data[i][4] = "Buy";
-					if(player.getName().equals("Svampur Sveinsson")){
-						System.out.println("Svampur hér líka!");
-					}
 				}
+				results.add(player);
 				i++;
 			}
 			

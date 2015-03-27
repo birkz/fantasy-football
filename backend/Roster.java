@@ -54,15 +54,15 @@ public class Roster {
 	// Usage: removePlayerFromField(player)
 	// Before: player is of type PlayerInterface
 	// After: player has been taken of the field
-	public void removePlayerFromField(PlayerInterface player) throws InvalidPlayer{
-		removePlayer(player, false);
+	public boolean removePlayerFromField(PlayerInterface player) throws InvalidPlayer{
+		return removePlayer(player, false);
 	}
 	
 	// Usage: removePlayerFromRoster(player)
 	// Before: player is of type PlayerInterface
 	// After: player has been removed from the roster
-	public void removePlayerFromRoster(PlayerInterface player) throws InvalidPlayer{
-		removePlayer(player, true);
+	public boolean removePlayerFromRoster(PlayerInterface player) throws InvalidPlayer{
+		return removePlayer(player, true);
 	}
 	
 	// Usage: removePlayer(player,b)
@@ -70,37 +70,51 @@ public class Roster {
 	// After: If b is true then player will be removed both from the field and the roster. If
 	//        b is false then the player will only be removed from the field. If the player
 	//        provided is not in the roster then a InvalidPlayer exception will be thrown.
-	private void removePlayer(PlayerInterface player, boolean removeFromRoster) throws InvalidPlayer{
+	private boolean removePlayer(PlayerInterface player, boolean removeFromRoster){
 		String posName = player.getPositionName();
+		boolean b = true;
 		if (posName.toLowerCase().equals("goalkeeper")){
-			if (removeFromRoster){
-				boolean b = goalkeepers.remove(player);
-				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
+			if (removeFromRoster)
+				b = goalkeepers.remove(player);
+			if(b == true){
+				b = goalkeepersOnField.remove(player);
+				if(b == true) numberOfPlayersOnField--;
+				return true;
 			}
-			goalkeepersOnField.remove(player);
-			numberOfPlayersOnField--;
+			return b;
+			
 		} else if (posName.toLowerCase().equals("defender")){
-			if (removeFromRoster){
-				boolean b = defenders.remove(player);
-				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
+			if (removeFromRoster)
+				b = defenders.remove(player);
+			if(b == true){
+				b = defendersOnField.remove(player);
+				if(b == true) numberOfPlayersOnField--;
+				return true;
 			}
-			defendersOnField.remove(player);
-			numberOfPlayersOnField--;
+			return b;
+			
 		} else if (posName.toLowerCase().equals("midfielder")){
-			if (removeFromRoster){
-				boolean b = midfielders.remove(player);
-				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
+			if (removeFromRoster)
+				b = midfielders.remove(player);
+			if(b == true){
+				b = midfieldersOnField.remove(player);
+				if(b == true) numberOfPlayersOnField--;
+				return true;
 			}
-			midfieldersOnField.remove(player);
-			numberOfPlayersOnField--;
+			return b;
+			
 		} else if (posName.toLowerCase().equals("striker")){
-			if (removeFromRoster){
-				boolean b = strikers.remove(player);
-				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
+			if (removeFromRoster)
+				b = strikers.remove(player);
+			if(b == true){
+				b = strikersOnField.remove(player);
+				if(b == true) numberOfPlayersOnField--;
+				return true;
 			}
-			strikersOnField.remove(player);
-			numberOfPlayersOnField--;
+			return b;
+			
 		}
+		return false;
 	}
 	
 	// Usage: b = addPlayerToRoster(player)
@@ -241,5 +255,34 @@ public class Roster {
 			return strikersOnField.contains(player);
 		}
 		throw new tests.InvalidPlayer(pos+" is a invalid position for a player.");
+	}
+	
+	/*
+	 * Function that sells a player. Returns false if the player wasn't found.
+	 */
+	public boolean sellPlayer(PlayerInterface player) throws InvalidPlayer{
+		if(removePlayerFromRoster(player)){
+			backend.MainGame.getInstance().getCurrentUser().changeMoney(player.getPrice());
+			System.out.println("This player was bought! You made "+player.getPrice());
+			return true;
+		}
+		return false;
+	}
+	
+	/*
+	 * Function that buys a player.
+	 */
+	public boolean buyPlayer(PlayerInterface player) throws InvalidPosition, InvalidPlayer{
+		if(player.getPrice() > backend.MainGame.getInstance().getCurrentUser().getMoney()){
+			System.out.println("This player is too expensive!");
+			return false;
+		}
+		if(addPlayerToRoster(player)){
+			backend.MainGame.getInstance().getCurrentUser().changeMoney(-player.getPrice());
+			System.out.println("This player was sold! You lost "+(-player.getPrice()));
+			addPlayerToField(player);
+			return true;
+		}
+		return false;
 	}
 }
