@@ -34,7 +34,7 @@ public class UserTest {
 	// This test checks if a name change goes though
 	@Test 
 	public void nameChange() {
-		user.changeName("user2");
+		user.setName("user2");
 		assertEquals("user2", user.getName());
 	}
 	
@@ -50,20 +50,21 @@ public class UserTest {
 	// where the user can't have negative money and no money is subtracted if that subtraction 
 	// would set the users money below zero
 	@Test
-	public void testChangingMoney() {
+	public void testChangingMoney() throws Exception {
 		
 		// Money is 0
-		assertTrue(user.changeMoney(1000));
+		user.changeMoney(1000);
 		assertEquals(3000, user.getMoney());
 		
 		// Money is 3000
 		int curr = user.getMoney();
-		assertTrue(user.changeMoney(-2900));
+		user.changeMoney(-2900);
 		assertEquals(curr-2900, user.getMoney());
 		
 		// Money is 100
 		curr = user.getMoney();
-		assertFalse(user.changeMoney(-200));
+		if(user.isAffordable(curr))
+			user.changeMoney(-200);
 		assertEquals(curr, user.getMoney());
 		// Money is still 100 cause you can't get negative money
 	}

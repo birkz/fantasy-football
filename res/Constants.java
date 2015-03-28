@@ -12,6 +12,8 @@ public class Constants {
 	 * User Constants
 	 */
 	public static final int STARTING_MONEY = 2000;
+	public static final int MAX_USERS = 8;
+	public static final int MIN_USERS = 1;
 	
 	
 	/*
@@ -26,6 +28,6 @@ public class Constants {
 	public static final int MAX_MIDFIELDERS = 7;
 	public static final int MAX_MIDFIELDERS_ON_FIELD = 5;
 	
-	public static final int MAX_STRIKERS = 5;
-	public static final int MAX_STRIKERS_ON_FIELD = 3;
+	public static final int MAX_FORWARDS = 5;
+	public static final int MAX_FORWARDS_ON_FIELD = 3;
 }

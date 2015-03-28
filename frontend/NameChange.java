@@ -43,7 +43,7 @@ public class NameChange extends JPanel {
 	
 	public void changeName(String newName) {
 		if(newName.isEmpty()) newName = "Player"+ (MainGame.getInstance().getCurrendUserID()+1);
-		MainGame.getInstance().getCurrentUser().changeName(newName);
+		MainGame.getInstance().getCurrentUser().setName(newName);
 	}
 	
 	public void addChangeListener() {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import tests.*;
 import tests.PlayerInterface.Position;
+import res.Constants;
 
 public class Roster {
 	private List<PlayerInterface> goalkeepers;
@@ -13,36 +14,36 @@ public class Roster {
 	private List<PlayerInterface> defendersOnField;
 	private List<PlayerInterface> midfielders;
 	private List<PlayerInterface> midfieldersOnField;
-	private List<PlayerInterface> strikers;
-	private List<PlayerInterface> strikersOnField;
+	private List<PlayerInterface> forwards;
+	private List<PlayerInterface> forwardsOnField;
 	// private PlayerInterface captain;
 	private int numberOfPlayersOnField;
 	
 	/*
 	 * Constants
 	 */
-	private final int MAX_GOALKEEPERS = res.Constants.MAX_GOALKEEPERS;
-	private final int MAX_GOALKEEPERS_ON_FIELD = res.Constants.MAX_GOALKEEPERS_ON_FIELD;
+	private final int MAX_GOALKEEPERS = Constants.MAX_GOALKEEPERS;
+	private final int MAX_GOALKEEPERS_ON_FIELD = Constants.MAX_GOALKEEPERS_ON_FIELD;
 	
-	private final int MAX_DEFENDERS = res.Constants.MAX_DEFENDERS;
-	private final int MAX_DEFENDERS_ON_FIELD = res.Constants.MAX_DEFENDERS_ON_FIELD;
+	private final int MAX_DEFENDERS = Constants.MAX_DEFENDERS;
+	private final int MAX_DEFENDERS_ON_FIELD = Constants.MAX_DEFENDERS_ON_FIELD;
 	
-	private final int MAX_MIDFIELDERS = res.Constants.MAX_MIDFIELDERS;
-	private final int MAX_MIDFIELDERS_ON_FIELD = res.Constants.MAX_MIDFIELDERS_ON_FIELD;
+	private final int MAX_MIDFIELDERS = Constants.MAX_MIDFIELDERS;
+	private final int MAX_MIDFIELDERS_ON_FIELD = Constants.MAX_MIDFIELDERS_ON_FIELD;
 	
-	private final int MAX_STRIKERS = res.Constants.MAX_STRIKERS;
-	private final int MAX_STRIKERS_ON_FIELD = res.Constants.MAX_STRIKERS_ON_FIELD;
+	private final int MAX_FORWARDS = Constants.MAX_FORWARDS;
+	private final int MAX_FORWARDS_ON_FIELD = Constants.MAX_FORWARDS_ON_FIELD;
 	
 	public Roster(){
 		this.numberOfPlayersOnField = 0;
-		this.goalkeepers = new ArrayList<PlayerInterface>(2);
-		this.goalkeepersOnField = new ArrayList<PlayerInterface>(1);
-		this.defenders = new ArrayList<PlayerInterface>(5);
-		this.defendersOnField = new ArrayList<PlayerInterface>(5);
-		this.midfielders = new ArrayList<PlayerInterface>(5);
-		this.midfieldersOnField = new ArrayList<PlayerInterface>(5);
-		this.strikers = new ArrayList<PlayerInterface>(3);
-		this.strikersOnField = new ArrayList<PlayerInterface>(3);
+		this.goalkeepers = new ArrayList<PlayerInterface>(MAX_GOALKEEPERS);
+		this.goalkeepersOnField = new ArrayList<PlayerInterface>(MAX_GOALKEEPERS_ON_FIELD);
+		this.defenders = new ArrayList<PlayerInterface>(MAX_DEFENDERS);
+		this.defendersOnField = new ArrayList<PlayerInterface>(MAX_DEFENDERS_ON_FIELD);
+		this.midfielders = new ArrayList<PlayerInterface>(MAX_MIDFIELDERS);
+		this.midfieldersOnField = new ArrayList<PlayerInterface>(MAX_MIDFIELDERS_ON_FIELD);
+		this.forwards = new ArrayList<PlayerInterface>(MAX_FORWARDS);
+		this.forwardsOnField = new ArrayList<PlayerInterface>(MAX_FORWARDS_ON_FIELD);
 	}
 	
 	// Usage: i = getNumberOfPlayersOnField()
@@ -77,9 +78,9 @@ public class Roster {
 		if (pos.equals(Position.GOALKEEPER)){
 			if (removeFromRoster)
 				b = goalkeepers.remove(player);
-			if(b == true){
+			if(b){
 				b = goalkeepersOnField.remove(player);
-				if(b == true) numberOfPlayersOnField--;
+				if(b) numberOfPlayersOnField--;
 				return true;
 			}
 			return b;
@@ -87,9 +88,9 @@ public class Roster {
 		} else if (pos.equals(Position.DEFENDER)){
 			if (removeFromRoster)
 				b = defenders.remove(player);
-			if(b == true){
+			if(b){
 				b = defendersOnField.remove(player);
-				if(b == true) numberOfPlayersOnField--;
+				if(b) numberOfPlayersOnField--;
 				return true;
 			}
 			return b;
@@ -97,7 +98,7 @@ public class Roster {
 		} else if (pos.equals(Position.MIDFIELDER)){
 			if (removeFromRoster)
 				b = midfielders.remove(player);
-			if(b == true){
+			if(b){
 				b = midfieldersOnField.remove(player);
 				if(b == true) numberOfPlayersOnField--;
 				return true;
@@ -106,10 +107,10 @@ public class Roster {
 			
 		} else if (pos.equals(Position.FORWARD)){
 			if (removeFromRoster)
-				b = strikers.remove(player);
-			if(b == true){
-				b = strikersOnField.remove(player);
-				if(b == true) numberOfPlayersOnField--;
+				b = forwards.remove(player);
+			if(b){
+				b = forwardsOnField.remove(player);
+				if(b) numberOfPlayersOnField--;
 				return true;
 			}
 			return b;
@@ -143,8 +144,8 @@ public class Roster {
 			return true;
 			
 		} else if (pos.equals(Position.FORWARD)){
-			if (strikers.size() == MAX_STRIKERS) return false;
-			this.strikers.add(player);
+			if (forwards.size() == MAX_FORWARDS) return false;
+			this.forwards.add(player);
 			return true;
 		}
 		return false;
@@ -182,11 +183,11 @@ public class Roster {
 			this.numberOfPlayersOnField++;
 			return true;
 			
-		} else if (this.strikers.contains(player)){
-			if (this.strikersOnField.size() >= MAX_STRIKERS_ON_FIELD || this.strikersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
+		} else if (this.forwards.contains(player)){
+			if (this.forwardsOnField.size() >= MAX_FORWARDS_ON_FIELD || this.forwardsOnField.contains(player) || this.numberOfPlayersOnField >= 11){
 				return false;
 			}
-			this.strikersOnField.add(player);
+			this.forwardsOnField.add(player);
 			this.numberOfPlayersOnField++;
 			return true;
 			
@@ -204,7 +205,7 @@ public class Roster {
 		names.add(goalkeepers);
 		names.add(defenders);
 		names.add(midfielders);
-		names.add(strikers);
+		names.add(forwards);
 		return names;
 	}
 	
@@ -216,7 +217,7 @@ public class Roster {
 		names.add(goalkeepersOnField);
 		names.add(defendersOnField);
 		names.add(midfieldersOnField);
-		names.add(strikersOnField);
+		names.add(forwardsOnField);
 		return names;
 	}
 	
@@ -233,7 +234,7 @@ public class Roster {
 		} else if (pos.equals(Position.MIDFIELDER)){
 			return midfielders.contains(player);
 		} else if (pos.equals(Position.FORWARD)){
-			return strikers.contains(player);
+			return forwards.contains(player);
 		}
 		return false;
 	}
@@ -251,7 +252,7 @@ public class Roster {
 		} else if (pos.equals(Position.MIDFIELDER)){
 			return midfieldersOnField.contains(player);
 		} else if (pos.equals(Position.FORWARD)){
-			return strikersOnField.contains(player);
+			return forwardsOnField.contains(player);
 		}
 		return false;
 	}
@@ -261,7 +262,11 @@ public class Roster {
 	 */
 	public boolean sellPlayer(PlayerInterface player) throws InvalidPlayer{
 		if(removePlayerFromRoster(player)){
-			backend.MainGame.getInstance().getCurrentUser().changeMoney(player.getPrice());
+			try {
+				backend.MainGame.getInstance().getCurrentUser().changeMoney(player.getPrice());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			if(res.Constants.VERBOSE)
 				System.out.println("This player was sold! You made "+player.getPrice());
 			return true;
@@ -273,13 +278,17 @@ public class Roster {
 	 * Function that buys a player.
 	 */
 	public boolean buyPlayer(PlayerInterface player) throws InvalidPosition, InvalidPlayer{
-		if(player.getPrice() > backend.MainGame.getInstance().getCurrentUser().getMoney()){
+		if(!backend.MainGame.getInstance().getCurrentUser().isAffordable(player.getPrice())){
 			if(res.Constants.VERBOSE)
 				System.out.println("This player is too expensive!");
 			return false;
 		}
 		if(addPlayerToRoster(player)){
-			backend.MainGame.getInstance().getCurrentUser().changeMoney(-player.getPrice());
+			try {
+				backend.MainGame.getInstance().getCurrentUser().changeMoney(-player.getPrice());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			if(res.Constants.VERBOSE)
 				System.out.println("This player was bought! You lost "+(-player.getPrice()));
 			addPlayerToField(player);

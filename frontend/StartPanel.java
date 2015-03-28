@@ -15,7 +15,11 @@ import javax.swing.*;
 
 import tests.InvalidPlayer;
 import tests.InvalidPosition;
+<<<<<<< HEAD
 import tests.InvalidUser;
+=======
+import res.Constants;
+>>>>>>> f2664e2b54fe36db74a8ee5a9ea4963195b8cb37
 
 public class StartPanel extends JPanel {
 
@@ -23,8 +27,6 @@ public class StartPanel extends JPanel {
 	 * Constants
 	 */
 	private static final long serialVersionUID = 1L;
-	private final int MAX_USERS = 8;
-	private final int MIN_USERS = 1;
 	
 	/**
 	 * Instance variables
@@ -97,7 +99,7 @@ public class StartPanel extends JPanel {
 		add(center, BorderLayout.CENTER);
 		
 		// If we don't allow zero players to play, disable the "Start Game" button.
-		if(MIN_USERS>0){
+		if(Constants.MIN_USERS>0){
 			startGame.setEnabled(false);
 		}
 	}
@@ -113,13 +115,13 @@ public class StartPanel extends JPanel {
         changeCenter();
         
         // If we already have MAX_USERS, disable the "Add Player" button.
-        if(names.size()==MAX_USERS){
+        if(names.size()==Constants.MAX_USERS){
         	addPlayer.setEnabled(false);
         	field.setEnabled(false);
         }
         
         // If we have enough users we can enable the "Start Game" button.
-        if(names.size()>=MIN_USERS){
+        if(names.size()>=Constants.MIN_USERS){
         	startGame.setEnabled(true);
         }
 	}
@@ -153,7 +155,7 @@ public class StartPanel extends JPanel {
 	                addPlayer.setEnabled(true);
 	                field.setEnabled(true);
 	                
-	                if(names.size()<MIN_USERS){
+	                if(names.size()<Constants.MIN_USERS){
 	                	startGame.setEnabled(false);
 	                }
 	            }
