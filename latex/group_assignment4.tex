@@ -369,11 +369,11 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 \end{scope}
 
 %% ==========================================
-%% NameChange Panel
+%% Start Panel
 %% ==========================================
-\begin{scope}[xshift=0cm,yshift=0cm]
-\node[umlclass] (NameChange Panel)
- {\textbf{\large \textit{NameChange Panel}}
+\begin{scope}[xshift=10cm,yshift=2cm]
+\node[umlclass] (StartPanel)
+ {\textbf{\large \textit{StartPanel}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
@@ -381,13 +381,103 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
-   -- \texttt{final JTextField name}\\
+   -- \texttt{JPanel center}\\
+   -- \texttt{JTextField field}\\
+   -- \texttt{List<String> names}\\
+   -- \texttt{int numEmpty}\\
+   -- \texttt{JButton startGame}\\
+   -- \texttt{JButton addPlayer}\\   
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
-   + \texttt{NameChange()}\\
-   + \texttt{void changeName(String newName)}\\
-   + \texttt{void addChangeListener()}\\
+   + \texttt{StartPanel()}\\
+   + \texttt{addPlayerHandler()}\\
+   + \texttt{void changeCenter()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% LeaguePanel
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (LeaguePanel)
+ {\textbf{\large \textit{LeaguePanel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{LeaguePanel()}\\
+   + \texttt{Dimension getPreferredSize()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% FieldViewer Panel
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (FieldViewerPanel)
+ {\textbf{\large \textit{FieldViewerPanel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{final JPanel[] players}\\
+   -- \texttt{final Roster roster}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{FieldViewerPanel()}\\
+   + \texttt{JLabel createLabels(String name)}\\
+   + \texttt{void paintComponent(Graphics g)}\\
+   + \texttt{Dimension getPreferredSize()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% Market Panel
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (MarketPanel)
+ {\textbf{\large \textit{MarketPanel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{final JTextField field}\\
+   -- \texttt{String player_choice}\\
+   -- \texttt{String team_choice}\\ 
+   -- \texttt{String pos_choice}\\
+   -- \texttt{JTable jtable}\\
+   -- \texttt{JScrollPane scroll}\\ 
+   -- \texttt{JPanel wrapper}\\
+   -- \texttt{String text}\\
+   -- \texttt{List<PlayerInterface> results}\\ 
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{MarketPanel(JScrollPane scroll, int value)}\\
+   + \texttt{JComboBox<String> addComboBox(List<String> choices, String flag)}\\
+   + \texttt{static LeagueMock getLeague()}\\
+   + \texttt{void refreshJTable()}\\
+   + \texttt{JTable getJTable(String player_searched, String team_searched, String pos_searched)}\\
+   + \texttt{Object[][] getTableData()}\\
+   + \texttt{String positionToString(Position pos)}\\
+   + \texttt{Dimension getPreferredSize()}\\
   \end{tabular}
  };
 \end{scope}
@@ -396,8 +486,8 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 %% Roster Panel
 %% ==========================================
 \begin{scope}[xshift=0cm,yshift=0cm]
-\node[umlclass] (Roster Panel)
- {\textbf{\large \textit{Roster Panel}}
+\node[umlclass] (RosterPanel)
+ {\textbf{\large \textit{RosterPanel}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
@@ -421,8 +511,8 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 %% Score Panel
 %% ==========================================
 \begin{scope}[xshift=0cm,yshift=0cm]
-\node[umlclass] (Score Panel)
- {\textbf{\large \textit{Score Panel}}
+\node[umlclass] (ScorePanel)
+ {\textbf{\large \textit{ScorePanel}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
@@ -440,11 +530,11 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 \end{scope}
 
 %% ==========================================
-%% Start Panel
+%% NameChange
 %% ==========================================
-\begin{scope}[xshift=10cm,yshift=2cm]
-\node[umlclass] (Start Panel)
- {\textbf{\large \textit{Start Panel}}
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (NameChange)
+ {\textbf{\large \textit{NameChange}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
@@ -452,18 +542,157 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
-   -- \texttt{JPanel center}\\
-   -- \texttt{JTextField field}\\
-   -- \texttt{List<String> names}\\
-   -- \texttt{int numEmpty}\\
-   -- \texttt{JButton startGame}\\
-   -- \texttt{JButton addPlayer}\\   
+   -- \texttt{final JTextField name}\\
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
-   + \texttt{StartPanel()}\\
-   + \texttt{addPlayerHandler()}\\
-   + \texttt{void changeCenter()}\\
+   + \texttt{NameChange()}\\
+   + \texttt{void changeName(String newName)}\\
+   + \texttt{void addChangeListener()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% GraphData Panel
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (GraphData)
+ {\textbf{\large \textit{GraphData}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{final Color[] col}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{GraphData()}\\
+   + \texttt{void paintComponent(Graphics g)}\\
+   + \texttt{Dimension getPreferredSize()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% Endgame Panel
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (EndgamePanel)
+ {\textbf{\large \textit{EndgamePanel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{EndgamePanel()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% HandleButtons
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (HandleButtons)
+ {\textbf{\large \textit{HandleButtons}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{void actionPerformed(ActionEvent e)}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% ButtonColumn
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (ButtonColumn)
+ {\textbf{\large \textit{ButtonColumn}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{JTable table}\\
+   -- \texttt{Action action}\\
+   -- \texttt{int mnemonic}\\ 
+   -- \texttt{Border originalBorder}\\
+
+   -- \texttt{Border focusBorder}\\
+   -- \texttt{JButton renderButton}\\
+   -- \texttt{JButton editButton}\\ 
+   -- \texttt{Object editorValue}\\
+   -- \texttt{boolean isButtonColumnEditor}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{ButtonColumn(JTable table, Action action, int column)}\\
+   + \texttt{Border getFocusBorder()}\\
+   + \texttt{void setFocusBorder(Border focusBorder)}\\
+   + \texttt{int getMnemonic}\\
+   + \texttt{void setMnemonic(int mnemonic)}\\
+   + \texttt{Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column)}\\
+   + \texttt{Object getCellEditorValue()}\\
+   + \texttt{Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)}\\
+   + \texttt{void actionPerformed(ActionEvent e)}\\
+   + \texttt{void mousePressed(MouseEvent e)}\\
+   + \texttt{void mouseReleased(MouseEvent e)}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% CustomButton
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (CustomButton)
+ {\textbf{\large \textit{CustomButton}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{Color hoverBackgroundColor}\\
+   -- \texttt{Color pressedBackgroundColor}\\
+   -- \texttt{Color fontColor}\\ 
+   -- \texttt{Color hoverFontColor}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{CustomButton()}\\
+   + \texttt{CustomButton(String text)}\\
+   + \texttt{Color getHoverBackgroundColor()}\\
+   + \texttt{Color getFontColor()}\\
+   + \texttt{void setFontColor(Color color)}\\
+   + \texttt{void setContentAreaFilled(boolean b)}\\
+   + \texttt{void setHoverBackgroundColor(Color hoverBackgroundColor)}\\
+   + \texttt{Color getHoverFontColor()}\\
+   + \texttt{void setHoverFontColor(Color hoverFontColor)}\\
+   + \texttt{Color getPressedBackgroundColor()}\\
+   + \texttt{void setPressedBackgroundColor(Color pressedBackgroundColor)}\\
+   + \texttt{void paintComponent(Graphics g)}\\
+   + \texttt{Dimension getPreferredSize()}\\
   \end{tabular}
  };
 \end{scope}
