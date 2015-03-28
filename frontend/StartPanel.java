@@ -15,11 +15,10 @@ import javax.swing.*;
 
 import tests.InvalidPlayer;
 import tests.InvalidPosition;
-<<<<<<< HEAD
 import tests.InvalidUser;
-=======
+
 import res.Constants;
->>>>>>> f2664e2b54fe36db74a8ee5a9ea4963195b8cb37
+
 
 public class StartPanel extends JPanel {
 

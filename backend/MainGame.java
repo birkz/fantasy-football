@@ -5,7 +5,7 @@ import java.util.List;
 
 import tests.InvalidPlayer;
 
-import tests.InvalidPosition;
+//import tests.InvalidPosition;
 import tests.InvalidUser;
 
 import frontend.Main;
