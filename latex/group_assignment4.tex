@@ -207,7 +207,6 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
   \begin{tabular}{l}
    -- \texttt{static MainGame()}\\
    + \texttt{MainGame getInstance()}\\
-   + \texttt{void resetGame()}\\
    + \texttt{void setNumUsers(int num)}\\
    + \texttt{void nextUser()}\\
    + \texttt{int getRound()}\\
@@ -222,17 +221,24 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% ==========================================
 %% Player
 %% ==========================================
-\begin{scope}[xshift=8cm,yshift=-6.6cm]
-\node[umlclass,rectangle split parts=2,fill=red!32] (player)
+\begin{scope}[xshift=8cm,yshift=-7.4cm]
+\node[umlclass,rectangle split parts=3,fill=red!32] (player)
  {\textbf{\large \textit{Player} <<interface>>}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   This class will be made by group F1a.\\
-   Each instance will contain information\\
-   about a football player.\\
+   This class will be made by group F1a. Each\\
+   instance will contain information about a\\
+   football player. It will (at least)git pull have the\\
+   following instance variables and functions.
   \end{tabular}}
  \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{enum Position}\\
+   + \texttt{String getName()}\\
+   + \texttt{Integer getPrice()}\\
+   + \texttt{Position getPosition}
+  \end{tabular}
  \nodepart{four}
  };
 \end{scope}
@@ -436,7 +442,7 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 %% ==========================================
 %% Start Panel
 %% ==========================================
-\begin{scope}[xshift=0cm,yshift=0cm]
+\begin{scope}[xshift=10cm,yshift=2cm]
 \node[umlclass] (Start Panel)
  {\textbf{\large \textit{Start Panel}}
  \nodepart{two}
