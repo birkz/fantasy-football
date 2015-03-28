@@ -1,0 +1,358 @@
+\documentclass{article}
+\input{grunn_uppsetn_hd}
+\usepackage[utf8]{inputenc}
+\usepackage{framed}
+\usepackage{paralist}
+\renewenvironment{enumerate}[1]{\begin{compactenum}#1}{\end{compactenum}}
+\usetikzlibrary{shapes.multipart,positioning,arrows}
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\textsc{}\\[2cm] 
+\includegraphics[width=6cm]{Haskoli_Islands_rett.jpg}\\[0.5cm]
+\HRule \\[0.6cm]
+{ \huge \bfseries Group assignment 4: Refined OO model}\\[0.2cm]
+\HRule \\[0.4cm]
+\textsc{\normalsize Þróun hugbúnaðar} \\
+\textsc{Spring 2015} \\[1.5cm]
+\begin{minipage}{0.45\textwidth}
+\begin{flushleft} \large
+\textit{Students:} (Group F2a)\\
+\textsc{Einar Helgi Þrastarson} \\
+\textsc{Hannes Pétur Eggertsson} \\
+\textsc{Sigurður Birkir Sigurðsson} \\
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+\begin{flushright} \large
+\textit{Teachers:} \\
+\textsc{Matthias Book}\\
+\textsc{Kristín Fjóla Tómasdóttir}\\
+\textsc{ }\\
+\end{flushright}
+\end{minipage}
+
+\end{center}
+\end{titlepage}
+
+
+% Description of the project
+\section{Introduction}
+In this document there's the class diagram for group F2a. Group members are: Einar Helgi Þrastarson (personal ID number: 110287-2919), Hannes Pétur Eggertsson (240889-2939) and Sigurður Birkir Sigurðsson (120589-2539). Our project is to build an user interface for a fantasy football game. In our class diagram we felt it made sense to split the classes into two categories, back-end classes and front-end classes. Then, in a third diagram there's another diagram that shows the connections between the back-end and  We will all present this document on Wednesday, March ?th 2015.
+
+\subsection{Notation}
+In our class diagrams we use the following notation:\vspace*{-0.3cm}
+\begin{itemize}\itemsep-4pt
+\item[--] means a private variable or method (not directly accessable by other classed).
+\item[+] means a public variable or method (directly accessable by other classes).
+\end{itemize}
+
+\tikzset{umlclass/.style={
+        draw=black,fill=yellow!16,rectangle split,align=center, rectangle split part align={center,left}, minimum width=4cm,rounded corners},draw,rectangle split parts=4}
+
+Each class in the diagram has four sections shown below:
+\begin{center} \vspace*{-0.15cm}
+\begin{tikzpicture}
+\begin{scope}[xshift=8cm,yshift=0cm]
+\node[umlclass] (t1)
+ {\textbf{\large \textit{The class' name.}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Short description of the class.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+  The class' variables and their type listed\\
+  on the format:\\
+   --/+ \texttt{type1 variable1}\\
+   --/+ \texttt{anotherClass variable2}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   The class' methods listed on the format:\\
+   --/+ \texttt{type1 method1(type variable,...)}\\
+   --/+ \texttt{type2 method2(...)}\\
+  \end{tabular}
+ };
+\end{scope}
+\end{tikzpicture}
+\end{center}\vspace*{-0.15cm}
+If the class wasn't created by us it is filled with red. Classes are then interconnected using 3 types of arrows:
+
+\begin{tikzpicture}
+\draw[arrows={-angle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{uses}} node[right]{Class B};
+\begin{scope}[yshift=-0.8cm]
+\draw[arrows={-open triangle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{extends}} node[right]{Class B};
+\end{scope}
+\begin{scope}[yshift=-1.6cm]
+\draw[arrows={-triangle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{implements}} node[right]{Class B};
+\end{scope}
+\end{tikzpicture}
+
+In most cases we can tell how many classes 'Class A' and 'Class B' will be associated with, this is shown by placing an arrow at the beginning and end of an arrow, e.g.
+
+\begin{tikzpicture}
+\draw[arrows={-angle 60},thick] node[left]{Class A} node[above right]{1} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{uses}} node[above left]{0--10} node[right]{Class B};
+\end{tikzpicture}
+
+if each instance of 'Class A' will use 'Class B' in a range of 0 to 10 instances.
+
+\section{Class diagram}
+We decided to split our class diagram into two figures: \textbf{Back-end classes} and \textbf{Front-end classes}. The back-end classes take care of storing and keeping track of all information as the game is running. The front-end classes take care of displaying the information to the users playing the game as well as handling their input.
+
+\subsection{Back-end classes}
+$N$ is er number of total users in the current game and $P$ is the total amount of football players in the game.
+\begin{tikzpicture}
+%% ==========================================
+%% User
+%% ==========================================
+\begin{scope}[yshift=1cm]
+\node[umlclass] (user)
+ {\textbf{\large \textit{User}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   This class keeps track of all information about\\
+   each user playing the game.\\
+   
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{int id}\\
+   -- \texttt{int money}\\
+   -- \texttt{List<Integer> score}\\
+   -- \texttt{String name}\\
+   -- \texttt{Roster roster}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{User(String name, int id)}\\
+   + \texttt{int getMoney()}\\
+   + \texttt{boolean isAffordable(int price)}\\
+   + \texttt{void changeMoney(int dMoney)}\\
+   + \texttt{Roster getRoster()}\\
+   + \texttt{List<Integer> getScore()}\\
+   + \texttt{List<Integer> getTotalScore()}\\
+   + \texttt{void addScore(int newscore)}\\
+   + \texttt{String getName()}\\
+   + \texttt{void setName(String newname)}\\ 
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% Roster
+%% ==========================================
+\begin{scope}[xshift=10cm,yshift=0.8cm]
+\node[umlclass] (roster)
+ {\textbf{\large \textit{Roster}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Keeps track of which football players are in which user team/roster.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{List<Player> goalkeepers}\\
+   -- \texttt{List<Player> goalkeepersOnField}\\
+   -- \texttt{List<Player> defenders}\\
+   -- \texttt{List<Player> defendersOnField}\\
+   -- \texttt{List<Player> midfielders}\\
+   -- \texttt{List<Player> midfieldersOnField}\\
+   -- \texttt{List<Player> forwards}\\
+   -- \texttt{List<Player> forwardsOnField}\\
+   -- \texttt{int numberOfPlayersOnField}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{Roster()}\\
+   + \texttt{int getNumberOfPlayersOnField()}\\
+   + \texttt{boolean removePlayerFromField(Player player)}\\
+   + \texttt{void removePlayerFromRoster(Player player)}\\
+   + \texttt{boolean addPlayerToField(Player player)}\\
+   + \texttt{boolean addPlayerToRoster(Player player)}\\
+   + \texttt{List< List<Player> > getPlayersInRoster()}\\
+   + \texttt{List< List<Player> > getPlayersOnField()}\\
+   + \texttt{boolean isInRoster(Player player)}\\
+   + \texttt{boolean isOnField(Player player)}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% MainGame
+%% ==========================================
+\begin{scope}[yshift=-7.5cm]
+\node[umlclass] (maingame)
+ {\textbf{\large \textit{MainGame}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   The main back-end class. Keeps track of\\
+   the state of the game. It exists always\\
+   while the game is running.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{StatsHistory stats}\\
+   -- \texttt{List<User> users}\\
+   -- \texttt{int round}\\
+   -- \texttt{int currentUser}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{MainGame()}\\
+   + \texttt{void setNumUsers(int num)}\\
+   + \texttt{void nextUser()}\\
+   + \texttt{int getRound()}\\
+   + \texttt{List<User> getUsers()}\\
+   + \texttt{StatsHistory getStatsHistory()}\\
+   + \texttt{User getCurrentUser()}\\
+   + \texttt{int getCurrentUserID()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% Player
+%% ==========================================
+\begin{scope}[xshift=8cm,yshift=-5.5cm]
+\node[umlclass,rectangle split parts=2,fill=red!32] (player)
+ {\textbf{\large \textit{Player} <<interface>>}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   This class will be made by group F1a.\\
+   Each instance will contain information\\
+   about a football player.\\
+  \end{tabular}}
+ \nodepart{three}
+ \nodepart{four}
+ };
+\end{scope}
+
+%% ==========================================
+%% Market
+%% ==========================================
+\begin{scope}[xshift=9cm,yshift=-9cm]
+\node[umlclass] (market)
+ {\textbf{\large \textit{Market}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Handles listing, buying and selling players.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{Player[] players}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{Market()}\\
+   + \texttt{void fetchPlayersByName()}\\
+   + \texttt{void fetchPlayersByTeam()}\\
+   + \texttt{public void buyPlayer(Player player)}\\
+   + \texttt{public void sellPlayer(Player player)}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% StatsHistory
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=-14cm]
+\node[umlclass] (statshistory)
+ {\textbf{\large \textit{StatsHistory}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   A class that has statistical information.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{PlayerScores[] allplayerscores}\\
+   -- \texttt{int[] rosterscores}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+  + \texttt{StatsHistory()}\\
+  + \texttt{void calcTeamScore()}\\
+  + \texttt{int[] getTeamScoresHist()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% PlayerScores
+%% ==========================================
+\begin{scope}[xshift=8cm,yshift=-14cm]
+\node[umlclass] (playerscores)
+ {\textbf{\large \textit{PlayerScores}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   A class with information about each player.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{String name}\\
+   -- \texttt{int[] scores}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{PlayerScores(String name)}\\
+   + \texttt{void setScore(int score)}\\
+   + \texttt{int[] getScores()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% generic template
+%% ==========================================
+%\begin{scope}[xshift=0cm,yshift=0cm]
+%\node[umlclass] (generic)
+% {\textbf{\large \textit{Generic}}
+% \nodepart{two}
+%  {\footnotesize
+%  \begin{tabular}{l} 
+%   Desc.
+%  \end{tabular}}
+% \nodepart{three}
+%  \begin{tabular}{l}
+%   -- \texttt{type var}\\
+%  \end{tabular}
+% \nodepart{four}
+%  \begin{tabular}{l}
+%   + \texttt{type method(type var)}\\
+%  \end{tabular}
+% };
+%\end{scope}
+
+%% ==========================================
+%% Allar örvar teiknaðar hér
+%% ==========================================
+% user to roster
+\draw[arrows={-angle 60},thick] ([yshift=-20pt]user.three east) node[right]{1} to [out=45, in=-150](roster.text west) node[above left]{1};
+
+% maingame to user
+\draw[arrows={-angle 60},thick]
+[out=0, in=90](maingame.three east) node[right=0.15cm]{1} to [out=75, in=-75](user.text east) node[right]{1--N};
+
+% maingame to statshistory
+\draw[arrows={-angle 60},thick]
+[out=0, in=90]([yshift=0.5cm]maingame.three east) node[right=0.15cm]{1} to [out=-65, in=82](statshistory.text east) node[right]{1};
+
+% roster to player
+\draw[arrows={angle 60-},thick] (player.text west) node[above right=0.25cm and -0.2cm]{0--15} to [out=105, in=-120]([yshift=-1.5cm]roster.three west) node[left]{1};
+
+% market to player
+\draw[arrows={angle 60-},thick] ([yshift=-0.1cm]player.text west) node[below left]{$P$} to [out=-110, in=120](market.three west) node[left]{1};
+
+% StatsHistory to PlayerScores
+\draw[arrows={-angle 60},thick] ([yshift=0.2cm]statshistory.three east) node[right]{$P$} to [out=-45, in=150](playerscores.text west) node[below left]{1};
+\end{tikzpicture}
+
+\end{document}
