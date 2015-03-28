@@ -5,6 +5,7 @@ import java.util.List;
 
 import tests.InvalidPlayer;
 import tests.InvalidPosition;
+import tests.InvalidUser;
 import frontend.Main;
 
 public class MainGame {
@@ -31,13 +32,18 @@ public class MainGame {
 		}
 	}
 	
-	public void nextUser() {
+	public void nextUser() throws InvalidUser {
 		int numUsers = users.size();
 		if(currentUser<numUsers && round<10) currentUser++;
 		if(currentUser==numUsers && round<10) {
 			currentUser = 0;
 			//here call for simulation of a round
-			tests.RoundMock.SimRound();
+			try {
+				tests.RoundMock.SimRound();
+			} catch (InvalidUser e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			round++;
 		}
 		Main.getInstance().restartFrame();

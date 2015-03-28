@@ -11,7 +11,7 @@ public class StatsHistory {
 	
 	List<ObjectScores> allplayerscores;
 	List<ObjectScores> alluserscores;
-	List<ObjectScores> allrosterscores; // Er þörf fyrir roster scores? Er það ekki sama og userscores?
+	List<ObjectScores> allrosterscores; // Er Ã¾Ã¶rf fyrir roster scores? Er Ã¾aÃ° ekki sama og userscores?
 	
 	public StatsHistory() {
 		this.allplayerscores = new ArrayList<ObjectScores>(150);
@@ -27,9 +27,11 @@ public class StatsHistory {
 		this.alluserscores.add(new ObjectScores(user));
 	}
 	
+	/*
 	public void createRosterScoreObject(Object roster) {
 		this.allrosterscores.add(new ObjectScores(roster));
 	}
+	*/
 	
 	public List<Integer> getPlayerScores(PlayerInterface player) throws InvalidPlayer {
 		for(ObjectScores temp : this.allplayerscores) {
@@ -41,9 +43,18 @@ public class StatsHistory {
 	}
 	
 	public List<Integer> getUserScores(User user) throws InvalidUser {
+		return getUserScores(user, false);
+	}
+	
+	public List<Integer> getTotalUserScores(User user) throws InvalidUser {
+		return getUserScores(user, true);
+	}
+	
+	private List<Integer> getUserScores(User user, boolean total) throws InvalidUser {
 		for(ObjectScores temp : this.alluserscores) {
 			if(((User)temp.getObject()).equals(user)) {
-				return temp.getScores();
+				if(total) return temp.getTotalScores();
+				else return temp.getScores();
 			}
 		}
 		throw new InvalidUser(user.getName() + " is not a user");

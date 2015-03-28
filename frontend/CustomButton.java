@@ -31,7 +31,7 @@ public class CustomButton extends JButton{
             setForeground(this.hoverFontColor);
         } else {
             g.setColor(getBackground());
-            setFontColor(this.fontColor);
+            setForeground(this.fontColor);
         }
         g.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(g);
@@ -43,7 +43,6 @@ public class CustomButton extends JButton{
     
     public void setFontColor(Color color) {
     	this.fontColor = color;
-    	setForeground(color);
     }
     
     public Color getFontColor() {

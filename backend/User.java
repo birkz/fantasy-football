@@ -1,6 +1,6 @@
 package backend;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,14 +12,17 @@ public class User {
 
 	private int id;
 	private int money;
-	private List<Integer> score;
+	//private List<Integer> score;
+	private int score;
+	private int roundscore;
 	private String name;
 	private Roster roster;
 	
 	public User(String name, int id) throws InvalidPlayer, InvalidPosition {
 		this.id = id;
 		this.name = name;
-		this.score = new ArrayList<Integer>();
+		//this.score = new ArrayList<Integer>();
+		this.score = 0;
 		this.roster = new Roster();
 		if (res.Constants.TEST_MODE && this.id==0) addRandomPlayersToRoster();
 		this.money = res.Constants.STARTING_MONEY;
@@ -38,22 +41,19 @@ public class User {
 	public Roster getRoster() {
 		return this.roster;
 	}
-
-	// Usage: i = getScore()
-	// Before:Nothing.
-	// After: i is an List of scores of this user
-	public List<Integer> getScore() {
+	
+	public int getRoundScore() {
+		return this.roundscore;
+	}
+	
+	public int getScore() {
 		return this.score;
 	}
 	
-	public int getTotalScore(){
-		int size = this.score.size();
-		if(size == 0) return 0;
-		return this.score.get(size-1);
-	}
-	
-	public void addScore(int newscore) {
-		this.score.add(newscore);
+	public void setScore(int newscore) {
+		this.roundscore = newscore;
+		this.score += newscore;
+		//this.score.add(newscore);
 	}
 	
 	public void changeName(String newname) {

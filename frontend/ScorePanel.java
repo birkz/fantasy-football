@@ -3,14 +3,15 @@ package frontend;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-
 import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import tests.InvalidUser;
 import backend.MainGame;
+import backend.StatsHistory;
 import backend.User;
 
 public class ScorePanel extends JPanel {
@@ -22,9 +23,11 @@ public class ScorePanel extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @throws InvalidUser 
 	 */
-	public ScorePanel() {
+	public ScorePanel() throws InvalidUser {
 		List<User> users = MainGame.getInstance().getUsers();
+		StatsHistory stats = MainGame.getInstance().getStatsHistory();
 		int numUsers = users.size();
 		setLayout(new BorderLayout(0, 0));
 		
@@ -34,7 +37,7 @@ public class ScorePanel extends JPanel {
 		for (int i=0; i<numUsers; ++i) {
 			User user = users.get(i);
 			JLabel userN = new JLabel(user.getName());
-			List<Integer> score = user.getScore();
+			List<Integer> score = stats.getUserScores(user);
 			JLabel userS = new JLabel("0");
 			if(score.size() > 0) {
 				userS = new JLabel(""+score.get(score.size()-1));

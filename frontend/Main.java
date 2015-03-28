@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import tests.InvalidPlayer;
 import tests.InvalidPosition;
+import tests.InvalidUser;
 import backend.MainGame;
 
 public class Main {
@@ -35,7 +36,7 @@ public class Main {
         frame.setVisible(true);
 	}
 	
-	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition {
+	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser {
 		game.setNumUsers(names);
 		
 		HandleButtons actionList = new HandleButtons();
@@ -81,7 +82,7 @@ public class Main {
         frame.validate();
 	}
 	
-	public void restartFrame() {
+	public void restartFrame() throws InvalidUser {
 
 		setPanelAsScore();
 		
@@ -102,7 +103,7 @@ public class Main {
 		change.setVisible(true);
 	}
 	
-	public void setPanelAsScore() {
+	public void setPanelAsScore() throws InvalidUser {
 		change.removeAll();
 		change.add(new ScorePanel());
 		change.setVisible(false);

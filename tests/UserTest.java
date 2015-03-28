@@ -41,8 +41,8 @@ public class UserTest {
 	// This test checks if the score from round 0 goes to index 0
 	@Test
 	public void scoreTest() {
-		user.addScore(100);
-		int score = user.getScore().get(0);
+		user.setScore(100);
+		int score = user.getScore();
 		assertEquals(100, score);
 	}
 	

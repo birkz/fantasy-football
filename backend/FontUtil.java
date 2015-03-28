@@ -12,11 +12,12 @@ public class FontUtil {
 	private static final Map<String, Font> fonts = new HashMap<String, Font>();
 
 	public static Font getFont(String name, int style, float size) {
-	    Font font = null;
+		Font font = null;
+		
 	    if (name == null) {
 	        return SERIF_FONT;
 	    }
-
+	    
 	    try {
 	    	
 	    	// Checked if font has been loaded before

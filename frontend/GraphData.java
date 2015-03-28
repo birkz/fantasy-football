@@ -12,7 +12,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import tests.InvalidUser;
 import backend.MainGame;
+import backend.StatsHistory;
 import backend.User;
 
 public class GraphData extends JPanel {
@@ -46,35 +48,54 @@ public class GraphData extends JPanel {
 	@Override 
 	public void paintComponent(Graphics g) {
 		List<User> users = MainGame.getInstance().getUsers();
+		StatsHistory stats = MainGame.getInstance().getStatsHistory();
 		int numUsers = users.size();
 		int width = this.getWidth();
 		int height = this.getHeight();
 		super.paintComponent(g);
 		Graphics2D draw = (Graphics2D) g;
-		List<Integer> score;
+		List<Integer> allscores;
 		int highscore = 10;
-		int x = 0;
 		for(int i=0; i<numUsers; ++i) {
-			score = users.get(i).getScore();
-			int size = score.size();
-			if(size>0) {
-				x = users.get(i).getScore().get(size-1)/10;
-				if(highscore < x) {
-					highscore = x;
+			//score = users.get(i).getScore();
+			int size = 0;
+			try {
+				allscores = stats.getTotalUserScores(users.get(i));
+				
+				if(size>0) {
+					int lastscore = allscores.get(allscores.size()-1)/10;
+					if(highscore < lastscore) {
+						highscore = lastscore;
+					}
 				}
+				
+			} catch (InvalidUser e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			
+	
 		}
 		int maxscore = (int) (Math.ceil(((double)highscore) /10)*10.0);
 		for(int i=0; i<numUsers; ++i) {
-			score = users.get(i).getScore();
-			draw.setColor(col[i]);
-	        draw.setStroke(new BasicStroke(2));
-	        GeneralPath line = new GeneralPath();
-	        line.moveTo(0, height);
-	        for(int k=0; k<score.size(); ++k) {
-	        	line.lineTo((k+1)*width/10, height-height/maxscore*(score.get(k)/10));
-	        }
-	        draw.draw(line);
+			//score = users.get(i).getScore();
+			try {
+				allscores = stats.getTotalUserScores(users.get(i));
+		
+				draw.setColor(col[i]);
+		        draw.setStroke(new BasicStroke(2));
+		        GeneralPath line = new GeneralPath();
+		        line.moveTo(0, height);
+		        for(int k=0; k<allscores.size(); ++k) {
+		        	line.lineTo((k+1)*width/10, height-height/maxscore*(allscores.get(k)/10));
+		        }
+		        draw.draw(line);
+				
+			} catch (InvalidUser e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
     }
 

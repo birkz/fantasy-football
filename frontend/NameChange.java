@@ -3,9 +3,12 @@ package frontend;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import tests.InvalidUser;
 import backend.MainGame;
 
 public class NameChange extends JPanel {
@@ -18,8 +21,9 @@ public class NameChange extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @throws InvalidUser 
 	 */
-	public NameChange() {
+	public NameChange() throws InvalidUser {
 		JLabel explain = new JLabel("Name: ");
 		name = new JTextField();
 		name.setText(backend.MainGame.getInstance().getCurrentUser().getName());
@@ -27,7 +31,7 @@ public class NameChange extends JPanel {
 		addChangeListener();
 		
 		JLabel money = new JLabel("  Money: "+backend.MainGame.getInstance().getCurrentUser().getMoney());
-		JLabel score = new JLabel("  Score: "+backend.MainGame.getInstance().getCurrentUser().getTotalScore());
+		JLabel score = new JLabel("  Score: "+backend.MainGame.getInstance().getCurrentUser().getScore());
 		JLabel round = new JLabel("  Round: "+backend.MainGame.getInstance().getRound());
 		
 		add(explain);

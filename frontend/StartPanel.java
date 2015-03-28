@@ -15,6 +15,7 @@ import javax.swing.*;
 
 import tests.InvalidPlayer;
 import tests.InvalidPosition;
+import tests.InvalidUser;
 
 public class StartPanel extends JPanel {
 
@@ -80,7 +81,7 @@ public class StartPanel extends JPanel {
             {
             	try {
 					Main.getInstance().startGame(names);
-				} catch (InvalidPlayer | InvalidPosition e1) {
+				} catch (InvalidPlayer | InvalidPosition | InvalidUser e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
