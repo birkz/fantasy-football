@@ -24,7 +24,6 @@ public class ScorePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public ScorePanel() {
-		//int numUsers = MainGame.getInstance().getNumUsers();
 		List<User> users = MainGame.getInstance().getUsers();
 		int numUsers = users.size();
 		setLayout(new BorderLayout(0, 0));

@@ -54,12 +54,12 @@ public class UserTest {
 		
 		// Money is 0
 		assertTrue(user.changeMoney(1000));
-		assertEquals(1000, user.getMoney());
+		assertEquals(3000, user.getMoney());
 		
-		// Money is 1000
+		// Money is 3000
 		int curr = user.getMoney();
-		assertTrue(user.changeMoney(-900));
-		assertEquals(curr-900, user.getMoney());
+		assertTrue(user.changeMoney(-2900));
+		assertEquals(curr-2900, user.getMoney());
 		
 		// Money is 100
 		curr = user.getMoney();

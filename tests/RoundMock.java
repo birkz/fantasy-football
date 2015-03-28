@@ -8,8 +8,9 @@ import backend.User;
 
 public class RoundMock {
 	
-	public static void SimRound(int numUsers) {
+	public static void SimRound() {
 		List<User> users = MainGame.getInstance().getUsers();
+		int numUsers = users.size();
 		int min = 1;
 		int max = 80;
 		Random rand = new Random();

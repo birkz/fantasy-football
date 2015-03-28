@@ -37,7 +37,7 @@ public class MainGame {
 		if(currentUser==numUsers && round<10) {
 			currentUser = 0;
 			//here call for simulation of a round
-			tests.RoundMock.SimRound(numUsers);
+			tests.RoundMock.SimRound();
 			round++;
 		}
 		Main.getInstance().restartFrame();
@@ -45,11 +45,6 @@ public class MainGame {
 	
 	public int getRound() {
 		return round;
-	}
-	
-	public int[] getScore() {
-		int[] a = new int[1];//just a placeholder
-		return a;
 	}
 	
 	public List<User> getUsers() {
