@@ -48,37 +48,24 @@ public class GraphData extends JPanel {
 	@Override 
 	public void paintComponent(Graphics g) {
 		List<User> users = MainGame.getInstance().getUsers();
-		StatsHistory stats = MainGame.getInstance().getStatsHistory();
 		int numUsers = users.size();
 		int width = this.getWidth();
 		int height = this.getHeight();
 		super.paintComponent(g);
 		Graphics2D draw = (Graphics2D) g;
-		List<Integer> allscores;
+		
 		int highscore = 10;
 		for(int i=0; i<numUsers; ++i) {
-			//score = users.get(i).getScore();
-			int size = 0;
-			try {
-				allscores = stats.getTotalUserScores(users.get(i));
-				
-				if(size>0) {
-					int lastscore = allscores.get(allscores.size()-1)/10;
-					if(highscore < lastscore) {
-						highscore = lastscore;
-					}
-				}
-				
-			} catch (InvalidUser e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			int score = users.get(i).getScore();	
+			if(highscore < score) {
+				highscore = score;
 			}
-			
-	
 		}
-		int maxscore = (int) (Math.ceil(((double)highscore) /10)*10.0);
+		int maxscore = (int) (Math.ceil(((double)highscore) /100)*10.0);
+
+		StatsHistory stats = MainGame.getInstance().getStatsHistory();
+		List<Integer> allscores;
 		for(int i=0; i<numUsers; ++i) {
-			//score = users.get(i).getScore();
 			try {
 				allscores = stats.getTotalUserScores(users.get(i));
 		
@@ -92,7 +79,6 @@ public class GraphData extends JPanel {
 		        draw.draw(line);
 				
 			} catch (InvalidUser e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
