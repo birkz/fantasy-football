@@ -20,11 +20,10 @@ public class ObjectScores {
 	public void addScore(int score) {
 		int lastindex = this.scores.size();
 		int lastscore;
-		if(lastindex != 0) lastscore = this.scores.get(lastindex-1);
+		if(lastindex != 0) lastscore = this.totalscores.get(lastindex-1);
 		else lastscore = 0;
 		this.scores.add(score);
 		this.totalscores.add(lastscore + score);
-		
 	}
 	
 	public List<Integer> getScores() {
