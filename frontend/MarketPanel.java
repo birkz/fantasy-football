@@ -14,6 +14,7 @@ import tests.InvalidPlayer;
 import tests.InvalidPosition;
 import tests.LeagueMock;
 import tests.PlayerInterface;
+import tests.PlayerInterface.Position;
 import tests.TeamMock;
 
 public class MarketPanel extends JPanel {
@@ -199,7 +200,7 @@ public class MarketPanel extends JPanel {
 			team_choices.add(teams_it.next().getName());
 		}
 
-		List<String> pos_choices = Arrays.asList("Any","Goalkeeper","Defender","Midfielder","Striker");
+		List<String> pos_choices = Arrays.asList("Any","Goalkeeper","Defender","Midfielder","Forward");
 		wrapper = new JPanel();
 		wrapper.add(field);
 		wrapper.add(addComboBox(team_choices,"Team"));
@@ -304,13 +305,13 @@ public class MarketPanel extends JPanel {
 				// Filter out players
 				if(!player.getName().toLowerCase().contains(player_choice.toLowerCase())
 						|| (!this.team_choice.equals("Any") && !team.getName().equals(this.team_choice))
-						|| (!this.pos_choice.equals("Any") && !player.getPositionName().equals(this.pos_choice)))
+						|| (!this.pos_choice.equals("Any") && !positionToString(player.getPosition()).equals(this.pos_choice)))
 					continue;
 				
 				// If the values go through the filter, add them to the table.
 				data[i][0] = player.getName();
 				data[i][1] = team.getName();
-				data[i][2] = player.getPositionName();
+				data[i][2] = positionToString(player.getPosition());
 				data[i][3] = player.getPrice();
 				
 				if(backend.MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player)){
@@ -326,5 +327,15 @@ public class MarketPanel extends JPanel {
 		return subdata;
 		
 	}
-
+	
+	private String positionToString(Position pos){
+		if(pos.equals(PlayerInterface.Position.GOALKEEPER))
+			return "Goalkeeper";
+		else if(pos.equals(PlayerInterface.Position.DEFENDER))
+			return "Defender";
+		else if(pos.equals(PlayerInterface.Position.MIDFIELDER))
+			return "Midfielder";
+		else
+			return "Forward";
+	}
 }

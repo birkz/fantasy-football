@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tests.*;
+import tests.PlayerInterface.Position;
 
 public class Roster {
 	private List<PlayerInterface> goalkeepers;
@@ -71,9 +72,9 @@ public class Roster {
 	//        b is false then the player will only be removed from the field. If the player
 	//        provided is not in the roster then a InvalidPlayer exception will be thrown.
 	private boolean removePlayer(PlayerInterface player, boolean removeFromRoster){
-		String posName = player.getPositionName();
+		Position pos = player.getPosition();
 		boolean b = true;
-		if (posName.toLowerCase().equals("goalkeeper")){
+		if (pos.equals(Position.GOALKEEPER)){
 			if (removeFromRoster)
 				b = goalkeepers.remove(player);
 			if(b == true){
@@ -83,7 +84,7 @@ public class Roster {
 			}
 			return b;
 			
-		} else if (posName.toLowerCase().equals("defender")){
+		} else if (pos.equals(Position.DEFENDER)){
 			if (removeFromRoster)
 				b = defenders.remove(player);
 			if(b == true){
@@ -93,7 +94,7 @@ public class Roster {
 			}
 			return b;
 			
-		} else if (posName.toLowerCase().equals("midfielder")){
+		} else if (pos.equals(Position.MIDFIELDER)){
 			if (removeFromRoster)
 				b = midfielders.remove(player);
 			if(b == true){
@@ -103,7 +104,7 @@ public class Roster {
 			}
 			return b;
 			
-		} else if (posName.toLowerCase().equals("striker")){
+		} else if (pos.equals(Position.FORWARD)){
 			if (removeFromRoster)
 				b = strikers.remove(player);
 			if(b == true){
@@ -123,32 +124,30 @@ public class Roster {
 	//        added to the roster and b is returned as true. If there is no room him in his
 	//        position then b is returned as false. If the player's position is not "Goalkeeper",
 	//        "Defender", "Midfielder", or "Striker" then InvalidPosition exception is thrown.
-	public boolean addPlayerToRoster(PlayerInterface player) throws InvalidPosition{
-		String posName = player.getPositionName();
+	public boolean addPlayerToRoster(PlayerInterface player) {
+		Position pos = player.getPosition();
 		
-		if (posName.toLowerCase().equals("goalkeeper")){
+		if (pos.equals(Position.GOALKEEPER)){
 			if (this.goalkeepers.size() == MAX_GOALKEEPERS) return false;
 			this.goalkeepers.add(player);
 			return true;
 			
-		} else if (posName.toLowerCase().equals("defender")){
+		} else if (pos.equals(Position.DEFENDER)){
 			if (this.defenders.size() == MAX_DEFENDERS) return false;
 			this.defenders.add(player);
 			return true;
 			
-		} else if (posName.toLowerCase().equals("midfielder")){
+		} else if (pos.equals(Position.MIDFIELDER)){
 			if (midfielders.size() == MAX_MIDFIELDERS) return false;
 			this.midfielders.add(player);
 			return true;
 			
-		} else if (posName.toLowerCase().equals("striker")){
+		} else if (pos.equals(Position.FORWARD)){
 			if (strikers.size() == MAX_STRIKERS) return false;
 			this.strikers.add(player);
 			return true;
-			
-		} else {
-			throw new InvalidPosition(posName+" is not a valid position. Only Goalkeeper, Defender, Midfielder, and Striker are valid.");
 		}
+		return false;
 	}
 	
 	// Usage: b = addPlayerToField(player)
@@ -225,36 +224,36 @@ public class Roster {
 	 * Is this player in roster?
 	 */
 	public boolean isInRoster(PlayerInterface player) throws InvalidPlayer{
-		String pos = player.getPositionName();
+		Position pos = player.getPosition();
 		
-		if (pos.toLowerCase().equals("goalkeeper")){
+		if (pos.equals(Position.GOALKEEPER)){
 			return goalkeepers.contains(player);
-		} else if (pos.toLowerCase().equals("defender")){
+		} else if (pos.equals(Position.DEFENDER)){
 			return defenders.contains(player);
-		} else if (pos.toLowerCase().equals("midfielder")){
+		} else if (pos.equals(Position.MIDFIELDER)){
 			return midfielders.contains(player);
-		} else if (pos.toLowerCase().equals("striker")){
+		} else if (pos.equals(Position.FORWARD)){
 			return strikers.contains(player);
 		}
-		throw new tests.InvalidPlayer(pos+" is a invalid position for a player.");
+		return false;
 	}
 	
 	/*
 	 * Is this player on the field?
 	 */
 	public boolean isOnField(PlayerInterface player) throws InvalidPlayer{
-		String pos = player.getPositionName();
+		Position pos = player.getPosition();
 		
-		if (pos.toLowerCase().equals("goalkeeper")){
+		if (pos.equals(Position.GOALKEEPER)){
 			return goalkeepersOnField.contains(player);
-		} else if (pos.toLowerCase().equals("defender")){
+		} else if (pos.equals(Position.DEFENDER)){
 			return defendersOnField.contains(player);
-		} else if (pos.toLowerCase().equals("midfielder")){
+		} else if (pos.equals(Position.MIDFIELDER)){
 			return midfieldersOnField.contains(player);
-		} else if (pos.toLowerCase().equals("striker")){
+		} else if (pos.equals(Position.FORWARD)){
 			return strikersOnField.contains(player);
 		}
-		throw new tests.InvalidPlayer(pos+" is a invalid position for a player.");
+		return false;
 	}
 	
 	/*

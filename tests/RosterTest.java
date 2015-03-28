@@ -14,23 +14,16 @@ import java.util.List;
 import java.util.Map;
 
 import backend.Roster;
-import tests.PlayerInterface;
+import tests.PlayerInterface.*;
 
 public class RosterTest {
 	/*
 	 * Constants
 	 */
 	private final int MAX_GOALKEEPERS = res.Constants.MAX_GOALKEEPERS;
-	//private final int MAX_GOALKEEPERS_ON_FIELD = res.Contants.MAX_GOALKEEPERS_ON_FIELD;
-	
 	private final int MAX_DEFENDERS = res.Constants.MAX_DEFENDERS;
-	//private final int MAX_DEFENDERS_ON_FIELD = res.Contants.MAX_DEFENDERS_ON_FIELD;
-	
 	private final int MAX_MIDFIELDERS = res.Constants.MAX_MIDFIELDERS;
-	//private final int MAX_MIDFIELDERS_ON_FIELD = res.Contants.MAX_MIDFIELDERS_ON_FIELD;
-	
 	private final int MAX_STRIKERS = res.Constants.MAX_STRIKERS;
-	//private final int MAX_STRIKERS_ON_FIELD = res.Contants.MAX_STRIKERS_ON_FIELD;
 	
 	/*
 	 * Instance variables
@@ -46,8 +39,6 @@ public class RosterTest {
 	private static PlayerMock goalkeeper2;
 	private static PlayerMock goalkeeper3;
 	private static PlayerMock goalkeeper4;
-	
-	private static PlayerMock invalid_pos1;
 	
 	private static PlayerMock defender1;
 	private static PlayerMock defender2;
@@ -67,36 +58,32 @@ public class RosterTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		goalkeeper1 = new PlayerMock("Goalkeeper 1","Goalkeeper");
-		goalkeeper2 = new PlayerMock("Goalkeeper 2","Goalkeeper");
-		goalkeeper3 = new PlayerMock("Goalkeeper 3","Goalkeeper");
-		goalkeeper4 = new PlayerMock("Goalkeeper 4","Goalkeeper");
+		goalkeeper1 = new PlayerMock("Goalkeeper 1",Position.GOALKEEPER);
+		goalkeeper2 = new PlayerMock("Goalkeeper 2",Position.GOALKEEPER);
+		goalkeeper3 = new PlayerMock("Goalkeeper 3",Position.GOALKEEPER);
+		goalkeeper4 = new PlayerMock("Goalkeeper 4",Position.GOALKEEPER);
 		
-		invalid_pos1 = new PlayerMock("Football fan","Couch potato");
+		defender1 = new PlayerMock("Defender 1",Position.DEFENDER);
+		defender2 = new PlayerMock("Defender 2",Position.DEFENDER);
+		defender3 = new PlayerMock("Defender 3",Position.DEFENDER);
+		defender4 = new PlayerMock("Defender 4",Position.DEFENDER);
+		defender5 = new PlayerMock("Defender 5",Position.DEFENDER);
 		
-		defender1 = new PlayerMock("Defender 1","Defender");
-		defender2 = new PlayerMock("Defender 2","Defender");
-		defender3 = new PlayerMock("Defender 3","Defender");
-		defender4 = new PlayerMock("Defender 4","Defender");
-		defender5 = new PlayerMock("Defender 5","Defender");
+		midfielder1 = new PlayerMock("Midfielder 1",Position.MIDFIELDER);
+		midfielder2 = new PlayerMock("Midfielder 2",Position.MIDFIELDER);
+		midfielder3 = new PlayerMock("Midfielder 3",Position.MIDFIELDER);
+		midfielder4 = new PlayerMock("Midfielder 4",Position.MIDFIELDER);
+		midfielder5 = new PlayerMock("Midfielder 5",Position.MIDFIELDER);
 		
-		midfielder1 = new PlayerMock("Midfielder 1","Midfielder");
-		midfielder2 = new PlayerMock("Midfielder 2","Midfielder");
-		midfielder3 = new PlayerMock("Midfielder 3","Midfielder");
-		midfielder4 = new PlayerMock("Midfielder 4","Midfielder");
-		midfielder5 = new PlayerMock("Midfielder 5","Midfielder");
-		
-		striker1 = new PlayerMock("Striker 1","Striker");
-		striker2 = new PlayerMock("Striker 2","Striker");
-		striker3 = new PlayerMock("Striker 3","Striker");
+		striker1 = new PlayerMock("Forward 1",Position.FORWARD);
+		striker2 = new PlayerMock("Forward 2",Position.FORWARD);
+		striker3 = new PlayerMock("Forward 3",Position.FORWARD);
 		
 		players = new HashMap<String, PlayerMock>();
 		players.put(goalkeeper1.getName(),goalkeeper1);
 		players.put(goalkeeper2.getName(),goalkeeper2);
 		players.put(goalkeeper3.getName(),goalkeeper3);
 		players.put(goalkeeper4.getName(),goalkeeper4);
-		
-		players.put(invalid_pos1.getName(),invalid_pos1);
 		
 		players.put(defender1.getName(),defender1);
 		players.put(defender2.getName(),defender2);
