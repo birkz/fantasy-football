@@ -103,8 +103,6 @@ if each instance of 'Class A' will use 'Class B' in a range of 0 to 10 instances
 We decided to split our class diagram into two figures: \textbf{Back-end classes} and \textbf{Front-end classes}. The back-end classes take care of storing and keeping track of all information as the game is running. The front-end classes take care of displaying the information to the users playing the game as well as handling their input.
 
 \subsection{Back-end classes}
-$N$ is er number of total users in the current game and $P$ is the total amount of football players in the game.
-\newpage
 \begin{tikzpicture}
 %% ==========================================
 %% User
@@ -173,7 +171,7 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
    + \texttt{int getNumberOfPlayersOnField()}\\
    + \texttt{boolean removePlayerFromField(Player player)}\\
    + \texttt{void removePlayerFromRoster(Player player)}\\
-   -- \texttt{void removePlayer(Player p, boolean r)}\\
+   -- \texttt{void removePlayer(Player p, boolean fromRoster)}\\
    + \texttt{boolean addPlayerToField(Player player)}\\
    + \texttt{boolean addPlayerToRoster(Player player)}\\
    + \texttt{List< List<Player> > getPlayersInRoster()}\\
@@ -187,7 +185,7 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 %% ==========================================
 %% MainGame
 %% ==========================================
-\begin{scope}[yshift=-7.5cm]
+\begin{scope}[yshift=-7.68cm]
 \node[umlclass] (maingame)
  {\textbf{\large \textit{MainGame}}
  \nodepart{two}
@@ -207,7 +205,7 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
-   -- \texttt{MainGame()}\\
+   -- \texttt{static MainGame()}\\
    + \texttt{MainGame getInstance()}\\
    + \texttt{void setNumUsers(int num)}\\
    + \texttt{void nextUser()}\\
@@ -272,7 +270,7 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 %% ==========================================
 %% PlayerScores
 %% ==========================================
-\begin{scope}[xshift=0cm,yshift=-14cm]
+\begin{scope}[xshift=0cm,yshift=-14.5cm]
 \node[umlclass] (playerscores)
  {\textbf{\large \textit{ObjectScores}}
  \nodepart{two}
@@ -282,14 +280,83 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
-   -- \texttt{String name}\\
-   -- \texttt{int[] scores}\\
+   -- \texttt{Object object}\\
+   -- \texttt{List<Integer> scores}\\
+   -- \texttt{List<Integer> totalscores}
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
-   + \texttt{PlayerScores(String name)}\\
-   + \texttt{void setScore(int score)}\\
-   + \texttt{int[] getScores()}\\
+   + \texttt{ObjectScores(Object object)}\\
+   + \texttt{void addScore(int score)}\\
+   + \texttt{List<Integer> getScores()}\\
+   + \texttt{List<Integer> getTotalScores()}\\
+   + \texttt{Object getObject()}
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% Allar örvar teiknaðar hér
+%% ==========================================
+% user to roster
+\draw[arrows={-angle 60},thick] ([yshift=-20pt]user.three east) node[right]{1} to [out=45, in=-150](roster.text west) node[above left]{1};
+
+% maingame to user
+\draw[arrows={-angle 60},thick]
+[out=0, in=90](maingame.three east) node[right=0.15cm]{1} to [out=75, in=-75](user.text east) node[right]{1--N};
+
+% maingame to statshistory
+\draw[arrows={-angle 60},thick]
+[out=0, in=90]([yshift=0.5cm]maingame.three east) node[right=0.15cm]{1} to [out=-65, in=111](statshistory.text west) node[left]{1};
+
+% roster to player
+\draw[arrows={angle 60-},thick] (player.text west) to [out=105, in=-120]([yshift=-1cm]roster.three west);
+
+% StatsHistory to PlayerScores
+\draw[arrows={-angle 60},thick] ([yshift=0.2cm]statshistory.three west) node[above left]{1} to [out=-135, in=10](playerscores.text east) node[below right]{$P$};
+
+% StatsHistory to Player (backwards)
+\draw[arrows={angle 60-},thick] ([yshift=0.2cm]statshistory.four west) to [out=110, in=-120](player.text west);
+\end{tikzpicture}  
+$N$ is er number of total users in the current game and $P$ is the total amount of football players in the game.
+
+\newpage
+\subsection{Front-end classes}
+\begin{tikzpicture}
+%% ==========================================
+%% Main
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (main)
+ {\textbf{\large \textit{Main}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   The main front-end class. It is initialized at\\
+   the start of the game and runs until the game\\
+   is terminated.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{static final Main instance}\\
+   -- \texttt{JFrame frame}\\
+   -- \texttt{JPanel right}\\
+   -- \texttt{JPanel change}\\
+   -- \texttt{MainGame game}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   -- \texttt{static Main()}\\
+   + \texttt{static Main getInstance()}\\
+   + \texttt{void startGame()}\\
+   + \texttt{void restartFrame()}\\
+   + \texttt{void setPanelAsMarket()}\\
+   + \texttt{void setPanelAsScore()}\\
+   + \texttt{void setPanelAsRoster()}\\
+   + \texttt{void setPanelAsLeague()}\\ 
+   + \texttt{void setPanelAsFieldViewer()}\\ 
+   + \texttt{Dimension returnSizeForPanel()}\\
+   + \texttt{static void main(String[] args)}\\
   \end{tabular}
  };
 \end{scope}
@@ -315,29 +382,13 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 %  \end{tabular}
 % };
 %\end{scope}
-
-%% ==========================================
-%% Allar örvar teiknaðar hér
-%% ==========================================
-% user to roster
-\draw[arrows={-angle 60},thick] ([yshift=-20pt]user.three east) node[right]{1} to [out=45, in=-150](roster.text west) node[above left]{1};
-
-% maingame to user
-\draw[arrows={-angle 60},thick]
-[out=0, in=90](maingame.three east) node[right=0.15cm]{1} to [out=75, in=-75](user.text east) node[right]{1--N};
-
-% maingame to statshistory
-\draw[arrows={-angle 60},thick]
-[out=0, in=90]([yshift=0.5cm]maingame.three east) node[right=0.15cm]{1} to [out=-65, in=111](statshistory.text west) node[right]{1};
-
-% roster to player
-\draw[arrows={angle 60-},thick] (player.text west) to [out=105, in=-120]([yshift=-1cm]roster.three west);
-
-% StatsHistory to PlayerScores
-\draw[arrows={-angle 60},thick] ([yshift=0.2cm]statshistory.three west) node[above left]{1} to [out=-135, in=10](playerscores.text east) node[below right]{$P$};
-
-% StatsHistory to Player (backwards)
-\draw[arrows={angle 60-},thick] ([yshift=0.2cm]statshistory.four west) to [out=110, in=-120](player.text west);
 \end{tikzpicture}
+
+\newpage
+\subsection{Connections between front-end and back-end classes}
+
+\newpage
+\section{Sequence diagrams}
+
 
 \end{document}
