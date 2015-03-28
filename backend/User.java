@@ -21,8 +21,8 @@ public class User {
 		this.name = name;
 		this.score = new ArrayList<Integer>();
 		this.roster = new Roster();
-		if (res.Contants.TEST_MODE && this.id==0) addRandomPlayersToRoster();
-		this.money = res.Contants.STARTING_MONEY;
+		if (res.Constants.TEST_MODE && this.id==0) addRandomPlayersToRoster();
+		this.money = res.Constants.STARTING_MONEY;
 	}
 	
 	public boolean changeMoney(int dMoney) {

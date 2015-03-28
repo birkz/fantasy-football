@@ -1,6 +1,6 @@
 package res;
 
-public class Contants {
+public class Constants {
 	/*
 	 * General constants
 	 */

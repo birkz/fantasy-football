@@ -20,17 +20,17 @@ public class Roster {
 	/*
 	 * Constants
 	 */
-	private final int MAX_GOALKEEPERS = res.Contants.MAX_GOALKEEPERS;
-	private final int MAX_GOALKEEPERS_ON_FIELD = res.Contants.MAX_GOALKEEPERS_ON_FIELD;
+	private final int MAX_GOALKEEPERS = res.Constants.MAX_GOALKEEPERS;
+	private final int MAX_GOALKEEPERS_ON_FIELD = res.Constants.MAX_GOALKEEPERS_ON_FIELD;
 	
-	private final int MAX_DEFENDERS = res.Contants.MAX_DEFENDERS;
-	private final int MAX_DEFENDERS_ON_FIELD = res.Contants.MAX_DEFENDERS_ON_FIELD;
+	private final int MAX_DEFENDERS = res.Constants.MAX_DEFENDERS;
+	private final int MAX_DEFENDERS_ON_FIELD = res.Constants.MAX_DEFENDERS_ON_FIELD;
 	
-	private final int MAX_MIDFIELDERS = res.Contants.MAX_MIDFIELDERS;
-	private final int MAX_MIDFIELDERS_ON_FIELD = res.Contants.MAX_MIDFIELDERS_ON_FIELD;
+	private final int MAX_MIDFIELDERS = res.Constants.MAX_MIDFIELDERS;
+	private final int MAX_MIDFIELDERS_ON_FIELD = res.Constants.MAX_MIDFIELDERS_ON_FIELD;
 	
-	private final int MAX_STRIKERS = res.Contants.MAX_STRIKERS;
-	private final int MAX_STRIKERS_ON_FIELD = res.Contants.MAX_STRIKERS_ON_FIELD;
+	private final int MAX_STRIKERS = res.Constants.MAX_STRIKERS;
+	private final int MAX_STRIKERS_ON_FIELD = res.Constants.MAX_STRIKERS_ON_FIELD;
 	
 	public Roster(){
 		this.numberOfPlayersOnField = 0;
@@ -263,7 +263,8 @@ public class Roster {
 	public boolean sellPlayer(PlayerInterface player) throws InvalidPlayer{
 		if(removePlayerFromRoster(player)){
 			backend.MainGame.getInstance().getCurrentUser().changeMoney(player.getPrice());
-			System.out.println("This player was sold! You made "+player.getPrice());
+			if(res.Constants.VERBOSE)
+				System.out.println("This player was sold! You made "+player.getPrice());
 			return true;
 		}
 		return false;
@@ -274,16 +275,19 @@ public class Roster {
 	 */
 	public boolean buyPlayer(PlayerInterface player) throws InvalidPosition, InvalidPlayer{
 		if(player.getPrice() > backend.MainGame.getInstance().getCurrentUser().getMoney()){
-			System.out.println("This player is too expensive!");
+			if(res.Constants.VERBOSE)
+				System.out.println("This player is too expensive!");
 			return false;
 		}
 		if(addPlayerToRoster(player)){
 			backend.MainGame.getInstance().getCurrentUser().changeMoney(-player.getPrice());
-			System.out.println("This player was bought! You lost "+(-player.getPrice()));
+			if(res.Constants.VERBOSE)
+				System.out.println("This player was bought! You lost "+(-player.getPrice()));
 			addPlayerToField(player);
 			return true;
 		} else {
-			System.out.println("You can't have more players in that position!");
+			if(res.Constants.VERBOSE)
+				System.out.println("You can't have more players in that position!");
 		}
 		return false;
 	}

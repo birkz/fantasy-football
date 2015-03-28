@@ -248,7 +248,8 @@ public class MarketPanel extends JPanel {
 			public void actionPerformed(ActionEvent e)
 		    {
 				PlayerInterface player = results.get(Integer.parseInt(e.getActionCommand()));
-				System.out.println("You pressed "+table.getValueAt(Integer.parseInt(e.getActionCommand()), 4)+" on player "+player.getName());
+				if(res.Constants.VERBOSE)
+					System.out.println("You pressed "+table.getValueAt(Integer.parseInt(e.getActionCommand()), 4)+" on player "+player.getName());
 	        	
 	        	// Get the current scroll position
 	        	Integer value = scroll.getVerticalScrollBar().getValue();
@@ -274,7 +275,7 @@ public class MarketPanel extends JPanel {
 		        // Update the panels to show the changes
 		        frontend.Main.getInstance().restartFrame();
 		        frontend.Main.getInstance().setPanelAsMarket(scroll,value);
-				frontend.Main.getInstance().setPanelAsFieldViewer();
+		        frontend.Main.getInstance().setPanelAsFieldViewer();
 		    }
 		};
 		

@@ -20,16 +20,16 @@ public class RosterTest {
 	/*
 	 * Constants
 	 */
-	private final int MAX_GOALKEEPERS = res.Contants.MAX_GOALKEEPERS;
+	private final int MAX_GOALKEEPERS = res.Constants.MAX_GOALKEEPERS;
 	//private final int MAX_GOALKEEPERS_ON_FIELD = res.Contants.MAX_GOALKEEPERS_ON_FIELD;
 	
-	private final int MAX_DEFENDERS = res.Contants.MAX_DEFENDERS;
+	private final int MAX_DEFENDERS = res.Constants.MAX_DEFENDERS;
 	//private final int MAX_DEFENDERS_ON_FIELD = res.Contants.MAX_DEFENDERS_ON_FIELD;
 	
-	private final int MAX_MIDFIELDERS = res.Contants.MAX_MIDFIELDERS;
+	private final int MAX_MIDFIELDERS = res.Constants.MAX_MIDFIELDERS;
 	//private final int MAX_MIDFIELDERS_ON_FIELD = res.Contants.MAX_MIDFIELDERS_ON_FIELD;
 	
-	private final int MAX_STRIKERS = res.Contants.MAX_STRIKERS;
+	private final int MAX_STRIKERS = res.Constants.MAX_STRIKERS;
 	//private final int MAX_STRIKERS_ON_FIELD = res.Contants.MAX_STRIKERS_ON_FIELD;
 	
 	/*
