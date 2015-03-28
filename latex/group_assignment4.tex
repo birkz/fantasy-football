@@ -363,6 +363,77 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 \end{scope}
 
 %% ==========================================
+%% NameChange Panel
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (NameChange Panel)
+ {\textbf{\large \textit{NameChange Panel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{final JTextField name}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{NameChange()}\\
+   + \texttt{void changeName(String newName)}\\
+   + \texttt{void addChangeListener()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% Roster Panel
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (Roster Panel)
+ {\textbf{\large \textit{Roster Panel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{Roster roster}\\
+   -- \texttt{JLabel num_players}\\
+   -- \texttt{final Integer IS_ON_FIELD_COLUMN}\\ 
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{RosterPanel()}\\
+   + \texttt{Dimension getPreferredSize()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% Score Panel
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (Score Panel)
+ {\textbf{\large \textit{Score Panel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}  
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{ScorePanel()}\\
+   + \texttt{Dimension getPreferredSize()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
 %% Start Panel
 %% ==========================================
 \begin{scope}[xshift=0cm,yshift=0cm]
