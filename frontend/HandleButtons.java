@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import tests.InvalidPlayer;
-import tests.InvalidUser;
 
 public class HandleButtons implements ActionListener{
 
@@ -16,12 +15,7 @@ public class HandleButtons implements ActionListener{
 			Main.getInstance().setPanelAsMarket(null, 0);
 		
 		if(arg == "Scoreboard")
-			try {
-				Main.getInstance().setPanelAsScore();
-			} catch (InvalidUser e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
+			Main.getInstance().setPanelAsScore();
 		
 		if(arg == "Roster")
 			try {
@@ -33,12 +27,7 @@ public class HandleButtons implements ActionListener{
 		if(arg == "League") Main.getInstance().setPanelAsLeague();
 		
 		if(arg == "END TURN")
-			try {
-				backend.MainGame.getInstance().nextUser();
-			} catch (InvalidUser e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			backend.MainGame.getInstance().nextUser();
 	}
 
 }

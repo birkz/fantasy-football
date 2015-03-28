@@ -12,7 +12,6 @@ import javax.swing.*;
 
 import tests.InvalidPlayer;
 import tests.InvalidPosition;
-import tests.InvalidUser;
 import tests.LeagueMock;
 import tests.PlayerInterface;
 import tests.PlayerInterface.Position;
@@ -274,13 +273,7 @@ public class MarketPanel extends JPanel {
 					}
 		        }
 		        
-		        // Update the panels to show the changes
-		        try {
-					frontend.Main.getInstance().restartFrame();
-				} catch (InvalidUser e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+		        frontend.Main.getInstance().restartFrame();
 		        frontend.Main.getInstance().setPanelAsMarket(scroll,value);
 		        frontend.Main.getInstance().setPanelAsFieldViewer();
 		    }
