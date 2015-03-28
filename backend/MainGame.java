@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tests.InvalidPlayer;
-import tests.InvalidPosition;
 import frontend.Main;
 
 public class MainGame {
@@ -23,7 +22,7 @@ public class MainGame {
 		return game;
 	}
 	
-	public void setNumUsers(List<String> names) throws InvalidPlayer, InvalidPosition {
+	public void setNumUsers(List<String> names) throws InvalidPlayer {
 		users = new ArrayList<User>();
 		for(int i=0; i<names.size(); ++i) {
 			users.add(new User(names.get(i),i));

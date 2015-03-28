@@ -23,7 +23,7 @@ public class RosterTest {
 	private final int MAX_GOALKEEPERS = res.Constants.MAX_GOALKEEPERS;
 	private final int MAX_DEFENDERS = res.Constants.MAX_DEFENDERS;
 	private final int MAX_MIDFIELDERS = res.Constants.MAX_MIDFIELDERS;
-	private final int MAX_STRIKERS = res.Constants.MAX_STRIKERS;
+	private final int MAX_FORWARDS = res.Constants.MAX_FORWARDS;
 	
 	/*
 	 * Instance variables
@@ -108,7 +108,7 @@ public class RosterTest {
 		goalkeepers = new ArrayList<String>(MAX_GOALKEEPERS);
 		defenders = new ArrayList<String>(MAX_DEFENDERS);
 		midfielders = new ArrayList<String>(MAX_MIDFIELDERS);
-		strikers = new ArrayList<String>(MAX_STRIKERS);
+		strikers = new ArrayList<String>(MAX_FORWARDS);
 	}
 	
 	@After

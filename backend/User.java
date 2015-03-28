@@ -1,11 +1,9 @@
 package backend;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import tests.InvalidPlayer;
-import tests.InvalidPosition;
 import tests.PlayerInterface;
 
 public class User {
@@ -16,7 +14,7 @@ public class User {
 	private String name;
 	private Roster roster;
 	
-	public User(String name, int id) throws InvalidPlayer, InvalidPosition {
+	public User(String name, int id) throws InvalidPlayer {
 		this.id = id;
 		this.name = name;
 		this.score = new ArrayList<Integer>();
@@ -25,23 +23,34 @@ public class User {
 		this.money = res.Constants.STARTING_MONEY;
 	}
 	
-	public boolean changeMoney(int dMoney) {
-		if(this.money + dMoney <0) return false;
-		this.money += dMoney;
-		return true;
-	}
-	
+	/*
+	 * Money related stuff
+	 */
 	public int getMoney(){
 		return this.money;
 	}
 	
+	public boolean isAffordable(int price){
+		return this.money > price;
+	}
+	
+	public void changeMoney(int dMoney) throws Exception {
+		if(!isAffordable(dMoney))
+			throw new Exception("Insufficient cash!");
+		this.money += dMoney;
+	}
+	
+	
+	/*
+	 * getRoster
+	 */
 	public Roster getRoster() {
 		return this.roster;
 	}
 
-	// Usage: i = getScore()
-	// Before:Nothing.
-	// After: i is an List of scores of this user
+	/*
+	 * Score related stuff
+	 */
 	public List<Integer> getScore() {
 		return this.score;
 	}
@@ -56,29 +65,28 @@ public class User {
 		this.score.add(newscore);
 	}
 	
-	public void changeName(String newname) {
-		this.name = newname;
-	}
-	
+	/*
+	 * Name related stuff
+	 */
 	public String getName() {
 		return name;
+	}
+	
+	public void setName(String newname) {
+		this.name = newname;
 	}
 	
 	/*
 	 * Test function
 	 */
-	private void addRandomPlayersToRoster() throws InvalidPlayer, InvalidPosition{
+	private void addRandomPlayersToRoster() throws InvalidPlayer {
 		
 		List<PlayerInterface> players = frontend.MarketPanel.getLeague().getTeams().get(0).getPlayers();
-		Iterator<PlayerInterface> players_it = players.iterator();
 		int j = 0;
-		while(players_it.hasNext()){
-			PlayerInterface player = players_it.next();
+		
+		for(PlayerInterface player : players){
 			this.roster.addPlayerToRoster(player);
-			if (j < 12){
-				this.roster.addPlayerToField(player);
-				j++;
-			}
+			if (j++ < 12) this.roster.addPlayerToField(player);
 		}
 		
 	}
