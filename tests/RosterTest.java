@@ -189,20 +189,6 @@ public class RosterTest {
 		assertEquals(1,compareListsOfLists(excepted, actual));
 	}
 	
-	// This test will check if we get an exception when adding a player with a different position
-	@Test
-	public void testIfInvalidPlayer() throws InvalidPosition {
-		Throwable exception = null;
-		// Add the player "Football fan" to the roster
-		try{
-			roster.addPlayerToRoster(players.get("Football fan"));
-		} catch (Throwable e) {
-			exception = e;
-		}
-		assertNotNull(exception);
-		assertSame(InvalidPosition.class,exception.getClass());
-	}
-	
 	// This test will check if we will receive "false" from the addPlayerToRoster() method if we try
 	// to add too many players to the same position.
 	@SuppressWarnings("serial")
@@ -249,9 +235,9 @@ public class RosterTest {
 		add = roster.addPlayerToRoster(players.get("Midfielder 3"));	assertTrue(add);
 		add = roster.addPlayerToRoster(players.get("Midfielder 4"));	assertTrue(add);
 		add = roster.addPlayerToRoster(players.get("Midfielder 5"));	assertTrue(add);
-		add = roster.addPlayerToRoster(players.get("Striker 1"));		assertTrue(add);
-		add = roster.addPlayerToRoster(players.get("Striker 2"));		assertTrue(add);
-		add = roster.addPlayerToRoster(players.get("Striker 3"));		assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Forward 1"));		assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Forward 2"));		assertTrue(add);
+		add = roster.addPlayerToRoster(players.get("Forward 3"));		assertTrue(add);
 		
 		// Get the roster players
 		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
@@ -269,9 +255,9 @@ public class RosterTest {
 		midfielders.add("Midfielder 3");
 		midfielders.add("Midfielder 4");
 		midfielders.add("Midfielder 5");
-		strikers.add("Striker 1");
-		strikers.add("Striker 2");
-		strikers.add("Striker 3");
+		strikers.add("Forward 1");
+		strikers.add("Forward 2");
+		strikers.add("Forward 3");
 		List<List<String>> excepted = new ArrayList<List<String>>(4) {{add(goalkeepers);add(defenders);add(midfielders);add(strikers);}};
 		
 		assertEquals(15,compareListsOfLists(excepted, actual));
@@ -304,9 +290,9 @@ public class RosterTest {
 		roster.addPlayerToRoster(players.get("Midfielder 3"));
 		roster.addPlayerToRoster(players.get("Midfielder 4"));
 		roster.addPlayerToRoster(players.get("Midfielder 5"));
-		roster.addPlayerToRoster(players.get("Striker 1"));
-		roster.addPlayerToRoster(players.get("Striker 2"));
-		roster.addPlayerToRoster(players.get("Striker 3"));
+		roster.addPlayerToRoster(players.get("Forward 1"));
+		roster.addPlayerToRoster(players.get("Forward 2"));
+		roster.addPlayerToRoster(players.get("Forward 3"));
 		
 		boolean b;
 		roster.addPlayerToField(players.get("Goalkeeper 1"));	
@@ -317,19 +303,9 @@ public class RosterTest {
 		b = roster.addPlayerToField(players.get("Midfielder 3"));	assertTrue(b);
 		b = roster.addPlayerToField(players.get("Midfielder 4"));	assertTrue(b);
 		b = roster.addPlayerToField(players.get("Midfielder 5"));	assertTrue(b);
-		b = roster.addPlayerToField(players.get("Striker 1"));		assertTrue(b);
-		b = roster.addPlayerToField(players.get("Striker 2"));		assertTrue(b);
-		b = roster.addPlayerToField(players.get("Striker 3"));		assertTrue(b);
-		
-		// Test if adding a player that is not in the roster will throw the InvalidPlayer exception
-		Throwable exception = null;
-		try{
-			roster.addPlayerToField(players.get("Football fan"));
-		} catch (Throwable e) {
-			exception = e;
-		}
-		assertNotNull(exception);
-		assertSame(InvalidPlayer.class,exception.getClass());
+		b = roster.addPlayerToField(players.get("Forward 1"));		assertTrue(b);
+		b = roster.addPlayerToField(players.get("Forward 2"));		assertTrue(b);
+		b = roster.addPlayerToField(players.get("Forward 3"));		assertTrue(b);
 		
 		// Test if we're not able to add the 12th player to the field
 		b = roster.addPlayerToField(players.get("Defender 3"));
@@ -347,19 +323,6 @@ public class RosterTest {
 		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
 		List<List<String>> excepted = new ArrayList<List<String>>(4) {{add(goalkeepers);add(defenders);add(midfielders);add(strikers);}};
 		assertEquals(0,compareListsOfLists(excepted, actual));
-	}
-	
-	// Test if we remove a player that's NOT in the roster.
-	@Test
-	public void testRemoveInvalidPlayer() {
-		Throwable exception = null;
-		try{
-			roster.removePlayerFromRoster(players.get("Goalkeeper 1"));
-		} catch (Throwable e) {
-			exception = e;
-		}
-		assertNotNull(exception);
-		assertSame(InvalidPlayer.class,exception.getClass());
 	}
 	
 	// This test if check if the variable NumberOfPlayersOfField is accurate.
