@@ -363,6 +363,35 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 \end{scope}
 
 %% ==========================================
+%% Start Panel
+%% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass] (Start Panel)
+ {\textbf{\large \textit{Start Panel}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Desc.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{JPanel center}\\
+   -- \texttt{JTextField field}\\
+   -- \texttt{List<String> names}\\
+   -- \texttt{int numEmpty}\\
+   -- \texttt{JButton startGame}\\
+   -- \texttt{JButton addPlayer}\\   
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   + \texttt{StartPanel()}\\
+   + \texttt{addPlayerHandler()}\\
+   + \texttt{void changeCenter()}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
 %% generic template
 %% ==========================================
 %\begin{scope}[xshift=0cm,yshift=0cm]
