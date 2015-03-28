@@ -26,6 +26,13 @@ public class MainGame {
 		return game;
 	}
 	
+	public void resetGame() {
+		this.stats = new StatsHistory();
+		this.users = null;
+		this.round = 0;
+		this.currentUser = 0;
+	}
+	
 	public void setNumUsers(List<String> names) throws InvalidPlayer {
 		users = new ArrayList<User>();
 		for(int i=0; i<names.size(); ++i) {
@@ -36,19 +43,24 @@ public class MainGame {
 	
 	public void nextUser() throws InvalidUser {
 		int numUsers = users.size();
-		if(currentUser<numUsers && round<10) currentUser++;
-		if(currentUser==numUsers && round<10) {
-			currentUser = 0;
-			//here call for simulation of a round
-			try {
-				tests.RoundMock.SimRound();
-			} catch (InvalidUser e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if(round<10) {
+			if(currentUser<numUsers) currentUser++;
+			if(currentUser==numUsers) {
+				currentUser = 0;
+				//here call for simulation of a round
+				try {
+					tests.RoundMock.SimRound();
+				} catch (InvalidUser e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				round++;
 			}
-			round++;
+			Main.getInstance().restartFrame();
 		}
-		Main.getInstance().restartFrame();
+		if(round == 10) {
+			Main.getInstance().setEndgamePanel();
+		}
 	}
 	
 	public int getRound() {

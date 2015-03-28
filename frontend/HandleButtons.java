@@ -3,6 +3,7 @@ package frontend;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import backend.MainGame;
 import tests.InvalidPlayer;
 import tests.InvalidUser;
 
@@ -31,6 +32,11 @@ public class HandleButtons implements ActionListener{
 			}
 		
 		if(arg == "League") Main.getInstance().setPanelAsLeague();
+		
+		if(arg == "NEW GAME") {
+			MainGame.getInstance().resetGame();
+			Main.getInstance().restartGame();
+		}
 		
 		if(arg == "END TURN")
 			try {

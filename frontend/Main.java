@@ -30,10 +30,17 @@ public class Main {
 	}
 	
 	public void createAndShowGUI() {
+		restartGame();
+	}
+	
+	public void restartGame() {
+		frame.getContentPane().removeAll();
 		frame.add(new StartPanel());
 		frame.setMinimumSize(new Dimension(800,400));
+		frame.setSize(800, 400);
 	    frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.validate();
 	}
 	
 	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser {
@@ -122,6 +129,19 @@ public class Main {
 		change.add(new LeaguePanel());
 		change.setVisible(false);
 		change.setVisible(true);
+	}
+	
+	public void setEndgamePanel() throws InvalidUser {
+		frame.getContentPane().removeAll();
+		frame.setMinimumSize(new Dimension(1200,700));
+		frame.setLocationRelativeTo(null);
+		
+		frame.setLayout(new BorderLayout(0, 0));
+		frame.add(new ScorePanel(), BorderLayout.CENTER);
+		frame.add(new EndgamePanel(), BorderLayout.SOUTH);
+		
+		frame.setVisible(true);
+        frame.validate();
 	}
 	
 	public void setPanelAsFieldViewer() {
