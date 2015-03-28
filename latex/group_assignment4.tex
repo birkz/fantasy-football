@@ -104,6 +104,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 
 \subsection{Back-end classes}
 $N$ is er number of total users in the current game and $P$ is the total amount of football players in the game.
+\newpage
 \begin{tikzpicture}
 %% ==========================================
 %% User
@@ -122,7 +123,8 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
   \begin{tabular}{l}
    -- \texttt{int id}\\
    -- \texttt{int money}\\
-   -- \texttt{List<Integer> score}\\
+   -- \texttt{int score}\\
+   -- \texttt{int roundscore}\\
    -- \texttt{String name}\\
    -- \texttt{Roster roster}\\
   \end{tabular}
@@ -133,9 +135,9 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
    + \texttt{boolean isAffordable(int price)}\\
    + \texttt{void changeMoney(int dMoney)}\\
    + \texttt{Roster getRoster()}\\
-   + \texttt{List<Integer> getScore()}\\
-   + \texttt{List<Integer> getTotalScore()}\\
-   + \texttt{void addScore(int newscore)}\\
+   + \texttt{int getScore()}\\
+   + \texttt{int getRoundScore()}\\
+   + \texttt{void setScore(int newscore)}\\
    + \texttt{String getName()}\\
    + \texttt{void setName(String newname)}\\ 
   \end{tabular}
@@ -145,7 +147,7 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 %% ==========================================
 %% Roster
 %% ==========================================
-\begin{scope}[xshift=10cm,yshift=0.8cm]
+\begin{scope}[xshift=10cm,yshift=0.1cm]
 \node[umlclass] (roster)
  {\textbf{\large \textit{Roster}}
  \nodepart{two}
@@ -171,6 +173,7 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
    + \texttt{int getNumberOfPlayersOnField()}\\
    + \texttt{boolean removePlayerFromField(Player player)}\\
    + \texttt{void removePlayerFromRoster(Player player)}\\
+   -- \texttt{void removePlayer(Player p, boolean r)}\\
    + \texttt{boolean addPlayerToField(Player player)}\\
    + \texttt{boolean addPlayerToRoster(Player player)}\\
    + \texttt{List< List<Player> > getPlayersInRoster()}\\
@@ -196,6 +199,7 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
+   -- \texttt{static final MainGame game}\\
    -- \texttt{StatsHistory stats}\\
    -- \texttt{List<User> users}\\
    -- \texttt{int round}\\
@@ -203,7 +207,8 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
-   + \texttt{MainGame()}\\
+   -- \texttt{MainGame()}\\
+   + \texttt{MainGame getInstance()}\\
    + \texttt{void setNumUsers(int num)}\\
    + \texttt{void nextUser()}\\
    + \texttt{int getRound()}\\
@@ -218,7 +223,7 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 %% ==========================================
 %% Player
 %% ==========================================
-\begin{scope}[xshift=8cm,yshift=-5.5cm]
+\begin{scope}[xshift=8cm,yshift=-6.6cm]
 \node[umlclass,rectangle split parts=2,fill=red!32] (player)
  {\textbf{\large \textit{Player} <<interface>>}
  \nodepart{two}
@@ -234,35 +239,9 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 \end{scope}
 
 %% ==========================================
-%% Market
-%% ==========================================
-\begin{scope}[xshift=9cm,yshift=-9cm]
-\node[umlclass] (market)
- {\textbf{\large \textit{Market}}
- \nodepart{two}
-  {\footnotesize
-  \begin{tabular}{l} 
-   Handles listing, buying and selling players.
-  \end{tabular}}
- \nodepart{three}
-  \begin{tabular}{l}
-   -- \texttt{Player[] players}\\
-  \end{tabular}
- \nodepart{four}
-  \begin{tabular}{l}
-   + \texttt{Market()}\\
-   + \texttt{void fetchPlayersByName()}\\
-   + \texttt{void fetchPlayersByTeam()}\\
-   + \texttt{public void buyPlayer(Player player)}\\
-   + \texttt{public void sellPlayer(Player player)}\\
-  \end{tabular}
- };
-\end{scope}
-
-%% ==========================================
 %% StatsHistory
 %% ==========================================
-\begin{scope}[xshift=0cm,yshift=-14cm]
+\begin{scope}[xshift=10cm,yshift=-13cm]
 \node[umlclass] (statshistory)
  {\textbf{\large \textit{StatsHistory}}
  \nodepart{two}
@@ -272,14 +251,20 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
-   -- \texttt{PlayerScores[] allplayerscores}\\
-   -- \texttt{int[] rosterscores}\\
+   -- \texttt{List<ObjectScores> allplayerscores}\\
+   -- \texttt{List<ObjectScores> alluserscores}\\
+   -- \texttt{List<ObjectScores> allrosterscores}\\
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
   + \texttt{StatsHistory()}\\
-  + \texttt{void calcTeamScore()}\\
-  + \texttt{int[] getTeamScoresHist()}\\
+  + \texttt{void createPlayerScoreObject(Object player)}\\
+  + \texttt{void createUserScoreObject(Object user)}\\
+  + \texttt{void createRosterScoreObject(Object roster)}\\
+  + \texttt{List<Integer> getPlayerScores(Player player)}\\
+  + \texttt{List<Integer> getUserScores(User user)}\\
+  + \texttt{void addScoreToPlayer(Player player, int score)}\\
+  + \texttt{void addScoreToUser(User user, int score)}\\
   \end{tabular}
  };
 \end{scope}
@@ -287,9 +272,9 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 %% ==========================================
 %% PlayerScores
 %% ==========================================
-\begin{scope}[xshift=8cm,yshift=-14cm]
+\begin{scope}[xshift=0cm,yshift=-14cm]
 \node[umlclass] (playerscores)
- {\textbf{\large \textit{PlayerScores}}
+ {\textbf{\large \textit{ObjectScores}}
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
@@ -343,16 +328,16 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 
 % maingame to statshistory
 \draw[arrows={-angle 60},thick]
-[out=0, in=90]([yshift=0.5cm]maingame.three east) node[right=0.15cm]{1} to [out=-65, in=82](statshistory.text east) node[right]{1};
+[out=0, in=90]([yshift=0.5cm]maingame.three east) node[right=0.15cm]{1} to [out=-65, in=111](statshistory.text west) node[right]{1};
 
 % roster to player
-\draw[arrows={angle 60-},thick] (player.text west) node[above right=0.25cm and -0.2cm]{0--15} to [out=105, in=-120]([yshift=-1.5cm]roster.three west) node[left]{1};
-
-% market to player
-\draw[arrows={angle 60-},thick] ([yshift=-0.1cm]player.text west) node[below left]{$P$} to [out=-110, in=120](market.three west) node[left]{1};
+\draw[arrows={angle 60-},thick] (player.text west) to [out=105, in=-120]([yshift=-1cm]roster.three west);
 
 % StatsHistory to PlayerScores
-\draw[arrows={-angle 60},thick] ([yshift=0.2cm]statshistory.three east) node[right]{$P$} to [out=-45, in=150](playerscores.text west) node[below left]{1};
+\draw[arrows={-angle 60},thick] ([yshift=0.2cm]statshistory.three west) node[above left]{1} to [out=-135, in=10](playerscores.text east) node[below right]{$P$};
+
+% StatsHistory to Player (backwards)
+\draw[arrows={angle 60-},thick] ([yshift=0.2cm]statshistory.four west) to [out=110, in=-120](player.text west);
 \end{tikzpicture}
 
 \end{document}
