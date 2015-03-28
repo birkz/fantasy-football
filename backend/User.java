@@ -1,5 +1,6 @@
 package backend;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class User {
 
 	private int id;
 	private int money;
-	private int[] score;
+	private List<Integer> score;
 	private String name;
 	private Roster roster;
 	private final Boolean TEST = true;
@@ -19,7 +20,7 @@ public class User {
 	public User(String name, int id) throws InvalidPlayer, InvalidPosition {
 		this.id = id;
 		this.name = name;
-		this.score = new int[10];
+		this.score = new ArrayList<Integer>();
 		this.roster = new Roster();
 		if (this.TEST && this.id==0) addRandomPlayersToRoster();
 		this.money = 2000;
@@ -41,21 +42,19 @@ public class User {
 
 	// Usage: i = getScore()
 	// Before:Nothing.
-	// After: i is an array of scores of this user
-	public int[] getScore() {
+	// After: i is an List of scores of this user
+	public List<Integer> getScore() {
 		return this.score;
 	}
 	
 	public int getTotalScore(){
-		int sum = 0;
-		for(int i = 0 ; i<10 ; i++){
-			sum += score[i];
-		}
-		return sum;
+		int size = this.score.size();
+		if(size == 0) return 0;
+		return this.score.get(size-1);
 	}
 	
-	public void addScore(int round, int score) {
-		this.score[round] += score;
+	public void addScore(int newscore) {
+		this.score.add(newscore);
 	}
 	
 	public void changeName(String newname) {

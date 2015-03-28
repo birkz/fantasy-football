@@ -41,8 +41,9 @@ public class UserTest {
 	// This test checks if the score from round 0 goes to index 0
 	@Test
 	public void scoreTest() {
-		user.addScore(0, 100);
-		assertEquals(100, user.getScore()[0]);
+		user.addScore(100);
+		int score = user.getScore().get(0);
+		assertEquals(100, score);
 	}
 	
 	// This test checks if the changes to the money of the user behave as intended
