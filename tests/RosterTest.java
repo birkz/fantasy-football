@@ -15,16 +15,9 @@ import java.util.Map;
 
 import backend.Roster;
 import tests.PlayerInterface.*;
+import res.Constants;
 
 public class RosterTest {
-	/*
-	 * Constants
-	 */
-	private final int MAX_GOALKEEPERS = res.Constants.MAX_GOALKEEPERS;
-	private final int MAX_DEFENDERS = res.Constants.MAX_DEFENDERS;
-	private final int MAX_MIDFIELDERS = res.Constants.MAX_MIDFIELDERS;
-	private final int MAX_FORWARDS = res.Constants.MAX_FORWARDS;
-	
 	/*
 	 * Instance variables
 	 */
@@ -105,10 +98,10 @@ public class RosterTest {
 	@Before
 	public void setUp() throws Exception {
 		roster = new Roster();
-		goalkeepers = new ArrayList<String>(MAX_GOALKEEPERS);
-		defenders = new ArrayList<String>(MAX_DEFENDERS);
-		midfielders = new ArrayList<String>(MAX_MIDFIELDERS);
-		strikers = new ArrayList<String>(MAX_FORWARDS);
+		goalkeepers = new ArrayList<String>(Constants.MAX_GOALKEEPERS);
+		defenders = new ArrayList<String>(Constants.MAX_DEFENDERS);
+		midfielders = new ArrayList<String>(Constants.MAX_MIDFIELDERS);
+		strikers = new ArrayList<String>(Constants.MAX_FORWARDS);
 	}
 	
 	@After
@@ -196,7 +189,7 @@ public class RosterTest {
 	public void testIfThreePlayers() throws InvalidPosition {
 		// Add the player "Goalkeeper 1" to the roster
 		Integer i;
-		for(i = 1 ; i<MAX_GOALKEEPERS+1 ; i++){
+		for(i = 1 ; i<Constants.MAX_GOALKEEPERS+1 ; i++){
 			System.out.println("Goalkeeper "+i);
 			boolean add = roster.addPlayerToRoster(players.get("Goalkeeper "+i));
 			assertTrue(add);
@@ -208,7 +201,7 @@ public class RosterTest {
 		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
 		
 		// Create the expected outcome of the test
-		for(int j = 1 ; j<MAX_GOALKEEPERS+1 ; j++){
+		for(int j = 1 ; j<Constants.MAX_GOALKEEPERS+1 ; j++){
 			goalkeepers.add("Goalkeeper "+j);
 		}
 		

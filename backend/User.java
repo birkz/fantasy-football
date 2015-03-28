@@ -35,7 +35,7 @@ public class User {
 	}
 	
 	public void changeMoney(int dMoney) throws Exception {
-		if(!isAffordable(dMoney))
+		if(!isAffordable(-dMoney))
 			throw new Exception("Insufficient cash!");
 		this.money += dMoney;
 	}
