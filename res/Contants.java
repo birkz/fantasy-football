@@ -1,6 +1,22 @@
 package res;
 
 public class Contants {
+	/*
+	 * General constants
+	 */
+	public static final boolean TEST_MODE = true;
+	public static final boolean VERBOSE = true;
+	
+	
+	/*
+	 * User Constants
+	 */
+	public static final int STARTING_MONEY = 2000;
+	
+	
+	/*
+	 * Roster constants
+	 */
 	public static final int MAX_GOALKEEPERS = 3;
 	public static final int MAX_GOALKEEPERS_ON_FIELD = 1;
 	

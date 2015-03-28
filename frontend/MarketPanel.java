@@ -42,7 +42,7 @@ public class MarketPanel extends JPanel {
 	 * Create the panel.
 	 * @throws InvalidPlayer 
 	 */
-	public MarketPanel(JScrollPane scroll, int value) throws InvalidPlayer {
+	public MarketPanel(JScrollPane scroll, int value) {
 		this.player_choice = "";
 		this.team_choice = "Any";
 		this.pos_choice = "Any";
@@ -112,7 +112,11 @@ public class MarketPanel extends JPanel {
 			public void keyPressed(KeyEvent e) {/* Not used */}
 		});
 		
-		refreshJTable();
+		try {
+			refreshJTable();
+		} catch (InvalidPlayer e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 	private JComboBox<String> addComboBox(List<String> choices, String flag) {
@@ -211,9 +215,16 @@ public class MarketPanel extends JPanel {
 	/*
 	 * get a new JTable object
 	 */
-	private JTable getJTable(String player_searched, String team_searched, String pos_searched) throws InvalidPlayer{
+	private JTable getJTable(String player_searched, String team_searched, String pos_searched){
 		String[] columnNames = {"Player","Team","Position","Price",""};
-		Object[][] data = getTableData();
+		Object[][] data = null;
+		
+		try {
+			data = getTableData();
+		} catch (InvalidPlayer e2) {
+			e2.printStackTrace();
+		}
+		
 		JTable table = new JTable(data, columnNames){
 			
 			private static final long serialVersionUID = 1L;
@@ -228,20 +239,22 @@ public class MarketPanel extends JPanel {
 		table.setEnabled(true);
 		table.getColumn("Player").setPreferredWidth(220);
 		
+		/*
+		 * Action when the "Buy" or "Sell" buttons are pressed
+		 */
 		Action buy_or_sell_action = new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-
 			public void actionPerformed(ActionEvent e)
 		    {
-				System.out.println("You pressed "+table.getValueAt(Integer.parseInt(e.getActionCommand()), 4));
-		        PlayerInterface player = results.get(Integer.parseInt(e.getActionCommand()));
-	        	System.out.println(player.getName());
+				PlayerInterface player = results.get(Integer.parseInt(e.getActionCommand()));
+				System.out.println("You pressed "+table.getValueAt(Integer.parseInt(e.getActionCommand()), 4)+" on player "+player.getName());
 	        	
+	        	// Get the current scroll position
 	        	Integer value = scroll.getVerticalScrollBar().getValue();
-	        	System.out.println(value);
 	        	
 		        if(table.getValueAt(Integer.parseInt(e.getActionCommand()), 4) == "Buy"){
+		        	// If buy is pressed
 		        	try {
 						backend.MainGame.getInstance().getCurrentUser().getRoster().buyPlayer(player);
 					} catch (InvalidPosition e1) {
@@ -250,26 +263,18 @@ public class MarketPanel extends JPanel {
 						e1.printStackTrace();
 					}
 		        } else {
+		        	// If sell is pressed
 		        	try {
 						backend.MainGame.getInstance().getCurrentUser().getRoster().sellPlayer(player);
 					} catch (InvalidPlayer e1) {
 						e1.printStackTrace();
 					}
 		        }
-		        try {
-		        	
-					/*scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-					scroll.getVerticalScrollBar().setVisibleAmount(0);
-					scroll.getVerticalScrollBar().setValue(scroll.getVerticalScrollBar().getMaximum());
-					scroll.getVerticalScrollBar().setValue(value);*/
-					//jtable.invalidate();
-					scroll.getViewport().add(jtable);
-					frontend.Main.getInstance().restartFrame();
-					frontend.Main.getInstance().setPanelAsMarket(scroll,value);
-					frontend.Main.getInstance().setPanelAsFieldViewer();
-				} catch (InvalidPlayer e1) {
-					e1.printStackTrace();
-				}
+		        
+		        // Update the panels to show the changes
+		        frontend.Main.getInstance().restartFrame();
+		        frontend.Main.getInstance().setPanelAsMarket(scroll,value);
+				frontend.Main.getInstance().setPanelAsFieldViewer();
 		    }
 		};
 		
@@ -287,45 +292,32 @@ public class MarketPanel extends JPanel {
 		Object[][] data = new Object[180][5];
 		
 		List<TeamMock> teams = MarketPanel.league.getTeams();
-		Iterator<TeamMock> teams_it = teams.iterator();
 		
-		// i is the counter for matched players
+		// i is the counter for matched players (i.e. size of results table)
 		int i = 0;
 		
-		while(teams_it.hasNext()){
-			TeamMock team = teams_it.next();
+		for(TeamMock team : teams){
 			List<PlayerInterface> players_in_team = team.getPlayers();
-			Iterator<PlayerInterface> players_it = players_in_team.iterator();
 			
-			while(players_it.hasNext()){
-				PlayerInterface player = players_it.next();
-				
-				// Filter
-				if(!player.getName().toLowerCase().contains(player_choice.toLowerCase())){
+			for(PlayerInterface player : players_in_team ){
+				// Filter out players
+				if(!player.getName().toLowerCase().contains(player_choice.toLowerCase())
+						|| (!this.team_choice.equals("Any") && !team.getName().equals(this.team_choice))
+						|| (!this.pos_choice.equals("Any") && !player.getPositionName().equals(this.pos_choice)))
 					continue;
-				}
 				
-				if(!this.team_choice.equals("Any") && !team.getName().equals(this.team_choice)){
-					continue;
-				}
-				
-				if(!this.pos_choice.equals("Any") && !player.getPositionName().equals(this.pos_choice)){
-					continue;
-				}
-				
-				// If the values go through the filter, add them.
+				// If the values go through the filter, add them to the table.
 				data[i][0] = player.getName();
 				data[i][1] = team.getName();
 				data[i][2] = player.getPositionName();
 				data[i][3] = player.getPrice();
 				
 				if(backend.MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player)){
-					data[i][4] = "Sell";
+					data[i++][4] = "Sell";
 				} else {
-					data[i][4] = "Buy";
+					data[i++][4] = "Buy";
 				}
 				results.add(player);
-				i++;
 			}
 			
 		}

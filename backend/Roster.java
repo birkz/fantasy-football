@@ -263,7 +263,7 @@ public class Roster {
 	public boolean sellPlayer(PlayerInterface player) throws InvalidPlayer{
 		if(removePlayerFromRoster(player)){
 			backend.MainGame.getInstance().getCurrentUser().changeMoney(player.getPrice());
-			System.out.println("This player was bought! You made "+player.getPrice());
+			System.out.println("This player was sold! You made "+player.getPrice());
 			return true;
 		}
 		return false;
@@ -279,9 +279,11 @@ public class Roster {
 		}
 		if(addPlayerToRoster(player)){
 			backend.MainGame.getInstance().getCurrentUser().changeMoney(-player.getPrice());
-			System.out.println("This player was sold! You lost "+(-player.getPrice()));
+			System.out.println("This player was bought! You lost "+(-player.getPrice()));
 			addPlayerToField(player);
 			return true;
+		} else {
+			System.out.println("You can't have more players in that position!");
 		}
 		return false;
 	}

@@ -15,15 +15,14 @@ public class User {
 	private List<Integer> score;
 	private String name;
 	private Roster roster;
-	private final Boolean TEST = true;
 	
 	public User(String name, int id) throws InvalidPlayer, InvalidPosition {
 		this.id = id;
 		this.name = name;
 		this.score = new ArrayList<Integer>();
 		this.roster = new Roster();
-		if (this.TEST && this.id==0) addRandomPlayersToRoster();
-		this.money = 2000;
+		if (res.Contants.TEST_MODE && this.id==0) addRandomPlayersToRoster();
+		this.money = res.Contants.STARTING_MONEY;
 	}
 	
 	public boolean changeMoney(int dMoney) {
