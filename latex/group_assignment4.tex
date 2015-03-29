@@ -999,16 +999,21 @@ GraphDataPanel needs data from the StatsHistory to draw the graphs.
 
 \newpage
 \section{Sequence diagrams}
+\subsection{MarketPanel}
+The sequence diagram below shows a typical sequence for when a user opens the MarketPanel. The MarketPanel will need to 1) Get all teams and players from group F1a and 2) get the roster of the current user. After gathering the data the MarketPanel will display a nice looking table for the user where he can buy/sell players with the help of some useful filters if he/she desires to.
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{img/seq_diagram_1.png}
-\caption{Sequence diagram 1.}
+\includegraphics[width=\textwidth]{img/seq_diagram_1.png}
+\caption{MarketPanel sequence diagram.}
 \end{figure}
-\vspace*{-1cm}
+
+\newpage
+\subsection{LeaguePanel}
+The sequence diagram below shows how we expect the typical sequence to be when the user opens the LeaguePanel to get information of the current league standings and which football games are upcoming. First it will gather all teams from League class created by group F1a and then get all the games from that same class. Our job is then to make this data look nicely for the user.
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{img/seq_diagram_2.png}
-\caption{Sequence diagram 2.}
+\includegraphics[width=\textwidth]{img/seq_diagram_2.png}
+\caption{LeaguePanel sequence diagram.}
 \end{figure}
 
 \end{document}
