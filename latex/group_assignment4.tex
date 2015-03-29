@@ -251,22 +251,21 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   A class that has statistical information.
+   A class that hold on to statistical information for objects with scores.
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
    -- \texttt{List<ObjectScores> allplayerscores}\\
    -- \texttt{List<ObjectScores> alluserscores}\\
-   -- \texttt{List<ObjectScores> allrosterscores}\\
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
   + \texttt{StatsHistory()}\\
   + \texttt{void createPlayerScoreObject(Object player)}\\
   + \texttt{void createUserScoreObject(Object user)}\\
-  + \texttt{void createRosterScoreObject(Object roster)}\\
   + \texttt{List<Integer> getPlayerScores(Player player)}\\
   + \texttt{List<Integer> getUserScores(User user)}\\
+  - \texttt{List<Integer> getUserScores(User user, boolean total)}\\
   + \texttt{void addScoreToPlayer(Player player, int score)}\\
   + \texttt{void addScoreToUser(User user, int score)}\\
   \end{tabular}
@@ -274,7 +273,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 \end{scope}
 
 %% ==========================================
-%% PlayerScores
+%% ObjectScores
 %% ==========================================
 \begin{scope}[xshift=0cm,yshift=-14.5cm]
 \node[umlclass,fill=green!26] (playerscores)
@@ -282,7 +281,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   A class with information about each player.
+   A class to add scores to an object.
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
