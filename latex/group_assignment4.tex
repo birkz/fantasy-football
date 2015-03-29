@@ -894,7 +894,73 @@ Similar to the MarketPanel, the RosterPanel and FieldViwerPanel also need to get
 \draw[arrows={-angle 60},thick] (main.four east) to [out=-25, in=25](fieldviewerpanel.text east);
 \end{tikzpicture}
 
-\subsubsection{NameChange}
+\subsubsection{NameChangePanel}
+The NameChangePanel is associated with the User class in case of the user changes his/her name. It also gets some information about the user's current money and the current game's current round.
+
+\begin{tikzpicture}
+% ==========================================
+% Main
+% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass,rectangle split parts=1] (main)
+ {	\textbf{\large \textit{Main}}	};
+\end{scope}
+
+% ==========================================
+% NameChange
+% ==========================================
+\begin{scope}[xshift=0cm,yshift=-1cm]
+\node[umlclass,rectangle split parts=1] (namechange)
+ {	\textbf{\large \textit{NameChange}}	};
+\end{scope}
+
+% ==========================================
+% MainGame
+% ==========================================
+\begin{scope}[xshift=7cm,yshift=-0.5cm]
+\node[umlclass,rectangle split parts=1,fill=green!26] (maingame)
+ {	\textbf{\large \textit{MainGame}}	};
+\end{scope}
+
+% ==========================================
+% User
+% ==========================================
+\begin{scope}[xshift=7cm,yshift=-1.5cm]
+\node[umlclass,rectangle split parts=1,fill=green!26] (user)
+ {	\textbf{\large \textit{User}}	};
+\end{scope}
+
+% main to namechange
+\draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]main.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]namechange.text east);
+
+% maingame to user
+\draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]maingame.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]user.text east);
+
+% namechange to maingame
+\draw[arrows={-angle 60},thick] ([yshift=-3pt]namechange.four east) to [out=20, in=-170]([yshift=5pt]maingame.text west);
+\end{tikzpicture}
+
+\subsubsection{GraphDataPanel}
+GraphDataPanel needs data from the StatsHistory to draw the graphs.
+\begin{tikzpicture}
+% ==========================================
+% Main
+% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass,rectangle split parts=1] (main)
+ {	\textbf{\large \textit{Main}}	};
+\end{scope}
+
+% ==========================================
+% GraphDataPanel
+% ==========================================
+\begin{scope}[xshift=0cm,yshift=-1cm]
+\node[umlclass,rectangle split parts=1] (graphdatapanel)
+ {	\textbf{\large \textit{GraphDataPanel}}	};
+\end{scope}
+
+
+\end{tikzpicture}
 
 
 \newpage
