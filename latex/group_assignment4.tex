@@ -108,7 +108,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% User
 %% ==========================================
 \begin{scope}[yshift=1cm]
-\node[umlclass] (user)
+\node[umlclass,fill=green!26] (user)
  {\textbf{\large \textit{User}}
  \nodepart{two}
   {\footnotesize
@@ -146,7 +146,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% Roster
 %% ==========================================
 \begin{scope}[xshift=10cm,yshift=0.1cm]
-\node[umlclass] (roster)
+\node[umlclass,fill=green!26] (roster)
  {\textbf{\large \textit{Roster}}
  \nodepart{two}
   {\footnotesize
@@ -186,7 +186,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% MainGame
 %% ==========================================
 \begin{scope}[yshift=-7.68cm]
-\node[umlclass] (maingame)
+\node[umlclass,fill=green!26] (maingame)
  {\textbf{\large \textit{MainGame}}
  \nodepart{two}
   {\footnotesize
@@ -246,7 +246,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% StatsHistory
 %% ==========================================
 \begin{scope}[xshift=10cm,yshift=-13cm]
-\node[umlclass] (statshistory)
+\node[umlclass,fill=green!26] (statshistory)
  {\textbf{\large \textit{StatsHistory}}
  \nodepart{two}
   {\footnotesize
@@ -277,7 +277,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% PlayerScores
 %% ==========================================
 \begin{scope}[xshift=0cm,yshift=-14.5cm]
-\node[umlclass] (playerscores)
+\node[umlclass,fill=green!26] (playerscores)
  {\textbf{\large \textit{ObjectScores}}
  \nodepart{two}
   {\footnotesize
@@ -756,6 +756,90 @@ We are also using the following two component classes
 
 \newpage
 \subsection{Connections between front-end and back-end classes}
+There are a number of connections between back-end and front-end classes that the previous diagrams could not show. These connections will be shown here.
+\subsubsection{MarketPanel}
+MarketPanel needs to get all teams from a class group F1a will create. That class will return to the MarketPanel all the Teams (and therefore all Player objects). MarketPanel will also need to get the current user roster to determine which player the user owns and which he does not own. It can do that through the MainGame class just as the diagram below shows. This connection will be shown more clearly in one of our sequence diagrams.
+\begin{tikzpicture}
+% ==========================================
+% Main
+% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass,rectangle split parts=1] (main)
+ {	\textbf{\large \textit{Main}}	};
+\end{scope}
+
+% ==========================================
+% MainGame
+% ==========================================
+\begin{scope}[xshift=7cm,yshift=-0.5cm]
+\node[umlclass,rectangle split parts=1,fill=green!26] (maingame)
+ {	\textbf{\large \textit{MainGame}}	};
+\end{scope}
+
+% ==========================================
+% MarketPanel
+% ==========================================
+\begin{scope}[xshift=0cm,yshift=-1cm]
+\node[umlclass,rectangle split parts=1] (marketpanel)
+ {	\textbf{\large \textit{MarketPanel}}	};
+\end{scope}
+
+% ==========================================
+% F1a.League
+% ==========================================
+\begin{scope}[xshift=13cm,yshift=0cm]
+\node[umlclass,rectangle split parts=1,fill=red!32] (league)
+ {	\textbf{\large \textit{F1a.League}}	};
+\end{scope}
+
+% ==========================================
+% Player
+% ==========================================
+\begin{scope}[xshift=13cm,yshift=-1cm]
+\node[umlclass,rectangle split parts=1,fill=red!32] (player)
+ {	\textbf{\large \textit{Player}}	};
+\end{scope}
+
+% ==========================================
+% User
+% ==========================================
+\begin{scope}[xshift=7cm,yshift=-1.5cm]
+\node[umlclass,rectangle split parts=1,fill=green!26] (user)
+ {	\textbf{\large \textit{User}}	};
+\end{scope}
+
+% ==========================================
+% Roster
+% ==========================================
+\begin{scope}[xshift=7cm,yshift=-2.5cm]
+\node[umlclass,rectangle split parts=1,fill=green!26] (roster)
+ {	\textbf{\large \textit{Roster}}	};
+\end{scope}
+
+%% ==========================================
+%% Allar örvar teiknaðar hér
+%% ==========================================
+
+% main to marketpanel
+\draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.32cm]main.four east) to [out=75, in=90]([xshift=-2cm,yshift=0.25cm]marketpanel.text east);
+
+% marketpanel to maingame
+\draw[arrows={-angle 60},thick] ([yshift=-3pt]marketpanel.four east) to [out=20, in=-170](maingame.text west);
+
+% marketpanel to league
+\draw[arrows={-angle 60},thick] ([yshift=3pt]marketpanel.four east) to [out=30, in=160]([yshift=3pt]league.text west);
+
+% league to player
+\draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]league.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]player.text east);
+
+% maingame to user
+\draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]maingame.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]user.text east);
+
+% user to roster
+\draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]user.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]roster.text east);
+\end{tikzpicture}
+
+\subsubsection{•}
 
 \newpage
 \section{Sequence diagrams}
