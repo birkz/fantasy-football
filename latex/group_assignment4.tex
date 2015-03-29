@@ -588,6 +588,8 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
    + \texttt{void setPanelAsFieldViewer()}\\
    + \texttt{void setPanelAsLeague()}\\ 
    + \texttt{void setPanelAsRoster()}\\
+   + \texttt{void increaseFrameHeight(int delta)}\\
+   + \texttt{void decreaseFrameHeight(int delta)}\\
    + \texttt{Dimension returnPanelSize()}\\
    + \texttt{void main(String[] args)}\\
   \end{tabular}
@@ -730,6 +732,26 @@ We are also using the following two component classes
   \end{tabular}
  };
 \end{scope}
+
+%% ==========================================
+%% DesignedButton
+%% ==========================================
+\begin{scope}[xshift=7cm,yshift=-11cm]
+\node[umlclass] (DesignedButton)
+ {\textbf{\large \textit{DesignedButton}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   Class with preset designs for CustomButton
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   + \texttt{CustomButton orangeStyle(String text, int style, float size)}\\
+   + \texttt{CustomButton deleteStyle(String text, int style, float size)}\\
+  \end{tabular}
+ };
+\end{scope}
+
 
 %% ==========================================
 %% generic template
