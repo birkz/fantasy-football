@@ -42,7 +42,7 @@ public class StartPanel extends JPanel {
 	private int numEmpty = 1;
 	private JButton startGame;
 	private JButton addPlayer;
-	private static final int frameheightchange = 40;
+	private static final int frameheightchange = 47;
 
 	/**
 	 * Create the panel.
@@ -116,8 +116,8 @@ public class StartPanel extends JPanel {
 		south.add(addPlayer);
 		south.add(startGame);
 		add(north, BorderLayout.NORTH);
-		add(center, BorderLayout.CENTER);
-		add(south, BorderLayout.SOUTH);
+		add(center, BorderLayout.SOUTH);
+		add(south, BorderLayout.CENTER);
 		
 		// If we don't allow zero players to play, disable the "Start Game" button.
 		if(Constants.MIN_USERS>0){
