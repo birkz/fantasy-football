@@ -348,8 +348,8 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
    -- \texttt{JTextField field}\\
    -- \texttt{List<String> names}\\
    -- \texttt{int numEmpty}\\
-   -- \texttt{JButton startGame}\\
-   -- \texttt{JButton addPlayer}\\   
+   -- \texttt{DesignedButton startGame}\\
+   -- \texttt{DesignedButton addPlayer}\\   
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
@@ -488,7 +488,7 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 %% ==========================================
 %% NameChange Panel
 %% ==========================================
-\begin{scope}[xshift=-0.3cm,yshift=-10.7cm]
+\begin{scope}[xshift=-0.3cm,yshift=-10.8cm]
 \node[umlclass] (namechange)
  {\textbf{\large \textit{NameChangePanel}}
  \nodepart{two}
@@ -514,7 +514,7 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 %% ==========================================
 %% GraphData Panel
 %% ==========================================
-\begin{scope}[xshift=-0.3cm,yshift=-6.6cm]
+\begin{scope}[xshift=-0.3cm,yshift=-7cm]
 \node[umlclass] (graphdatapanel)
  {\textbf{\large \textit{GraphDataPanel}}
  \nodepart{two}
@@ -658,7 +658,7 @@ We are also using the following two component classes
 %% ButtonColumn
 %% ==========================================
 \begin{scope}[xshift=0cm,yshift=0cm]
-\node[umlclass] (ButtonColumn)
+\node[umlclass] (buttoncolumn)
  {\textbf{\large \textit{ButtonColumn}}
  \nodepart{two}
   {\footnotesize
@@ -700,7 +700,7 @@ We are also using the following two component classes
 %% CustomButton
 %% ==========================================
 \begin{scope}[xshift=-2cm,yshift=-11cm]
-\node[umlclass] (CustomButton)
+\node[umlclass] (custombutton)
  {\textbf{\large \textit{CustomButton}}
  \nodepart{two}
   {\footnotesize
@@ -736,8 +736,8 @@ We are also using the following two component classes
 %% ==========================================
 %% DesignedButton
 %% ==========================================
-\begin{scope}[xshift=7cm,yshift=-11cm]
-\node[umlclass] (DesignedButton)
+\begin{scope}[xshift=7cm,yshift=-9cm]
+\node[umlclass,rectangle split parts=3] (designedbutton)
  {\textbf{\large \textit{DesignedButton}}
  \nodepart{two}
   {\footnotesize
@@ -746,34 +746,16 @@ We are also using the following two component classes
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
-   + \texttt{CustomButton orangeStyle(String text, int style, float size)}\\
-   + \texttt{CustomButton deleteStyle(String text, int style, float size)}\\
+   + \texttt{CustomButton orangeStyle(String text,}\\
+   \texttt{\hspace*{0.4cm}int style, float size)}\\
+   + \texttt{CustomButton deleteStyle(String text,}\\
+   \texttt{\hspace*{0.4cm}int style, float size)}\\
   \end{tabular}
  };
 \end{scope}
 
-
-%% ==========================================
-%% generic template
-%% ==========================================
-%\begin{scope}[xshift=0cm,yshift=0cm]
-%\node[umlclass] (generic)
-% {\textbf{\large \textit{Generic}}
-% \nodepart{two}
-%  {\footnotesize
-%  \begin{tabular}{l} 
-%   Desc.
-%  \end{tabular}}
-% \nodepart{three}
-%  \begin{tabular}{l}
-%   -- \texttt{type var}\\
-%  \end{tabular}
-% \nodepart{four}
-%  \begin{tabular}{l}
-%   + \texttt{type method(type var)}\\
-%  \end{tabular}
-% };
-%\end{scope}
+% designedbutton to custombutton
+\draw[arrows={-angle 60},thick] ([yshift=0pt]designedbutton.four west) to [out=165, in=-10](custombutton.text east);
 \end{tikzpicture}
 
 \newpage
