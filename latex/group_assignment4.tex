@@ -220,7 +220,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
 %% ==========================================
 %% Player
 %% ==========================================
-\begin{scope}[xshift=8cm,yshift=-7.4cm]
+\begin{scope}[xshift=8.5cm,yshift=-7.4cm]
 \node[umlclass,rectangle split parts=3,fill=red!32] (player)
  {\textbf{\large \textit{Player} <<interface>>}
  \nodepart{two}
@@ -330,44 +330,6 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 \subsection{Front-end classes}
 \begin{tikzpicture}
 %% ==========================================
-%% Main
-%% ==========================================
-\begin{scope}[xshift=-0.2cm,yshift=0cm]
-\node[umlclass] (main)
- {\textbf{\large \textit{Main}}
- \nodepart{two}
-  {\footnotesize
-  \begin{tabular}{l} 
-   The main front-end class. It is initialized at\\
-   the start of the game and runs until the game\\
-   is terminated.
-  \end{tabular}}
- \nodepart{three}
-  \begin{tabular}{l}
-   -- \texttt{static final Main instance}\\
-   -- \texttt{JFrame frame}\\
-   -- \texttt{JPanel right}\\
-   -- \texttt{JPanel change}\\
-   -- \texttt{MainGame game}\\
-  \end{tabular}
- \nodepart{four}
-  \begin{tabular}{l}
-   -- \texttt{static Main()}\\
-   + \texttt{static Main getInstance()}\\
-   + \texttt{void startGame()}\\
-   + \texttt{void restartFrame()}\\
-   + \texttt{void setPanelAsMarket()}\\
-   + \texttt{void setPanelAsScore()}\\
-   + \texttt{void setPanelAsRoster()}\\
-   + \texttt{void setPanelAsLeague()}\\ 
-   + \texttt{void setPanelAsFieldViewer()}\\ 
-   + \texttt{Dimension returnSizeForPanel()}\\
-   + \texttt{static void main(String[] args)}\\
-  \end{tabular}
- };
-\end{scope}
-
-%% ==========================================
 %% Start Panel
 %% ==========================================
 \begin{scope}[xshift=11.5cm,yshift=1.52cm]
@@ -420,7 +382,7 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
 %% ==========================================
 %% FieldViewer Panel
 %% ==========================================
-\begin{scope}[xshift=11.3cm,yshift=-12.4cm]
+\begin{scope}[xshift=10.3cm,yshift=-12.4cm]
 \node[umlclass] (fieldviewerpanel)
  {\textbf{\large \textit{FieldViewerPanel}}
  \nodepart{two}
@@ -592,9 +554,82 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
   \end{tabular}
  };
 \end{scope}
+
+%% ==========================================
+%% Main
+%% ==========================================
+\begin{scope}[xshift=-0.6cm,yshift=0cm]
+\node[umlclass] (main)
+ {\textbf{\large \textit{Main}}
+ \nodepart{two}
+  {\footnotesize
+  \begin{tabular}{l} 
+   The main front-end class. It is initialized\\
+   at the start of the game and runs until the\\
+   game is terminated.
+  \end{tabular}}
+ \nodepart{three}
+  \begin{tabular}{l}
+   -- \texttt{static final Main instance}\\
+   -- \texttt{JFrame frame}\\
+   -- \texttt{JPanel right}\\
+   -- \texttt{JPanel change}\\
+   -- \texttt{MainGame game}\\
+  \end{tabular}
+ \nodepart{four}
+  \begin{tabular}{l}
+   -- \texttt{static Main()}\\
+   + \texttt{static Main getInstance()}\\
+   + \texttt{void setEndgamePanel()}\\
+   + \texttt{void startGame()}\\
+   + \texttt{void restartFrame()}\\
+   + \texttt{void setPanelAsScore()}\\
+   + \texttt{void setPanelAsMarket()}\\
+   + \texttt{void setPanelAsFieldViewer()}\\
+   + \texttt{void setPanelAsLeague()}\\ 
+   + \texttt{void setPanelAsRoster()}\\
+   + \texttt{Dimension returnPanelSize()}\\
+   + \texttt{void main(String[] args)}\\
+  \end{tabular}
+ };
+\end{scope}
+
+%% ==========================================
+%% Allar örvar teiknaðar hér
+%% ==========================================
+% main to startpanel
+\draw[arrows={-angle 60},thick] ([yshift=29pt]main.four east) to [out=75, in=-170](startpanel.three west);
+
+% main to endgamepanel
+\draw[arrows={-angle 60},thick] ([yshift=40pt]main.four east) to [out=85, in=-110](endgamepanel.text west);
+
+% main to scorepanel
+\draw[arrows={-angle 60},thick] ([yshift=5pt]main.four east) to [out=50, in=-150](scorepanel.text west);
+
+% main to marketpanel
+\draw[arrows={-angle 60},thick] ([yshift=-6pt]main.four east) to [out=0, in=180](marketpanel.text west);
+
+% main to fieldviewerpanel
+\draw[arrows={-angle 60},thick] ([yshift=-17pt]main.four east) to [out=0, in=150](fieldviewerpanel.text west);
+
+% main to leaguepanel
+\draw[arrows={-angle 60},thick] ([yshift=-28pt]main.four east) to [out=-10, in=180](leaguepanel.text west);
+
+% main to rosterpanel
+\draw[arrows={-angle 60},thick] ([yshift=-39pt]main.four east) to [out=-15, in=80](rosterpanel.text east);
+
+% main to namechangepanel
+\draw[arrows={-angle 60},thick] ([yshift=-61pt]main.four east) to [out=-25, in=66](namechange.text east);
+
+% scorepanel to graphdatapanel
+\draw[arrows={-angle 60},thick] ([yshift=-26pt]scorepanel.four west) to [out=-165, in=45](graphdatapanel.text east);
 \end{tikzpicture}
 
-\subsection{Component classes}
+Multiplicities are all 1:1.
+
+\subsubsection{Component classes}
+We are also using the following two component classes
+
 \begin{tikzpicture}
 %% ==========================================
 %% HandleButtons
@@ -648,9 +683,10 @@ $N$ is er number of total users in the current game and $P$ is the total amount 
    + \texttt{int getMnemonic}\\
    + \texttt{void setMnemonic(int mnemonic)}\\
    + \texttt{Component getTableCellEditorComponent(JTable t, Object val,}\\
-    \texttt{\hspace*{1cm} boolean selected, int row, int col)}\\
+    \texttt{\hspace*{0.4cm} boolean selected, int row, int col)}\\
    + \texttt{Object getCellEditorValue()}\\
-   + \texttt{Component getTableCellRendererComponent(JTable t,}\\  \texttt{\hspace*{1cm}Object val, boolean selected, boolean focus, int row, int col)}\\
+   + \texttt{Component getTableCellRendererComponent(JTable t,}\\
+    \texttt{\hspace*{0.4cm}Object val, boolean selected, boolean focus, int row, int col)}\\
    + \texttt{void actionPerformed(ActionEvent e)}\\
    + \texttt{void mousePressed(MouseEvent e)}\\
    + \texttt{void mouseReleased(MouseEvent e)}\\
