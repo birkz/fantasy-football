@@ -941,7 +941,7 @@ The NameChangePanel is associated with the User class in case of the user change
 \end{tikzpicture}
 
 \subsubsection{ScorePanel and GraphDataPanel}
-GraphDataPanel needs data from the StatsHistory to draw the graphs. ScorePanel will display this graph as well as the score for each user.
+GraphDataPanel needs data from the StatsHistory to draw the graphs and data from the User class to write out the user's name. ScorePanel will display this graph as well as the current score for each user.
 
 \begin{tikzpicture}
 % ==========================================
@@ -971,7 +971,7 @@ GraphDataPanel needs data from the StatsHistory to draw the graphs. ScorePanel w
 % ==========================================
 % StatsHistory
 % ==========================================
-\begin{scope}[xshift=7cm,yshift=-0.5cm]
+\begin{scope}[xshift=7cm,yshift=-3cm]
 \node[umlclass,rectangle split parts=1,fill=green!26] (statshistory)
  {	\textbf{\large \textit{StatsHistory}}	};
 \end{scope}
@@ -979,10 +979,35 @@ GraphDataPanel needs data from the StatsHistory to draw the graphs. ScorePanel w
 % ==========================================
 % ObjectScores
 % ==========================================
-\begin{scope}[xshift=7cm,yshift=-1.5cm]
+\begin{scope}[xshift=7cm,yshift=-4cm]
 \node[umlclass,rectangle split parts=1,fill=green!26] (objectscore)
  {	\textbf{\large \textit{ObjectScore}}	};
 \end{scope}
+
+% ==========================================
+% MainGame
+% ==========================================
+\begin{scope}[xshift=7cm,yshift=-0.5cm]
+\node[umlclass,rectangle split parts=1,fill=green!26] (maingame)
+ {	\textbf{\large \textit{MainGame}}	};
+\end{scope}
+
+% ==========================================
+% User
+% ==========================================
+\begin{scope}[xshift=7cm,yshift=-1.5cm]
+\node[umlclass,rectangle split parts=1,fill=green!26] (user)
+ {	\textbf{\large \textit{User}}	};
+\end{scope}
+
+% maingame to user
+\draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]maingame.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]user.text east);
+
+% graphdatapanel to maingame
+\draw[arrows={-angle 60},thick] ([yshift=3pt]graphdatapanel.four east) to [out=20, in=-170]([yshift=-3pt]maingame.text west);
+
+% scorepanel to maingame
+\draw[arrows={-angle 60},thick] ([yshift=0pt]scorepanel.four east) to [out=20, in=-170]([yshift=3pt]maingame.text west);
 
 % main to scorepanel
 \draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]main.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]scorepanel.text east);
@@ -990,8 +1015,8 @@ GraphDataPanel needs data from the StatsHistory to draw the graphs. ScorePanel w
 % scorepanel to graphdatapanel
 \draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]scorepanel.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]graphdatapanel.text east);
 
-% graphdatapanel to statshistory
-\draw[arrows={-angle 60},thick] ([yshift=-3pt]graphdatapanel.four east) to [out=20, in=-170]([yshift=5pt]statshistory.text west);
+% maingame to statshistory
+\draw[arrows={-angle 60},thick] ([yshift=-3pt]maingame.four east) to [out=-10, in=50]([yshift=5pt]statshistory.text east);
 
 % statshistory to objectscore
 \draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]statshistory.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]objectscore.text east);
@@ -1015,5 +1040,10 @@ The sequence diagram below shows how we expect the typical sequence to be when t
 \includegraphics[width=\textwidth]{img/seq_diagram_2.png}
 \caption{LeaguePanel sequence diagram.}
 \end{figure}
+
+\section{Appendix}
+As a bonus we have designed the logo for the game.
+
+
 
 \end{document}
