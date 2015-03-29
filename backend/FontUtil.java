@@ -22,7 +22,8 @@ public class FontUtil {
 	    	
 	    	// Checked if font has been loaded before
 	    	if (fonts != null && (font = (Font) fonts.get(name)) != null) {
-	    		System.out.println("font preload success");
+	    		//System.out.println("font preload success");
+	    		font = font.deriveFont(style, size);
 	            return font;
 	        }
 	    	

@@ -17,4 +17,16 @@ public class DesignedButton {
 		
 		return button;
 	}
+	
+	public static CustomButton deleteStyle(String text, int style, float size) {
+		CustomButton button = new CustomButton(text);
+		button.setBorder(null);
+		button.setFont(FontUtil.getFont("kalinga", style, size));
+		button.setFontColor(new Color(235, 20, 20));
+		button.setHoverBackgroundColor(new Color(255, 0, 0));
+		button.setHoverFontColor(Color.WHITE);
+		button.setPressedBackgroundColor(Color.BLACK);
+		
+		return button;
+	}
 }

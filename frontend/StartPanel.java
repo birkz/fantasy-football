@@ -1,9 +1,12 @@
 package frontend;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -12,11 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
+import backend.FontUtil;
 import tests.InvalidPlayer;
 import tests.InvalidPosition;
 import tests.InvalidUser;
-
 import res.Constants;
 
 
@@ -30,12 +34,15 @@ public class StartPanel extends JPanel {
 	/**
 	 * Instance variables
 	 */
+	private JPanel north = new JPanel();
 	private JPanel center = new JPanel();
+	private JPanel south = new JPanel();
 	private final JTextField field;
 	private List<String> names = new ArrayList<String>();
 	private int numEmpty = 1;
 	private JButton startGame;
 	private JButton addPlayer;
+	private static final int frameheightchange = 40;
 
 	/**
 	 * Create the panel.
@@ -44,12 +51,18 @@ public class StartPanel extends JPanel {
 		field = new JTextField();
 		field.setPreferredSize(new Dimension(200, 30));
 		
+		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true);
+		field.setBorder(border);
+		field.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 16));
+		
 		addPlayer = DesignedButton.orangeStyle("  ADD PLAYER  ", Font.PLAIN, 20);
 
         addPlayer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
             	addPlayerHandler();
+            	Main.getInstance().increaseFrameHeight(frameheightchange);
+
             }
         }); 
         field.addKeyListener(new KeyListener(){
@@ -58,6 +71,7 @@ public class StartPanel extends JPanel {
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode() == 10) {
 					addPlayerHandler();
+					Main.getInstance().increaseFrameHeight(frameheightchange);
 				}
 			}
 
@@ -90,12 +104,20 @@ public class StartPanel extends JPanel {
         }); 
 		
 		setLayout(new BorderLayout(0, 0));
-		JPanel north = new JPanel();
-		north.add(field);
-		north.add(addPlayer);
-		north.add(startGame);
+		north.setPreferredSize(new Dimension(800, 100));
+		north.setOpaque(false);
+		
+		// Set all panels white
+		north.setBackground(Color.WHITE);
+		center.setBackground(Color.WHITE);
+		south.setBackground(Color.WHITE);
+		
+		south.add(field);
+		south.add(addPlayer);
+		south.add(startGame);
 		add(north, BorderLayout.NORTH);
 		add(center, BorderLayout.CENTER);
+		add(south, BorderLayout.SOUTH);
 		
 		// If we don't allow zero players to play, disable the "Start Game" button.
 		if(Constants.MIN_USERS>0){
@@ -103,10 +125,21 @@ public class StartPanel extends JPanel {
 		}
 	}
 	
+	@Override
+	protected void paintComponent(Graphics g) {
+		Dimension size = Main.getInstance().returnSizeForPanel();
+		Image img = new ImageIcon("src/res/Images/logo_standard.png").getImage();
+		int imagehalfwidth = img.getWidth(null)/2;
+		int framehalfwidth = size.width;
+		int centeroffset = framehalfwidth-imagehalfwidth;
+		g.drawImage(img, centeroffset+5, 5, null);
+	}
+	
 	/*
 	 * Handle events when a player is added, by pressing "ENTER" and by clicking the "Add Player" button.
 	 */
 	private void addPlayerHandler() {
+		//this.centersize += 25;
 		String name = field.getText();
     	if(name.isEmpty()) name = "Player" + numEmpty++;
         names.add(name);
@@ -131,12 +164,14 @@ public class StartPanel extends JPanel {
 	private void changeCenter() {
 		int size = names.size();
 		center.removeAll();
-		center.setLayout(new GridLayout(8, 1, 5, 5));
+		center.setLayout(new GridLayout(size, 1, 5, 5));
 		for(int i=0; i<size; ++i) {
 			final JPanel panel = new JPanel();
 			JLabel label = new JLabel(names.get(i));
+			label.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 20));
+			panel.setBackground(Color.WHITE);
 			panel.add(label);
-			JButton removePlayer = new JButton("Remove Player");
+			JButton removePlayer = DesignedButton.deleteStyle(" REMOVE ", Font.PLAIN, 12);
 			removePlayer.addActionListener(new ActionListener() {
 				 
 	            public void actionPerformed(ActionEvent e)
@@ -157,6 +192,7 @@ public class StartPanel extends JPanel {
 	                if(names.size()<Constants.MIN_USERS){
 	                	startGame.setEnabled(false);
 	                }
+	                Main.getInstance().decreaseFrameHeight(frameheightchange);
 	            }
 	        }); 
 			panel.add(removePlayer);

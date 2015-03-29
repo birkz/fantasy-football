@@ -33,7 +33,7 @@ public class CustomButton extends JButton{
             g.setColor(getBackground());
             setForeground(this.fontColor);
         }
-        g.fillRect(0, 0, getWidth(), getHeight());
+        g.fillRect(0, 0, getWidth(), getHeight()-2);
         super.paintComponent(g);
     }
 

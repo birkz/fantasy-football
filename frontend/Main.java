@@ -1,7 +1,9 @@
 package frontend;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.util.List;
 
 import javax.swing.*;
@@ -23,6 +25,8 @@ public class Main {
 		this.game = MainGame.getInstance();
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Image icon = new ImageIcon("src/res/Images/icon.png").getImage();
+		frame.setIconImage(icon);
 	}
 	
 	public static Main getInstance() {
@@ -36,8 +40,9 @@ public class Main {
 	public void restartGame() {
 		frame.getContentPane().removeAll();
 		frame.add(new StartPanel());
-		frame.setMinimumSize(new Dimension(800,400));
-		frame.setSize(800, 400);
+		frame.setMinimumSize(new Dimension(750,180));
+		frame.setSize(750, 180);
+		frame.setBackground(Color.WHITE);
 	    frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.validate();
@@ -156,6 +161,18 @@ public class Main {
 		int height = frame.getSize().height-90;
 		int width = (frame.getSize().width/2)-20;
 		return new Dimension(width, height);
+	}
+	
+	public void increaseFrameHeight(int delta) {
+		frame.setSize(frame.getWidth(), frame.getHeight()+delta);
+		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()));
+		frame.validate();
+	}
+	
+	public void decreaseFrameHeight(int delta) {
+		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()-delta));
+		frame.setSize(frame.getWidth(), frame.getHeight()-delta);
+		frame.validate();
 	}
 	
 	public static void main(String[] args) {

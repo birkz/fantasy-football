@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class GraphData extends JPanel {
 		int height = this.getHeight();
 		super.paintComponent(g);
 		Graphics2D draw = (Graphics2D) g;
+		draw.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		int highscore = 10;
 		for(int i=0; i<numUsers; ++i) {
