@@ -79,16 +79,16 @@ Each class in the diagram has four sections shown below:
 \end{scope}
 \end{tikzpicture}
 \end{center}\vspace*{-0.15cm}
-If the class wasn't created by us it is filled with red. Classes are then interconnected using 3 types of arrows:
+If the class wasn't created by us it is filled with red. Back-end classes are green and front-end classes are yellow. Classes are interconnected using arrows:
 
 \begin{tikzpicture}
 \draw[arrows={-angle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{uses}} node[right]{Class B};
-\begin{scope}[yshift=-0.8cm]
-\draw[arrows={-open triangle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{extends}} node[right]{Class B};
-\end{scope}
-\begin{scope}[yshift=-1.6cm]
-\draw[arrows={-triangle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{implements}} node[right]{Class B};
-\end{scope}
+%\begin{scope}[yshift=-0.8cm]
+%\draw[arrows={-open triangle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{extends}} node[right]{Class B};
+%\end{scope}
+%\begin{scope}[yshift=-1.6cm]
+%\draw[arrows={-triangle 60},thick] node[left]{Class A} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{implements}} node[right]{Class B};
+%\end{scope}
 \end{tikzpicture}
 
 In most cases we can tell how many classes 'Class A' and 'Class B' will be associated with, this is shown by placing an arrow at the beginning and end of an arrow, e.g.
@@ -97,7 +97,7 @@ In most cases we can tell how many classes 'Class A' and 'Class B' will be assoc
 \draw[arrows={-angle 60},thick] node[left]{Class A} node[above right]{1} (0,0) to (3,0)node[draw=none,midway,above=0cm] {\hspace*{3cm}\textit{uses}} node[above left]{0--10} node[right]{Class B};
 \end{tikzpicture}
 
-if each instance of 'Class A' will use 'Class B' in a range of 0 to 10 instances.
+if each instance of 'Class A' will use 'Class B' in a range of 0 to 10 instances. If no numbers are shown it generally means the association is 1 uses 1.
 
 \section{Class diagram}
 We decided to split our class diagram into two figures: \textbf{Back-end classes} and \textbf{Front-end classes}. The back-end classes take care of storing and keeping track of all information as the game is running. The front-end classes take care of displaying the information to the users playing the game as well as handling their input.
@@ -257,12 +257,14 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
   \begin{tabular}{l}
    -- \texttt{List<ObjectScores> allplayerscores}\\
    -- \texttt{List<ObjectScores> alluserscores}\\
+   -- \texttt{List<ObjectScores> allrosterscores}\\
   \end{tabular}
  \nodepart{four}
   \begin{tabular}{l}
   + \texttt{StatsHistory()}\\
   + \texttt{void createPlayerScoreObject(Object player)}\\
   + \texttt{void createUserScoreObject(Object user)}\\
+  + \texttt{void createRosterScoreObject(Object roster)}\\
   + \texttt{List<Integer> getPlayerScores(Player player)}\\
   + \texttt{List<Integer> getUserScores(User user)}\\
   + \texttt{void addScoreToPlayer(Player player, int score)}\\
@@ -755,8 +757,35 @@ We are also using the following two component classes
 \newpage
 \subsection{Connections between front-end and back-end classes}
 There are a number of connections between back-end and front-end classes that the previous diagrams could not show. These connections will be shown here.
-\subsubsection{MarketPanel}
+\subsubsection{Main}
+When the game starts, MainGame creates a instance of MainGame.
+
+\begin{tikzpicture}
+% ==========================================
+% Main
+% ==========================================
+\begin{scope}[xshift=0cm,yshift=0cm]
+\node[umlclass,rectangle split parts=1] (main)
+ {	\textbf{\large \textit{Main}}	};
+\end{scope}
+
+% ==========================================
+% MainGame
+% ==========================================
+\begin{scope}[xshift=7cm,yshift=0cm]
+\node[umlclass,rectangle split parts=1,fill=green!26] (maingame)
+ {	\textbf{\large \textit{MainGame}}	};
+\end{scope}
+
+% main to maingame
+\draw[arrows={-angle 60},thick] (main.four east) to [out=10, in=-170](maingame.text west);
+\end{tikzpicture}
+
+\subsubsection{MarketPanel, RosterPanel, and FieldViwerPanel}
 MarketPanel needs to get all teams from a class group F1a will create. That class will return to the MarketPanel all the Teams (and therefore all Player objects). MarketPanel will also need to get the current user roster to determine which player the user owns and which he does not own. It can do that through the MainGame class just as the diagram below shows. This connection will be shown more clearly in one of our sequence diagrams.
+
+Similar to the MarketPanel, the RosterPanel and FieldViwerPanel also need to get the current roster.
+
 \begin{tikzpicture}
 % ==========================================
 % Main
@@ -814,6 +843,22 @@ MarketPanel needs to get all teams from a class group F1a will create. That clas
  {	\textbf{\large \textit{Roster}}	};
 \end{scope}
 
+% ==========================================
+% RosterPanel
+% ==========================================
+\begin{scope}[xshift=0cm,yshift=-2cm]
+\node[umlclass,rectangle split parts=1] (rosterpanel)
+ {	\textbf{\large \textit{RosterPanel}}	};
+\end{scope}
+
+% ==========================================
+% FieldViwerPanel
+% ==========================================
+\begin{scope}[xshift=0cm,yshift=-3cm]
+\node[umlclass,rectangle split parts=1] (fieldviewerpanel)
+ {	\textbf{\large \textit{FieldViwerPanel}}	};
+\end{scope}
+
 %% ==========================================
 %% Allar örvar teiknaðar hér
 %% ==========================================
@@ -822,7 +867,7 @@ MarketPanel needs to get all teams from a class group F1a will create. That clas
 \draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.32cm]main.four east) to [out=75, in=90]([xshift=-2cm,yshift=0.25cm]marketpanel.text east);
 
 % marketpanel to maingame
-\draw[arrows={-angle 60},thick] ([yshift=-3pt]marketpanel.four east) to [out=20, in=-170](maingame.text west);
+\draw[arrows={-angle 60},thick] ([yshift=-3pt]marketpanel.four east) to [out=20, in=-170]([yshift=5pt]maingame.text west);
 
 % marketpanel to league
 \draw[arrows={-angle 60},thick] ([yshift=3pt]marketpanel.four east) to [out=30, in=160]([yshift=3pt]league.text west);
@@ -835,12 +880,35 @@ MarketPanel needs to get all teams from a class group F1a will create. That clas
 
 % user to roster
 \draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]user.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]roster.text east);
+
+% rosterpanel to maingame
+\draw[arrows={-angle 60},thick] ([yshift=-3pt]rosterpanel.four east) to [out=20, in=-170]([yshift=0pt]maingame.text west);
+
+% fieldviewerpanel to maingame
+\draw[arrows={-angle 60},thick] ([yshift=-3pt]fieldviewerpanel.four east) to [out=25, in=-155]([yshift=-5pt]maingame.text west);
+
+% main to rosterpanel
+\draw[arrows={-angle 60},thick] (main.four east) to [out=-55, in=55](rosterpanel.text east);
+
+% main to fieldviewerpanel
+\draw[arrows={-angle 60},thick] (main.four east) to [out=-25, in=25](fieldviewerpanel.text east);
 \end{tikzpicture}
 
-\subsubsection{•}
+\subsubsection{NameChange}
+
 
 \newpage
 \section{Sequence diagrams}
-
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{img/seq_diagram_1.png}
+\caption{Sequence diagram 1.}
+\end{figure}
+\vspace*{-1cm}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{img/seq_diagram_2.png}
+\caption{Sequence diagram 2.}
+\end{figure}
 
 \end{document}
