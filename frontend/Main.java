@@ -3,6 +3,7 @@ package frontend;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.util.List;
 
@@ -56,7 +57,13 @@ public class Main {
 		frame.setMinimumSize(new Dimension(1200,700));
 		frame.setLocationRelativeTo(null);
 		
-		JPanel buttons = new JPanel();
+		JPanel buttons = new JPanel(){
+			private static final long serialVersionUID = 1L;
+			protected void paintComponent(Graphics g) {
+				Image img = new ImageIcon("src/res/Images/logo_standard.png").getImage();
+				g.drawImage(img, 0, 0, this.getSize().width, this.getSize().height , null);
+		    }
+		};
 		JPanel left = new JPanel();
 		right = new JPanel();
 		change = new JPanel();
