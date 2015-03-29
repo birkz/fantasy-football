@@ -251,7 +251,7 @@ We decided to split our class diagram into two figures: \textbf{Back-end classes
  \nodepart{two}
   {\footnotesize
   \begin{tabular}{l} 
-   A class that hold on to statistical information for objects with scores.
+   A class that holds on to statistical information for objects with scores.
   \end{tabular}}
  \nodepart{three}
   \begin{tabular}{l}
@@ -757,7 +757,7 @@ We are also using the following two component classes
 \subsection{Connections between front-end and back-end classes}
 There are a number of connections between back-end and front-end classes that the previous diagrams could not show. These connections will be shown here.
 \subsubsection{Main}
-When the game starts, MainGame creates a instance of MainGame.
+When the game starts, MainGame gets an a instance of MainGame.
 
 \begin{tikzpicture}
 % ==========================================
@@ -939,8 +939,9 @@ The NameChangePanel is associated with the User class in case of the user change
 \draw[arrows={-angle 60},thick] ([yshift=-3pt]namechange.four east) to [out=20, in=-170]([yshift=5pt]maingame.text west);
 \end{tikzpicture}
 
-\subsubsection{GraphDataPanel}
+\subsubsection{ScorePanel and GraphDataPanel}
 GraphDataPanel needs data from the StatsHistory to draw the graphs.
+
 \begin{tikzpicture}
 % ==========================================
 % Main
@@ -951,16 +952,49 @@ GraphDataPanel needs data from the StatsHistory to draw the graphs.
 \end{scope}
 
 % ==========================================
-% GraphDataPanel
+% ScorePanel
 % ==========================================
 \begin{scope}[xshift=0cm,yshift=-1cm]
+\node[umlclass,rectangle split parts=1] (scorepanel)
+ {	\textbf{\large \textit{ScorePanel}}	};
+\end{scope}
+
+% ==========================================
+% GraphDataPanel
+% ==========================================
+\begin{scope}[xshift=0cm,yshift=-2cm]
 \node[umlclass,rectangle split parts=1] (graphdatapanel)
  {	\textbf{\large \textit{GraphDataPanel}}	};
 \end{scope}
 
+% ==========================================
+% StatsHistory
+% ==========================================
+\begin{scope}[xshift=7cm,yshift=-0.5cm]
+\node[umlclass,rectangle split parts=1,fill=green!26] (statshistory)
+ {	\textbf{\large \textit{StatsHistory}}	};
+\end{scope}
 
+% ==========================================
+% ObjectScores
+% ==========================================
+\begin{scope}[xshift=7cm,yshift=-1.5cm]
+\node[umlclass,rectangle split parts=1,fill=green!26] (objectscore)
+ {	\textbf{\large \textit{ObjectScore}}	};
+\end{scope}
+
+% main to scorepanel
+\draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]main.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]scorepanel.text east);
+
+% scorepanel to graphdatapanel
+\draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]scorepanel.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]graphdatapanel.text east);
+
+% graphdatapanel to statshistory
+\draw[arrows={-angle 60},thick] ([yshift=-3pt]graphdatapanel.four east) to [out=20, in=-170]([yshift=5pt]statshistory.text west);
+
+% statshistory to objectscore
+\draw[arrows={-angle 60},thick] ([xshift=-2cm,yshift=-0.34cm]statshistory.text east) to [out=75, in=90]([xshift=-2cm,yshift=0.29cm]objectscore.text east);
 \end{tikzpicture}
-
 
 \newpage
 \section{Sequence diagrams}
