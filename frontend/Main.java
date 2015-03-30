@@ -41,8 +41,8 @@ public class Main {
 	public void restartGame() {
 		frame.getContentPane().removeAll();
 		frame.add(new StartPanel());
-		frame.setMinimumSize(new Dimension(750,180));
-		frame.setSize(750, 180);
+		frame.setMinimumSize(new Dimension(750,185));
+		frame.setSize(750, 185);
 		frame.setBackground(Color.WHITE);
 	    frame.setLocationRelativeTo(null);
         frame.setVisible(true);
