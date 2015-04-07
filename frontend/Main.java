@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.util.List;
 
@@ -41,13 +43,8 @@ public class Main {
 	public void restartGame() {
 		frame.getContentPane().removeAll();
 		frame.add(new StartPanel());
-		frame.setMinimumSize(new Dimension(750,185));
-		frame.setSize(750, 185);
-		frame.setResizable(false);
 		frame.setBackground(Color.WHITE);
-	    frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        frame.validate();
 	}
 	
 	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser {
@@ -56,7 +53,6 @@ public class Main {
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
 		frame.setMinimumSize(new Dimension(1200,700));
-		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		
 		JPanel buttons = new JPanel(){
@@ -172,18 +168,6 @@ public class Main {
 		return new Dimension(width, height);
 	}
 	
-	public void increaseFrameHeight(int delta) {
-		frame.setSize(frame.getWidth(), frame.getHeight()+delta);
-		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()));
-		frame.validate();
-	}
-	
-	public void decreaseFrameHeight(int delta) {
-		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()-delta));
-		frame.setSize(frame.getWidth(), frame.getHeight()-delta);
-		frame.validate();
-	}
-	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -191,6 +175,17 @@ public class Main {
             	getInstance().createAndShowGUI();
             }
         });
+	}
+
+	public void changeFrameHeight(int num_players) {
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		int screen_width = gd.getDisplayMode().getWidth();
+		int screen_height = gd.getDisplayMode().getHeight();
+		System.out.println(num_players);
+		frame.setMinimumSize(new Dimension(720, 140+num_players*47));
+		frame.setSize(new Dimension(720, 140+num_players*47));
+		frame.setLocation((int) (screen_width/2-frame.getWidth()/2), (int) (screen_height/2 - 300));
+		frame.validate();
 	}
 }
 
