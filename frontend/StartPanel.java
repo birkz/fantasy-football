@@ -127,6 +127,7 @@ public class StartPanel extends JPanel {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
+		//The static logo
 		Dimension size = Main.getInstance().returnSizeForPanel();
 		Image img = new ImageIcon("src/res/Images/logo_standard.png").getImage();
 		int imagehalfwidth = img.getWidth(null)/2;
@@ -134,6 +135,7 @@ public class StartPanel extends JPanel {
 		int centeroffset = framehalfwidth-imagehalfwidth;
 		g.drawImage(img, centeroffset+5, 5, null);
 	}
+	
 	
 	/*
 	 * Handle events when a player is added, by pressing "ENTER" and by clicking the "Add Player" button.

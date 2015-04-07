@@ -43,6 +43,7 @@ public class Main {
 		frame.add(new StartPanel());
 		frame.setMinimumSize(new Dimension(750,185));
 		frame.setSize(750, 185);
+		frame.setResizable(false);
 		frame.setBackground(Color.WHITE);
 	    frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -55,6 +56,7 @@ public class Main {
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
 		frame.setMinimumSize(new Dimension(1200,700));
+		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		
 		JPanel buttons = new JPanel(){
