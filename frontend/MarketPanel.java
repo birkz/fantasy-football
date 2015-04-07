@@ -18,7 +18,6 @@ import javax.swing.*;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidPosition;
 import is.hi.f2a.tests.InvalidUser;
-import is.hi.f2a.tests.PlayerInterface;
 
 public class MarketPanel extends JPanel {
 
@@ -330,11 +329,11 @@ public class MarketPanel extends JPanel {
 	}
 	
 	private String positionToString(Position position){
-		if(position.equals(PlayerInterface.Position.GOALKEEPER))
+		if(position.equals(Position.GOALKEEPER))
 			return "Goalkeeper";
-		else if(position.equals(PlayerInterface.Position.DEFENDER))
+		else if(position.equals(Position.DEFENDER))
 			return "Defender";
-		else if(position.equals(PlayerInterface.Position.MIDFIELDER))
+		else if(position.equals(Position.MIDFIELDER))
 			return "Midfielder";
 		else
 			return "Forward";

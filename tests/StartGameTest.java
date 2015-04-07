@@ -9,9 +9,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import backend.MainGame;
-import backend.User;
-import frontend.Main;
+import is.hi.f2a.backend.MainGame;
+import is.hi.f2a.backend.User;
+import is.hi.f2a.frontend.Main;
 
 public class StartGameTest {
 
