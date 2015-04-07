@@ -291,7 +291,7 @@ public class MarketPanel extends JPanel {
 	private Object[][] getTableData() throws InvalidPlayer{
 		this.results = new ArrayList<Player>(180);
 		
-		Object[][] data = new Object[180][5];
+		Object[][] data = new Object[700][5];
 		
 		List<Team> teams = MarketPanel.league.getTeams();
 		
