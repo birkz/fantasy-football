@@ -1,4 +1,4 @@
-package frontend;
+package is.hi.f2a.frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

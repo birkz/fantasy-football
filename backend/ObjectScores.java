@@ -1,4 +1,4 @@
-package backend;
+package is.hi.f2a.backend;
 
 import java.util.ArrayList;
 import java.util.List;

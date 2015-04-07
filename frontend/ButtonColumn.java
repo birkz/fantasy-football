@@ -1,4 +1,4 @@
-package frontend;
+package is.hi.f2a.frontend;
 
 import java.awt.*;
 import java.awt.event.*;

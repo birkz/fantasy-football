@@ -1,4 +1,4 @@
-package frontend;
+package is.hi.f2a.frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,10 +11,10 @@ import java.util.List;
 
 import javax.swing.*;
 
-import tests.InvalidPlayer;
-import tests.InvalidPosition;
-import tests.InvalidUser;
-import backend.MainGame;
+import is.hi.f2a.tests.InvalidPlayer;
+import is.hi.f2a.tests.InvalidPosition;
+import is.hi.f2a.tests.InvalidUser;
+import is.hi.f2a.backend.MainGame;
 
 public class Main {
 	

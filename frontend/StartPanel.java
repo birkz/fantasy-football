@@ -1,4 +1,4 @@
-package frontend;
+package is.hi.f2a.frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,11 +17,11 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import backend.FontUtil;
-import tests.InvalidPlayer;
-import tests.InvalidPosition;
-import tests.InvalidUser;
-import res.Constants;
+import is.hi.f2a.backend.FontUtil;
+import is.hi.f2a.tests.InvalidPlayer;
+import is.hi.f2a.tests.InvalidPosition;
+import is.hi.f2a.tests.InvalidUser;
+import is.hi.f2a.res.Constants;
 
 
 public class StartPanel extends JPanel {

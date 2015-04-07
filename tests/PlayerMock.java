@@ -1,4 +1,4 @@
-package tests;
+package is.hi.f2a.tests;
 
 import java.util.Random;
 

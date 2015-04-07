@@ -1,4 +1,4 @@
-package backend;
+package is.hi.f2a.backend;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
