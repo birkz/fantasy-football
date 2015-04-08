@@ -1,6 +1,8 @@
 package frontend;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,6 +18,7 @@ public class LeaguePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public LeaguePanel() {
+		setLayout(new BorderLayout(0, 0)); 
 		String[] columnNames = {"POS", "CLUB", "P", "W", "D", "L", "GF", "GA", "GD", "PTS"};
 		Object[][] data = {
 			    {new Integer(1), "Chelsea", new Integer(29), new Integer(20), new Integer(7), new Integer(2),
@@ -30,10 +33,10 @@ public class LeaguePanel extends JPanel {
 			    	new Integer(44), new Integer(32), new Integer(12), new Integer(54)}
 			};
 		JTable table = new JTable(data, columnNames);
-		table.setEnabled(false);
-		table.getColumn("CLUB").setPreferredWidth(250);
+		table.setEnabled(true);
+		table.getColumn("CLUB").setPreferredWidth(300);
 		JScrollPane scroll = new JScrollPane(table);
-		add(scroll);
+		add(scroll, BorderLayout.CENTER);
 	}
 	
 	@Override

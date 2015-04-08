@@ -6,47 +6,38 @@ public class PlayerMock implements PlayerInterface {
 
 	private String name;
 	private String team;
-	private PositionMock position;
-	private String positionName;
-	private Double price;
+	private Integer price;
+	private Position position;
 	
-	public PlayerMock(String name, String pos){
+	/*
+	 * Constructor
+	 */
+	public PlayerMock(String name, Position pos){
 		this.name = name;
-		this.positionName = pos;
+		this.position = pos;
 		
 		Random randomno = new Random();
-		this.price = randomno.nextDouble()*1000;
+		Double price = randomno.nextDouble()*1000;
+		this.price = price.intValue();
 	}
 	
 	public String getName(){
 		return this.name;
 	}
 	
-	@Override
-	public String getPositionName() {
-		return this.positionName;
-	}
-	
-	@Override
-	public void setPosition(PositionMock pos) throws InvalidPosition{
-		if (pos.equals("Goalkeeper") || pos.equals("Defender") || pos.equals("Midfielder") || pos.equals("Striker")){
-			this.position = pos;
-		} else {
-			throw new InvalidPosition(pos+" is not a valid position. Only Goalkeeper, Defender, Midfielder, and Striker are valid.");
-		}
-	}
-	
-	@Override
-	public PositionMock getPosition() {
-		return position;
-	}
-	
 	public String getTeam() {
 		return this.team;
 	}
 	
-	public Double getPrice() {
+	public Integer getPrice() {
 		return this.price;
 	}
 	
+	public Position getPosition() {
+        return position;
+    }
+	
+	public void setPosition(Position pos) {
+        this.position = pos;
+    }
 }

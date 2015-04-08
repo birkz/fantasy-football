@@ -9,6 +9,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import backend.MainGame;
+import backend.User;
 import frontend.Main;
 
 public class StartGameTest {
@@ -28,8 +30,9 @@ public class StartGameTest {
 
 	@Test
 	public void testCreatedUsers() {
-		assertNotSame(backend.MainGame.getInstance().getUser(0).getName(), "Pétur");
-		assertSame(backend.MainGame.getInstance().getUser(1).getName(), "Pétur");
+		List<User> users = MainGame.getInstance().getUsers();
+		assertNotSame(users.get(0).getName(), "Pétur");
+		assertSame(users.get(1).getName(), "Pétur");
 	}
 
 }

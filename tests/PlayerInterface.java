@@ -5,9 +5,13 @@ package tests;
  */
 
 public interface PlayerInterface {
+	public enum Position {
+        GOALKEEPER,
+        DEFENDER,
+        MIDFIELDER,
+        FORWARD
+    }
 	public String getName();
-	public void setPosition(PositionMock pos) throws InvalidPosition;
-	public PositionMock getPosition();
-	public String getPositionName();
-	public Double getPrice();
+	public Integer getPrice();
+	public Position getPosition();
 }

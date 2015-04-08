@@ -1,9 +1,19 @@
 package frontend;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.util.List;
+
 import javax.swing.*;
+
+import tests.InvalidPlayer;
+import tests.InvalidPosition;
+import tests.InvalidUser;
 import backend.MainGame;
 
 public class Main {
@@ -12,10 +22,14 @@ public class Main {
 	private JFrame frame;
 	private JPanel right;
 	private JPanel change;
+	private MainGame game;
 	
 	private Main() {
+		this.game = MainGame.getInstance();
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Image icon = new ImageIcon("src/res/Images/icon.png").getImage();
+		frame.setIconImage(icon);
 	}
 	
 	public static Main getInstance() {
@@ -23,21 +37,31 @@ public class Main {
 	}
 	
 	public void createAndShowGUI() {
+		restartGame();
+	}
+	
+	public void restartGame() {
+		frame.getContentPane().removeAll();
 		frame.add(new StartPanel());
-		frame.setMinimumSize(new Dimension(800,400));
-	    frame.setLocationRelativeTo(null);
+		frame.setBackground(Color.WHITE);
         frame.setVisible(true);
 	}
 	
-	public void startGame(List<String> names) {
-		MainGame.getInstance().setNumUsers(names);
+	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser {
+		game.setNumUsers(names);
 		
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
 		frame.setMinimumSize(new Dimension(1200,700));
 		frame.setLocationRelativeTo(null);
 		
-		JPanel buttons = new JPanel();
+		JPanel buttons = new JPanel(){
+			private static final long serialVersionUID = 1L;
+			protected void paintComponent(Graphics g) {
+				Image img = new ImageIcon("src/res/Images/logo_standard.png").getImage();
+				g.drawImage(img, 0, 0, this.getSize().width, this.getSize().height , null);
+		    }
+		};
 		JPanel left = new JPanel();
 		right = new JPanel();
 		change = new JPanel();
@@ -75,7 +99,7 @@ public class Main {
         frame.validate();
 	}
 	
-	public void restartFrame() {
+	public void restartFrame() throws InvalidUser {
 
 		setPanelAsScore();
 		
@@ -89,21 +113,21 @@ public class Main {
         frame.validate();
 	}
 	
-	public void setPanelAsMarket() {
+	public void setPanelAsMarket(JScrollPane scroll, int value) {
 		change.removeAll();
-		change.add(new JScrollPane(new MarketPanel()));
+		change.add(new JScrollPane(new MarketPanel(scroll, value)));
 		change.setVisible(false);
 		change.setVisible(true);
 	}
 	
-	public void setPanelAsScore() {
+	public void setPanelAsScore() throws InvalidUser {
 		change.removeAll();
 		change.add(new ScorePanel());
 		change.setVisible(false);
 		change.setVisible(true);
 	}
 	
-	public void setPanelAsRoster() {
+	public void setPanelAsRoster() throws InvalidPlayer {
 		change.removeAll();
 		change.add(new RosterPanel());
 		change.setVisible(false);
@@ -115,6 +139,19 @@ public class Main {
 		change.add(new LeaguePanel());
 		change.setVisible(false);
 		change.setVisible(true);
+	}
+	
+	public void setEndgamePanel() throws InvalidUser {
+		frame.getContentPane().removeAll();
+		frame.setMinimumSize(new Dimension(1200,700));
+		frame.setLocationRelativeTo(null);
+		
+		frame.setLayout(new BorderLayout(0, 0));
+		frame.add(new ScorePanel(), BorderLayout.CENTER);
+		frame.add(new EndgamePanel(), BorderLayout.SOUTH);
+		
+		frame.setVisible(true);
+        frame.validate();
 	}
 	
 	public void setPanelAsFieldViewer() {
@@ -138,6 +175,17 @@ public class Main {
             	getInstance().createAndShowGUI();
             }
         });
+	}
+
+	public void changeFrameHeight(int num_players) {
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		int screen_width = gd.getDisplayMode().getWidth();
+		int screen_height = gd.getDisplayMode().getHeight();
+		System.out.println(num_players);
+		frame.setMinimumSize(new Dimension(720, 140+num_players*47));
+		frame.setSize(new Dimension(720, 140+num_players*47));
+		frame.setLocation((int) (screen_width/2-frame.getWidth()/2), (int) (screen_height/2 - 300));
+		frame.validate();
 	}
 }
 
