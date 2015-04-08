@@ -1,4 +1,9 @@
-package frontend;
+package is.hi.f2a.frontend;
+
+import is.hi.f1a.League;
+import is.hi.f1a.Player;
+import is.hi.f1a.Player.Position;
+import is.hi.f1a.Team;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -10,13 +15,11 @@ import java.util.List;
 
 import javax.swing.*;
 
-import tests.InvalidPlayer;
-import tests.InvalidPosition;
-import tests.InvalidUser;
-import tests.LeagueMock;
-import tests.PlayerInterface;
-import tests.PlayerInterface.Position;
-import tests.TeamMock;
+import is.hi.f2a.frontend.ButtonColumn;
+import is.hi.f2a.frontend.Main;
+import is.hi.f2a.tests.InvalidPlayer;
+import is.hi.f2a.tests.InvalidPosition;
+import is.hi.f2a.tests.InvalidUser;
 
 public class MarketPanel extends JPanel {
 
@@ -25,8 +28,7 @@ public class MarketPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JTextField field = new JTextField();
-	// Þetta static er bara til bráðabirgða
-	private static LeagueMock league = new LeagueMock();
+	private static League league = is.hi.f1a.FantasyFootballBackend.getInstance().getLeague();
 	private String player_choice;
 	private String team_choice;
 	private String pos_choice;
@@ -34,17 +36,13 @@ public class MarketPanel extends JPanel {
 	private JScrollPane scroll = null;
 	private JPanel wrapper;
 	private String text;
-	private List<PlayerInterface> results;
-	
-	public static LeagueMock getLeague(){
-		return league;
-	}
+	private List<Player> results;
 
 	/**
 	 * Create the panel.
 	 * @throws InvalidPlayer 
 	 */
-	public MarketPanel(JScrollPane scroll, int value) {
+	public MarketPanel(final JScrollPane scroll, final int value) {
 		this.player_choice = "";
 		this.team_choice = "Any";
 		this.pos_choice = "Any";
@@ -121,7 +119,7 @@ public class MarketPanel extends JPanel {
 		}
 	}
 	
-	private JComboBox<String> addComboBox(List<String> choices, String flag) {
+	private JComboBox<String> addComboBox(List<String> choices, final String flag) {
 		String[] choose = new String[choices.size()];
 		for(int i=0; i<choices.size(); ++i) {
 			choose[i] = choices.get(i);
@@ -192,8 +190,8 @@ public class MarketPanel extends JPanel {
 		
 		add(scroll, BorderLayout.CENTER);
 
-		List<TeamMock> teams = MarketPanel.league.getTeams();
-		Iterator<TeamMock> teams_it = teams.iterator();
+		List<Team> teams = MarketPanel.league.getTeams();
+		Iterator<Team> teams_it = teams.iterator();
 		List<String> team_choices = new ArrayList<String>();
 		team_choices.add("Any");
 		
@@ -227,7 +225,7 @@ public class MarketPanel extends JPanel {
 			e2.printStackTrace();
 		}
 		
-		JTable table = new JTable(data, columnNames){
+		final JTable table = new JTable(data, columnNames){
 			
 			private static final long serialVersionUID = 1L;
 			
@@ -249,8 +247,8 @@ public class MarketPanel extends JPanel {
 			private static final long serialVersionUID = 1L;
 			public void actionPerformed(ActionEvent e)
 		    {
-				PlayerInterface player = results.get(Integer.parseInt(e.getActionCommand()));
-				if(res.Constants.VERBOSE)
+				Player player = results.get(Integer.parseInt(e.getActionCommand()));
+				if(is.hi.f2a.res.Constants.VERBOSE)
 					System.out.println("You pressed "+table.getValueAt(Integer.parseInt(e.getActionCommand()), 4)+" on player "+player.getName());
 	        	
 	        	// Get the current scroll position
@@ -259,7 +257,7 @@ public class MarketPanel extends JPanel {
 		        if(table.getValueAt(Integer.parseInt(e.getActionCommand()), 4) == "Buy"){
 		        	// If buy is pressed
 		        	try {
-						backend.MainGame.getInstance().getCurrentUser().getRoster().buyPlayer(player);
+		        		is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster().buyPlayer(player);
 					} catch (InvalidPosition e1) {
 						e1.printStackTrace();
 					} catch (InvalidPlayer e1) {
@@ -268,20 +266,19 @@ public class MarketPanel extends JPanel {
 		        } else {
 		        	// If sell is pressed
 		        	try {
-						backend.MainGame.getInstance().getCurrentUser().getRoster().sellPlayer(player);
+		        		is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster().sellPlayer(player);
 					} catch (InvalidPlayer e1) {
 						e1.printStackTrace();
 					}
 		        }
 		        
 		        try {
-					frontend.Main.getInstance().restartFrame();
+		        	is.hi.f2a.frontend.Main.getInstance().restartFrame();
 				} catch (InvalidUser e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-		        frontend.Main.getInstance().setPanelAsMarket(scroll,value);
-		        frontend.Main.getInstance().setPanelAsFieldViewer();
+		        is.hi.f2a.frontend.Main.getInstance().setPanelAsMarket(scroll,value);
+		        is.hi.f2a.frontend.Main.getInstance().setPanelAsFieldViewer();
 		    }
 		};
 		
@@ -294,19 +291,19 @@ public class MarketPanel extends JPanel {
 	 *  get the table data given some filters
 	 */
 	private Object[][] getTableData() throws InvalidPlayer{
-		this.results = new ArrayList<PlayerInterface>(180);
+		this.results = new ArrayList<Player>(180);
 		
-		Object[][] data = new Object[180][5];
+		Object[][] data = new Object[700][5];
 		
-		List<TeamMock> teams = MarketPanel.league.getTeams();
+		List<Team> teams = MarketPanel.league.getTeams();
 		
 		// i is the counter for matched players (i.e. size of results table)
 		int i = 0;
 		
-		for(TeamMock team : teams){
-			List<PlayerInterface> players_in_team = team.getPlayers();
+		for(Team team : teams){
+			List<Player> players_in_team = team.getPlayers();
 			
-			for(PlayerInterface player : players_in_team ){
+			for(Player player : players_in_team ){
 				// Filter out players
 				if(!player.getName().toLowerCase().contains(player_choice.toLowerCase())
 						|| (!this.team_choice.equals("Any") && !team.getName().equals(this.team_choice))
@@ -319,7 +316,7 @@ public class MarketPanel extends JPanel {
 				data[i][2] = positionToString(player.getPosition());
 				data[i][3] = player.getPrice();
 				
-				if(backend.MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player)){
+				if(is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player)){
 					data[i++][4] = "Sell";
 				} else {
 					data[i++][4] = "Buy";
@@ -333,12 +330,12 @@ public class MarketPanel extends JPanel {
 		
 	}
 	
-	private String positionToString(Position pos){
-		if(pos.equals(PlayerInterface.Position.GOALKEEPER))
+	private String positionToString(Position position){
+		if(position.equals(Position.GOALKEEPER))
 			return "Goalkeeper";
-		else if(pos.equals(PlayerInterface.Position.DEFENDER))
+		else if(position.equals(Position.DEFENDER))
 			return "Defender";
-		else if(pos.equals(PlayerInterface.Position.MIDFIELDER))
+		else if(position.equals(Position.MIDFIELDER))
 			return "Midfielder";
 		else
 			return "Forward";

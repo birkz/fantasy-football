@@ -1,4 +1,4 @@
-package frontend;
+package is.hi.f2a.frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -9,9 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import tests.InvalidUser;
-import backend.MainGame;
-import backend.User;
+import is.hi.f2a.tests.InvalidUser;
+import is.hi.f2a.backend.MainGame;
+import is.hi.f2a.backend.User;
 
 public class ScorePanel extends JPanel {
 

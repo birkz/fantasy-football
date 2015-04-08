@@ -1,11 +1,11 @@
-package frontend;
+package is.hi.f2a.frontend;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import backend.MainGame;
-import tests.InvalidPlayer;
-import tests.InvalidUser;
+import is.hi.f2a.backend.MainGame;
+import is.hi.f2a.tests.InvalidPlayer;
+import is.hi.f2a.tests.InvalidUser;
 
 public class HandleButtons implements ActionListener{
 
@@ -40,7 +40,7 @@ public class HandleButtons implements ActionListener{
 		
 		if(arg == "END TURN")
 			try {
-				backend.MainGame.getInstance().nextUser();
+				is.hi.f2a.backend.MainGame.getInstance().nextUser();
 			} catch (InvalidUser e1) {
 				e1.printStackTrace();
 			}

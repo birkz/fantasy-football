@@ -1,4 +1,4 @@
-package tests;
+package is.hi.f2a.tests;
 
 import static org.junit.Assert.*;
 
@@ -13,66 +13,67 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import backend.Roster;
-import tests.PlayerInterface.*;
-import res.Constants;
+import is.hi.f1a.Player;
+import is.hi.f1a.Player.Position;
+import is.hi.f2a.backend.Roster;
+import is.hi.f2a.res.Constants;
 
 public class RosterTest {
 	/*
 	 * Instance variables
 	 */
 	private static Roster roster;
-	public static Map<String, PlayerMock> players;
+	public static Map<String, Player> players;
 	private static List<String> goalkeepers;
 	private static List<String> defenders;
 	private static List<String> midfielders;
 	private static List<String> strikers;
 	
-	private static PlayerMock goalkeeper1;
-	private static PlayerMock goalkeeper2;
-	private static PlayerMock goalkeeper3;
-	private static PlayerMock goalkeeper4;
+	private static Player goalkeeper1;
+	private static Player goalkeeper2;
+	private static Player goalkeeper3;
+	private static Player goalkeeper4;
 	
-	private static PlayerMock defender1;
-	private static PlayerMock defender2;
-	private static PlayerMock defender3;
-	private static PlayerMock defender4;
-	private static PlayerMock defender5;
+	private static Player defender1;
+	private static Player defender2;
+	private static Player defender3;
+	private static Player defender4;
+	private static Player defender5;
 	
-	private static PlayerMock midfielder1;
-	private static PlayerMock midfielder2;
-	private static PlayerMock midfielder3;
-	private static PlayerMock midfielder4;
-	private static PlayerMock midfielder5;
+	private static Player midfielder1;
+	private static Player midfielder2;
+	private static Player midfielder3;
+	private static Player midfielder4;
+	private static Player midfielder5;
 	
-	private static PlayerMock striker1;
-	private static PlayerMock striker2;
-	private static PlayerMock striker3;
+	private static Player striker1;
+	private static Player striker2;
+	private static Player striker3;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		goalkeeper1 = new PlayerMock("Goalkeeper 1",Position.GOALKEEPER);
-		goalkeeper2 = new PlayerMock("Goalkeeper 2",Position.GOALKEEPER);
-		goalkeeper3 = new PlayerMock("Goalkeeper 3",Position.GOALKEEPER);
-		goalkeeper4 = new PlayerMock("Goalkeeper 4",Position.GOALKEEPER);
+		goalkeeper1 = new Player("Goalkeeper 1",Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		goalkeeper2 = new Player("Goalkeeper 2",Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		goalkeeper3 = new Player("Goalkeeper 3",Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		goalkeeper4 = new Player("Goalkeeper 4",Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		
-		defender1 = new PlayerMock("Defender 1",Position.DEFENDER);
-		defender2 = new PlayerMock("Defender 2",Position.DEFENDER);
-		defender3 = new PlayerMock("Defender 3",Position.DEFENDER);
-		defender4 = new PlayerMock("Defender 4",Position.DEFENDER);
-		defender5 = new PlayerMock("Defender 5",Position.DEFENDER);
+		defender1 = new Player("Defender 1",Position.DEFENDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		defender2 = new Player("Defender 2",Position.DEFENDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		defender3 = new Player("Defender 3",Position.DEFENDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		defender4 = new Player("Defender 4",Position.DEFENDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		defender5 = new Player("Defender 5",Position.DEFENDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		
-		midfielder1 = new PlayerMock("Midfielder 1",Position.MIDFIELDER);
-		midfielder2 = new PlayerMock("Midfielder 2",Position.MIDFIELDER);
-		midfielder3 = new PlayerMock("Midfielder 3",Position.MIDFIELDER);
-		midfielder4 = new PlayerMock("Midfielder 4",Position.MIDFIELDER);
-		midfielder5 = new PlayerMock("Midfielder 5",Position.MIDFIELDER);
+		midfielder1 = new Player("Midfielder 1",Position.MIDFIELDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		midfielder2 = new Player("Midfielder 2",Position.MIDFIELDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		midfielder3 = new Player("Midfielder 3",Position.MIDFIELDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		midfielder4 = new Player("Midfielder 4",Position.MIDFIELDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		midfielder5 = new Player("Midfielder 5",Position.MIDFIELDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		
-		striker1 = new PlayerMock("Forward 1",Position.FORWARD);
-		striker2 = new PlayerMock("Forward 2",Position.FORWARD);
-		striker3 = new PlayerMock("Forward 3",Position.FORWARD);
+		striker1 = new Player("Forward 1",Position.FORWARD, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		striker2 = new Player("Forward 2",Position.FORWARD, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		striker3 = new Player("Forward 3",Position.FORWARD, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		
-		players = new HashMap<String, PlayerMock>();
+		players = new HashMap<String, Player>();
 		players.put(goalkeeper1.getName(),goalkeeper1);
 		players.put(goalkeeper2.getName(),goalkeeper2);
 		players.put(goalkeeper3.getName(),goalkeeper3);
@@ -116,7 +117,7 @@ public class RosterTest {
 	// Usage: compareListsOfLists(expected,actual)
 	// Before: expected is a list containing lists of strings, the strings are the expected names of the football players
 	//         in the roster.
-	public int compareListsOfLists(List<List<String>> expected, List<List<PlayerInterface>> actual) throws IllegalStateException{
+	public int compareListsOfLists(List<List<String>> expected, List<List<Player>> actual) throws IllegalStateException{
 		// Count the number of matches
 		int matches = 0;
 		
@@ -126,24 +127,24 @@ public class RosterTest {
 		}
 		
 		// Create an iterator for both lists (of lists)
-		Iterator<List<PlayerInterface>> playerlist_iterator = actual.iterator();
+		Iterator<List<Player>> playerlist_iterator = actual.iterator();
 		Iterator<List<String>> expected_playerlist_iterator = expected.iterator();
 		
 		// Loop through the lists
 		while(playerlist_iterator.hasNext()){
-			List<PlayerInterface> playerlist = playerlist_iterator.next();
+			List<Player> playerlist = playerlist_iterator.next();
 			List<String> expected_playerlist = expected_playerlist_iterator.next();
 			
 			if (playerlist.size() != expected_playerlist.size()){
 				throw new IllegalStateException("Sizes of lists not the same: "+expected_playerlist.size()+" and "+playerlist.size());
 			}
 			
-			Iterator<PlayerInterface> player_iterator = playerlist.iterator();
+			Iterator<Player> player_iterator = playerlist.iterator();
 			Iterator<String> expected_player_iterator = expected_playerlist.iterator();
 			
 			while(player_iterator.hasNext()){
 				String expected_player = expected_player_iterator.next();
-				PlayerInterface player = player_iterator.next();
+				Player player = player_iterator.next();
 				if(!player.getName().equals(expected_player)){
 					throw new IllegalStateException("Player: "+player.getName()+" not the same as "+expected_player);
 				}
@@ -159,7 +160,7 @@ public class RosterTest {
 	@SuppressWarnings("serial")
 	@Test
 	public void testIfEmpty() throws IllegalStateException, InvalidPosition {
-		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
+		List<List<Player>> actual = roster.getPlayersInRoster();
 		List<List<String>> excepted = new ArrayList<List<String>>(4) {{add(goalkeepers);add(defenders);add(midfielders);add(strikers);}};
 		assertEquals(0,compareListsOfLists(excepted, actual));
 	}
@@ -173,7 +174,7 @@ public class RosterTest {
 		assertTrue(add);
 		
 		// Get the roster players
-		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
+		List<List<Player>> actual = roster.getPlayersInRoster();
 		
 		// Create the expected outcome of the test
 		goalkeepers.add("Goalkeeper 1");
@@ -198,7 +199,7 @@ public class RosterTest {
 		assertFalse(add);
 		
 		// Get the roster players
-		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
+		List<List<Player>> actual = roster.getPlayersInRoster();
 		
 		// Create the expected outcome of the test
 		for(int j = 1 ; j<Constants.MAX_GOALKEEPERS+1 ; j++){
@@ -233,7 +234,7 @@ public class RosterTest {
 		add = roster.addPlayerToRoster(players.get("Forward 3"));		assertTrue(add);
 		
 		// Get the roster players
-		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
+		List<List<Player>> actual = roster.getPlayersInRoster();
 		
 		// Create the expected outcome of the test
 		goalkeepers.add("Goalkeeper 1");
@@ -313,7 +314,7 @@ public class RosterTest {
 		roster.removePlayerFromRoster(players.get("Goalkeeper 1"));
 		
 		// Check if the roster is empty
-		List<List<PlayerInterface>> actual = roster.getPlayersInRoster();
+		List<List<Player>> actual = roster.getPlayersInRoster();
 		List<List<String>> excepted = new ArrayList<List<String>>(4) {{add(goalkeepers);add(defenders);add(midfielders);add(strikers);}};
 		assertEquals(0,compareListsOfLists(excepted, actual));
 	}

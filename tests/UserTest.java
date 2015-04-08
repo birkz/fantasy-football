@@ -1,4 +1,4 @@
-package tests;
+package is.hi.f2a.tests;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import backend.User;
+import is.hi.f2a.backend.User;
 
 public class UserTest {
 	
