@@ -20,6 +20,7 @@ public class StatsHistory {
 		// this.allrosterscores = new ArrayList<ObjectScores>(); 
 	}
 	
+	// CREATE OBJECTS
 	public void createPlayerScoreObject(Object player) {
 		this.allplayerscores.add(new ObjectScores(player));
 	}
@@ -34,15 +35,41 @@ public class StatsHistory {
 	}
 	*/
 	
+	/////////////////
+	// PLAYER STUFF
+	/////////////////
 	public List<Integer> getPlayerScores(Player player) throws InvalidPlayer {
+		return getPlayerScores(player, false);
+	}
+	
+	public List<Integer> getTotalPlayerScores(Player player) throws InvalidPlayer {
+		return getPlayerScores(player, true);
+	}
+	
+	private List<Integer> getPlayerScores(Player player, boolean total) throws InvalidPlayer {
 		for(ObjectScores temp : this.allplayerscores) {
 			if(((Player)temp.getObject()).equals(player)) {
+				if(total) return temp.getTotalScores();
 				return temp.getScores();
 			}
 		}
 		throw new InvalidPlayer(player.getName() + " is not a player");
 	}
 	
+	public void addScoreToPlayer(PlayerInterface player, int score) throws InvalidPlayer{
+		boolean playerfound = false;
+		for(ObjectScores temp : this.allrosterscores) {
+			if(((PlayerInterface)temp.getObject()).equals(player)) {
+				temp.addScore(score);
+				playerfound = true;
+			}
+		}
+		if(!playerfound) throw new InvalidPlayer("Player" + player.getName() + " was not found");
+	}
+	
+	///////////////
+	// USER STUFF
+	///////////////
 	public List<Integer> getUserScores(User user) throws InvalidUser {
 		return getUserScores(user, false);
 	}
@@ -59,17 +86,6 @@ public class StatsHistory {
 			}
 		}
 		throw new InvalidUser(user.getName() + " is not a user");
-	}
-	
-	public void addScoreToPlayer(PlayerInterface player, int score) throws InvalidPlayer{
-		boolean playerfound = false;
-		for(ObjectScores temp : this.allrosterscores) {
-			if(((PlayerInterface)temp.getObject()).equals(player)) {
-				temp.addScore(score);
-				playerfound = true;
-			}
-		}
-		if(!playerfound) throw new InvalidPlayer("Player" + player.getName() + " was not found");
 	}
 	
 	public void addScoreToUser(User user, int score) throws InvalidUser {
