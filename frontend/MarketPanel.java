@@ -15,6 +15,8 @@ import java.util.List;
 
 import javax.swing.*;
 
+import is.hi.f2a.frontend.ButtonColumn;
+import is.hi.f2a.frontend.Main;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidPosition;
 import is.hi.f2a.tests.InvalidUser;
@@ -40,7 +42,7 @@ public class MarketPanel extends JPanel {
 	 * Create the panel.
 	 * @throws InvalidPlayer 
 	 */
-	public MarketPanel(JScrollPane scroll, int value) {
+	public MarketPanel(final JScrollPane scroll, final int value) {
 		this.player_choice = "";
 		this.team_choice = "Any";
 		this.pos_choice = "Any";
@@ -117,7 +119,7 @@ public class MarketPanel extends JPanel {
 		}
 	}
 	
-	private JComboBox<String> addComboBox(List<String> choices, String flag) {
+	private JComboBox<String> addComboBox(List<String> choices, final String flag) {
 		String[] choose = new String[choices.size()];
 		for(int i=0; i<choices.size(); ++i) {
 			choose[i] = choices.get(i);
@@ -223,7 +225,7 @@ public class MarketPanel extends JPanel {
 			e2.printStackTrace();
 		}
 		
-		JTable table = new JTable(data, columnNames){
+		final JTable table = new JTable(data, columnNames){
 			
 			private static final long serialVersionUID = 1L;
 			

@@ -42,7 +42,7 @@ public class RosterPanel extends JPanel {
 	 */
 	public RosterPanel() throws InvalidPlayer {
 		
-		setLayout(new GridLayout(5, 1, 5, 10));
+		//setLayout(new GridLayout(5, 1, 5, 10));
 		
 		this.roster = MainGame.getInstance().getCurrentUser().getRoster();
 		
@@ -61,7 +61,7 @@ public class RosterPanel extends JPanel {
 			num_players.setText(num_players.getText()+" Gratz, you have a full squad!");
 		}
 		add(this.num_players);
-		Integer[] max_in_pos = new Integer[]{1,5,5,3};
+		final Integer[] max_in_pos = new Integer[]{1,5,5,3};
 		
 		while(roster_lists_it.hasNext()){
 			String[] columnNames = {labels[j], "Price", "On Field"};
@@ -82,9 +82,9 @@ public class RosterPanel extends JPanel {
 				i++;
 			}
 			
-			DefaultTableModel dtm = new DefaultTableModel(data,columnNames);
+			final DefaultTableModel dtm = new DefaultTableModel(data,columnNames);
 			
-			Integer pos_id = j;
+			final Integer pos_id = j;
 			JTable table = new JTable(dtm){
 				private static final long serialVersionUID = 1L;
 
@@ -124,7 +124,7 @@ public class RosterPanel extends JPanel {
 		    tc.setCellEditor(table.getDefaultEditor(Boolean.class));
 		    tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
 		    
-		    Integer j_tmp = j;
+		    final Integer j_tmp = j;
 		    table.getModel().addTableModelListener(new TableModelListener() {
 		    	
 				@Override

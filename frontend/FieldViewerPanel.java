@@ -53,7 +53,7 @@ public class FieldViewerPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		Dimension size = Main.getInstance().returnSizeForPanel(); // ÞETTA ER EKKI AÐ GEFA RÉTTAR TÖLUR
 		int w_offset = 2;  // Það þarf að minnka breiddina svo ramminn sem er teiknaður fari ekki útfyrir panel
-		int h_offset = 26; // Furðulega mikið offset á hæðinni
+		int h_offset = 2; // Furðulega mikið offset á hæðinni
 		int width = size.width-w_offset;
 		int height = size.height-h_offset;
 		
