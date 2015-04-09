@@ -24,6 +24,8 @@ public class Main {
 	private JPanel change;
 	private MainGame game;
 	
+	private boolean winlocationset = false; //Breyta til að stöðva endurstaðsetningu glugga
+	
 	private Main() {
 		this.game = MainGame.getInstance();
 		frame = new JFrame();
@@ -184,7 +186,10 @@ public class Main {
 		System.out.println(num_players);
 		frame.setMinimumSize(new Dimension(720, 180+num_players*47));
 		frame.setSize(new Dimension(720, 180+num_players*47));
-		frame.setLocation((int) (screen_width/2-frame.getWidth()/2), (int) (screen_height/2 - 300));
+		if(!this.winlocationset) {
+			frame.setLocation((int) (screen_width/2-frame.getWidth()/2), (int) (screen_height/2 - 300));
+			this.winlocationset = true;
+		}
 		frame.validate();
 	}
 }
