@@ -8,7 +8,6 @@ import is.hi.f2a.backend.MainGame;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -40,7 +39,7 @@ public class LeaguePanel extends JPanel {
 			data[i] = team;
 		}
 		JTable table = new JTable(data, columnNames);
-		table.setEnabled(true);
+		table.setEnabled(false);
 		table.getColumn("CLUB").setPreferredWidth(300);
 		add(new JScrollPane(table), BorderLayout.CENTER);
 		
@@ -51,7 +50,7 @@ public class LeaguePanel extends JPanel {
 		int numGames = (mainGame.getRound()+showPlan)*5;
 		data = new Object[numGames][];
 		int round = 0;
-		String status = "finished";
+		String status = "Finished";
 		for(int i=numGames-1; i>=0; --i) {
 			Game current = games.get(i);
 			if((i+1)%5 == 0) round++;
@@ -61,7 +60,7 @@ public class LeaguePanel extends JPanel {
 			data[i] = game;
 		}
 		JTable tableGames = new JTable(data, columnNames2);
-		tableGames.setEnabled(true);
+		tableGames.setEnabled(false);
 		tableGames.getColumn("Score").setMaxWidth(60);
 		tableGames.getColumn("Round").setMaxWidth(60);
 		add(new JScrollPane(tableGames), BorderLayout.SOUTH);

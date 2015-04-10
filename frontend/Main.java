@@ -30,6 +30,7 @@ public class Main {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Image icon = new ImageIcon("src/res/Images/icon.png").getImage();
+		frame.setTitle("FANTASY FOOTBALL 2015");
 		frame.setIconImage(icon);
 	}
 	
@@ -43,11 +44,13 @@ public class Main {
 	
 	public void restartGame() {
 		frame.getContentPane().removeAll();
+		frame.setMinimumSize(new Dimension(100, 100));
+		winlocationset = false;
 		frame.add(new StartPanel());
-		frame.setResizable(false);
 		frame.setBackground(Color.WHITE);
 		frame.pack();
         frame.setVisible(true);
+        frame.setResizable(false);
 	}
 	
 	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser {
