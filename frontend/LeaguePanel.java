@@ -7,7 +7,6 @@ import is.hi.f1a.Team;
 import is.hi.f2a.backend.MainGame;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -30,7 +29,7 @@ public class LeaguePanel extends JPanel {
 		setLayout(new BorderLayout(0, 0)); 
 		String[] columnNames = {"POS", "CLUB", "P", "W", "D", "L", "GF", "GA", "GD", "PTS"};
 		League league = FantasyFootballBackend.getInstance().getLeague();
-		//league.playNextRound();
+
 		ArrayList<Team> teams = league.getTeams();
 		Object[][] data = new Object[teams.size()][];
 		for(int i=0; i<teams.size(); ++i) {
@@ -43,8 +42,7 @@ public class LeaguePanel extends JPanel {
 		JTable table = new JTable(data, columnNames);
 		table.setEnabled(true);
 		table.getColumn("CLUB").setPreferredWidth(300);
-		JScrollPane scroll = new JScrollPane(table);
-		add(scroll, BorderLayout.CENTER);
+		add(new JScrollPane(table), BorderLayout.CENTER);
 		
 		int showPlan = 1; // how long a plan do you want to see 1 round or more
 		if(mainGame.getRound()==10) showPlan = 0;
@@ -66,13 +64,6 @@ public class LeaguePanel extends JPanel {
 		tableGames.setEnabled(true);
 		tableGames.getColumn("Score").setMaxWidth(60);
 		tableGames.getColumn("Round").setMaxWidth(60);
-		JScrollPane scroll2 = new JScrollPane(tableGames);
-		add(scroll2, BorderLayout.SOUTH);
+		add(new JScrollPane(tableGames), BorderLayout.SOUTH);
 	}
-	
-	@Override
-    public Dimension getPreferredSize() {
-        return Main.getInstance().returnSizeForPanel();
-    }
-
 }

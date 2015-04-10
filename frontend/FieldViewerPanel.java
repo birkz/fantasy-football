@@ -117,12 +117,12 @@ public class FieldViewerPanel extends JPanel {
 		
 		
 	}
-	
+/*	
 	@Override
     public Dimension getPreferredSize() {
         return Main.getInstance().returnSizeForPanel();
     }
-	
+ */  
 	public void AddToPanels() {
 		Iterator<List<Player>> roster_it = this.roster.getPlayersOnField().iterator();
 		int i = 3;

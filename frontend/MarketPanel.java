@@ -16,7 +16,6 @@ import java.util.List;
 import javax.swing.*;
 
 import is.hi.f2a.frontend.ButtonColumn;
-import is.hi.f2a.frontend.Main;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidPosition;
 import is.hi.f2a.tests.InvalidUser;
@@ -163,12 +162,7 @@ public class MarketPanel extends JPanel {
         }); 
 		return cb;
 	}
-	
-	@Override
-    public Dimension getPreferredSize() {
-        return Main.getInstance().returnSizeForPanel();
-    }
-	
+
 	/*
 	 * Draw JTable
 	 */

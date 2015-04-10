@@ -2,11 +2,11 @@ package is.hi.f2a.frontend;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -27,11 +27,11 @@ public class GraphData extends JPanel {
 			 new Color(255,140,0), new Color(124,252,0), new Color(0,100,0), new Color(0,255,255), new Color(32,178,170),
 			 new Color(100,149,237), new Color(138,43,226), new Color(139,0,139), new Color(255,182,193), new Color(139,69,19),
 			 new Color(210,105,30), new Color(244,164,96), new Color(188,143,143), new Color(127,255,212), new Color(0,100,0)};
-
+	
 	/**
 	 * Create the panel.
 	 */
-	public GraphData() {
+	public GraphData(int width0, int height0) {
 		List<User> users = MainGame.getInstance().getUsers();
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		for (int i=0; i<users.size(); ++i) {
@@ -40,18 +40,13 @@ public class GraphData extends JPanel {
 			add(label);
 		}
 	}
-	
-	@Override
-    public Dimension getPreferredSize() {
-        return Main.getInstance().returnSizeForPanel();
-    }
-	
+
 	@Override 
 	public void paintComponent(Graphics g) {
 		List<User> users = MainGame.getInstance().getUsers();
 		int numUsers = users.size();
-		int width = this.getWidth();
-		int height = this.getHeight();
+		int width = this.getSize().width;
+		int height = this.getSize().height;
 		super.paintComponent(g);
 		Graphics2D draw = (Graphics2D) g;
 		draw.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -64,7 +59,10 @@ public class GraphData extends JPanel {
 			}
 		}
 		int maxscore = (int) (Math.ceil(((double)highscore) /100)*10.0);
-
+		
+		draw.setColor(Color.WHITE);
+		draw.fill(new Rectangle2D.Double(0, 0, width, height));
+		
 		StatsHistory stats = MainGame.getInstance().getStatsHistory();
 		List<Integer> allscores;
 		for(int i=0; i<numUsers; ++i) {

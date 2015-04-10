@@ -3,10 +3,10 @@ package is.hi.f2a.backend;
 import java.util.ArrayList;
 import java.util.List;
 
+import is.hi.f1a.FantasyFootballBackend;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidUser;
 import is.hi.f2a.backend.User;
-
 import is.hi.f2a.frontend.Main;
 
 public class MainGame {
@@ -48,6 +48,7 @@ public class MainGame {
 				currentUser = 0;
 				//here call for simulation of a round
 				try {
+					//FantasyFootballBackend.getInstance().getLeague().playNextRound();
 					is.hi.f2a.tests.RoundMock.SimRound();
 				} catch (InvalidUser e) {
 					// TODO Auto-generated catch block

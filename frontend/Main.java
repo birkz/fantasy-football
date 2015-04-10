@@ -22,13 +22,11 @@ public class Main {
 	private static final Main instance = new Main();
 	private JFrame frame;
 	private JPanel right;
-	private JPanel change;
-	private MainGame game;
+	private JPanel left;
 	
 	private boolean winlocationset = false; //Breyta til að stöðva endurstaðsetningu glugga
 	
 	private Main() {
-		this.game = MainGame.getInstance();
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Image icon = new ImageIcon("src/res/Images/icon.png").getImage();
@@ -51,12 +49,13 @@ public class Main {
 	}
 	
 	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser {
-		game.setNumUsers(names);
+		MainGame.getInstance().setNumUsers(names);
 		
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
 		frame.setMinimumSize(new Dimension(1200,700));
 		frame.setLocationRelativeTo(null);
+		frame.setLayout(new GridLayout(1,2,2,0));
 		
 		JPanel buttons = new JPanel(){
 			private static final long serialVersionUID = 1L;
@@ -65,9 +64,8 @@ public class Main {
 				g.drawImage(img, 0, 0, this.getSize().width, this.getSize().height , null);
 		    }
 		};
-		JPanel left = new JPanel();
+		left = new JPanel();
 		right = new JPanel();
-		change = new JPanel();
 		
 		String[] newButtons = new String[]{"Market", "Scoreboard", "Roster", "League", "END TURN"};
 		JButton[] arrButtons = new JButton[newButtons.length];
@@ -84,16 +82,16 @@ public class Main {
         endPanel.setSize(50, 50);
         endPanel.add(arrButtons[newButtons.length-1]);
         
-        frame.setLayout(new BorderLayout(0, 0));
-		frame.add(left, BorderLayout.WEST);
-		frame.add(right, BorderLayout.EAST);
+		frame.add(left);
+		frame.add(right);
 		
 		left.setLayout(new BorderLayout(0, 0));
+		left.setBorder(BorderFactory.createEmptyBorder(0,10,5,5)); 
 		left.add(buttons, BorderLayout.NORTH);
-		setPanelAsScore();
-		left.add(change, BorderLayout.CENTER);
+		left.add(new ScorePanel(), BorderLayout.CENTER);
 		
 		right.setLayout(new BorderLayout(0, 0));
+		right.setBorder(BorderFactory.createEmptyBorder(0,5,0,10)); 
 		right.add(new NameChange(), BorderLayout.NORTH);
 		right.add(new FieldViewerPanel(), BorderLayout.CENTER);
 		right.add(endPanel, BorderLayout.SOUTH);
@@ -117,31 +115,35 @@ public class Main {
 	}
 	
 	public void setPanelAsMarket(JScrollPane scroll, int value) {
-		change.removeAll();
-		change.add(new JScrollPane(new MarketPanel(scroll, value)));
-		change.setVisible(false);
-		change.setVisible(true);
+		BorderLayout layout = (BorderLayout) left.getLayout();
+		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+		left.add(new MarketPanel(scroll, value), BorderLayout.CENTER);
+		left.setVisible(false);
+		left.setVisible(true);
 	}
 	
 	public void setPanelAsScore() throws InvalidUser {
-		change.removeAll();
-		change.add(new ScorePanel());
-		change.setVisible(false);
-		change.setVisible(true);
+		BorderLayout layout = (BorderLayout) left.getLayout();
+		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+		left.add(new ScorePanel(), BorderLayout.CENTER);
+		left.setVisible(false);
+		left.setVisible(true);
 	}
 	
 	public void setPanelAsRoster() throws InvalidPlayer {
-		change.removeAll();
-		change.add(new RosterPanel());
-		change.setVisible(false);
-		change.setVisible(true);
+		BorderLayout layout = (BorderLayout) left.getLayout();
+		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+		left.add(new RosterPanel(), BorderLayout.CENTER);
+		left.setVisible(false);
+		left.setVisible(true);
 	}
 	
 	public void setPanelAsLeague() {
-		change.removeAll();
-		change.add(new LeaguePanel());
-		change.setVisible(false);
-		change.setVisible(true);
+		BorderLayout layout = (BorderLayout) left.getLayout();
+		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+		left.add(new LeaguePanel(), BorderLayout.CENTER);
+		left.setVisible(false);
+		left.setVisible(true);
 	}
 	
 	public void setEndgamePanel() throws InvalidUser {
@@ -168,15 +170,7 @@ public class Main {
 		right.setVisible(false);
 		right.setVisible(true);
 	}
-	
-	// ÞETTA ER GALLAÐ FALL, ER EKKI AÐ SKILA STÆRÐ Á PANEL HELDUR FRAME SEM ER VILLANDI!!!
-	// I WANT IT DESTROID!!! or renamed
-	public Dimension returnSizeForPanel() {
-		int height = frame.getSize().height-90;
-		int width = (frame.getSize().width/2)-20;
-		return new Dimension(width, height);
-	}
-	
+
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -190,7 +184,7 @@ public class Main {
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		int screen_width = gd.getDisplayMode().getWidth();
 		int screen_height = gd.getDisplayMode().getHeight();
-		System.out.println(num_players);
+		//System.out.println(num_players);
 		frame.setMinimumSize(new Dimension(720, 180+num_players*47));
 		frame.setSize(new Dimension(720, 180+num_players*47));
 		if(!this.winlocationset) {
