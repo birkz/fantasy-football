@@ -42,6 +42,8 @@ public class Main {
 	
 	public void restartGame() {
 		frame.getContentPane().removeAll();
+		frame.setResizable(false);
+		frame.validate();
 		frame.setMinimumSize(new Dimension(800, 150));
 		frame.add(new StartPanel());
 		frame.setBackground(Color.WHITE);
@@ -58,12 +60,12 @@ public class Main {
 		frame.setLocation(frame.getX(), frame.getY()-200);
 
         frame.setVisible(true);
-        frame.setResizable(false);
 	}
 	
 	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser {
 		MainGame.getInstance().setNumUsers(names);
 		frame.setResizable(true);
+		frame.setVisible(false);
 		
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
@@ -206,7 +208,7 @@ public class Main {
 			this.winlocationset = true;
 		}*/
 		frame.pack();
-		frame.validate();
+		//frame.validate();
 	}
 }
 
