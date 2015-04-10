@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.List;
 
@@ -149,7 +150,11 @@ public class Main {
 		frame.setLocationRelativeTo(null);
 		
 		frame.setLayout(new BorderLayout(0, 0));
-		frame.add(new ScorePanel(), BorderLayout.CENTER);
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1,2,5,5));
+		panel.add(new ScorePanel());
+		panel.add(new LeaguePanel());
+		frame.add(panel, BorderLayout.CENTER);
 		frame.add(new EndgamePanel(), BorderLayout.SOUTH);
 		
 		frame.setVisible(true);

@@ -47,6 +47,7 @@ public class LeaguePanel extends JPanel {
 		add(scroll, BorderLayout.CENTER);
 		
 		int showPlan = 1; // how long a plan do you want to see 1 round or more
+		if(mainGame.getRound()==10) showPlan = 0;
 		ArrayList<Game> games = league.getGames();
 		String[] columnNames2 = {"HomeTeam", "AwayTeam", "Score", "Round","Status"};
 		int numGames = (mainGame.getRound()+showPlan)*5;
