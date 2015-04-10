@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.List;
@@ -24,7 +22,7 @@ public class Main {
 	private JPanel right;
 	private JPanel left;
 	
-	private boolean winlocationset = false; //Breyta til að stöðva endurstaðsetningu glugga
+	//private boolean winlocationset = false; //Breyta til að stöðva endurstaðsetningu glugga
 	
 	private Main() {
 		frame = new JFrame();
@@ -44,18 +42,30 @@ public class Main {
 	
 	public void restartGame() {
 		frame.getContentPane().removeAll();
-		frame.setMinimumSize(new Dimension(100, 100));
-		winlocationset = false;
+		frame.setResizable(false);
+		frame.validate();
+		frame.setMinimumSize(new Dimension(800, 150));
 		frame.add(new StartPanel());
 		frame.setBackground(Color.WHITE);
+		frame.setVisible(false);
 		frame.pack();
+		
+		frame.setLocationRelativeTo(null);
+		//GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		//int screen_width = gd.getDisplayMode().getWidth();
+		//int screen_height = gd.getDisplayMode().getHeight();
+		//frame.setLocation((int) (screen_width/2-400), (int) (screen_height/2 - 300));
+		//winlocationset = false;
+
+		frame.setLocation(frame.getX(), frame.getY()-200);
+
         frame.setVisible(true);
-        frame.setResizable(false);
 	}
 	
 	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser {
 		MainGame.getInstance().setNumUsers(names);
 		frame.setResizable(true);
+		frame.setVisible(false);
 		
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
@@ -187,7 +197,7 @@ public class Main {
 	}
 
 	public void changeFrameHeight(int num_players) {
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		/*GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		int screen_width = gd.getDisplayMode().getWidth();
 		int screen_height = gd.getDisplayMode().getHeight();
 		//System.out.println(num_players);
@@ -196,9 +206,9 @@ public class Main {
 		if(!this.winlocationset) {
 			frame.setLocation((int) (screen_width/2-400), (int) (screen_height/2 - 300));
 			this.winlocationset = true;
-		}
+		}*/
 		frame.pack();
-		frame.validate();
+		//frame.validate();
 	}
 }
 
