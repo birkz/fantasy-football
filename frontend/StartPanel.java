@@ -122,7 +122,7 @@ public class StartPanel extends JPanel {
 		}
 		
 		// Position the frame correctly
-		Main.getInstance().changeFrameHeight(0);
+		//Main.getInstance().changeFrameHeight(0);
 	}
 	
 	@Override
