@@ -55,6 +55,9 @@ public class FieldViewerPanel extends JPanel {
 		int h_offset = 2; 
 		int width = this.getSize().width-w_offset;
 		int height = this.getSize().height-h_offset;
+		int halfwidth = width/2;
+		int halfheight = height/2;
+		int line_offset = 6;
 		
 		// Völlurinn sem png mynd
 		//Image img = new ImageIcon("src/res/Images/field.png").getImage();
@@ -63,23 +66,20 @@ public class FieldViewerPanel extends JPanel {
 		// Völlurinn teiknaður með java graphics
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.setPaint(new Color(23, 74, 146)); //Litur vallar
+		
 		// THE FIELD
-		g2.fill(new Rectangle2D.Double(0, 0, width, height));
+		g2.setPaint(new Color(23, 74, 146)); //Litur vallar
+		drawField(g2, width, height, line_offset);
+	
+		// THE LINES
+		g2.setPaint(Color.WHITE); //Litur lína
+		g2.setStroke(new BasicStroke(2)); // Þykkt lína
+		drawFieldCenterWithFrame(g2, width, height, line_offset);
+		drawAttackingDefendingAreas(g2, halfwidth, halfheight, line_offset);
 		
-		g2.setPaint(Color.WHITE); //Litur línu
-		g2.setStroke(new BasicStroke(2));
-		int line_offset = 6;
-		int halfwidth = width/2;
-		int halfheight = height/2;
-		
-		// CENTER
-		// Center line
-		g2.draw(new Line2D.Double(line_offset+1, halfheight+line_offset+2, width-2*line_offset+4, halfheight+line_offset+2));
-		// Center circle
-		int diameter = (width+height)/10;
-		g2.draw(new Ellipse2D.Double(halfwidth-diameter/2, halfheight+line_offset-diameter/2, diameter, diameter));
-		
+	}
+	
+	private void drawAttackingDefendingAreas(Graphics2D g2, int halfwidth, int halfheight, int line_offset) {
 		// ATTACKING AREA (top)
 		// Penalty area
 		int pen_center = halfwidth-halfwidth/2+line_offset;
@@ -102,6 +102,7 @@ public class FieldViewerPanel extends JPanel {
 		
 		// DEFENDING AREA (bottom)
 		// Penalty area
+		int height = 2*halfheight;
 		int pen_offset = height-2*line_offset-pen_height;
 		g2.draw(new Rectangle2D.Double(pen_center, line_offset+pen_offset, pen_width, pen_height));
 		// Goal area
@@ -111,11 +112,20 @@ public class FieldViewerPanel extends JPanel {
 		int arc_offset = height-2*line_offset-2*pen_height;
 		int arc_start_offset = -180;
 		g2.draw(new Arc2D.Double(arc_xpos, arc_ypos+arc_offset, arc_width, arc_height, arc_start+arc_start_offset, arc_length, Arc2D.OPEN));
-		
-		// FRAME
-		g2.draw(new Rectangle2D.Double(line_offset, line_offset, width-2*line_offset, height-2*line_offset));
-		
-		
+	}
+	
+	private void drawFieldCenterWithFrame(Graphics2D g2, int width, int height, int line_offset) {
+		int halfwidth = width/2;
+		int halfheight = height/2;
+		int diameter = (width+height)/10;
+
+		g2.draw(new Line2D.Double(line_offset+1, halfheight+line_offset+2, width-2*line_offset+4, halfheight+line_offset+2)); // Center line
+		g2.draw(new Ellipse2D.Double(halfwidth-diameter/2, halfheight+line_offset-diameter/2, diameter, diameter)); // Center circle
+		g2.draw(new Rectangle2D.Double(line_offset, line_offset, width-2*line_offset, height-2*line_offset)); // Frame
+	}
+	
+	private void drawField(Graphics2D g2, int width, int height, int line_offset) {
+		g2.fill(new Rectangle2D.Double(0, 0, width, height)); 
 	}
 	
 	@Override
