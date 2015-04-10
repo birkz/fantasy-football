@@ -23,6 +23,9 @@ public class Main {
 	private JPanel right;
 	private JPanel change;
 	private MainGame game;
+
+	// Innri panel
+	private FieldViewerPanel fieldpanel;
 	
 	private boolean winlocationset = false; //Breyta til að stöðva endurstaðsetningu glugga
 	
@@ -94,7 +97,8 @@ public class Main {
 		
 		right.setLayout(new BorderLayout(0, 0));
 		right.add(new NameChange(), BorderLayout.NORTH);
-		right.add(new FieldViewerPanel(), BorderLayout.CENTER);
+		fieldpanel = new FieldViewerPanel();
+		right.add(fieldpanel, BorderLayout.CENTER);
 		right.add(endPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
@@ -164,9 +168,17 @@ public class Main {
 		right.setVisible(true);
 	}
 	
+	// ÞETTA ER GALLAÐ FALL, ER EKKI AÐ SKILA STÆRÐ Á PANEL HELDUR FRAME SEM ER VILLANDI!!!
+	// I WANT IT DESTROID!!!
 	public Dimension returnSizeForPanel() {
 		int height = frame.getSize().height-90;
 		int width = (frame.getSize().width/2)-20;
+		return new Dimension(width, height);
+	}
+	
+	public Dimension returnSizeOfField() {
+		int height = fieldpanel.getSize().height;
+		int width = fieldpanel.getSize().width;
 		return new Dimension(width, height);
 	}
 	
