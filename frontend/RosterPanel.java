@@ -2,8 +2,6 @@ package is.hi.f2a.frontend;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,7 +39,6 @@ public class RosterPanel extends JPanel {
 	 * Constructor
 	 */
 	public RosterPanel() throws InvalidPlayer {
-		
 		//setLayout(new GridLayout(5, 1, 5, 10));
 		
 		this.roster = MainGame.getInstance().getCurrentUser().getRoster();
@@ -158,10 +155,4 @@ public class RosterPanel extends JPanel {
 		}
 		
 	}
-	
-	@Override
-    public Dimension getPreferredSize() {
-        return Main.getInstance().returnSizeForPanel();
-    }
-	
 }

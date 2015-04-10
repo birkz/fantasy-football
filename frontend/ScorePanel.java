@@ -1,7 +1,6 @@
 package is.hi.f2a.frontend;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.List;
 
@@ -19,12 +18,16 @@ public class ScorePanel extends JPanel {
 	 * 
 	 */
 	private final static long serialVersionUID = 1L;
+	private int width = 0;
+	private int height = 0;
 
 	/**
 	 * Create the panel.
 	 * @throws InvalidUser 
 	 */
 	public ScorePanel() throws InvalidUser {
+		width = this.getWidth();
+		height = this.getHeight();
 		List<User> users = MainGame.getInstance().getUsers();
 		int numUsers = users.size();
 		setLayout(new BorderLayout(0, 0));
@@ -40,14 +43,7 @@ public class ScorePanel extends JPanel {
 			players.add(userN);
 			players.add(userS);
 		}
-		
-		add(new GraphData(), BorderLayout.CENTER);
+		add(new GraphData(width, height), BorderLayout.CENTER);
 		add(players, BorderLayout.SOUTH);
 	}
-	
-	@Override
-    public Dimension getPreferredSize() {
-        return Main.getInstance().returnSizeForPanel();
-    }
-
 }
