@@ -44,12 +44,15 @@ public class Main {
 	public void restartGame() {
 		frame.getContentPane().removeAll();
 		frame.add(new StartPanel());
+		frame.setResizable(false);
 		frame.setBackground(Color.WHITE);
+		frame.pack();
         frame.setVisible(true);
 	}
 	
 	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser {
 		MainGame.getInstance().setNumUsers(names);
+		frame.setResizable(true);
 		
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
@@ -185,12 +188,13 @@ public class Main {
 		int screen_width = gd.getDisplayMode().getWidth();
 		int screen_height = gd.getDisplayMode().getHeight();
 		//System.out.println(num_players);
-		frame.setMinimumSize(new Dimension(720, 180+num_players*47));
-		frame.setSize(new Dimension(720, 180+num_players*47));
+		//frame.setMinimumSize(new Dimension(720, 180+num_players*47));
+		//frame.setSize(new Dimension(720, 180+num_players*47));
 		if(!this.winlocationset) {
-			frame.setLocation((int) (screen_width/2-frame.getWidth()/2), (int) (screen_height/2 - 300));
+			frame.setLocation((int) (screen_width/2-400), (int) (screen_height/2 - 300));
 			this.winlocationset = true;
 		}
+		frame.pack();
 		frame.validate();
 	}
 }
