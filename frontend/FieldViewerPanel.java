@@ -58,7 +58,6 @@ public class FieldViewerPanel extends JPanel {
 		int halfwidth = width/2;
 		int halfheight = height/2;
 		int line_offset = 6;
-
 		
 		// Völlurinn sem png mynd
 		//Image img = new ImageIcon("src/res/Images/field.png").getImage();

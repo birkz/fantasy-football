@@ -27,7 +27,7 @@ public class Main {
 	private Main() {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Image icon = new ImageIcon("src/res/Images/icon.png").getImage();
+		Image icon = new ImageIcon("src/is/hi/f2a/res/Images/icon.png").getImage();
 		frame.setTitle("FANTASY FOOTBALL 2015");
 		frame.setIconImage(icon);
 	}
