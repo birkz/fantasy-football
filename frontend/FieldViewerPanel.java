@@ -3,6 +3,7 @@ package is.hi.f2a.frontend;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -20,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import is.hi.f1a.Player;
+import is.hi.f2a.backend.FontUtil;
 import is.hi.f2a.backend.Roster;
 
 public class FieldViewerPanel extends JPanel {
@@ -151,8 +153,10 @@ public class FieldViewerPanel extends JPanel {
 	
 	public JLabel createLabels(String name) {
 		JLabel label = new JLabel("<html><div style=\"text-align: center;\">"+name+"</html>");
-		label.setBorder(BorderFactory.createLineBorder(Color.black));
-		label.setPreferredSize(new Dimension(104, 50));
+		//label.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+		label.setBackground(new Color(255, 255, 255, 204));
+		label.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
+		label.setPreferredSize(new Dimension(104, 30));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setOpaque(true);
 		return label;
