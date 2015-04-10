@@ -51,11 +51,10 @@ public class FieldViewerPanel extends JPanel {
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		Dimension fieldsize = Main.getInstance().returnSizeOfField();
 		int w_offset = 2;  // Það þarf að minnka breiddina svo völlurinn sem er teiknaður fari ekki útfyrir panel
 		int h_offset = 2; 
-		int width = fieldsize.width-w_offset;
-		int height = fieldsize.height-h_offset;
+		int width = this.getSize().width-w_offset;
+		int height = this.getSize().height-h_offset;
 		
 		// Völlurinn sem png mynd
 		//Image img = new ImageIcon("src/res/Images/field.png").getImage();
