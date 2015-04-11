@@ -50,12 +50,6 @@ public class Main {
 		frame.pack();
 		
 		frame.setLocationRelativeTo(null);
-		//GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		//int screen_width = gd.getDisplayMode().getWidth();
-		//int screen_height = gd.getDisplayMode().getHeight();
-		//frame.setLocation((int) (screen_width/2-400), (int) (screen_height/2 - 300));
-		//winlocationset = false;
-
 		frame.setLocation(frame.getX(), frame.getY()-200);
 
         frame.setVisible(true);
@@ -197,17 +191,7 @@ public class Main {
         });
 	}
 
-	public void changeFrameHeight(int num_players) {
-		/*GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		int screen_width = gd.getDisplayMode().getWidth();
-		int screen_height = gd.getDisplayMode().getHeight();
-		//System.out.println(num_players);
-		//frame.setMinimumSize(new Dimension(720, 180+num_players*47));
-		//frame.setSize(new Dimension(720, 180+num_players*47));
-		if(!this.winlocationset) {
-			frame.setLocation((int) (screen_width/2-400), (int) (screen_height/2 - 300));
-			this.winlocationset = true;
-		}*/
+	public void packFrame() {
 		frame.pack();
 	}
 }
