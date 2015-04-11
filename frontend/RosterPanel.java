@@ -1,7 +1,9 @@
 package is.hi.f2a.frontend;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.GridLayout;
 import java.util.Iterator;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class RosterPanel extends JPanel {
 	 * Constructor
 	 */
 	public RosterPanel() throws InvalidPlayer {
-		//setLayout(new GridLayout(5, 1, 5, 10));
+		setLayout(new BorderLayout(0, 0));
 		
 		this.roster = MainGame.getInstance().getCurrentUser().getRoster();
 		
@@ -57,9 +59,10 @@ public class RosterPanel extends JPanel {
 		if(roster.getNumberOfPlayersOnField() == 11){
 			num_players.setText(num_players.getText()+" Gratz, you have a full squad!");
 		}
-		add(this.num_players);
+		add(this.num_players, BorderLayout.NORTH);
 		final Integer[] max_in_pos = new Integer[]{1,5,5,3};
-		
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(4, 1, 5, 5));
 		while(roster_lists_it.hasNext()){
 			String[] columnNames = {labels[j], "Price", "On Field"};
 			
@@ -114,7 +117,7 @@ public class RosterPanel extends JPanel {
 			table.setEnabled(true);
 			table.setFocusable(false);
 			table.setRowSelectionAllowed(false);
-			table.setFillsViewportHeight(true);
+			//table.setFillsViewportHeight(true);
 			table.getColumn("On Field").setMaxWidth(60);
 			
 			TableColumn tc = table.getColumnModel().getColumn(IS_ON_FIELD_COLUMN);
@@ -151,8 +154,9 @@ public class RosterPanel extends JPanel {
 		    });
 		    
 			JScrollPane scroll = new JScrollPane(table);
-			add(scroll,j++);
+			panel.add(scroll,j++);
 		}
+		add(panel, BorderLayout.CENTER);
 		
 	}
 }

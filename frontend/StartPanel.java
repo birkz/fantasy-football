@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -34,22 +33,19 @@ public class StartPanel extends JPanel {
 	/**
 	 * Instance variables
 	 */
-	private JPanel north = new JPanel();
 	private JPanel center = new JPanel();
-	private JPanel south = new JPanel();
 	private final JTextField playername_field;
 	private List<String> names = new ArrayList<String>();
 	private int numEmpty = 1;
-	private int num_players = 0;
 	private JButton startGame;
 	private JButton addPlayer;
-	//private static final int frameheightchange = 47;
 
 	/**
 	 * Create the panel.
 	 */
 	public StartPanel() {
 		playername_field = new JTextField();
+		JPanel south = new JPanel();
 		playername_field.setPreferredSize(new Dimension(200, 30));
 		
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true);
@@ -62,8 +58,7 @@ public class StartPanel extends JPanel {
             public void actionPerformed(ActionEvent e)
             {
             	addPlayerHandler();
-            	//Main.getInstance().increaseFrameHeight(frameheightchange);
-            	Main.getInstance().changeFrameHeight(num_players);
+            	Main.getInstance().packFrame();
 
             }
         }); 
@@ -74,7 +69,7 @@ public class StartPanel extends JPanel {
 				// If enter is released, add the player
 				if(e.getKeyCode() == 10) {
 					addPlayerHandler();
-					Main.getInstance().changeFrameHeight(num_players);
+					Main.getInstance().packFrame();
 				}
 			}
 
@@ -100,19 +95,21 @@ public class StartPanel extends JPanel {
             }
         }); 
 		
-		setLayout(new BorderLayout(0, 0));
-		north.setPreferredSize(new Dimension(800, 100));
-		north.setOpaque(false);
+		Image img = new ImageIcon("src/is/hi/f2a/res/Images/logo_standard.png").getImage();
+		JLabel logo = new JLabel(new ImageIcon(img), JLabel.CENTER);;
+		setBackground(Color.WHITE);
 		
+		setLayout(new BorderLayout(0, 0));
+
 		// Set all panels white
-		north.setBackground(Color.WHITE);
+		setBackground(Color.WHITE);
 		center.setBackground(Color.WHITE);
 		south.setBackground(Color.WHITE);
 		
 		south.add(playername_field);
 		south.add(addPlayer);
 		south.add(startGame);
-		add(north, BorderLayout.NORTH);
+		add(logo, BorderLayout.NORTH);
 		add(center, BorderLayout.SOUTH);
 		add(south, BorderLayout.CENTER);
 		
@@ -120,28 +117,13 @@ public class StartPanel extends JPanel {
 		if(Constants.MIN_USERS>0){
 			startGame.setEnabled(false);
 		}
-		
-		// Position the frame correctly
-		//Main.getInstance().changeFrameHeight(0);
 	}
-	
-	@Override
-	protected void paintComponent(Graphics g) {
-		//The static logo
-		Dimension size = this.getSize();
-		Image img = new ImageIcon("src/is/hi/f2a/res/Images/logo_standard.png").getImage();
-		int imagehalfwidth = img.getWidth(null)/2;
-		int framehalfwidth = size.width/2;
-		int centeroffset = framehalfwidth-imagehalfwidth;
-		g.drawImage(img, centeroffset+5, 5, null);
-	}
-	
+
 	/*
 	 * Handle events when a player is added, by pressing "ENTER" and by clicking the "Add Player" button.
 	 */
 	private void addPlayerHandler() {
 		//this.centersize += 25;
-		num_players++;
 		String name = playername_field.getText();
     	if(name.isEmpty()) name = "Player" + numEmpty++;
         names.add(name);
@@ -182,7 +164,6 @@ public class StartPanel extends JPanel {
 	                for(int i=0; i<num; ++i) {
 	                	if(center.getComponent(i).equals(panel)) {
 	                		names.remove(i);
-	                		num_players--;
 	                		changeCenter();
 	                		break;
 	                	}
@@ -196,7 +177,7 @@ public class StartPanel extends JPanel {
 	                if(names.size()<Constants.MIN_USERS){
 	                	startGame.setEnabled(false);
 	                }
-	                Main.getInstance().changeFrameHeight(num_players);
+	                Main.getInstance().packFrame();
 	            }
 	        }); 
 			panel.add(removePlayer);
