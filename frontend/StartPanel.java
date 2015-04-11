@@ -33,7 +33,7 @@ public class StartPanel extends JPanel {
 	/**
 	 * Instance variables
 	 */
-	private JPanel center = new JPanel();
+	private JPanel players = new JPanel();
 	private final JTextField playername_field;
 	private List<String> names = new ArrayList<String>();
 	private int numEmpty = 1;
@@ -45,7 +45,7 @@ public class StartPanel extends JPanel {
 	 */
 	public StartPanel() {
 		playername_field = new JTextField();
-		JPanel south = new JPanel();
+		JPanel fieldButt = new JPanel();
 		playername_field.setPreferredSize(new Dimension(200, 30));
 		
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true);
@@ -97,21 +97,20 @@ public class StartPanel extends JPanel {
 		
 		Image img = new ImageIcon("src/is/hi/f2a/res/Images/logo_standard.png").getImage();
 		JLabel logo = new JLabel(new ImageIcon(img), JLabel.CENTER);;
-		setBackground(Color.WHITE);
-		
+	
 		setLayout(new BorderLayout(0, 0));
 
 		// Set all panels white
 		setBackground(Color.WHITE);
-		center.setBackground(Color.WHITE);
-		south.setBackground(Color.WHITE);
+		players.setBackground(Color.WHITE);
+		fieldButt.setBackground(Color.WHITE);
 		
-		south.add(playername_field);
-		south.add(addPlayer);
-		south.add(startGame);
+		fieldButt.add(playername_field);
+		fieldButt.add(addPlayer);
+		fieldButt.add(startGame);
 		add(logo, BorderLayout.NORTH);
-		add(center, BorderLayout.SOUTH);
-		add(south, BorderLayout.CENTER);
+		add(players, BorderLayout.SOUTH);
+		add(fieldButt, BorderLayout.CENTER);
 		
 		// If we don't allow zero players to play, disable the "Start Game" button.
 		if(Constants.MIN_USERS>0){
@@ -147,8 +146,8 @@ public class StartPanel extends JPanel {
 	 */
 	private void changeCenter() {
 		int size = names.size();
-		center.removeAll();
-		center.setLayout(new GridLayout(size, 1, 5, 5));
+		players.removeAll();
+		players.setLayout(new GridLayout(size, 1, 5, 5));
 		for(int i=0; i<size; ++i) {
 			final JPanel panel = new JPanel();
 			JLabel label = new JLabel(names.get(i));
@@ -160,9 +159,9 @@ public class StartPanel extends JPanel {
 				 
 	            public void actionPerformed(ActionEvent e)
 	            {
-	                int num = center.getComponentCount();
+	                int num = players.getComponentCount();
 	                for(int i=0; i<num; ++i) {
-	                	if(center.getComponent(i).equals(panel)) {
+	                	if(players.getComponent(i).equals(panel)) {
 	                		names.remove(i);
 	                		changeCenter();
 	                		break;
@@ -181,10 +180,10 @@ public class StartPanel extends JPanel {
 	            }
 	        }); 
 			panel.add(removePlayer);
-			center.add(panel);
+			players.add(panel);
 		}
-		center.validate();
-		center.repaint();
+		players.validate();
+		players.repaint();
 	}
 
 }
