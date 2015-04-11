@@ -8,6 +8,7 @@ import is.hi.f1a.Team;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -268,11 +269,16 @@ public class MarketPanel extends JPanel {
 		        
 		        try {
 		        	is.hi.f2a.frontend.Main.getInstance().restartFrame();
-				} catch (InvalidUser e1) {
+				} catch (InvalidUser | IOException e1) {
 					e1.printStackTrace();
 				}
 		        is.hi.f2a.frontend.Main.getInstance().setPanelAsMarket(scroll,value);
-		        is.hi.f2a.frontend.Main.getInstance().setPanelAsFieldViewer();
+		        try {
+					is.hi.f2a.frontend.Main.getInstance().setPanelAsFieldViewer();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		    }
 		};
 		

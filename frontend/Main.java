@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.*;
@@ -62,7 +63,7 @@ public class Main {
         frame.setResizable(false);
 	}
 	
-	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser {
+	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser, IOException {
 		MainGame.getInstance().setNumUsers(names);
 		frame.setResizable(true);
 		frame.setVisible(false);
@@ -116,7 +117,7 @@ public class Main {
         frame.validate();
 	}
 	
-	public void restartFrame() throws InvalidUser {
+	public void restartFrame() throws InvalidUser, IOException {
 
 		setPanelAsScore();
 		
@@ -179,7 +180,7 @@ public class Main {
         frame.validate();
 	}
 	
-	public void setPanelAsFieldViewer() {
+	public void setPanelAsFieldViewer() throws IOException {
 		BorderLayout layout = (BorderLayout) right.getLayout();
 		right.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 		right.add(new FieldViewerPanel(), BorderLayout.CENTER);

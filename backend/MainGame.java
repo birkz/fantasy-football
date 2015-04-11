@@ -1,5 +1,6 @@
 package is.hi.f2a.backend;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class MainGame {
 		}
 	}
 	
-	public void nextUser() throws InvalidUser {
+	public void nextUser() throws InvalidUser, IOException {
 		int numUsers = users.size();
 		if(round<10) {
 			if(currentUser<numUsers) currentUser++;

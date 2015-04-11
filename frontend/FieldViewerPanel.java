@@ -7,21 +7,24 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import is.hi.f1a.Player;
-import is.hi.f2a.backend.FontUtil;
 import is.hi.f2a.backend.Roster;
 
 public class FieldViewerPanel extends JPanel {
@@ -35,17 +38,15 @@ public class FieldViewerPanel extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @throws IOException 
 	 */
-	public FieldViewerPanel() {
+	public FieldViewerPanel() throws IOException {
 		
 		this.roster = is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster();
 		
-		setLayout(new GridLayout(8, 1, 5, 5));
+		setLayout(new GridLayout(4, 1, 2, 2));
 		AddToPanels();
 		for(int i=0; i<players.length; ++i) {
-			JPanel fillup = new JPanel();
-			fillup.setOpaque(false);
-			add(fillup);
 			players[i].setOpaque(false);
 			add(players[i]);
 		}
@@ -62,7 +63,6 @@ public class FieldViewerPanel extends JPanel {
 		int line_offset = 6;
 		
 		// Völlurinn sem png mynd
-		//Image img = new ImageIcon("src/res/Images/field.png").getImage();
 		//g.drawImage(img, 0, 0, size.width, size.height, null);
 		
 		// Völlurinn teiknaður með java graphics
@@ -135,7 +135,7 @@ public class FieldViewerPanel extends JPanel {
         return Main.getInstance().returnSizeForPanel();
     }
  */  
-	public void AddToPanels() {
+	public void AddToPanels() throws IOException {
 		Iterator<List<Player>> roster_it = this.roster.getPlayersOnField().iterator();
 		int i = 3;
 		
@@ -144,22 +144,13 @@ public class FieldViewerPanel extends JPanel {
 			Iterator<Player> players_in_pos_it = players_in_pos.iterator();
 			
 			while(players_in_pos_it.hasNext()){
-				players[i].add(createLabels(players_in_pos_it.next().getName()));
+				Player player = players_in_pos_it.next();
+				players[i].add(new PlayerProfile(player.getPhoto(), player.getName()));
+				//players[i].add(createLabels(player.getName()));
 			}
 			
 			i--;
 		}
-	}
-	
-	public JLabel createLabels(String name) {
-		JLabel label = new JLabel("<html><div style=\"text-align: center;\">"+name+"</html>");
-		//label.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-		label.setBackground(new Color(255, 255, 255, 204));
-		label.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
-		label.setPreferredSize(new Dimension(104, 30));
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setOpaque(true);
-		return label;
 	}
 
 }

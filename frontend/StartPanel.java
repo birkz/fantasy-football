@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,11 +93,14 @@ public class StartPanel extends JPanel {
 			 
             public void actionPerformed(ActionEvent e)
             {
-            	try {
+           
+				try {
 					Main.getInstance().startGame(names);
-				} catch (InvalidPlayer | InvalidPosition | InvalidUser e1) {
+				} catch (InvalidPlayer | InvalidPosition | InvalidUser | IOException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
             }
         }); 
 		

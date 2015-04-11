@@ -2,6 +2,7 @@ package is.hi.f2a.frontend;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -140,7 +141,12 @@ public class RosterPanel extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					is.hi.f2a.frontend.Main.getInstance().setPanelAsFieldViewer();
+					try {
+						is.hi.f2a.frontend.Main.getInstance().setPanelAsFieldViewer();
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
 					try {
 						is.hi.f2a.frontend.Main.getInstance().setPanelAsRoster();
 					} catch (InvalidPlayer e1) {
