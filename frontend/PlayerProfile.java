@@ -59,12 +59,11 @@ public class PlayerProfile extends JPanel {
 			else {
 
 				this.url = new URL(path);
-				//BufferedImage bufferedImage = ImageIO.read(url);
-				//this.img = new ImageIcon(bufferedImage).getImage();
+				BufferedImage bufferedImage = ImageIO.read(url);
+				this.img = new ImageIcon(bufferedImage).getImage();
 				//ImageIO.write((RenderedImage) this.img, "jpg", new File("src/is/hi/f2a/res/cache/" + playername + ".jpg"));
-				//photos.put(path, this.img);
-				this.img = new ImageIcon("src/is/hi/f2a/res/Images/playerplaceholder.png").getImage();
-				this.loadfailed = true;
+				photos.put(path, this.img);
+			
 			}
 		} catch (IOException e) {
 			//e.printStackTrace();
