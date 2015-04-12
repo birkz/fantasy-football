@@ -13,7 +13,6 @@ public class LeagueMock {
 	public LeagueMock(){
 		
 		this.teams = new ArrayList<TeamMock>(10);
-		this.teams.add(new TeamMock());
 		this.teams.add(new TeamMock(0));
 		this.teams.add(new TeamMock(1));
 		this.teams.add(new TeamMock(2));
@@ -23,6 +22,8 @@ public class LeagueMock {
 		this.teams.add(new TeamMock(6));
 		this.teams.add(new TeamMock(7));
 		this.teams.add(new TeamMock(8));
+		this.teams.add(new TeamMock(9));
+		
 	}
 	
 	/*
@@ -31,5 +32,4 @@ public class LeagueMock {
 	public List<TeamMock> getTeams(){
 		return this.teams;
 	}
-	
 }

@@ -1,11 +1,10 @@
 package is.hi.f2a.frontend;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
+<<<<<<< HEAD
 import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
@@ -13,15 +12,21 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 import java.util.List;
+=======
+import java.awt.Image;
+>>>>>>> parent of 74cfc3e... push to pull
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+<<<<<<< HEAD
 import is.hi.f1a.Player;
 import is.hi.f2a.backend.Roster;
 
+=======
+>>>>>>> parent of 74cfc3e... push to pull
 public class FieldViewerPanel extends JPanel {
 
 	/**
@@ -29,15 +34,17 @@ public class FieldViewerPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel[] players = new JPanel[]{new JPanel(), new JPanel(), new JPanel(), new JPanel()};
-	private final Roster roster;
 
 	/**
 	 * Create the panel.
 	 */
 	public FieldViewerPanel() {
+<<<<<<< HEAD
 		
 		this.roster = is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster();
 		
+=======
+>>>>>>> parent of 74cfc3e... push to pull
 		setLayout(new GridLayout(8, 1, 5, 5));
 		AddToPanels();
 		for(int i=0; i<players.length; ++i) {
@@ -51,6 +58,7 @@ public class FieldViewerPanel extends JPanel {
 	
 	@Override
 	public void paintComponent(Graphics g) {
+<<<<<<< HEAD
 		Dimension size = Main.getInstance().returnSizeForPanel(); // ÞETTA ER EKKI AÐ GEFA RÉTTAR TÖLUR
 		int w_offset = 2;  // Það þarf að minnka breiddina svo ramminn sem er teiknaður fari ekki útfyrir panel
 		int h_offset = 2; // Furðulega mikið offset á hæðinni
@@ -117,6 +125,11 @@ public class FieldViewerPanel extends JPanel {
 		g2.draw(new Rectangle2D.Double(line_offset, line_offset, width-2*line_offset, height-2*line_offset));
 		
 		
+=======
+		Dimension size = Main.getInstance().returnSizeForPanel();
+		Image img = new ImageIcon("src/Images/field.png").getImage();
+		g.drawImage(img, 0, 0, size.width, size.height, null);
+>>>>>>> parent of 74cfc3e... push to pull
 	}
 	
 	@Override
@@ -125,6 +138,7 @@ public class FieldViewerPanel extends JPanel {
     }
 	
 	public void AddToPanels() {
+<<<<<<< HEAD
 		Iterator<List<Player>> roster_it = this.roster.getPlayersOnField().iterator();
 		int i = 3;
 		
@@ -138,12 +152,25 @@ public class FieldViewerPanel extends JPanel {
 			
 			i--;
 		}
+=======
+		players[0].add(createLabels("Striker1"));
+		players[0].add(createLabels("Striker2"));
+		players[0].add(createLabels("Striker3"));
+		players[1].add(createLabels("Midfielder1"));
+		players[1].add(createLabels("Midfielder2"));
+		players[1].add(createLabels("Midfielder3"));
+		players[1].add(createLabels("Midfielder4"));
+		players[2].add(createLabels("Defender1"));
+		players[2].add(createLabels("Defender2"));
+		players[2].add(createLabels("Defender3"));
+		players[3].add(createLabels("Goaly"));
+>>>>>>> parent of 74cfc3e... push to pull
 	}
 	
 	public JLabel createLabels(String name) {
-		JLabel label = new JLabel("<html><div style=\"text-align: center;\">"+name+"</html>");
+		JLabel label = new JLabel(name);
 		label.setBorder(BorderFactory.createLineBorder(Color.black));
-		label.setPreferredSize(new Dimension(104, 50));
+		label.setPreferredSize(new Dimension(100, 50));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setOpaque(true);
 		return label;

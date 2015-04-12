@@ -3,13 +3,16 @@ package is.hi.f2a.frontend;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+<<<<<<< HEAD
 
 import is.hi.f2a.tests.InvalidUser;
 import is.hi.f2a.backend.MainGame;
+=======
+import backend.MainGame;
+>>>>>>> parent of 74cfc3e... push to pull
 
 public class NameChange extends JPanel {
 
@@ -21,29 +24,28 @@ public class NameChange extends JPanel {
 
 	/**
 	 * Create the panel.
-	 * @throws InvalidUser 
 	 */
-	public NameChange() throws InvalidUser {
+	public NameChange() {
 		JLabel explain = new JLabel("Name: ");
 		name = new JTextField();
 		name.setText(is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getName());
 		name.setPreferredSize(new Dimension(200, 30));
 		addChangeListener();
 		
+<<<<<<< HEAD
 		JLabel money = new JLabel("  Money: "+is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getMoney());
 		JLabel score = new JLabel("  Score: "+is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getScore());
 		JLabel round = new JLabel("  Round: "+is.hi.f2a.backend.MainGame.getInstance().getRound());
 		
+=======
+>>>>>>> parent of 74cfc3e... push to pull
 		add(explain);
 		add(name);
-		add(money);
-		add(score);
-		add(round);
 	}
 	
 	public void changeName(String newName) {
 		if(newName.isEmpty()) newName = "Player"+ (MainGame.getInstance().getCurrendUserID()+1);
-		MainGame.getInstance().getCurrentUser().setName(newName);
+		MainGame.getInstance().getCurrentUser().changeName(newName);
 	}
 	
 	public void addChangeListener() {

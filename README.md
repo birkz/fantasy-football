@@ -1,4 +1,5 @@
 # fantasy-football
+<<<<<<< HEAD
 Fantasy football project made in two separate parts, one group took care of all backend functionality in the game and we took care of the user interface (UI). The other group's repository is [here](https://github.com/nori/hbv401g-2015v-f1a).
 
 ## Setting up Eclipse (Ubuntu)
@@ -27,3 +28,7 @@ Open up Eclipse and create a project in the directory. Change the Eclipse .class
 	</classpath>
 
 Refresh the prject in Eclipse (select the project, then press F5) and then run the application! The first time you 'Start game' it will take a while to get gather all player information, so be patient.
+=======
+test
+Einar að prófa
+>>>>>>> parent of 74cfc3e... push to pull

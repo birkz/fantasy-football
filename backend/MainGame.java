@@ -1,20 +1,23 @@
 package is.hi.f2a.backend;
 
-import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidUser;
 import is.hi.f2a.backend.User;
 
 import is.hi.f2a.frontend.Main;
 
+=======
+>>>>>>> parent of 74cfc3e... push to pull
 public class MainGame {
 
 	private static final MainGame game = new MainGame();
 	private StatsHistory stats;
-	private List<User> users;
+	private User[] users;
 	private int round = 0;
+	private int numUsers = 0;
 	private int currentUser = 0;
 	
 	private MainGame() {
@@ -25,21 +28,20 @@ public class MainGame {
 		return game;
 	}
 	
-	public void resetGame() {
-		this.stats = new StatsHistory();
-		this.users = null;
-		this.round = 0;
-		this.currentUser = 0;
-	}
-	
-	public void setNumUsers(List<String> names) throws InvalidPlayer {
-		users = new ArrayList<User>();
-		for(int i=0; i<names.size(); ++i) {
-			users.add(new User(names.get(i),i));
-			stats.createUserScoreObject(users.get(i));
+	public void setNumUsers(List<String> names) {
+		numUsers = names.size();
+		users = new User[numUsers];
+		for(int i=0; i<numUsers; ++i) {
+			users[i] = new User(names.get(i));
+			stats.createUserScoreObject(users[i]); // Is this nasty?
 		}
 	}
 	
+	public int getNumUsers() {
+		return numUsers;
+	}
+	
+<<<<<<< HEAD
 	public void nextUser() throws InvalidUser {
 		int numUsers = users.size();
 		if(round<10) {
@@ -59,15 +61,30 @@ public class MainGame {
 		}
 		if(round == 10) {
 			Main.getInstance().setEndgamePanel();
+=======
+	public void nextUser() {
+		if(currentUser<numUsers && round<10) currentUser++;
+		if(currentUser==numUsers && round<10) {
+			currentUser = 0;
+			//here call for simulation of a round
+			tests.RoundMock.SimRound(numUsers, round);
+			round++;
+>>>>>>> parent of 74cfc3e... push to pull
 		}
+		frontend.Main.getInstance().restartFrame();
 	}
 	
 	public int getRound() {
 		return round;
 	}
 	
-	public List<User> getUsers() {
-		return users;
+	public int[] getScore() {
+		int[] a = new int[1];//just a placeholder
+		return a;
+	}
+	
+	public User getUser(int i) {
+		return users[i];
 	}
 	
 	public StatsHistory getStatsHistory() {
@@ -75,7 +92,7 @@ public class MainGame {
 	}
 	
 	public User getCurrentUser() {
-		return users.get(currentUser);
+		return users[currentUser];
 	}
 	
 	public int getCurrendUserID() {

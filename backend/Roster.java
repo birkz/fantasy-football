@@ -3,6 +3,7 @@ package is.hi.f2a.backend;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import is.hi.f1a.Player;
 import is.hi.f1a.Player.Position;
 import is.hi.f2a.tests.*;
@@ -18,25 +19,25 @@ public class Roster {
 	private List<Player> forwards;
 	private List<Player> forwardsOnField;
 	// private Player captain;
+=======
+import tests.*;
+
+public class Roster {
+	private List<PlayerInterface> goalkeepers;
+	private List<PlayerInterface> goalkeeperOnField;
+	private List<PlayerInterface> defenders;
+	private List<PlayerInterface> defendersOnField;
+	private List<PlayerInterface> midfielders;
+	private List<PlayerInterface> midfieldersOnField;
+	private List<PlayerInterface> strikers;
+	private List<PlayerInterface> strikersOnField;
+	// private PlayerInterface captain;
+>>>>>>> parent of 74cfc3e... push to pull
 	private int numberOfPlayersOnField;
-	
-	/*
-	 * Constants
-	 */
-	private final int MAX_GOALKEEPERS = Constants.MAX_GOALKEEPERS;
-	private final int MAX_GOALKEEPERS_ON_FIELD = Constants.MAX_GOALKEEPERS_ON_FIELD;
-	
-	private final int MAX_DEFENDERS = Constants.MAX_DEFENDERS;
-	private final int MAX_DEFENDERS_ON_FIELD = Constants.MAX_DEFENDERS_ON_FIELD;
-	
-	private final int MAX_MIDFIELDERS = Constants.MAX_MIDFIELDERS;
-	private final int MAX_MIDFIELDERS_ON_FIELD = Constants.MAX_MIDFIELDERS_ON_FIELD;
-	
-	private final int MAX_FORWARDS = Constants.MAX_FORWARDS;
-	private final int MAX_FORWARDS_ON_FIELD = Constants.MAX_FORWARDS_ON_FIELD;
 	
 	public Roster(){
 		this.numberOfPlayersOnField = 0;
+<<<<<<< HEAD
 		this.goalkeepers = new ArrayList<Player>(MAX_GOALKEEPERS);
 		this.goalkeepersOnField = new ArrayList<Player>(MAX_GOALKEEPERS_ON_FIELD);
 		this.defenders = new ArrayList<Player>(MAX_DEFENDERS);
@@ -45,6 +46,16 @@ public class Roster {
 		this.midfieldersOnField = new ArrayList<Player>(MAX_MIDFIELDERS_ON_FIELD);
 		this.forwards = new ArrayList<Player>(MAX_FORWARDS);
 		this.forwardsOnField = new ArrayList<Player>(MAX_FORWARDS_ON_FIELD);
+=======
+		this.goalkeepers = new ArrayList<PlayerInterface>(2);
+		this.goalkeeperOnField = new ArrayList<PlayerInterface>(1);
+		this.defenders = new ArrayList<PlayerInterface>(5);
+		this.defendersOnField = new ArrayList<PlayerInterface>(5);
+		this.midfielders = new ArrayList<PlayerInterface>(5);
+		this.midfieldersOnField = new ArrayList<PlayerInterface>(5);
+		this.strikers = new ArrayList<PlayerInterface>(3);
+		this.strikersOnField = new ArrayList<PlayerInterface>(3);
+>>>>>>> parent of 74cfc3e... push to pull
 	}
 	
 	// Usage: i = getNumberOfPlayersOnField()
@@ -57,15 +68,25 @@ public class Roster {
 	// Usage: removePlayerFromField(player)
 	// Before: player is of type Player
 	// After: player has been taken of the field
+<<<<<<< HEAD
 	public boolean removePlayerFromField(Player player) throws InvalidPlayer{
 		return removePlayer(player, false);
+=======
+	public void removePlayerFromField(PlayerInterface player) throws InvalidPlayer{
+		removePlayer(player, false);
+>>>>>>> parent of 74cfc3e... push to pull
 	}
 	
 	// Usage: removePlayerFromRoster(player)
 	// Before: player is of type Player
 	// After: player has been removed from the roster
+<<<<<<< HEAD
 	public boolean removePlayerFromRoster(Player player) throws InvalidPlayer{
 		return removePlayer(player, true);
+=======
+	public void removePlayerFromRoster(PlayerInterface player) throws InvalidPlayer{
+		removePlayer(player, true);
+>>>>>>> parent of 74cfc3e... push to pull
 	}
 	
 	// Usage: removePlayer(player,b)
@@ -73,6 +94,7 @@ public class Roster {
 	// After: If b is true then player will be removed both from the field and the roster. If
 	//        b is false then the player will only be removed from the field. If the player
 	//        provided is not in the roster then a InvalidPlayer exception will be thrown.
+<<<<<<< HEAD
 	private boolean removePlayer(Player player, boolean removeFromRoster){
 		Position pos = player.getPosition();
 		boolean b = true;
@@ -83,41 +105,39 @@ public class Roster {
 				b = goalkeepersOnField.remove(player);
 				if(b) numberOfPlayersOnField--;
 				return true;
+=======
+	private void removePlayer(PlayerInterface player, boolean removeFromRoster) throws InvalidPlayer{
+		String posName = player.getPositionName();
+		if (posName.toLowerCase().equals("goalkeeper")){
+			if (removeFromRoster){
+				boolean b = goalkeepers.remove(player);
+				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
+>>>>>>> parent of 74cfc3e... push to pull
 			}
-			return b;
-			
-		} else if (pos.equals(Position.DEFENDER)){
-			if (removeFromRoster)
-				b = defenders.remove(player);
-			if(b){
-				b = defendersOnField.remove(player);
-				if(b) numberOfPlayersOnField--;
-				return true;
+			goalkeeperOnField.remove(player);
+			numberOfPlayersOnField--;
+		} else if (posName.toLowerCase().equals("defender")){
+			if (removeFromRoster){
+				boolean b = defenders.remove(player);
+				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
 			}
-			return b;
-			
-		} else if (pos.equals(Position.MIDFIELDER)){
-			if (removeFromRoster)
-				b = midfielders.remove(player);
-			if(b){
-				b = midfieldersOnField.remove(player);
-				if(b == true) numberOfPlayersOnField--;
-				return true;
+			defendersOnField.remove(player);
+			numberOfPlayersOnField--;
+		} else if (posName.toLowerCase().equals("midfielder")){
+			if (removeFromRoster){
+				boolean b = midfielders.remove(player);
+				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
 			}
-			return b;
-			
-		} else if (pos.equals(Position.FORWARD)){
-			if (removeFromRoster)
-				b = forwards.remove(player);
-			if(b){
-				b = forwardsOnField.remove(player);
-				if(b) numberOfPlayersOnField--;
-				return true;
+			midfieldersOnField.remove(player);
+			numberOfPlayersOnField--;
+		} else if (posName.toLowerCase().equals("striker")){
+			if (removeFromRoster){
+				boolean b = strikers.remove(player);
+				if (!b) throw new tests.InvalidPlayer("The player "+player.getName()+" isn't in this roster");
 			}
-			return b;
-			
+			strikersOnField.remove(player);
+			numberOfPlayersOnField--;
 		}
-		return false;
 	}
 	
 	// Usage: b = addPlayerToRoster(player)
@@ -126,30 +146,35 @@ public class Roster {
 	//        added to the roster and b is returned as true. If there is no room him in his
 	//        position then b is returned as false. If the player's position is not "Goalkeeper",
 	//        "Defender", "Midfielder", or "Striker" then InvalidPosition exception is thrown.
+<<<<<<< HEAD
 	public boolean addPlayerToRoster(Player player) {
 		Position pos = player.getPosition();
 		
 		if (pos.equals(Position.GOALKEEPER)){
 			if (this.goalkeepers.size() == MAX_GOALKEEPERS) return false;
+=======
+	public boolean addPlayerToRoster(PlayerInterface player) throws InvalidPosition{
+		String posName = player.getPositionName();
+		if (posName.toLowerCase().equals("goalkeeper")){
+			if (this.goalkeepers.size() == 2) return false;
+>>>>>>> parent of 74cfc3e... push to pull
 			this.goalkeepers.add(player);
 			return true;
-			
-		} else if (pos.equals(Position.DEFENDER)){
-			if (this.defenders.size() == MAX_DEFENDERS) return false;
+		} else if (posName.toLowerCase().equals("defender")){
+			if (this.defenders.size() == 5) return false;
 			this.defenders.add(player);
 			return true;
-			
-		} else if (pos.equals(Position.MIDFIELDER)){
-			if (midfielders.size() == MAX_MIDFIELDERS) return false;
+		} else if (posName.toLowerCase().equals("midfielder")){
+			if (midfielders.size() == 5) return false;
 			this.midfielders.add(player);
 			return true;
-			
-		} else if (pos.equals(Position.FORWARD)){
-			if (forwards.size() == MAX_FORWARDS) return false;
-			this.forwards.add(player);
+		} else if (posName.toLowerCase().equals("striker")){
+			if (strikers.size() == 3) return false;
+			this.strikers.add(player);
 			return true;
+		} else {
+			throw new InvalidPosition(posName+" is not a valid position. Only Goalkeeper, Defender, Midfielder, and Striker are valid.");
 		}
-		return false;
 	}
 	
 	// Usage: b = addPlayerToField(player)
@@ -159,41 +184,40 @@ public class Roster {
 	//        and b will be returned as true. Otherwise b will be returned as false.
 	public boolean addPlayerToField(Player player) throws InvalidPlayer{
 		if (this.goalkeepers.contains(player)){
-			if (this.goalkeepersOnField.size() >= MAX_GOALKEEPERS_ON_FIELD || this.goalkeepersOnField.contains(player)
-					|| this.numberOfPlayersOnField >= 11){
+			if (this.goalkeeperOnField.size() >= 1 || this.numberOfPlayersOnField >= 11){
 				return false;
 			}
-			this.goalkeepersOnField.add(player);
+			this.goalkeeperOnField.add(player);
 			this.numberOfPlayersOnField++;
 			return true;
-			
 		} else if (this.defenders.contains(player)){
-			if (this.defendersOnField.size() >= MAX_DEFENDERS_ON_FIELD || this.defendersOnField.contains(player)
-					|| this.numberOfPlayersOnField >= 11){
+			if (this.defendersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
 				return false;
 			}
 			this.defendersOnField.add(player);
 			this.numberOfPlayersOnField++;
 			return true;
-			
 		} else if (this.midfielders.contains(player)){
-			if (this.midfieldersOnField.size() >= MAX_MIDFIELDERS_ON_FIELD || this.midfieldersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
+			if (this.midfieldersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
 				return false;
 			}
 			this.midfieldersOnField.add(player);
 			this.numberOfPlayersOnField++;
 			return true;
-			
-		} else if (this.forwards.contains(player)){
-			if (this.forwardsOnField.size() >= MAX_FORWARDS_ON_FIELD || this.forwardsOnField.contains(player) || this.numberOfPlayersOnField >= 11){
+		} else if (this.strikers.contains(player)){
+			if (this.strikersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
 				return false;
 			}
-			this.forwardsOnField.add(player);
+			this.strikersOnField.add(player);
 			this.numberOfPlayersOnField++;
 			return true;
-			
+		} else {
+			throw new tests.InvalidPlayer(player.getName()+" is currently not in the roster.");
 		}
+<<<<<<< HEAD
 		throw new is.hi.f2a.tests.InvalidPlayer(player.getName()+" is currently not in the roster.");
+=======
+>>>>>>> parent of 74cfc3e... push to pull
 	}
 	
 	// Usage: getPlayersInRoster()
@@ -206,6 +230,7 @@ public class Roster {
 		names.add(goalkeepers);
 		names.add(defenders);
 		names.add(midfielders);
+<<<<<<< HEAD
 		names.add(forwards);
 		return names;
 	}
@@ -300,4 +325,9 @@ public class Roster {
 		}
 		return false;
 	}
+=======
+		names.add(strikers);
+		return names;
+	}
+>>>>>>> parent of 74cfc3e... push to pull
 }

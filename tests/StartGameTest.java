@@ -9,9 +9,13 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+<<<<<<< HEAD
 import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.backend.User;
 import is.hi.f2a.frontend.Main;
+=======
+import frontend.Main;
+>>>>>>> parent of 74cfc3e... push to pull
 
 public class StartGameTest {
 
@@ -30,9 +34,8 @@ public class StartGameTest {
 
 	@Test
 	public void testCreatedUsers() {
-		List<User> users = MainGame.getInstance().getUsers();
-		assertNotSame(users.get(0).getName(), "Pétur");
-		assertSame(users.get(1).getName(), "Pétur");
+		assertNotSame(backend.MainGame.getInstance().getUser(0).getName(), "Pétur");
+		assertSame(backend.MainGame.getInstance().getUser(1).getName(), "Pétur");
 	}
 
 }

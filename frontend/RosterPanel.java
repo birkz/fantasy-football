@@ -1,14 +1,11 @@
 package is.hi.f2a.frontend;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.util.Iterator;
-import java.util.List;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+<<<<<<< HEAD
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
@@ -21,6 +18,8 @@ import is.hi.f1a.Player;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.backend.Roster;
+=======
+>>>>>>> parent of 74cfc3e... push to pull
 
 public class RosterPanel extends JPanel {
 
@@ -31,15 +30,8 @@ public class RosterPanel extends JPanel {
 
 	/**
 	 * Create the panel.
-	 * @param game 
 	 */
-	private Roster roster;
-	private JLabel num_players;
-	private final Integer IS_ON_FIELD_COLUMN = 2;
-	
-	/*
-	 * Constructor
-	 */
+<<<<<<< HEAD
 	public RosterPanel() throws InvalidPlayer {
 		
 		//setLayout(new GridLayout(5, 1, 5, 10));
@@ -157,11 +149,16 @@ public class RosterPanel extends JPanel {
 			add(scroll,j++);
 		}
 		
+=======
+	public RosterPanel() {
+		setBackground(Color.RED);
+		setLayout(new GridLayout(8, 1, 5, 5));
+>>>>>>> parent of 74cfc3e... push to pull
 	}
 	
 	@Override
     public Dimension getPreferredSize() {
         return Main.getInstance().returnSizeForPanel();
     }
-	
+
 }

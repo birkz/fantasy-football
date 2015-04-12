@@ -15,11 +15,18 @@ import java.util.List;
 
 import javax.swing.*;
 
+<<<<<<< HEAD
 import is.hi.f2a.frontend.ButtonColumn;
 import is.hi.f2a.frontend.Main;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidPosition;
 import is.hi.f2a.tests.InvalidUser;
+=======
+import tests.LeagueMock;
+import tests.PlayerInterface;
+import tests.PlayerMock;
+import tests.TeamMock;
+>>>>>>> parent of 74cfc3e... push to pull
 
 public class MarketPanel extends JPanel {
 
@@ -27,96 +34,88 @@ public class MarketPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+<<<<<<< HEAD
 	private final JTextField field = new JTextField();
 	private static League league = is.hi.f1a.FantasyFootballBackend.getInstance().getLeague();
+=======
+	private final JTextField field;
+	private LeagueMock league;
+>>>>>>> parent of 74cfc3e... push to pull
 	private String player_choice;
 	private String team_choice;
 	private String pos_choice;
 	private JTable jtable;
-	private JScrollPane scroll = null;
+	private JScrollPane scroll;
 	private JPanel wrapper;
+<<<<<<< HEAD
 	private String text;
 	private List<Player> results;
+=======
+>>>>>>> parent of 74cfc3e... push to pull
 
 	/**
 	 * Create the panel.
-	 * @throws InvalidPlayer 
 	 */
+<<<<<<< HEAD
 	public MarketPanel(final JScrollPane scroll, final int value) {
+=======
+	public MarketPanel() {
+		this.league = new LeagueMock();
+>>>>>>> parent of 74cfc3e... push to pull
 		this.player_choice = "";
 		this.team_choice = "Any";
 		this.pos_choice = "Any";
 		this.jtable = null;
-		if(scroll!=null){
-			this.scroll = scroll;
-			Runnable doScroll = new Runnable() {
-	             public void run() {
-	            	 scroll.getVerticalScrollBar().setValue(value);
-	             }
-	        };
-			SwingUtilities.invokeLater(doScroll);
-		}
-		else{
-			this.scroll = new JScrollPane(jtable);
-		}
-		
+		this.scroll = null;
 		this.wrapper = null;
-		this.text = "";
 		
 		setLayout(new BorderLayout(0, 0)); 
 		
+		field = new JTextField();
 		field.setPreferredSize(new Dimension(150, 30));
-		field.setFocusable( true );
 		field.addKeyListener(new KeyListener(){
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
+				char ch = e.getKeyChar();
+				//System.out.println("Char: "+ch);
 				
-				System.out.println("Before: "+text+"  After: "+field.getText());
-				// If enter or backspace is pressed, update is forced
-				if(e.getKeyCode() != 8 && e.getKeyCode() != 10){
-					char ch = e.getKeyChar();
-					if((ch < 'a' || ch > 'z') && (ch < 'A' || ch > 'Z') && (ch < '0' || ch > '9') && e.getKeyCode() != 32){
-						e.consume();
-						return;
-					}
-					
-					String local_text = field.getText();
-					
-					if(local_text.equals(text)){
-						return;
-					} else if(local_text.length() >= text.length()+2 ){
-						text += local_text.substring(text.length(),text.length()+1);
-						return;
-					} else if(local_text.length() <= text.length()-2 ){
-						text = text.substring(0,text.length()-1);
-						return;
-					}
-					text = local_text;
-					player_choice = local_text;
-				} else {
-					text = field.getText();
-					player_choice = text;
-				}
-				try {
+				if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')){
+					System.out.println(field.getText()+e.getKeyChar());
+					player_choice = field.getText()+e.getKeyChar();
 					refreshJTable();
-				} catch (InvalidPlayer e1) {
-					e1.printStackTrace();
+				// If backspace is pressed
+				} else if(e.getKeyCode() == 8) {
+					if(field.getText().length() >= 1){
+						System.out.println(field.getText().substring(0, field.getText().length()-1));
+						player_choice = field.getText().substring(0, field.getText().length()-1);
+					} else {
+						player_choice = "";
+					}
+					
+					refreshJTable();
+				} else {
+					System.out.println("Strange button: "+e.getKeyCode()+field.getText());
 				}
 			}
 
 			@Override
-			public void keyTyped(KeyEvent e) {/* Not used */}
-			
+			public void keyTyped(KeyEvent e) {/* Not used*/}
+
 			@Override
-			public void keyPressed(KeyEvent e) {/* Not used */}
+			public void keyPressed(KeyEvent e) {
+				
+			}
+			
 		});
 		
-		try {
-			refreshJTable();
-		} catch (InvalidPlayer e1) {
-			e1.printStackTrace();
-		}
+		refreshJTable();
+	}
+	
+	public JPanel createEntry() {
+		JPanel panel = new JPanel();
+		panel.add(new JLabel("hello what's up?"));
+		return panel;
 	}
 	
 	private JComboBox<String> addComboBox(List<String> choices, final String flag) {
@@ -143,20 +142,12 @@ public class MarketPanel extends JPanel {
                 if(flag.equals("Team") && !team_choice.equals(chosen)){
                 	System.out.println("TEAM: "+chosen);
                 	team_choice = chosen;
-                	try {
-						refreshJTable();
-					} catch (InvalidPlayer e1) {
-						e1.printStackTrace();
-					}
+                	refreshJTable();
                 	
                 } else if(flag.equals("Pos") && !pos_choice.equals(chosen)){
                 	System.out.println("POS: "+chosen);
                 	pos_choice = chosen;
-                	try {
-						refreshJTable();
-					} catch (InvalidPlayer e1) {
-						e1.printStackTrace();
-					}
+                	refreshJTable();
                 }
                 
             }
@@ -172,26 +163,35 @@ public class MarketPanel extends JPanel {
 	/*
 	 * Draw JTable
 	 */
-	private void refreshJTable() throws InvalidPlayer{
+	private void refreshJTable(){
 		
 		if(jtable!=null){
 			remove(jtable);
-			//remove(scroll);
+			remove(scroll);
 			remove(wrapper);
 		}
 		
 		jtable = getJTable(player_choice,team_choice,pos_choice);
 		
-		// scroll = new JScrollPane(jtable);
-		jtable.invalidate();
-		scroll.getViewport().add(jtable);
-		scroll.validate();
-		scroll.repaint();
-		
+		scroll = new JScrollPane(jtable);
+		add(scroll);
 		add(scroll, BorderLayout.CENTER);
+		
+		/*JButton search = new JButton("SEARCH");
+		search.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	System.out.println(e.getActionCommand() );
+            }
+        }); */
 
+<<<<<<< HEAD
 		List<Team> teams = MarketPanel.league.getTeams();
 		Iterator<Team> teams_it = teams.iterator();
+=======
+		List<TeamMock> teams = this.league.getTeams();
+		Iterator<TeamMock> teams_it = teams.iterator();
+>>>>>>> parent of 74cfc3e... push to pull
 		List<String> team_choices = new ArrayList<String>();
 		team_choices.add("Any");
 		
@@ -199,11 +199,12 @@ public class MarketPanel extends JPanel {
 			team_choices.add(teams_it.next().getName());
 		}
 
-		List<String> pos_choices = Arrays.asList("Any","Goalkeeper","Defender","Midfielder","Forward");
+		List<String> pos_choices = Arrays.asList("Any","Goalkeeper","Defender","Midfielder","Striker");
 		wrapper = new JPanel();
 		wrapper.add(field);
 		wrapper.add(addComboBox(team_choices,"Team"));
 		wrapper.add(addComboBox(pos_choices,"Pos"));
+		//wrapper.add(search);
 		
 		add(wrapper, BorderLayout.NORTH);
 		
@@ -217,6 +218,7 @@ public class MarketPanel extends JPanel {
 	 */
 	private JTable getJTable(String player_searched, String team_searched, String pos_searched){
 		String[] columnNames = {"Player","Team","Position","Price",""};
+<<<<<<< HEAD
 		Object[][] data = null;
 		
 		try {
@@ -226,6 +228,10 @@ public class MarketPanel extends JPanel {
 		}
 		
 		final JTable table = new JTable(data, columnNames){
+=======
+		Object[][] data = getTableData();
+		JTable table = new JTable(data, columnNames){
+>>>>>>> parent of 74cfc3e... push to pull
 			
 			private static final long serialVersionUID = 1L;
 			
@@ -239,14 +245,13 @@ public class MarketPanel extends JPanel {
 		table.setEnabled(true);
 		table.getColumn("Player").setPreferredWidth(220);
 		
-		/*
-		 * Action when the "Buy" or "Sell" buttons are pressed
-		 */
 		Action buy_or_sell_action = new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
+
 			public void actionPerformed(ActionEvent e)
 		    {
+<<<<<<< HEAD
 				Player player = results.get(Integer.parseInt(e.getActionCommand()));
 				if(is.hi.f2a.res.Constants.VERBOSE)
 					System.out.println("You pressed "+table.getValueAt(Integer.parseInt(e.getActionCommand()), 4)+" on player "+player.getName());
@@ -279,6 +284,9 @@ public class MarketPanel extends JPanel {
 				}
 		        is.hi.f2a.frontend.Main.getInstance().setPanelAsMarket(scroll,value);
 		        is.hi.f2a.frontend.Main.getInstance().setPanelAsFieldViewer();
+=======
+		        // Buy (or sell) player 
+>>>>>>> parent of 74cfc3e... push to pull
 		    }
 		};
 		
@@ -290,16 +298,25 @@ public class MarketPanel extends JPanel {
 	/*
 	 *  get the table data given some filters
 	 */
+<<<<<<< HEAD
 	private Object[][] getTableData() throws InvalidPlayer{
 		this.results = new ArrayList<Player>(180);
 		
 		Object[][] data = new Object[700][5];
 		
 		List<Team> teams = MarketPanel.league.getTeams();
+=======
+	private Object[][] getTableData(){
+		Object[][] data = new Object[180][5];
 		
-		// i is the counter for matched players (i.e. size of results table)
+		List<TeamMock> teams = this.league.getTeams();
+		Iterator<TeamMock> teams_it = teams.iterator();
+>>>>>>> parent of 74cfc3e... push to pull
+		
+		// i is the counter for matched players
 		int i = 0;
 		
+<<<<<<< HEAD
 		for(Team team : teams){
 			List<Player> players_in_team = team.getPlayers();
 			
@@ -308,13 +325,36 @@ public class MarketPanel extends JPanel {
 				if(!player.getName().toLowerCase().contains(player_choice.toLowerCase())
 						|| (!this.team_choice.equals("Any") && !team.getName().equals(this.team_choice))
 						|| (!this.pos_choice.equals("Any") && !positionToString(player.getPosition()).equals(this.pos_choice)))
-					continue;
+=======
+		while(teams_it.hasNext()){
+			TeamMock team = teams_it.next();
+			List<PlayerInterface> players_in_team = team.getPlayers();
+			Iterator<PlayerInterface> players_it = players_in_team.iterator();
+			
+			while(players_it.hasNext()){
+				PlayerMock player = (PlayerMock) players_it.next();
 				
-				// If the values go through the filter, add them to the table.
+				// Filter
+				//System.out.println(team.getName()+"  "+player.getName()+"  "+player_choice+"  "+player.getPositionName()+"  "+this.pos_choice);
+				if(!player.getName().toLowerCase().contains(player_choice.toLowerCase())){
+					continue;
+				}
+				
+				if(!this.team_choice.equals("Any") && !team.getName().equals(this.team_choice)){
+					continue;
+				}
+				
+				if(!this.pos_choice.equals("Any") && !player.getPositionName().equals(this.pos_choice)){
+>>>>>>> parent of 74cfc3e... push to pull
+					continue;
+				}
+				
+				// If the values go through the filter, add them.
 				data[i][0] = player.getName();
 				data[i][1] = team.getName();
-				data[i][2] = positionToString(player.getPosition());
+				data[i][2] = player.getPositionName();
 				data[i][3] = player.getPrice();
+<<<<<<< HEAD
 				
 				if(is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player)){
 					data[i++][4] = "Sell";
@@ -322,6 +362,10 @@ public class MarketPanel extends JPanel {
 					data[i++][4] = "Buy";
 				}
 				results.add(player);
+=======
+				data[i][4] = "Buy";
+				i++;
+>>>>>>> parent of 74cfc3e... push to pull
 			}
 			
 		}
@@ -329,6 +373,7 @@ public class MarketPanel extends JPanel {
 		return subdata;
 		
 	}
+<<<<<<< HEAD
 	
 	private String positionToString(Position position){
 		if(position.equals(Position.GOALKEEPER))
@@ -340,4 +385,7 @@ public class MarketPanel extends JPanel {
 		else
 			return "Forward";
 	}
+=======
+
+>>>>>>> parent of 74cfc3e... push to pull
 }

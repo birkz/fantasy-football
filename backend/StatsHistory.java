@@ -28,11 +28,9 @@ public class StatsHistory {
 		this.alluserscores.add(new ObjectScores(user));
 	}
 	
-	/*
 	public void createRosterScoreObject(Object roster) {
 		this.allrosterscores.add(new ObjectScores(roster));
 	}
-	*/
 	
 	public List<Integer> getPlayerScores(Player player) throws InvalidPlayer {
 		for(ObjectScores temp : this.allplayerscores) {
@@ -44,18 +42,9 @@ public class StatsHistory {
 	}
 	
 	public List<Integer> getUserScores(User user) throws InvalidUser {
-		return getUserScores(user, false);
-	}
-	
-	public List<Integer> getTotalUserScores(User user) throws InvalidUser {
-		return getUserScores(user, true);
-	}
-	
-	private List<Integer> getUserScores(User user, boolean total) throws InvalidUser {
 		for(ObjectScores temp : this.alluserscores) {
 			if(((User)temp.getObject()).equals(user)) {
-				if(total) return temp.getTotalScores();
-				else return temp.getScores();
+				return temp.getScores();
 			}
 		}
 		throw new InvalidUser(user.getName() + " is not a user");

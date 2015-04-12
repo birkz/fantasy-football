@@ -17,7 +17,7 @@ public class UserTest {
 	
 	@BeforeClass
 	public static void setUp() throws Exception {
-		user = new User("user1", 0);
+		user = new User("user1");
 	}
 
 	@AfterClass
@@ -34,37 +34,35 @@ public class UserTest {
 	// This test checks if a name change goes though
 	@Test 
 	public void nameChange() {
-		user.setName("user2");
+		user.changeName("user2");
 		assertEquals("user2", user.getName());
 	}
 	
 	// This test checks if the score from round 0 goes to index 0
 	@Test
 	public void scoreTest() {
-		user.setScore(100);
-		int score = user.getScore();
-		assertEquals(100, score);
+		user.addScore(0, 100);
+		assertEquals(100, user.getScore()[0]);
 	}
 	
 	// This test checks if the changes to the money of the user behave as intended
 	// where the user can't have negative money and no money is subtracted if that subtraction 
 	// would set the users money below zero
 	@Test
-	public void testChangingMoney() throws Exception {
+	public void testChangingMoney() {
 		
 		// Money is 0
-		user.changeMoney(1000);
-		assertEquals(3000, user.getMoney());
+		assertTrue(user.changeMoney(1000));
+		assertEquals(1000, user.getMoney());
 		
-		// Money is 3000
+		// Money is 1000
 		int curr = user.getMoney();
-		user.changeMoney(-2900);
-		assertEquals(curr-2900, user.getMoney());
+		assertTrue(user.changeMoney(-900));
+		assertEquals(curr-900, user.getMoney());
 		
 		// Money is 100
 		curr = user.getMoney();
-		if(user.isAffordable(curr))
-			user.changeMoney(-200);
+		assertFalse(user.changeMoney(-200));
 		assertEquals(curr, user.getMoney());
 		// Money is still 100 cause you can't get negative money
 	}

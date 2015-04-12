@@ -8,6 +8,8 @@ import is.hi.f1a.Player.Position;
 
 public interface PlayerInterface {
 	public String getName();
-	public Integer getPrice();
-	public Position getPosition();
+	public void setPosition(PositionMock pos) throws InvalidPosition;
+	public PositionMock getPosition();
+	public String getPositionName();
+	public Double getPrice();
 }

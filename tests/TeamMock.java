@@ -18,10 +18,17 @@ public class TeamMock {
 	/*
 	 * Instance variables
 	 */
+<<<<<<< HEAD
 	private List<Player> goalkeepers = new ArrayList<Player>(MAX_GOALKEEPERS);
 	private List<Player> defenders = new ArrayList<Player>(MAX_DEFENDERS);
 	private List<Player> midfielders = new ArrayList<Player>(MAX_MIDFIELDERS);
 	private List<Player> strikers = new ArrayList<Player>(MAX_STRIKERS);
+=======
+	private List<PlayerInterface> goalkeepers;
+	private List<PlayerInterface> defenders;
+	private List<PlayerInterface> midfielders;
+	private List<PlayerInterface> strikers;
+>>>>>>> parent of 74cfc3e... push to pull
 	private String name;
 	
 	/*
@@ -36,6 +43,7 @@ public class TeamMock {
 		this.strikers = new ArrayList<Player>(MAX_STRIKERS);
 		
 		// Create some i players
+<<<<<<< HEAD
 		this.goalkeepers.add(new Player("Goalkeeper "+i.toString(), Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)); i+=10;
 		this.goalkeepers.add(new Player("Goalkeeper "+i.toString(), Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)); i+=10;
 		this.goalkeepers.add(new Player("Goalkeeper "+i.toString(), Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)); i+=10;
@@ -76,21 +84,30 @@ public class TeamMock {
 		Player player12 = new Player("Rupp", Position.DEFENDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		Player player13 = new Player("Jóakim Aðalönd", Position.DEFENDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		Player player14 = new Player("Hábeinn Heppni", Position.DEFENDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+=======
+		this.goalkeepers.add(new PlayerMock("Goalkeeper "+i.toString(),"Goalkeeper")); i+=10;
+		this.goalkeepers.add(new PlayerMock("Goalkeeper "+i.toString(),"Goalkeeper")); i+=10;
+		this.goalkeepers.add(new PlayerMock("Goalkeeper "+i.toString(),"Goalkeeper")); i+=10;
 		
-		this.goalkeepers.add(player1);
-		this.goalkeepers.add(player2);
-		this.defenders.add(player3);
-		this.midfielders.add(player4);
-		this.midfielders.add(player5);
-		this.strikers.add(player6);
-		this.strikers.add(player7);
-		this.strikers.add(player8);
-		this.midfielders.add(player9);
-		this.midfielders.add(player10);
-		this.midfielders.add(player11);
-		this.defenders.add(player12);
-		this.defenders.add(player13);
-		this.defenders.add(player14);
+		this.defenders.add(new PlayerMock("Defender "+i.toString(),"Defender")); i+=10;
+		this.defenders.add(new PlayerMock("Defender "+i.toString(),"Defender")); i+=10;
+		this.defenders.add(new PlayerMock("Defender "+i.toString(),"Defender")); i+=10;
+		this.defenders.add(new PlayerMock("Defender "+i.toString(),"Defender")); i+=10;
+		this.defenders.add(new PlayerMock("Defender "+i.toString(),"Defender")); i+=10;
+		
+		this.midfielders.add(new PlayerMock("Midfielder "+i.toString(),"Midfielder")); i+=10;
+		this.midfielders.add(new PlayerMock("Midfielder "+i.toString(),"Midfielder")); i+=10;
+		this.midfielders.add(new PlayerMock("Midfielder "+i.toString(),"Midfielder")); i+=10;
+		this.midfielders.add(new PlayerMock("Midfielder "+i.toString(),"Midfielder")); i+=10;
+		this.midfielders.add(new PlayerMock("Midfielder "+i.toString(),"Midfielder")); i+=10;
+		this.midfielders.add(new PlayerMock("Midfielder "+i.toString(),"Midfielder")); i+=10;
+		
+		this.strikers.add(new PlayerMock("Striker "+i.toString(),"Striker")); i+=10;
+		this.strikers.add(new PlayerMock("Striker "+i.toString(),"Striker")); i+=10;
+		this.strikers.add(new PlayerMock("Striker "+i.toString(),"Striker")); i+=10;
+		this.strikers.add(new PlayerMock("Striker "+i.toString(),"Striker")); i+=10;
+>>>>>>> parent of 74cfc3e... push to pull
+		
 	}
 	
 	/*

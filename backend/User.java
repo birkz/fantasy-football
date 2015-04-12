@@ -1,26 +1,25 @@
 package is.hi.f2a.backend;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import is.hi.f1a.Player;
 import is.hi.f2a.tests.InvalidPlayer;
 
+=======
+>>>>>>> parent of 74cfc3e... push to pull
 public class User {
 
-	private int id;
 	private int money;
-	//private List<Integer> score;
-	private int score;
-	private int roundscore;
+	private int[] score;
 	private String name;
 	private Roster roster;
 	
-	public User(String name, int id) throws InvalidPlayer {
-		this.id = id;
+	public User(String name) {
 		this.name = name;
-		//this.score = new ArrayList<Integer>();
-		this.score = 0;
+		this.score = new int[10];
 		this.roster = new Roster();
+<<<<<<< HEAD
 		if (is.hi.f2a.res.Constants.TEST_MODE && this.id==0) addRandomPlayersToRoster();
 		this.money = is.hi.f2a.res.Constants.STARTING_MONEY;
 	}
@@ -30,51 +29,41 @@ public class User {
 	 */
 	public int getMoney(){
 		return this.money;
+=======
+		this.money = 0;
+>>>>>>> parent of 74cfc3e... push to pull
 	}
 	
-	public boolean isAffordable(int price){
-		return this.money > price;
-	}
-	
-	public void changeMoney(int dMoney) throws Exception {
-		if(!isAffordable(-dMoney))
-			throw new Exception("Insufficient cash!");
+	public boolean changeMoney(int dMoney) {
+		if(this.money + dMoney <0) return false;
 		this.money += dMoney;
+		return true;
 	}
 	
+	public int getMoney(){
+		return this.money;
+	}
 	
-	/*
-	 * getRoster
-	 */
 	public Roster getRoster() {
 		return this.roster;
 	}
-	
-	public int getRoundScore() {
-		return this.roundscore;
-	}
-	
-	public int getScore() {
+
+	// Usage: i = getScore()
+	// Before:Nothing.
+	// After: i is an array of scores of this user
+	public int[] getScore() {
 		return this.score;
 	}
 	
-	public void setScore(int newscore) {
-		this.roundscore = newscore;
-		this.score += newscore;
-		//this.score.add(newscore);
+	public void addScore(int round, int score) {
+		this.score[round] += score;
 	}
 	
-	/*
-	 * Name related stuff
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String newname) {
+	public void changeName(String newname) {
 		this.name = newname;
 	}
 	
+<<<<<<< HEAD
 	/*
 	 * Test function
 	 */
@@ -88,5 +77,9 @@ public class User {
 			if (j++ < 12) this.roster.addPlayerToField(player);
 		}
 		
+=======
+	public String getName() {
+		return name;
+>>>>>>> parent of 74cfc3e... push to pull
 	}
 }
