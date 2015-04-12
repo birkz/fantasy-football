@@ -27,17 +27,29 @@ public class NameChange extends JPanel {
 		JLabel explain = new JLabel("Name: ");
 		name = new JTextField();
 		name.setText(is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getName());
-		name.setPreferredSize(new Dimension(200, 30));
+		name.setPreferredSize(new Dimension(170, 30));
 		addChangeListener();
 		
-		JLabel money = new JLabel("  Money: "+is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getMoney());
-		JLabel score = new JLabel("  Score: "+is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getScore());
-		JLabel round = new JLabel("  Round: "+is.hi.f2a.backend.MainGame.getInstance().getRound());
+		JLabel money = new JLabel("  Money: "+String.format("%,d", MainGame.getInstance().getCurrentUser().getMoney()));
+		JLabel score = new JLabel("  Score: "+MainGame.getInstance().getCurrentUser().getScore());
+		
+		String placement = "";
+		if(MainGame.getInstance().getRound()!=0){
+			int place = MainGame.getInstance().getCurrentUserPlacement();
+			if(place == 1) placement = "<html><font color='#B29600'>("+ordinal(place)+")</font></html>";
+			else if(place == 2) placement = "<html><font color='#909090'>("+ordinal(place)+")</font></html>";
+			else if(place == 3) placement = "<html><font color='#8B492E'>("+ordinal(place)+")</font></html>";
+			else placement = "<html>("+ordinal(place)+")</font></html>";
+		}
+		
+		JLabel placement_label = new JLabel(placement);
+		JLabel round = new JLabel("  Round: "+MainGame.getInstance().getRound());
 		
 		add(explain);
 		add(name);
 		add(money);
 		add(score);
+		add(placement_label);
 		add(round);
 	}
 	
@@ -65,6 +77,19 @@ public class NameChange extends JPanel {
 			}
 			
 		});
+	}
+	
+	private String ordinal(int i) {
+	    String[] suffixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+	    switch (i % 100) {
+	    case 11:
+	    case 12:
+	    case 13:
+	        return i + "th";
+	    default:
+	        return i + suffixes[i % 10];
+
+	    }
 	}
 
 }
