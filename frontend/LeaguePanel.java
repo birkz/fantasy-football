@@ -44,17 +44,18 @@ public class LeaguePanel extends JPanel {
 		add(scroll, BorderLayout.CENTER);
 		
 		ArrayList<Game> games = league.getGames();
-		String[] columnNames2 = {"HomeTeam", "AwayTeam", "Score", "Status"};
+		String[] columnNames2 = {"HomeTeam", "AwayTeam", "HomeScore", "AwayScore"};
 		data = new Object[games.size()][];
 		for(int i=0; i<games.size(); ++i) {
 			Game current = games.get(i);
 			Object[] game = new Object[]{current.getHomeTeam().getName(), current.getAwayTeam().getName(), 
-					current.getHomeScore()+" - "+current.getAwayScore(), "Planned"};
+					current.getHomeScore(), current.getAwayScore()};
+			System.out.print(games.get(i).getHomeTeam().getName());
+			System.out.println(" - "+games.get(i).getAwayTeam().getName());
 			data[i] = game;
 		}
 		JTable tableGames = new JTable(data, columnNames2);
 		tableGames.setEnabled(true);
-		tableGames.getColumn("Score").setMaxWidth(60);
 		JScrollPane scroll2 = new JScrollPane(tableGames);
 		add(scroll2, BorderLayout.SOUTH);
 	}
