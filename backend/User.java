@@ -9,7 +9,6 @@ public class User {
 
 	private int id;
 	private int money;
-	//private List<Integer> score;
 	private int score;
 	private int roundscore;
 	private String name;
@@ -84,9 +83,12 @@ public class User {
 		int j = 0;
 		
 		for(Player player : players){
-			this.roster.addPlayerToRoster(player);
-			if (j++ < 12) this.roster.addPlayerToField(player);
+			j++;
+			if(j % 2 == 0){
+				if(this.roster.addPlayerToRoster(player)){
+					this.roster.addPlayerToField(player);
+				}
+			}
 		}
-		
 	}
 }
