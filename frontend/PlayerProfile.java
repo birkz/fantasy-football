@@ -56,11 +56,11 @@ public class PlayerProfile extends JPanel {
 				//System.out.println("loaded from hash");
 			}
 			else {
+
 				InnerThread loadImage = new InnerThread();
 				loadImage.start();
 				this.img = new ImageIcon("src/is/hi/f2a/res/Images/playerplaceholder.png").getImage();
 				this.loadfailed = true;
-			
 			}
 		} catch (IOException e) {
 			//e.printStackTrace();
@@ -90,9 +90,8 @@ public class PlayerProfile extends JPanel {
 		Main.getInstance().refreshRightPanel();
 	}
 	
-	
 	private class InnerThread extends Thread {
-
+		
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
