@@ -15,8 +15,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.RowSorter.SortKey;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
+import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.frontend.ButtonColumn;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidPosition;
@@ -176,7 +179,7 @@ public class MarketPanel extends JPanel {
 			remove(wrapper);
 		}
 		
-		jtable = getJTable(player_choice,team_choice,pos_choice);
+		jtable = getJTable(player_choice,team_choice,pos_choice,1);
 		
 		// scroll = new JScrollPane(jtable);
 		jtable.invalidate();
@@ -211,7 +214,7 @@ public class MarketPanel extends JPanel {
 	/*
 	 * get a new JTable object
 	 */
-	private JTable getJTable(String player_searched, String team_searched, String pos_searched){
+	private JTable getJTable(String player_searched, String team_searched, String pos_searched, int sortColumn){
 		String[] columnNames = {"Player","Team","Position","Price",""};
 		Object[][] data = null;
 		
@@ -221,7 +224,20 @@ public class MarketPanel extends JPanel {
 			e2.printStackTrace();
 		}
 		
-		final JTable table = new JTable(data, columnNames){
+		DefaultTableModel m = new DefaultTableModel(){
+			private static final long serialVersionUID = 1L;
+
+			@Override
+		    public Class<?> getColumnClass(int column) {
+		        if (column == 3) {
+		            return Integer.class;
+		        }
+		        return super.getColumnClass(column);
+		    }
+		};
+		m.setDataVector(data, columnNames);
+		
+		final JTable table = new JTable(m){
 			
 			private static final long serialVersionUID = 1L;
 			
@@ -233,7 +249,8 @@ public class MarketPanel extends JPanel {
 		};
 		
 		table.setEnabled(true);
-		table.getColumn("Player").setPreferredWidth(220);
+		table.getColumn("Player").setPreferredWidth(140);
+		table.getColumn("Team").setPreferredWidth(140);
 		
 		/*
 		 * Action when the "Buy" or "Sell" buttons are pressed
@@ -288,6 +305,12 @@ public class MarketPanel extends JPanel {
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
 		table.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+		table.setAutoCreateRowSorter(true);
+		
+		RowSorter<?> sorter = table.getRowSorter();
+		List<SortKey> sortKeys = new ArrayList<SortKey>();
+		sortKeys.add(new RowSorter.SortKey(sortColumn, SortOrder.ASCENDING));
+		sorter.setSortKeys(sortKeys);
 		
 		return table;
 	}
@@ -298,7 +321,7 @@ public class MarketPanel extends JPanel {
 	private Object[][] getTableData() throws InvalidPlayer{
 		this.results = new ArrayList<Player>(180);
 		
-		Object[][] data = new Object[700][5];
+		Object[][] data = new Object[710][5];
 		
 		List<Team> teams = MarketPanel.league.getTeams();
 		
@@ -319,9 +342,10 @@ public class MarketPanel extends JPanel {
 				data[i][0] = player.getName();
 				data[i][1] = team.getName();
 				data[i][2] = positionToString(player.getPosition());
-				data[i][3] = String.format("%,d", player.getPrice());
+				data[i][3] = player.getPrice();
+				//data[i][3] = String.format("%,d", player.getPrice());
 				
-				if(is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player)){
+				if(MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player)){
 					data[i++][4] = "Sell";
 				} else {
 					data[i++][4] = "Buy";
