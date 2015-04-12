@@ -48,10 +48,10 @@ public class MarketPanel extends JPanel {
 	 * Create the panel.
 	 * @throws InvalidPlayer 
 	 */
-	public MarketPanel(final JScrollPane scroll, final int value, List<? extends SortKey> sortkeys) {
-		this.player_choice = "";
-		this.team_choice = "Any";
-		this.pos_choice = "Any";
+	public MarketPanel(final JScrollPane scroll, final int value, List<? extends SortKey> sortkeys, String pl_choice, String team_choice, String pos_choice) {
+		this.player_choice = pl_choice;
+		this.team_choice = team_choice;
+		this.pos_choice = pos_choice;
 		this.jtable = null;
 		this.sortkeys = sortkeys;
 		if(scroll!=null){
@@ -68,7 +68,8 @@ public class MarketPanel extends JPanel {
 		}
 		
 		this.wrapper = null;
-		this.text = "";
+		this.text = pl_choice;
+		this.field.setText(pl_choice);
 		
 		setLayout(new BorderLayout(0, 0)); 
 		
@@ -271,7 +272,6 @@ public class MarketPanel extends JPanel {
 					else
 						buy_or_sell = "Buy";
 				} catch (InvalidPlayer e2) {
-					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
 				if(Constants.VERBOSE)
@@ -306,11 +306,10 @@ public class MarketPanel extends JPanel {
 		        
 		        RowSorter<?> sorter = table.getRowSorter();
 		        
-		        Main.getInstance().setPanelAsMarket(scroll,value, sorter.getSortKeys());
+		        Main.getInstance().setPanelAsMarket(scroll,value, sorter.getSortKeys(), player_choice, team_choice, pos_choice);
 		        try {
 					Main.getInstance().setPanelAsFieldViewer();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 		    }

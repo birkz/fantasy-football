@@ -134,10 +134,10 @@ public class Main {
         frame.validate();
 	}
 	
-	public void setPanelAsMarket(JScrollPane scroll, int value, List<? extends SortKey> sortkeys) {
+	public void setPanelAsMarket(JScrollPane scroll, int value, List<? extends SortKey> sortkeys, String pl_choice, String team_choice, String pos_choice) {
 		BorderLayout layout = (BorderLayout) left.getLayout();
 		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-		left.add(new MarketPanel(scroll, value, sortkeys), BorderLayout.CENTER);
+		left.add(new MarketPanel(scroll, value, sortkeys, pl_choice, team_choice, pos_choice), BorderLayout.CENTER);
 		left.setVisible(false);
 		left.setVisible(true);
 	}

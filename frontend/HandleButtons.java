@@ -15,7 +15,7 @@ public class HandleButtons implements ActionListener{
 		String arg = e.getActionCommand();
 		
 		if(arg == "Market")
-			Main.getInstance().setPanelAsMarket(null, 0, null);
+			Main.getInstance().setPanelAsMarket(null, 0, null, "", "Any", "Any");
 		
 		if(arg == "Scoreboard")
 			try {
