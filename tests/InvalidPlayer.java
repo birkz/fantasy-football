@@ -1,4 +1,4 @@
-package is.hi.f2a.tests;
+package tests;
 
 public class InvalidPlayer extends Exception {
 	private static final long serialVersionUID = 1L;

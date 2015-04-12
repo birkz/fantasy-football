@@ -1,4 +1,4 @@
-package is.hi.f2a.tests;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -9,9 +9,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import is.hi.f2a.backend.MainGame;
-import is.hi.f2a.backend.User;
-import is.hi.f2a.frontend.Main;
+import backend.MainGame;
+import backend.User;
+import frontend.Main;
 
 public class StartGameTest {
 

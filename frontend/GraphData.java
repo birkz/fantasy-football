@@ -1,4 +1,4 @@
-package is.hi.f2a.frontend;
+package frontend;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -13,10 +13,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import is.hi.f2a.tests.InvalidUser;
-import is.hi.f2a.backend.MainGame;
-import is.hi.f2a.backend.StatsHistory;
-import is.hi.f2a.backend.User;
+import tests.InvalidUser;
+import backend.MainGame;
+import backend.StatsHistory;
+import backend.User;
 
 public class GraphData extends JPanel {
 	

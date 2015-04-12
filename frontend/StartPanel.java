@@ -1,4 +1,4 @@
-package is.hi.f2a.frontend;
+package frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,11 +17,11 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import is.hi.f2a.backend.FontUtil;
-import is.hi.f2a.tests.InvalidPlayer;
-import is.hi.f2a.tests.InvalidPosition;
-import is.hi.f2a.tests.InvalidUser;
-import is.hi.f2a.res.Constants;
+import backend.FontUtil;
+import tests.InvalidPlayer;
+import tests.InvalidPosition;
+import tests.InvalidUser;
+import res.Constants;
 
 
 public class StartPanel extends JPanel {
@@ -129,7 +129,7 @@ public class StartPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		//The static logo
 		Dimension size = Main.getInstance().returnSizeForPanel();
-		Image img = new ImageIcon("src/is/hi/f2a/res/Images/logo_standard.png").getImage();
+		Image img = new ImageIcon("src/res/Images/logo_standard.png").getImage();
 		int imagehalfwidth = img.getWidth(null)/2;
 		int framehalfwidth = size.width;
 		int centeroffset = framehalfwidth-imagehalfwidth;

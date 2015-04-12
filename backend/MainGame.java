@@ -1,13 +1,14 @@
-package is.hi.f2a.backend;
+package backend;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import is.hi.f2a.tests.InvalidPlayer;
-import is.hi.f2a.tests.InvalidUser;
-import is.hi.f2a.backend.User;
+import tests.InvalidPlayer;
 
-import is.hi.f2a.frontend.Main;
+//import tests.InvalidPosition;
+import tests.InvalidUser;
+
+import frontend.Main;
 
 public class MainGame {
 
@@ -48,7 +49,7 @@ public class MainGame {
 				currentUser = 0;
 				//here call for simulation of a round
 				try {
-					is.hi.f2a.tests.RoundMock.SimRound();
+					tests.RoundMock.SimRound();
 				} catch (InvalidUser e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

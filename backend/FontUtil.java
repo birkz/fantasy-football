@@ -1,4 +1,4 @@
-package is.hi.f2a.backend;
+package backend;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -27,7 +27,7 @@ public class FontUtil {
 	            return font;
 	        }
 	    	
-	        String fName = "src/is/hi/f2a/font/" + name + ".ttf";
+	        String fName = "src/font/" + name + ".ttf";
 	        File fontFile = new File(fName);
 	        font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
 	        font = font.deriveFont(style, size);

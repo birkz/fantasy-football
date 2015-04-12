@@ -1,13 +1,7 @@
-package is.hi.f2a.frontend;
-
-import is.hi.f1a.FantasyFootballBackend;
-import is.hi.f1a.League;
-import is.hi.f1a.Team;
-import is.hi.f2a.backend.MainGame;
+package frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -26,16 +20,18 @@ public class LeaguePanel extends JPanel {
 	public LeaguePanel() {
 		setLayout(new BorderLayout(0, 0)); 
 		String[] columnNames = {"POS", "CLUB", "P", "W", "D", "L", "GF", "GA", "GD", "PTS"};
-		League league = FantasyFootballBackend.getInstance().getLeague();
-		ArrayList<Team> teams = league.getTeams();
-		Object[][] data = new Object[10][];
-		for(int i=0; i<teams.size(); ++i) {
-			Team current = teams.get(i);
-			Object[] team = new Object[]{new Integer(i+1), current.getName(), MainGame.getInstance().getRound(), 
-					current.getWins(), current.getDraws(), current.getLosses(), current.getGoalsScored(), 
-					current.getGoalsConceded(), current.getGoalsScored()- current.getGoalsConceded(), current.getPoints()};
-			data[i] = team;
-		}
+		Object[][] data = {
+			    {new Integer(1), "Chelsea", new Integer(29), new Integer(20), new Integer(7), new Integer(2),
+			    	new Integer(61), new Integer(25), new Integer(36), new Integer(67)},
+			    {new Integer(2), "Manchester City", new Integer(30), new Integer(18), new Integer(7), new Integer(5),
+			    	new Integer(62), new Integer(28), new Integer(34), new Integer(61)},
+			    {new Integer(3), "Arsenal", new Integer(30), new Integer(18), new Integer(6), new Integer(6),
+			    	new Integer(58), new Integer(31), new Integer(27), new Integer(60)},
+			    {new Integer(4), "Manchester United", new Integer(30), new Integer(17), new Integer(8), new Integer(5),
+			    	new Integer(52), new Integer(27), new Integer(25), new Integer(59)},
+			    {new Integer(5), "Liverpool", new Integer(30), new Integer(16), new Integer(8), new Integer(8),
+			    	new Integer(44), new Integer(32), new Integer(12), new Integer(54)}
+			};
 		JTable table = new JTable(data, columnNames);
 		table.setEnabled(true);
 		table.getColumn("CLUB").setPreferredWidth(300);

@@ -1,12 +1,11 @@
-package is.hi.f2a.backend;
+package backend;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import is.hi.f1a.Player;
-import is.hi.f2a.tests.InvalidUser;
-import is.hi.f2a.tests.InvalidPlayer;
-import is.hi.f2a.tests.PlayerInterface;
+import tests.InvalidUser;
+import tests.InvalidPlayer;
+import tests.PlayerInterface;
 
 public class StatsHistory {
 	
@@ -34,9 +33,9 @@ public class StatsHistory {
 	}
 	*/
 	
-	public List<Integer> getPlayerScores(Player player) throws InvalidPlayer {
+	public List<Integer> getPlayerScores(PlayerInterface player) throws InvalidPlayer {
 		for(ObjectScores temp : this.allplayerscores) {
-			if(((Player)temp.getObject()).equals(player)) {
+			if(((PlayerInterface)temp.getObject()).equals(player)) {
 				return temp.getScores();
 			}
 		}

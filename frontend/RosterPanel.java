@@ -1,4 +1,4 @@
-package is.hi.f2a.frontend;
+package frontend;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -17,10 +17,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import is.hi.f1a.Player;
-import is.hi.f2a.tests.InvalidPlayer;
-import is.hi.f2a.backend.MainGame;
-import is.hi.f2a.backend.Roster;
+import tests.InvalidPlayer;
+import tests.PlayerInterface;
+import backend.MainGame;
+import backend.Roster;
 
 public class RosterPanel extends JPanel {
 
@@ -42,7 +42,7 @@ public class RosterPanel extends JPanel {
 	 */
 	public RosterPanel() throws InvalidPlayer {
 		
-		//setLayout(new GridLayout(5, 1, 5, 10));
+		setLayout(new GridLayout(5, 1, 5, 10));
 		
 		this.roster = MainGame.getInstance().getCurrentUser().getRoster();
 		
@@ -51,8 +51,8 @@ public class RosterPanel extends JPanel {
 			addRandomPlayersToRoster();
 		}*/
 		
-		List<List<Player>> roster_lists = this.roster.getPlayersInRoster();
-		Iterator<List<Player>> roster_lists_it = roster_lists.iterator();
+		List<List<PlayerInterface>> roster_lists = this.roster.getPlayersInRoster();
+		Iterator<List<PlayerInterface>> roster_lists_it = roster_lists.iterator();
 		String[] labels = new String[]{"Goalkeepers", "Defenders", "Midfielders", "Forwarders"};
 		Integer j = 0;
 		
@@ -61,30 +61,30 @@ public class RosterPanel extends JPanel {
 			num_players.setText(num_players.getText()+" Gratz, you have a full squad!");
 		}
 		add(this.num_players);
-		final Integer[] max_in_pos = new Integer[]{1,5,5,3};
+		Integer[] max_in_pos = new Integer[]{1,5,5,3};
 		
 		while(roster_lists_it.hasNext()){
 			String[] columnNames = {labels[j], "Price", "On Field"};
 			
-			List<Player> players = roster_lists_it.next();
+			List<PlayerInterface> players = roster_lists_it.next();
 			
 			int player_size = players.size();
 			Object[][] data = new Object[player_size][3];
 			
-			Iterator<Player> player_it = players.iterator();
+			Iterator<PlayerInterface> player_it = players.iterator();
 			int i = 0;
 			
 			while(player_it.hasNext()){
-				Player player = player_it.next();
+				PlayerInterface player = player_it.next();
 				data[i][0] = player.getName();
 				data[i][1] = player.getPrice();
 				data[i][2] = roster.isOnField(player);
 				i++;
 			}
 			
-			final DefaultTableModel dtm = new DefaultTableModel(data,columnNames);
+			DefaultTableModel dtm = new DefaultTableModel(data,columnNames);
 			
-			final Integer pos_id = j;
+			Integer pos_id = j;
 			JTable table = new JTable(dtm){
 				private static final long serialVersionUID = 1L;
 
@@ -124,13 +124,13 @@ public class RosterPanel extends JPanel {
 		    tc.setCellEditor(table.getDefaultEditor(Boolean.class));
 		    tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
 		    
-		    final Integer j_tmp = j;
+		    Integer j_tmp = j;
 		    table.getModel().addTableModelListener(new TableModelListener() {
 		    	
 				@Override
 				public void tableChanged(TableModelEvent e) {
 					
-					Player player = roster.getPlayersInRoster().get(j_tmp).get(e.getFirstRow());
+					PlayerInterface player = roster.getPlayersInRoster().get(j_tmp).get(e.getFirstRow());
 					System.out.println(player.getName());
 					
 					try {
@@ -143,9 +143,9 @@ public class RosterPanel extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					is.hi.f2a.frontend.Main.getInstance().setPanelAsFieldViewer();
+					frontend.Main.getInstance().setPanelAsFieldViewer();
 					try {
-						is.hi.f2a.frontend.Main.getInstance().setPanelAsRoster();
+						frontend.Main.getInstance().setPanelAsRoster();
 					} catch (InvalidPlayer e1) {
 						e1.printStackTrace();
 					}

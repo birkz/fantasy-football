@@ -1,4 +1,4 @@
-package is.hi.f2a.frontend;
+package frontend;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
@@ -15,12 +16,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import is.hi.f1a.Player;
-import is.hi.f2a.backend.Roster;
+import tests.PlayerInterface;
+import backend.Roster;
 
 public class FieldViewerPanel extends JPanel {
 
@@ -36,7 +38,7 @@ public class FieldViewerPanel extends JPanel {
 	 */
 	public FieldViewerPanel() {
 		
-		this.roster = is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster();
+		this.roster = backend.MainGame.getInstance().getCurrentUser().getRoster();
 		
 		setLayout(new GridLayout(8, 1, 5, 5));
 		AddToPanels();
@@ -53,7 +55,7 @@ public class FieldViewerPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		Dimension size = Main.getInstance().returnSizeForPanel(); // ÞETTA ER EKKI AÐ GEFA RÉTTAR TÖLUR
 		int w_offset = 2;  // Það þarf að minnka breiddina svo ramminn sem er teiknaður fari ekki útfyrir panel
-		int h_offset = 2; // Furðulega mikið offset á hæðinni
+		int h_offset = 26; // Furðulega mikið offset á hæðinni
 		int width = size.width-w_offset;
 		int height = size.height-h_offset;
 		
@@ -125,12 +127,12 @@ public class FieldViewerPanel extends JPanel {
     }
 	
 	public void AddToPanels() {
-		Iterator<List<Player>> roster_it = this.roster.getPlayersOnField().iterator();
+		Iterator<List<PlayerInterface>> roster_it = this.roster.getPlayersOnField().iterator();
 		int i = 3;
 		
 		while(roster_it.hasNext()){
-			List<Player> players_in_pos = roster_it.next();
-			Iterator<Player> players_in_pos_it = players_in_pos.iterator();
+			List<PlayerInterface> players_in_pos = roster_it.next();
+			Iterator<PlayerInterface> players_in_pos_it = players_in_pos.iterator();
 			
 			while(players_in_pos_it.hasNext()){
 				players[i].add(createLabels(players_in_pos_it.next().getName()));
