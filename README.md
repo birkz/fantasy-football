@@ -27,8 +27,12 @@ Open up Eclipse and create a project in the directory. Change the Eclipse .class
 		<classpathentry kind="output" path="bin"/>
 	</classpath>
 
+<<<<<<< HEAD
 Refresh the prject in Eclipse (select the project, then press F5) and then run the application! The first time you 'Start game' it will take a while to get gather all player information, so be patient.
 =======
 test
 Einar að prófa
 >>>>>>> parent of 74cfc3e... push to pull
+=======
+Refresh the prject in Eclipse (select the project, then press F5) and then run the application!
+>>>>>>> parent of d4fa8a1... another readme update
