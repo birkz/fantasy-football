@@ -12,7 +12,7 @@ public class StatsHistory {
 	
 	List<ObjectScores> allplayerscores;
 	List<ObjectScores> alluserscores;
-	List<ObjectScores> allrosterscores; // Er Ã¾Ã¶rf fyrir roster scores? Er Ã¾aÃ° ekki sama og userscores?
+	List<ObjectScores> allrosterscores; // Er þörf fyrir roster scores? Er það ekki sama og userscores?
 	
 	public StatsHistory() {
 		this.allplayerscores = new ArrayList<ObjectScores>(150);
