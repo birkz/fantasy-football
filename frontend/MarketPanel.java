@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.frontend.ButtonColumn;
+import is.hi.f2a.res.Constants;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidPosition;
 import is.hi.f2a.tests.InvalidUser;
@@ -261,13 +262,23 @@ public class MarketPanel extends JPanel {
 			public void actionPerformed(ActionEvent e)
 		    {
 				Player player = results.get(Integer.parseInt(e.getActionCommand()));
-				if(is.hi.f2a.res.Constants.VERBOSE)
-					System.out.println("You pressed "+table.getValueAt(Integer.parseInt(e.getActionCommand()), 4)+" on player "+player.getName());
+				String buy_or_sell = null;
+				try {
+					if(MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player))
+						buy_or_sell = "Sell";
+					else
+						buy_or_sell = "Buy";
+				} catch (InvalidPlayer e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				if(Constants.VERBOSE)
+					System.out.println(e.getActionCommand()+"You pressed "+buy_or_sell+" on player "+player.getName());
 	        	
 	        	// Get the current scroll position
 	        	Integer value = scroll.getVerticalScrollBar().getValue();
 	        	
-		        if(table.getValueAt(Integer.parseInt(e.getActionCommand()), 4) == "Buy"){
+		        if(buy_or_sell == "Buy"){
 		        	// If buy is pressed
 		        	try {
 		        		is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster().buyPlayer(player);
@@ -319,7 +330,7 @@ public class MarketPanel extends JPanel {
 	 *  get the table data given some filters
 	 */
 	private Object[][] getTableData() throws InvalidPlayer{
-		this.results = new ArrayList<Player>(180);
+		this.results = new ArrayList<Player>(710);
 		
 		Object[][] data = new Object[710][5];
 		
