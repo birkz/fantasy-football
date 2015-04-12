@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import is.hi.f1a.FantasyFootballBackend;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidUser;
 import is.hi.f2a.backend.User;
@@ -82,5 +81,17 @@ public class MainGame {
 	
 	public int getCurrendUserID() {
 		return currentUser;
+	}
+	
+	/*
+	 * Get the current user's placement (1st, 2nd, 3rd, ...)
+	 */
+	public int getCurrentUserPlacement() {
+		int currentUserScore = this.getCurrentUser().getScore();
+		int placement = 1;
+		for (User user : this.users){
+			if(user.getScore() > currentUserScore) placement++;
+		}
+		return placement;
 	}
 }

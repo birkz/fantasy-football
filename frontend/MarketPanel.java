@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import is.hi.f2a.frontend.ButtonColumn;
 import is.hi.f2a.tests.InvalidPlayer;
@@ -284,6 +285,10 @@ public class MarketPanel extends JPanel {
 		
 		new ButtonColumn(table, buy_or_sell_action, 4);
 		
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+		table.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+		
 		return table;
 	}
 	
@@ -314,7 +319,7 @@ public class MarketPanel extends JPanel {
 				data[i][0] = player.getName();
 				data[i][1] = team.getName();
 				data[i][2] = positionToString(player.getPosition());
-				data[i][3] = player.getPrice();
+				data[i][3] = String.format("%,d", player.getPrice());
 				
 				if(is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player)){
 					data[i++][4] = "Sell";

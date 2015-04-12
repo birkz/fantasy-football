@@ -11,7 +11,7 @@ public class Constants {
 	/*
 	 * User Constants
 	 */
-	public static final int STARTING_MONEY = 2000;
+	public static final int STARTING_MONEY = 1000000;
 	public static final int MAX_USERS = 8;
 	public static final int MIN_USERS = 1;
 	
