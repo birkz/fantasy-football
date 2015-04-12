@@ -1,9 +1,9 @@
-package backend;
+package is.hi.f2a.backend;
 
 import java.util.List;
 
-import tests.InvalidPlayer;
-import tests.PlayerInterface;
+import is.hi.f1a.Player;
+import is.hi.f2a.tests.InvalidPlayer;
 
 public class User {
 
@@ -21,8 +21,8 @@ public class User {
 		//this.score = new ArrayList<Integer>();
 		this.score = 0;
 		this.roster = new Roster();
-		if (res.Constants.TEST_MODE && this.id==0) addRandomPlayersToRoster();
-		this.money = res.Constants.STARTING_MONEY;
+		if (is.hi.f2a.res.Constants.TEST_MODE && this.id==0) addRandomPlayersToRoster();
+		this.money = is.hi.f2a.res.Constants.STARTING_MONEY;
 	}
 	
 	/*
@@ -80,10 +80,10 @@ public class User {
 	 */
 	private void addRandomPlayersToRoster() throws InvalidPlayer {
 		
-		List<PlayerInterface> players = frontend.MarketPanel.getLeague().getTeams().get(0).getPlayers();
+		List<Player> players = is.hi.f1a.FantasyFootballBackend.getInstance().getLeague().getTeams().get(0).getPlayers();
 		int j = 0;
 		
-		for(PlayerInterface player : players){
+		for(Player player : players){
 			this.roster.addPlayerToRoster(player);
 			if (j++ < 12) this.roster.addPlayerToField(player);
 		}

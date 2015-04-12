@@ -1,4 +1,4 @@
-package tests;
+package is.hi.f2a.tests;
 
 public class InvalidPosition extends Exception {
 	private static final long serialVersionUID = 1L;

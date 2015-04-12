@@ -1,4 +1,4 @@
-package tests;
+package is.hi.f2a.tests;
 
 public class InvalidUser extends Exception {
 	private static final long serialVersionUID = 1L;

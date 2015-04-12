@@ -1,11 +1,11 @@
-package tests;
+package is.hi.f2a.tests;
 
 import java.util.List;
 import java.util.Random;
 
-import backend.MainGame;
-import backend.StatsHistory;
-import backend.User;
+import is.hi.f2a.backend.MainGame;
+import is.hi.f2a.backend.StatsHistory;
+import is.hi.f2a.backend.User;
 
 public class RoundMock {
 	
