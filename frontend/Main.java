@@ -182,8 +182,8 @@ public class Main {
 		int screen_width = gd.getDisplayMode().getWidth();
 		int screen_height = gd.getDisplayMode().getHeight();
 		System.out.println(num_players);
-		frame.setMinimumSize(new Dimension(720, 180+num_players*47));
-		frame.setSize(new Dimension(720, 180+num_players*47));
+		frame.setMinimumSize(new Dimension(720, 140+num_players*47));
+		frame.setSize(new Dimension(720, 140+num_players*47));
 		frame.setLocation((int) (screen_width/2-frame.getWidth()/2), (int) (screen_height/2 - 300));
 		frame.validate();
 	}
