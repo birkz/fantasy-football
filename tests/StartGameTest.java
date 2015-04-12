@@ -11,12 +11,18 @@ import org.junit.Test;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.backend.User;
 import is.hi.f2a.frontend.Main;
 =======
 import frontend.Main;
 >>>>>>> parent of 74cfc3e... push to pull
+=======
+import backend.MainGame;
+import backend.User;
+import frontend.Main;
+>>>>>>> parent of 64162c5... more changes for the integration
 =======
 import backend.MainGame;
 import backend.User;

@@ -22,12 +22,16 @@ import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidPosition;
 import is.hi.f2a.tests.InvalidUser;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import tests.LeagueMock;
 import tests.PlayerInterface;
 import tests.PlayerMock;
 import tests.TeamMock;
 >>>>>>> parent of 74cfc3e... push to pull
+=======
+import is.hi.f2a.tests.PlayerInterface;
+>>>>>>> parent of 64162c5... more changes for the integration
 =======
 import is.hi.f2a.tests.PlayerInterface;
 >>>>>>> parent of 64162c5... more changes for the integration

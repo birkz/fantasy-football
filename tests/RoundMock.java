@@ -4,9 +4,15 @@ import java.util.Random;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.backend.StatsHistory;
 import is.hi.f2a.backend.User;
+=======
+import backend.MainGame;
+import backend.StatsHistory;
+import backend.User;
+>>>>>>> parent of 64162c5... more changes for the integration
 =======
 import backend.MainGame;
 import backend.StatsHistory;

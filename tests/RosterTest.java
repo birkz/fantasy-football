@@ -15,6 +15,7 @@ import java.util.Map;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import is.hi.f1a.Player;
 import is.hi.f1a.Player.Position;
 import is.hi.f2a.backend.Roster;
@@ -23,6 +24,11 @@ import is.hi.f2a.res.Constants;
 import backend.Roster;
 import tests.PlayerInterface;
 >>>>>>> parent of 74cfc3e... push to pull
+=======
+import backend.Roster;
+import tests.PlayerInterface.*;
+import res.Constants;
+>>>>>>> parent of 64162c5... more changes for the integration
 =======
 import backend.Roster;
 import tests.PlayerInterface.*;
@@ -37,6 +43,7 @@ public class RosterTest {
 	private static List<String> midfielders;
 	private static List<String> strikers;
 	
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	private static Player goalkeeper1;
@@ -69,6 +76,25 @@ public class RosterTest {
 	private static PlayerMock midfielder4;
 	private static PlayerMock midfielder5;
 	
+=======
+	private static PlayerMock goalkeeper1;
+	private static PlayerMock goalkeeper2;
+	private static PlayerMock goalkeeper3;
+	private static PlayerMock goalkeeper4;
+	
+	private static PlayerMock defender1;
+	private static PlayerMock defender2;
+	private static PlayerMock defender3;
+	private static PlayerMock defender4;
+	private static PlayerMock defender5;
+	
+	private static PlayerMock midfielder1;
+	private static PlayerMock midfielder2;
+	private static PlayerMock midfielder3;
+	private static PlayerMock midfielder4;
+	private static PlayerMock midfielder5;
+	
+>>>>>>> parent of 64162c5... more changes for the integration
 	private static PlayerMock striker1;
 	private static PlayerMock striker2;
 	private static PlayerMock striker3;
@@ -77,15 +103,21 @@ public class RosterTest {
 	public static void setUpBeforeClass() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		goalkeeper1 = new Player("Goalkeeper 1",Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		goalkeeper2 = new Player("Goalkeeper 2",Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		goalkeeper3 = new Player("Goalkeeper 3",Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		goalkeeper4 = new Player("Goalkeeper 4",Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 =======
+=======
+>>>>>>> parent of 64162c5... more changes for the integration
 		goalkeeper1 = new PlayerMock("Goalkeeper 1",Position.GOALKEEPER);
 		goalkeeper2 = new PlayerMock("Goalkeeper 2",Position.GOALKEEPER);
 		goalkeeper3 = new PlayerMock("Goalkeeper 3",Position.GOALKEEPER);
 		goalkeeper4 = new PlayerMock("Goalkeeper 4",Position.GOALKEEPER);
+<<<<<<< HEAD
+>>>>>>> parent of 64162c5... more changes for the integration
+=======
 >>>>>>> parent of 64162c5... more changes for the integration
 		
 		defender1 = new PlayerMock("Defender 1",Position.DEFENDER);
@@ -100,6 +132,7 @@ public class RosterTest {
 		midfielder4 = new PlayerMock("Midfielder 4",Position.MIDFIELDER);
 		midfielder5 = new PlayerMock("Midfielder 5",Position.MIDFIELDER);
 		
+<<<<<<< HEAD
 <<<<<<< HEAD
 		striker1 = new Player("Forward 1",Position.FORWARD, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		striker2 = new Player("Forward 2",Position.FORWARD, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -133,6 +166,12 @@ public class RosterTest {
 		striker3 = new PlayerMock("Forward 3",Position.FORWARD);
 >>>>>>> parent of 64162c5... more changes for the integration
 		
+=======
+		striker1 = new PlayerMock("Forward 1",Position.FORWARD);
+		striker2 = new PlayerMock("Forward 2",Position.FORWARD);
+		striker3 = new PlayerMock("Forward 3",Position.FORWARD);
+		
+>>>>>>> parent of 64162c5... more changes for the integration
 		players = new HashMap<String, PlayerMock>();
 		players.put(goalkeeper1.getName(),goalkeeper1);
 		players.put(goalkeeper2.getName(),goalkeeper2);
@@ -207,7 +246,11 @@ public class RosterTest {
 				String expected_player = expected_player_iterator.next();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				Player player = player_iterator.next();
+=======
+				PlayerInterface player = player_iterator.next();
+>>>>>>> parent of 64162c5... more changes for the integration
 =======
 				PlayerInterface player = player_iterator.next();
 >>>>>>> parent of 64162c5... more changes for the integration

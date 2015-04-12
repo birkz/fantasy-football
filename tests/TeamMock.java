@@ -19,6 +19,7 @@ public class TeamMock {
 	 */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private List<Player> goalkeepers = new ArrayList<Player>(MAX_GOALKEEPERS);
 	private List<Player> defenders = new ArrayList<Player>(MAX_DEFENDERS);
 	private List<Player> midfielders = new ArrayList<Player>(MAX_MIDFIELDERS);
@@ -30,10 +31,15 @@ public class TeamMock {
 	private List<PlayerInterface> strikers;
 >>>>>>> parent of 74cfc3e... push to pull
 =======
+=======
+>>>>>>> parent of 64162c5... more changes for the integration
 	private List<PlayerInterface> goalkeepers = new ArrayList<PlayerInterface>(MAX_GOALKEEPERS);
 	private List<PlayerInterface> defenders = new ArrayList<PlayerInterface>(MAX_DEFENDERS);
 	private List<PlayerInterface> midfielders = new ArrayList<PlayerInterface>(MAX_MIDFIELDERS);
 	private List<PlayerInterface> strikers = new ArrayList<PlayerInterface>(MAX_STRIKERS);
+<<<<<<< HEAD
+>>>>>>> parent of 64162c5... more changes for the integration
+=======
 >>>>>>> parent of 64162c5... more changes for the integration
 	private String name;
 	
@@ -51,10 +57,13 @@ public class TeamMock {
 		// Create some i players
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		this.goalkeepers.add(new Player("Goalkeeper "+i.toString(), Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)); i+=10;
 		this.goalkeepers.add(new Player("Goalkeeper "+i.toString(), Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)); i+=10;
 		this.goalkeepers.add(new Player("Goalkeeper "+i.toString(), Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)); i+=10;
 =======
+=======
+>>>>>>> parent of 64162c5... more changes for the integration
 		this.goalkeepers.add(new PlayerMock("Goalkeeper "+i.toString(), Position.GOALKEEPER)); i+=10;
 		this.goalkeepers.add(new PlayerMock("Goalkeeper "+i.toString(), Position.GOALKEEPER)); i+=10;
 		this.goalkeepers.add(new PlayerMock("Goalkeeper "+i.toString(), Position.GOALKEEPER)); i+=10;
@@ -64,6 +73,9 @@ public class TeamMock {
 		this.defenders.add(new PlayerMock("Defender "+i.toString(), Position.DEFENDER)); i+=10;
 		this.defenders.add(new PlayerMock("Defender "+i.toString(), Position.DEFENDER)); i+=10;
 		this.defenders.add(new PlayerMock("Defender "+i.toString(), Position.DEFENDER)); i+=10;
+<<<<<<< HEAD
+>>>>>>> parent of 64162c5... more changes for the integration
+=======
 >>>>>>> parent of 64162c5... more changes for the integration
 		
 		this.midfielders.add(new PlayerMock("Midfielder "+i.toString(), Position.MIDFIELDER)); i+=10;
@@ -83,6 +95,7 @@ public class TeamMock {
 	public TeamMock() {
 		this.name = "Team Awesome";
 		
+<<<<<<< HEAD
 <<<<<<< HEAD
 		Player player1 = new Player("Svampur Sveinsson", Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		Player player2 = new Player("Pétur", Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -122,6 +135,8 @@ public class TeamMock {
 		this.strikers.add(new PlayerMock("Striker "+i.toString(),"Striker")); i+=10;
 >>>>>>> parent of 74cfc3e... push to pull
 =======
+=======
+>>>>>>> parent of 64162c5... more changes for the integration
 		PlayerInterface player1 = new PlayerMock("Svampur Sveinsson", Position.GOALKEEPER);
 		PlayerInterface player2 = new PlayerMock("Pétur", Position.GOALKEEPER);
 		PlayerInterface player3 = new PlayerMock("Sigmar", Position.DEFENDER);
@@ -136,6 +151,9 @@ public class TeamMock {
 		PlayerInterface player12 = new PlayerMock("Rupp", Position.DEFENDER);
 		PlayerInterface player13 = new PlayerMock("Jóakim Aðalönd", Position.DEFENDER);
 		PlayerInterface player14 = new PlayerMock("Hábeinn Heppni", Position.DEFENDER);
+<<<<<<< HEAD
+>>>>>>> parent of 64162c5... more changes for the integration
+=======
 >>>>>>> parent of 64162c5... more changes for the integration
 		
 	}
