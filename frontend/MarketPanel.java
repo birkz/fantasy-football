@@ -42,16 +42,18 @@ public class MarketPanel extends JPanel {
 	private JPanel wrapper;
 	private String text;
 	private List<Player> results;
+	private List<? extends SortKey> sortkeys;
 
 	/**
 	 * Create the panel.
 	 * @throws InvalidPlayer 
 	 */
-	public MarketPanel(final JScrollPane scroll, final int value) {
+	public MarketPanel(final JScrollPane scroll, final int value, List<? extends SortKey> sortkeys) {
 		this.player_choice = "";
 		this.team_choice = "Any";
 		this.pos_choice = "Any";
 		this.jtable = null;
+		this.sortkeys = sortkeys;
 		if(scroll!=null){
 			this.scroll = scroll;
 			Runnable doScroll = new Runnable() {
@@ -180,7 +182,7 @@ public class MarketPanel extends JPanel {
 			remove(wrapper);
 		}
 		
-		jtable = getJTable(player_choice,team_choice,pos_choice,1);
+		jtable = getJTable(player_choice,team_choice,pos_choice);
 		
 		// scroll = new JScrollPane(jtable);
 		jtable.invalidate();
@@ -215,7 +217,7 @@ public class MarketPanel extends JPanel {
 	/*
 	 * get a new JTable object
 	 */
-	private JTable getJTable(String player_searched, String team_searched, String pos_searched, int sortColumn){
+	private JTable getJTable(String player_searched, String team_searched, String pos_searched){
 		String[] columnNames = {"Player","Team","Position","Price",""};
 		Object[][] data = null;
 		
@@ -273,7 +275,7 @@ public class MarketPanel extends JPanel {
 					e2.printStackTrace();
 				}
 				if(Constants.VERBOSE)
-					System.out.println(e.getActionCommand()+"You pressed "+buy_or_sell+" on player "+player.getName());
+					System.out.println("You pressed "+buy_or_sell+" on player "+player.getName());
 	        	
 	        	// Get the current scroll position
 	        	Integer value = scroll.getVerticalScrollBar().getValue();
@@ -301,9 +303,12 @@ public class MarketPanel extends JPanel {
 				} catch (InvalidUser | IOException e1) {
 					e1.printStackTrace();
 				}
-		        is.hi.f2a.frontend.Main.getInstance().setPanelAsMarket(scroll,value);
+		        
+		        RowSorter<?> sorter = table.getRowSorter();
+		        
+		        Main.getInstance().setPanelAsMarket(scroll,value, sorter.getSortKeys());
 		        try {
-					is.hi.f2a.frontend.Main.getInstance().setPanelAsFieldViewer();
+					Main.getInstance().setPanelAsFieldViewer();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -319,9 +324,7 @@ public class MarketPanel extends JPanel {
 		table.setAutoCreateRowSorter(true);
 		
 		RowSorter<?> sorter = table.getRowSorter();
-		List<SortKey> sortKeys = new ArrayList<SortKey>();
-		sortKeys.add(new RowSorter.SortKey(sortColumn, SortOrder.ASCENDING));
-		sorter.setSortKeys(sortKeys);
+		sorter.setSortKeys(sortkeys);
 		
 		return table;
 	}

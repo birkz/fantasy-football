@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.RowSorter.SortKey;
 
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidPosition;
@@ -133,10 +134,10 @@ public class Main {
         frame.validate();
 	}
 	
-	public void setPanelAsMarket(JScrollPane scroll, int value) {
+	public void setPanelAsMarket(JScrollPane scroll, int value, List<? extends SortKey> sortkeys) {
 		BorderLayout layout = (BorderLayout) left.getLayout();
 		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-		left.add(new MarketPanel(scroll, value), BorderLayout.CENTER);
+		left.add(new MarketPanel(scroll, value, sortkeys), BorderLayout.CENTER);
 		left.setVisible(false);
 		left.setVisible(true);
 	}
