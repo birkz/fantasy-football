@@ -23,6 +23,8 @@ public class Main {
 	private JPanel right;
 	private JPanel left;
 	
+	private FieldViewerPanel field;
+	
 	//private boolean winlocationset = false; //Breyta til að stöðva endurstaðsetningu glugga
 	
 	private Main() {
@@ -104,11 +106,38 @@ public class Main {
 		right.setLayout(new BorderLayout(0, 0));
 		right.setBorder(BorderFactory.createEmptyBorder(0,5,0,10)); 
 		right.add(new NameChange(), BorderLayout.NORTH);
-		right.add(new FieldViewerPanel(), BorderLayout.CENTER);
+		
+		this.field = new FieldViewerPanel();
+		right.add(this.field, BorderLayout.CENTER);
 		right.add(endPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
+        
+        // Keyrum í nýjum þræði að setja upp og sækja profile myndir af leikmönnum
+        InnerThread profileloading = new InnerThread();
+        profileloading.start();
+        
         frame.validate();
+      
+	}
+	
+	public void loadFieldProfiles() throws IOException {
+		field.addProfiles();
+	}
+	
+	private class InnerThread extends Thread {
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			try {
+				loadFieldProfiles();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	public void restartFrame() throws InvalidUser, IOException {

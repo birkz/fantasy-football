@@ -44,6 +44,10 @@ public class FieldViewerPanel extends JPanel {
 	public FieldViewerPanel() throws IOException {
 		
 		this.roster = is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster();
+	
+	}
+	
+	public void addProfiles() throws IOException {
 		
 		setLayout(new GridLayout(4, 1, 2, 2));
 		AddToPanels();
@@ -51,6 +55,7 @@ public class FieldViewerPanel extends JPanel {
 			players[i].setOpaque(false);
 			add(players[i]);
 		}
+		validate();
 	}
 	
 	@Override
@@ -79,7 +84,7 @@ public class FieldViewerPanel extends JPanel {
 		g2.setStroke(new BasicStroke(2)); // Þykkt lína
 		drawFieldCenterWithFrame(g2, width, height, line_offset);
 		drawAttackingDefendingAreas(g2, halfwidth, halfheight, line_offset);
-		
+
 	}
 	
 	private void drawAttackingDefendingAreas(Graphics2D g2, int halfwidth, int halfheight, int line_offset) {
@@ -147,6 +152,8 @@ public class FieldViewerPanel extends JPanel {
 			
 			while(players_in_pos_it.hasNext()){
 				Player player = players_in_pos_it.next();
+				int profilesize = (this.getWidth()+this.getHeight())/10;
+				//System.out.println(profilesize);
 				players[i].add(new PlayerProfile(player.getPhoto(), player.getName()));
 				//players[i].add(createLabels(player.getName()));
 			}

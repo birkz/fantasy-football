@@ -38,8 +38,6 @@ public class PlayerProfile extends JPanel {
 	private Image img;
 	private URL url;
 	private boolean loadfailed = false;
-	private int scaledwidth;
-	private int scaledheight;
 	private JPanel north;
 	private JPanel south;
 	private JLabel name;
@@ -90,9 +88,9 @@ public class PlayerProfile extends JPanel {
 		
 		int imgwidth = this.img.getWidth(null);
 		int imgheight = this.img.getHeight(null);
-		int base = 110;
-		this.scaledwidth = base*imgwidth/imgheight;
-		this.scaledheight = base;
+		int base = this.diameter+10;
+		int scaledwidth = base*imgwidth/imgheight;
+		int scaledheight = base;
 		int xoffset = -scaledwidth/11;
 		int yoffset = 1;
 		int circleoffset = 5;
@@ -100,11 +98,11 @@ public class PlayerProfile extends JPanel {
 		Shape circle = new Ellipse2D.Double(circleoffset,0, this.diameter, this.diameter);
 		g2.setClip(circle);
 		if(!this.loadfailed){
-			g2.drawImage(this.img, xoffset, yoffset, this.scaledwidth, this.scaledheight, null);
+			g2.drawImage(this.img, xoffset, yoffset, scaledwidth, scaledheight, null);
 		} else {
 			g2.setPaint(new Color(255,255,255,204));
-			g2.fill(new Rectangle2D.Double(xoffset, yoffset, this.scaledwidth, this.scaledheight));
-			g2.drawImage(this.img, xoffset, yoffset, this.scaledwidth, this.scaledheight, null);
+			g2.fill(new Rectangle2D.Double(xoffset, yoffset, scaledwidth, scaledheight));
+			g2.drawImage(this.img, xoffset, yoffset, scaledwidth, scaledheight, null);
 		}
 		g2.setClip(null);
 		
