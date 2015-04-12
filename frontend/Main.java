@@ -185,7 +185,6 @@ public class Main {
 	public void setPanelAsFieldViewer() throws IOException {
 		BorderLayout layout = (BorderLayout) right.getLayout();
 		right.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-		this.field = new FieldViewerPanel();
 		right.add(this.field, BorderLayout.CENTER);
 		right.setVisible(false);
 		right.setVisible(true);

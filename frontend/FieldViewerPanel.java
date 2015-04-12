@@ -149,6 +149,7 @@ public class FieldViewerPanel extends JPanel {
 		while(roster_it.hasNext()){
 			List<Player> players_in_pos = roster_it.next();
 			Iterator<Player> players_in_pos_it = players_in_pos.iterator();
+			players[i].removeAll();
 			
 			while(players_in_pos_it.hasNext()){
 				Player player = players_in_pos_it.next();
