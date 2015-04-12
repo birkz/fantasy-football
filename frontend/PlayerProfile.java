@@ -17,7 +17,6 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,8 +51,8 @@ public class PlayerProfile extends JPanel {
 			
 			this.url = new URL(path);
 			// Check if image is in the hashmap for fast loading
-			if (photos != null && photos.get(path) != null) {
-				this.img = photos.get(path);
+			if (photos != null && photos.get(this.url) != null) {
+				this.img = photos.get(this.url);
 				//System.out.println("loaded from hash");
 			}
 			else {
