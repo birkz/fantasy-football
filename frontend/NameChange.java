@@ -1,4 +1,4 @@
-package is.hi.f2a.frontend;
+package frontend;
 
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -8,11 +8,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 <<<<<<< HEAD
 
+<<<<<<< HEAD
 import is.hi.f2a.tests.InvalidUser;
 import is.hi.f2a.backend.MainGame;
 =======
 import backend.MainGame;
 >>>>>>> parent of 74cfc3e... push to pull
+=======
+import tests.InvalidUser;
+import backend.MainGame;
+>>>>>>> parent of 896621e... changed package location
 
 public class NameChange extends JPanel {
 
@@ -28,14 +33,20 @@ public class NameChange extends JPanel {
 	public NameChange() {
 		JLabel explain = new JLabel("Name: ");
 		name = new JTextField();
-		name.setText(is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getName());
+		name.setText(backend.MainGame.getInstance().getCurrentUser().getName());
 		name.setPreferredSize(new Dimension(200, 30));
 		addChangeListener();
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 		JLabel money = new JLabel("  Money: "+is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getMoney());
 		JLabel score = new JLabel("  Score: "+is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getScore());
 		JLabel round = new JLabel("  Round: "+is.hi.f2a.backend.MainGame.getInstance().getRound());
+=======
+		JLabel money = new JLabel("  Money: "+backend.MainGame.getInstance().getCurrentUser().getMoney());
+		JLabel score = new JLabel("  Score: "+backend.MainGame.getInstance().getCurrentUser().getScore());
+		JLabel round = new JLabel("  Round: "+backend.MainGame.getInstance().getRound());
+>>>>>>> parent of 896621e... changed package location
 		
 =======
 >>>>>>> parent of 74cfc3e... push to pull

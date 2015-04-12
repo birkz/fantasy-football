@@ -1,4 +1,4 @@
-package is.hi.f2a.frontend;
+package frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.*;
 <<<<<<< HEAD
 
+<<<<<<< HEAD
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidPosition;
 import is.hi.f2a.tests.InvalidUser;
@@ -13,6 +14,12 @@ import is.hi.f2a.backend.MainGame;
 =======
 import backend.MainGame;
 >>>>>>> parent of 74cfc3e... push to pull
+=======
+import tests.InvalidPlayer;
+import tests.InvalidPosition;
+import tests.InvalidUser;
+import backend.MainGame;
+>>>>>>> parent of 896621e... changed package location
 
 public class Main {
 	

@@ -1,4 +1,4 @@
-package is.hi.f2a.frontend;
+package frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import is.hi.f2a.tests.InvalidUser;
 import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.backend.User;
@@ -16,6 +17,11 @@ import is.hi.f2a.backend.User;
 import backend.MainGame;
 import backend.User;
 >>>>>>> parent of 74cfc3e... push to pull
+=======
+import tests.InvalidUser;
+import backend.MainGame;
+import backend.User;
+>>>>>>> parent of 896621e... changed package location
 
 public class ScorePanel extends JPanel {
 

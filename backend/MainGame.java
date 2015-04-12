@@ -1,13 +1,20 @@
-package is.hi.f2a.backend;
+package backend;
 
 import java.util.List;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidUser;
 import is.hi.f2a.backend.User;
+=======
+import tests.InvalidPlayer;
+>>>>>>> parent of 896621e... changed package location
 
-import is.hi.f2a.frontend.Main;
+//import tests.InvalidPosition;
+import tests.InvalidUser;
+
+import frontend.Main;
 
 =======
 >>>>>>> parent of 74cfc3e... push to pull
@@ -50,7 +57,7 @@ public class MainGame {
 				currentUser = 0;
 				//here call for simulation of a round
 				try {
-					is.hi.f2a.tests.RoundMock.SimRound();
+					tests.RoundMock.SimRound();
 				} catch (InvalidUser e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

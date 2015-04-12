@@ -1,10 +1,14 @@
-package is.hi.f2a.frontend;
+package frontend;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import java.awt.Image;
+>>>>>>> parent of 896621e... changed package location
 import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
@@ -17,13 +21,19 @@ import java.awt.Image;
 >>>>>>> parent of 74cfc3e... push to pull
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import is.hi.f1a.Player;
 import is.hi.f2a.backend.Roster;
+=======
+import tests.PlayerInterface;
+import backend.Roster;
+>>>>>>> parent of 896621e... changed package location
 
 =======
 >>>>>>> parent of 74cfc3e... push to pull
@@ -41,7 +51,7 @@ public class FieldViewerPanel extends JPanel {
 	public FieldViewerPanel() {
 <<<<<<< HEAD
 		
-		this.roster = is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster();
+		this.roster = backend.MainGame.getInstance().getCurrentUser().getRoster();
 		
 =======
 >>>>>>> parent of 74cfc3e... push to pull
@@ -139,12 +149,16 @@ public class FieldViewerPanel extends JPanel {
 	
 	public void AddToPanels() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Iterator<List<Player>> roster_it = this.roster.getPlayersOnField().iterator();
+=======
+		Iterator<List<PlayerInterface>> roster_it = this.roster.getPlayersOnField().iterator();
+>>>>>>> parent of 896621e... changed package location
 		int i = 3;
 		
 		while(roster_it.hasNext()){
-			List<Player> players_in_pos = roster_it.next();
-			Iterator<Player> players_in_pos_it = players_in_pos.iterator();
+			List<PlayerInterface> players_in_pos = roster_it.next();
+			Iterator<PlayerInterface> players_in_pos_it = players_in_pos.iterator();
 			
 			while(players_in_pos_it.hasNext()){
 				players[i].add(createLabels(players_in_pos_it.next().getName()));

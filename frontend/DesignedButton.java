@@ -1,8 +1,8 @@
-package is.hi.f2a.frontend;
+package frontend;
 
 import java.awt.Color;
 
-import is.hi.f2a.backend.FontUtil;
+import backend.FontUtil;
 
 public class DesignedButton {
 

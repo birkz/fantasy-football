@@ -1,10 +1,10 @@
-package is.hi.f2a.backend;
+package backend;
 
 <<<<<<< HEAD
 import java.util.List;
 
-import is.hi.f1a.Player;
-import is.hi.f2a.tests.InvalidPlayer;
+import tests.InvalidPlayer;
+import tests.PlayerInterface;
 
 =======
 >>>>>>> parent of 74cfc3e... push to pull
@@ -20,8 +20,13 @@ public class User {
 		this.score = new int[10];
 		this.roster = new Roster();
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (is.hi.f2a.res.Constants.TEST_MODE && this.id==0) addRandomPlayersToRoster();
 		this.money = is.hi.f2a.res.Constants.STARTING_MONEY;
+=======
+		if (res.Constants.TEST_MODE && this.id==0) addRandomPlayersToRoster();
+		this.money = res.Constants.STARTING_MONEY;
+>>>>>>> parent of 896621e... changed package location
 	}
 	
 	/*
@@ -69,10 +74,10 @@ public class User {
 	 */
 	private void addRandomPlayersToRoster() throws InvalidPlayer {
 		
-		List<Player> players = is.hi.f1a.FantasyFootballBackend.getInstance().getLeague().getTeams().get(0).getPlayers();
+		List<PlayerInterface> players = frontend.MarketPanel.getLeague().getTeams().get(0).getPlayers();
 		int j = 0;
 		
-		for(Player player : players){
+		for(PlayerInterface player : players){
 			this.roster.addPlayerToRoster(player);
 			if (j++ < 12) this.roster.addPlayerToField(player);
 		}

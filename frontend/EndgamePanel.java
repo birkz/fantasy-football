@@ -1,4 +1,4 @@
-package is.hi.f2a.frontend;
+package frontend;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;

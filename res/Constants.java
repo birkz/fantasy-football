@@ -1,4 +1,4 @@
-package is.hi.f2a.res;
+package res;
 
 public class Constants {
 	/*

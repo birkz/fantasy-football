@@ -1,4 +1,4 @@
-package is.hi.f2a.frontend;
+package frontend;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -12,10 +12,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import is.hi.f2a.tests.InvalidUser;
 import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.backend.StatsHistory;
 import is.hi.f2a.backend.User;
+=======
+import tests.InvalidUser;
+import backend.MainGame;
+import backend.StatsHistory;
+import backend.User;
+>>>>>>> parent of 896621e... changed package location
 
 =======
 >>>>>>> parent of 74cfc3e... push to pull
