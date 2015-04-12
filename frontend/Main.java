@@ -25,8 +25,6 @@ public class Main {
 	
 	private FieldViewerPanel field;
 	
-	//private boolean winlocationset = false; //Breyta til að stöðva endurstaðsetningu glugga
-	
 	private Main() {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,31 +111,12 @@ public class Main {
 
         frame.setVisible(true);
         
-        // Keyrum í nýjum þræði að setja upp og sækja profile myndir af leikmönnum
+        // Birtum PlayerProfile í nýjum þræði í byrjun til að flýta fyrir opnun leiksins
         InnerThread profileloading = new InnerThread();
         profileloading.start();
         
         frame.validate();
       
-	}
-	
-	public void loadFieldProfiles() throws IOException {
-		field.addProfiles();
-	}
-	
-	private class InnerThread extends Thread {
-
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			try {
-				loadFieldProfiles();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
 	}
 	
 	public void restartFrame() throws InvalidUser, IOException {
@@ -206,9 +185,14 @@ public class Main {
 	public void setPanelAsFieldViewer() throws IOException {
 		BorderLayout layout = (BorderLayout) right.getLayout();
 		right.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-		right.add(new FieldViewerPanel(), BorderLayout.CENTER);
+		this.field = new FieldViewerPanel();
+		right.add(this.field, BorderLayout.CENTER);
 		right.setVisible(false);
 		right.setVisible(true);
+		// Þarf ekki að loada hér í nýjum þræði því hverri mynd fyrir sig er loadað í nýjum þræði
+		// Þá komum við í veg fyrir að völlurinn birtist í sekúndubrot á undan leikmönnum
+		loadFieldProfiles();
+
 	}
 
 	public static void main(String[] args) {
@@ -222,6 +206,35 @@ public class Main {
 
 	public void packFrame() {
 		frame.pack();
+	}
+	
+	/////////////////////////
+	// Football field stuff
+	/////////////////////////
+	private void loadFieldProfiles() throws IOException {
+		field.addProfiles();
+	}
+	
+	public void refreshRightPanel() {
+		right.setVisible(false);
+		right.setVisible(true);
+		right.validate();
+	}
+	
+	private class InnerThread extends Thread {
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			try {
+				//repaintField();
+				loadFieldProfiles();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }
 

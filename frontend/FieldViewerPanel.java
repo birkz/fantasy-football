@@ -55,7 +55,7 @@ public class FieldViewerPanel extends JPanel {
 			players[i].setOpaque(false);
 			add(players[i]);
 		}
-		validate();
+		Main.getInstance().refreshRightPanel();
 	}
 	
 	@Override
