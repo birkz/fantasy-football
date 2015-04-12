@@ -1,7 +1,6 @@
 package is.hi.f2a.tests;
 
 import java.util.Random;
-import is.hi.f1a.Player.Position;
 
 public class PlayerMock implements PlayerInterface {
 
@@ -15,14 +14,18 @@ public class PlayerMock implements PlayerInterface {
 	/*
 	 * Constructor
 	 */
-	public PlayerMock(String name, Position goalkeeper){
+	public PlayerMock(String name, Position pos){
 		this.name = name;
+<<<<<<< HEAD
 		this.position = goalkeeper;
 =======
 	public PlayerMock(String name, String pos){
 		this.name = name;
 		this.positionName = pos;
 >>>>>>> parent of 74cfc3e... push to pull
+=======
+		this.position = pos;
+>>>>>>> parent of 64162c5... more changes for the integration
 		
 		Random randomno = new Random();
 		this.price = randomno.nextDouble()*1000;

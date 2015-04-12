@@ -6,7 +6,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import is.hi.f2a.backend.User;
+import backend.User;
 
 public class UserTest {
 	

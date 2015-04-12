@@ -111,7 +111,7 @@ public class StartPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		//The static logo
 		Dimension size = Main.getInstance().returnSizeForPanel();
-		Image img = new ImageIcon("src/is/hi/f2a/res/Images/logo_standard.png").getImage();
+		Image img = new ImageIcon("src/res/Images/logo_standard.png").getImage();
 		int imagehalfwidth = img.getWidth(null)/2;
 		int framehalfwidth = size.width;
 		int centeroffset = framehalfwidth-imagehalfwidth;

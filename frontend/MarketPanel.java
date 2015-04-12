@@ -21,12 +21,16 @@ import is.hi.f2a.frontend.Main;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidPosition;
 import is.hi.f2a.tests.InvalidUser;
+<<<<<<< HEAD
 =======
 import tests.LeagueMock;
 import tests.PlayerInterface;
 import tests.PlayerMock;
 import tests.TeamMock;
 >>>>>>> parent of 74cfc3e... push to pull
+=======
+import is.hi.f2a.tests.PlayerInterface;
+>>>>>>> parent of 64162c5... more changes for the integration
 
 public class MarketPanel extends JPanel {
 
@@ -376,11 +380,11 @@ public class MarketPanel extends JPanel {
 <<<<<<< HEAD
 	
 	private String positionToString(Position position){
-		if(position.equals(Position.GOALKEEPER))
+		if(position.equals(PlayerInterface.Position.GOALKEEPER))
 			return "Goalkeeper";
-		else if(position.equals(Position.DEFENDER))
+		else if(position.equals(PlayerInterface.Position.DEFENDER))
 			return "Defender";
-		else if(position.equals(Position.MIDFIELDER))
+		else if(position.equals(PlayerInterface.Position.MIDFIELDER))
 			return "Midfielder";
 		else
 			return "Forward";
