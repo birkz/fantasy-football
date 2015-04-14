@@ -20,6 +20,9 @@ public class Roster {
 	// private Player captain;
 	private int numberOfPlayersOnField;
 	
+	private List<Player> newlyBought;
+	private List<Player> newlySold;
+	
 	/*
 	 * Constants
 	 */
@@ -45,6 +48,8 @@ public class Roster {
 		this.midfieldersOnField = new ArrayList<Player>(MAX_MIDFIELDERS_ON_FIELD);
 		this.forwards = new ArrayList<Player>(MAX_FORWARDS);
 		this.forwardsOnField = new ArrayList<Player>(MAX_FORWARDS_ON_FIELD);
+		this.newlyBought = new ArrayList<Player>(Constants.MAX_FORWARDS+Constants.MAX_MIDFIELDERS+Constants.MAX_DEFENDERS+Constants.MAX_GOALKEEPERS);
+		this.newlySold = new ArrayList<Player>(Constants.MAX_FORWARDS+Constants.MAX_MIDFIELDERS+Constants.MAX_DEFENDERS+Constants.MAX_GOALKEEPERS);
 	}
 	
 	// Usage: i = getNumberOfPlayersOnField()
@@ -52,6 +57,14 @@ public class Roster {
 	// After: i is the number of players currently on the field.
 	public int getNumberOfPlayersOnField(){
 		return this.numberOfPlayersOnField;
+	}
+	
+	public List<Player> getNewlyBought(){
+		return this.newlyBought;
+	}
+	
+	public List<Player> getNewlySold(){
+		return this.newlySold;
 	}
 	
 	// Usage: removePlayerFromField(player)
@@ -276,12 +289,20 @@ public class Roster {
 	public boolean sellPlayer(Player player) throws InvalidPlayer{
 		if(removePlayerFromRoster(player)){
 			try {
-				is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().changeMoney(player.getPrice());
+				MainGame.getInstance().getCurrentUser().changeMoney(player.getPrice());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if(is.hi.f2a.res.Constants.VERBOSE)
+			if(Constants.VERBOSE)
 				System.out.println("This player was sold! You made "+player.getPrice());
+			
+			//player.playerSold();
+			if(this.newlyBought.contains(player)){
+				this.newlyBought.remove(player);
+			} else {
+				this.newlySold.add(player);
+			}
+			
 			return true;
 		}
 		return false;
@@ -291,23 +312,31 @@ public class Roster {
 	 * Function that buys a player.
 	 */
 	public boolean buyPlayer(Player player) throws InvalidPosition, InvalidPlayer{
-		if(!is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().isAffordable(player.getPrice())){
-			if(is.hi.f2a.res.Constants.VERBOSE)
+		if(!MainGame.getInstance().getCurrentUser().isAffordable(player.getPrice())){
+			if(Constants.VERBOSE)
 				System.out.println("This player is too expensive!");
 			return false;
 		}
 		if(addPlayerToRoster(player)){
 			try {
-				is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().changeMoney(-player.getPrice());
+				MainGame.getInstance().getCurrentUser().changeMoney(-player.getPrice());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if(is.hi.f2a.res.Constants.VERBOSE)
+			if(Constants.VERBOSE)
 				System.out.println("This player was bought! You lost "+(-player.getPrice()));
+			
+			// Leikmaður getur verið keyptur
 			addPlayerToField(player);
+			
+			if(this.newlySold.contains(player)){
+				this.newlySold.remove(player);
+			} else {
+				this.newlyBought.add(player);
+			}
 			return true;
 		} else {
-			if(is.hi.f2a.res.Constants.VERBOSE)
+			if(Constants.VERBOSE)
 				System.out.println("You can't have more players in that position!");
 		}
 		return false;

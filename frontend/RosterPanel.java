@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.awt.GridLayout;
 import java.util.List;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -34,7 +33,7 @@ public class RosterPanel extends JPanel {
 	 * @param game 
 	 */
 	private Roster roster;
-	private JLabel num_players;
+	//private JLabel num_players;
 	private final Integer IS_ON_FIELD_COLUMN = 7;
 	
 	/*
@@ -48,12 +47,12 @@ public class RosterPanel extends JPanel {
 		String[] labels = new String[]{"Goalkeepers", "Defenders", "Midfielders", "Forwarders"};
 		Integer j = 0;
 		
-		this.num_players = new JLabel("Number of players on field: "+roster.getNumberOfPlayersOnField()+" (of 11)");
+		/*this.num_players = new JLabel("Number of players on field: "+roster.getNumberOfPlayersOnField()+" (of 11)");
 		if(roster.getNumberOfPlayersOnField() == 11){
 			num_players.setText(num_players.getText()+" Gratz, you have a full squad!");
 		}
 		
-		add(this.num_players, BorderLayout.NORTH);
+		add(this.num_players, BorderLayout.NORTH);*/
 		final Integer[] max_in_pos = new Integer[]{1,5,5,3};
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(4, 1, 5, 5));
