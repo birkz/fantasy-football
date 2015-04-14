@@ -3,12 +3,8 @@ package is.hi.f2a.frontend;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-
 import java.io.IOException;
-
 import java.awt.GridLayout;
-
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -39,7 +35,7 @@ public class RosterPanel extends JPanel {
 	 */
 	private Roster roster;
 	private JLabel num_players;
-	private final Integer IS_ON_FIELD_COLUMN = 2;
+	private final Integer IS_ON_FIELD_COLUMN = 5;
 	
 	/*
 	 * Constructor
@@ -48,14 +44,7 @@ public class RosterPanel extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		
 		this.roster = MainGame.getInstance().getCurrentUser().getRoster();
-		
-		// Henda út þessu þegar við intergrate-um
-		/*if(roster.getPlayersInRoster().get(0).size() == 0){
-			addRandomPlayersToRoster();
-		}*/
-		
 		List<List<Player>> roster_lists = this.roster.getPlayersInRoster();
-		Iterator<List<Player>> roster_lists_it = roster_lists.iterator();
 		String[] labels = new String[]{"Goalkeepers", "Defenders", "Midfielders", "Forwarders"};
 		Integer j = 0;
 		
@@ -63,26 +52,30 @@ public class RosterPanel extends JPanel {
 		if(roster.getNumberOfPlayersOnField() == 11){
 			num_players.setText(num_players.getText()+" Gratz, you have a full squad!");
 		}
+		
 		add(this.num_players, BorderLayout.NORTH);
 		final Integer[] max_in_pos = new Integer[]{1,5,5,3};
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(4, 1, 5, 5));
-		while(roster_lists_it.hasNext()){
-			String[] columnNames = {labels[j], "Price", "On Field"};
-			
-			List<Player> players = roster_lists_it.next();
+		
+		for(List<Player> players : roster_lists){
+			String[] columnNames = {labels[j], "Price", "Cards", "Injury", "Points", "On Field"};
 			
 			int player_size = players.size();
-			Object[][] data = new Object[player_size][3];
+			Object[][] data = new Object[player_size][IS_ON_FIELD_COLUMN+1];
 			
-			Iterator<Player> player_it = players.iterator();
 			int i = 0;
 			
-			while(player_it.hasNext()){
-				Player player = player_it.next();
+			for(Player player : players){
 				data[i][0] = player.getName();
 				data[i][1] = player.getPrice();
-				data[i][2] = roster.isOnField(player);
+				String cards = "";
+				if(player.getRedCards()>0) cards += "Red ";
+				if(player.getYellowCards()>0) cards += player.getYellowCards()+"Yel";
+				data[i][2] = cards;
+				if(player.getInjuryLength()>0) data[i][3] = player.getInjuryLength();
+				data[i][4] = player.getTotalPoints();
+				data[i][IS_ON_FIELD_COLUMN] = roster.isOnField(player);
 				i++;
 			}
 			
@@ -96,9 +89,15 @@ public class RosterPanel extends JPanel {
 			    public boolean isCellEditable(int row, int column) {
 			    	//all cells false except column IS_ON_FIELD_COLUMN
 					if (column == IS_ON_FIELD_COLUMN && dtm.getValueAt(row, column).equals(true)) {
+						// Ef leikmaður er inná vellinum
 						return true;
-					} else if (column == IS_ON_FIELD_COLUMN && roster.getNumberOfPlayersOnField() < 11 &&
+					} else if(column == IS_ON_FIELD_COLUMN && pos_id == 0 && roster.getNumberOfPlayersOnField() < 11 &&
+							roster.getPlayersOnField().get(0).size() < max_in_pos[0]){
+						// Ef leikmaður er markmaður (og færri en 11 á vellinum)
+						return true;
+					} else if (column == IS_ON_FIELD_COLUMN && roster.getNumberOfPlayersOnField() < 10 &&
 							roster.getPlayersOnField().get(pos_id).size() < max_in_pos[pos_id]){
+						// Ef leikmaður er ekki inná vellinum  (og færri en 10 á vellinum)
 						return true;
 					}
 				    return false;
@@ -113,13 +112,19 @@ public class RosterPanel extends JPanel {
 						} else {
 							c.setBackground(Color.red);
 						}
-					}
+					} else if (rowIndex % 2 == 0) {
+			          c.setBackground(new Color(0,0,255,32));
+			        } else {
+			          c.setBackground(getBackground());
+			        }
+					
 					return c;
 				}
 			};
 			
 			table.setEnabled(true);
 			table.setFocusable(false);
+			table.setShowGrid(false);
 			table.setRowSelectionAllowed(false);
 			//table.setFillsViewportHeight(true);
 			table.getColumn("On Field").setMaxWidth(60);

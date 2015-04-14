@@ -6,7 +6,6 @@ import java.util.List;
 import is.hi.f1a.Player;
 import is.hi.f2a.tests.InvalidUser;
 import is.hi.f2a.tests.InvalidPlayer;
-import is.hi.f2a.tests.PlayerInterface;
 
 public class StatsHistory {
 	
@@ -56,10 +55,10 @@ public class StatsHistory {
 		throw new InvalidPlayer(player.getName() + " is not a player");
 	}
 	
-	public void addScoreToPlayer(PlayerInterface player, int score) throws InvalidPlayer{
+	public void addScoreToPlayer(Player player, int score) throws InvalidPlayer{
 		boolean playerfound = false;
 		for(ObjectScores temp : this.allrosterscores) {
-			if(((PlayerInterface)temp.getObject()).equals(player)) {
+			if(((Player)temp.getObject()).equals(player)) {
 				temp.addScore(score);
 				playerfound = true;
 			}
