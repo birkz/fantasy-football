@@ -52,10 +52,14 @@ public class GraphData extends JPanel {
 		draw.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		int highscore = 10;
+		int minScore = -20; 
 		for(int i=0; i<numUsers; ++i) {
 			int score = users.get(i).getScore();	
 			if(highscore < score) {
 				highscore = score;
+			}
+			if(minScore > score) {
+				minScore = score;
 			}
 		}
 		int maxscore = (int) (Math.ceil(((double)highscore) /100)*10.0);
@@ -72,9 +76,9 @@ public class GraphData extends JPanel {
 				draw.setColor(col[i]);
 		        draw.setStroke(new BasicStroke(2));
 		        GeneralPath line = new GeneralPath();
-		        line.moveTo(0, height);
+		        line.moveTo(0, height+minScore);
 		        for(int k=0; k<allscores.size(); ++k) {
-		        	line.lineTo((k+1)*width/10, height-height/maxscore*(allscores.get(k)/10));
+		        	line.lineTo((k+1)*width/10, (height-height/(maxscore-minScore)*(allscores.get(k)/10)+minScore));
 		        }
 		        draw.draw(line);
 				
