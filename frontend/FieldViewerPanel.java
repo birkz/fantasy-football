@@ -35,7 +35,7 @@ public class FieldViewerPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel[] players = new JPanel[]{new JPanel(), new JPanel(), new JPanel(), new JPanel()};
-	private final Roster roster;
+	private Roster roster;
 
 	/**
 	 * Create the panel.
@@ -48,6 +48,8 @@ public class FieldViewerPanel extends JPanel {
 	}
 	
 	public void addProfiles() throws IOException {
+		
+		this.roster = is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster();
 		
 		setLayout(new GridLayout(4, 1, 2, 2));
 		AddToPanels();
