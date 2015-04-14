@@ -69,13 +69,21 @@ public class GraphData extends JPanel {
 		
 		StatsHistory stats = MainGame.getInstance().getStatsHistory();
 		List<Integer> allscores;
-
+		draw.setColor(new Color(0, 0, 0, 50));
+		draw.setStroke(new BasicStroke(1));
+		for(int i=1; i<10; ++i) {
+			draw.drawLine(i*width/10, 0, i*width/10, height);
+		}
+		for(int i=1; i<maxscore; ++i) {
+			draw.drawLine(0, i*height/maxscore, width, i*height/maxscore);
+		}
+		System.out.println(maxscore);
+		draw.setStroke(new BasicStroke(2));
 		for(int i=0; i<numUsers; ++i) {
 			try {
 				allscores = stats.getTotalUserScores(users.get(i));
 		
 				draw.setColor(col[i]);
-		        draw.setStroke(new BasicStroke(2));
 		        GeneralPath line = new GeneralPath();
 		        line.moveTo(0, height+minScore);
 		        for(int k=0; k<allscores.size(); ++k) {
