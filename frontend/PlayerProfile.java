@@ -1,6 +1,7 @@
 package is.hi.f2a.frontend;
 
 import is.hi.f2a.backend.FontUtil;
+import is.hi.f2a.tests.InvalidUser;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -35,15 +36,16 @@ public class PlayerProfile extends JPanel {
 	private Image img;
 	private URL url;
 	private boolean loadfailed = false;
-	private JPanel north;
-	private JPanel south;
 	private JLabel name;
+	
+	private final int xmargin = 10;
+	private final int ymargin = 28;
+	
 
 	public PlayerProfile(String path, String playername) throws IOException {
 		
 		this.diameter = Main.getInstance().getFieldViewer().profilesize();
-		this.north = new JPanel();
-		this.south = new JPanel();
+
 		this.name = createLabel(playername);
 		
 		try {
@@ -69,13 +71,16 @@ public class PlayerProfile extends JPanel {
 		}
 	
 		setLayout(new BorderLayout(0, 0));
-		north.setPreferredSize(new Dimension(this.diameter, this.diameter));
-		north.setOpaque(false);
-		south.setOpaque(false);
-		south.add(this.name);
+		//setOpaque(false);
+		//setBackground(Color.red);
+		setPreferredSize(new Dimension(this.diameter+xmargin, this.diameter+ymargin));
+		//setOpaque(false);
+		//north.setOpaque(false);
+		//south.setOpaque(false);
+		//south.add(this.name);
 		
-		add(north, BorderLayout.NORTH);
-		add(south, BorderLayout.SOUTH);
+		//add(north, BorderLayout.NORTH);
+		add(this.name, BorderLayout.SOUTH);
 		
 	}
 	
@@ -110,11 +115,11 @@ public class PlayerProfile extends JPanel {
 		g2.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)); 
 		
 		this.diameter = Main.getInstance().getFieldViewer().profilesize();
-		north.setPreferredSize(new Dimension(this.diameter, this.diameter));
-		//south.setPreferredSize(new Dimension(this.diameter, 24));
+		this.setPreferredSize(new Dimension(this.diameter+xmargin, this.diameter+ymargin));
+
 		//System.out.println("diameter: " + this.diameter);
 		//System.out.println("north: " + north.getWidth());
-		//Main.getInstance().getFieldViewer().setLayout(new GridLayout(4, 1, 2, 2));
+
 	
 		
 		int imgwidth = this.img.getWidth(null);
@@ -140,8 +145,10 @@ public class PlayerProfile extends JPanel {
 		g2.setPaint(Color.WHITE);
 		g2.draw(new Ellipse2D.Double(circleoffset, 0, diameter, diameter));
 		
+		//setVisible(true);
 		//validate();
 		//Main.getInstance().refreshRightPanel();
+		
 	}
 	
 	private JLabel createLabel(String name) {
