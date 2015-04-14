@@ -195,17 +195,12 @@ public class Main {
 
 	}
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run(){
-            	getInstance().createAndShowGUI();
-            }
-        });
-	}
-
 	public void packFrame() {
 		frame.pack();
+	}
+	
+	public FieldViewerPanel getFieldViewer() {
+		return this.field;
 	}
 	
 	/////////////////////////
@@ -235,6 +230,18 @@ public class Main {
 			}
 		}
 		
+	}
+	
+	///////
+	//MAIN
+	///////
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run(){
+            	getInstance().createAndShowGUI();
+            }
+        });
 	}
 }
 

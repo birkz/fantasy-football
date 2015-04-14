@@ -1,6 +1,7 @@
 package is.hi.f2a.frontend;
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,7 +21,6 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -149,14 +149,16 @@ public class FieldViewerPanel extends JPanel {
 			
 			while(players_in_pos_it.hasNext()){
 				Player player = players_in_pos_it.next();
-				int profilesize = (this.getWidth()+this.getHeight())/10;
-				//System.out.println(profilesize);
 				players[i].add(new PlayerProfile(player.getPhoto(), player.getName()));
 				//players[i].add(createLabels(player.getName()));
 			}
 			
 			i--;
 		}
+	}
+	
+	public int profilesize() {
+		return (this.getWidth()+this.getHeight())/12;
 	}
 
 }

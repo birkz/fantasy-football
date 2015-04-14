@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Shape;
@@ -33,7 +34,7 @@ public class PlayerProfile extends JPanel {
 	
 	private static final Map<URL, Image> photos = new HashMap<URL, Image>();
 	
-	private int diameter = 100;
+	private int diameter;
 	private Image img;
 	private URL url;
 	private boolean loadfailed = false;
@@ -43,6 +44,7 @@ public class PlayerProfile extends JPanel {
 
 	public PlayerProfile(String path, String playername) throws IOException {
 		
+		this.diameter = Main.getInstance().getFieldViewer().profilesize();
 		this.north = new JPanel();
 		this.south = new JPanel();
 		this.name = createLabel(playername);
@@ -70,7 +72,7 @@ public class PlayerProfile extends JPanel {
 		}
 	
 		setLayout(new BorderLayout(0, 0));
-		north.setPreferredSize(new Dimension(diameter, diameter));
+		north.setPreferredSize(new Dimension(this.diameter, this.diameter));
 		north.setOpaque(false);
 		south.setOpaque(false);
 		south.add(this.name);
@@ -110,6 +112,14 @@ public class PlayerProfile extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)); 
 		
+		this.diameter = Main.getInstance().getFieldViewer().profilesize();
+		north.setPreferredSize(new Dimension(this.diameter, this.diameter));
+		//south.setPreferredSize(new Dimension(this.diameter, 24));
+		//System.out.println("diameter: " + this.diameter);
+		//System.out.println("north: " + north.getWidth());
+		//Main.getInstance().getFieldViewer().setLayout(new GridLayout(4, 1, 2, 2));
+	
+		
 		int imgwidth = this.img.getWidth(null);
 		int imgheight = this.img.getHeight(null);
 		int base = this.diameter+10;
@@ -132,6 +142,9 @@ public class PlayerProfile extends JPanel {
 		
 		g2.setPaint(Color.WHITE);
 		g2.draw(new Ellipse2D.Double(circleoffset, 0, diameter, diameter));
+		
+		//validate();
+		//Main.getInstance().refreshRightPanel();
 	}
 	
 	private JLabel createLabel(String name) {
