@@ -62,13 +62,14 @@ public class GraphData extends JPanel {
 				minScore = score;
 			}
 		}
-		int maxscore = (int) (Math.ceil(((double)highscore) /100)*10.0);
+		int maxscore = (int) (Math.ceil(((double)highscore) /10)*10.0);
 		
 		draw.setColor(Color.WHITE);
 		draw.fill(new Rectangle2D.Double(0, 0, width, height));
 		
 		StatsHistory stats = MainGame.getInstance().getStatsHistory();
 		List<Integer> allscores;
+
 		for(int i=0; i<numUsers; ++i) {
 			try {
 				allscores = stats.getTotalUserScores(users.get(i));
@@ -78,7 +79,7 @@ public class GraphData extends JPanel {
 		        GeneralPath line = new GeneralPath();
 		        line.moveTo(0, height+minScore);
 		        for(int k=0; k<allscores.size(); ++k) {
-		        	line.lineTo((k+1)*width/10, (height-height/(maxscore-minScore)*(allscores.get(k)/10)+minScore));
+		        	line.lineTo((k+1)*width/10, (height-height/(maxscore-minScore)*(allscores.get(k))+minScore));
 		        }
 		        draw.draw(line);
 				
