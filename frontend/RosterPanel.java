@@ -52,6 +52,7 @@ public class RosterPanel extends JPanel {
 		if(roster.getNumberOfPlayersOnField() == 11){
 			num_players.setText(num_players.getText()+" Gratz, you have a full squad!");
 		}
+		
 		add(this.num_players, BorderLayout.NORTH);
 		final Integer[] max_in_pos = new Integer[]{1,5,5,3};
 		JPanel panel = new JPanel();
@@ -88,9 +89,15 @@ public class RosterPanel extends JPanel {
 			    public boolean isCellEditable(int row, int column) {
 			    	//all cells false except column IS_ON_FIELD_COLUMN
 					if (column == IS_ON_FIELD_COLUMN && dtm.getValueAt(row, column).equals(true)) {
+						// Ef leikmaður er inná vellinum
 						return true;
-					} else if (column == IS_ON_FIELD_COLUMN && roster.getNumberOfPlayersOnField() < 11 &&
+					} else if(column == IS_ON_FIELD_COLUMN && pos_id == 0 && roster.getNumberOfPlayersOnField() < 11 &&
+							roster.getPlayersOnField().get(0).size() < max_in_pos[0]){
+						// Ef leikmaður er markmaður (og færri en 11 á vellinum)
+						return true;
+					} else if (column == IS_ON_FIELD_COLUMN && roster.getNumberOfPlayersOnField() < 10 &&
 							roster.getPlayersOnField().get(pos_id).size() < max_in_pos[pos_id]){
+						// Ef leikmaður er ekki inná vellinum  (og færri en 10 á vellinum)
 						return true;
 					}
 				    return false;
