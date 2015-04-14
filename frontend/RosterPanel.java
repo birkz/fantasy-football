@@ -35,7 +35,7 @@ public class RosterPanel extends JPanel {
 	 */
 	private Roster roster;
 	private JLabel num_players;
-	private final Integer IS_ON_FIELD_COLUMN = 6;
+	private final Integer IS_ON_FIELD_COLUMN = 7;
 	
 	/*
 	 * Constructor
@@ -59,7 +59,7 @@ public class RosterPanel extends JPanel {
 		panel.setLayout(new GridLayout(4, 1, 5, 5));
 		
 		for(List<Player> players : roster_lists){
-			String[] columnNames = {labels[j], "Price", "RC", "YC", "Injury", "Points", "On Field"};
+			String[] columnNames = {labels[j], "Price", "RC", "YC", "Injury", "Points", "Available", "On Field"};
 			
 			int player_size = players.size();
 			Object[][] data = new Object[player_size][IS_ON_FIELD_COLUMN+1];
@@ -69,14 +69,34 @@ public class RosterPanel extends JPanel {
 			for(Player player : players){
 				data[i][0] = player.getName();
 				data[i][1] = player.getPrice();
-				String cards = "";
+				
 				if(player.getRedCards()>0) data[i][2] = " ";
 				else data[i][2] = "";
 				if(player.getYellowCards()>0) data[i][3] = player.getYellowCards();
 				else data[i][3] = "";
 				if(player.getInjuryLength()>0) data[i][4] = player.getInjuryLength();
 				data[i][5] = player.getTotalPoints();
-				data[i][IS_ON_FIELD_COLUMN] = roster.isOnField(player);
+				if(player.isAvailable(false)){
+					data[i][6] = "Yes";
+				} else {
+					data[i][6] = "No";
+				}
+				
+				if(roster.isOnField(player)) {
+					if(!player.isAvailable(false)){
+						roster.removePlayerFromField(player);
+						try {
+							Main.getInstance().setPanelAsFieldViewer();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						data[i][IS_ON_FIELD_COLUMN] = false;
+					} else {
+						data[i][IS_ON_FIELD_COLUMN] = true;
+					}
+				} else {
+					data[i][IS_ON_FIELD_COLUMN] = false;
+				}
 				i++;
 			}
 			
@@ -94,11 +114,13 @@ public class RosterPanel extends JPanel {
 						// Ef leikmaður er inná vellinum
 						return true;
 					} else if(pos_id == 0 && roster.getNumberOfPlayersOnField() < 11 &&
-							roster.getPlayersOnField().get(0).size() < max_in_pos[0]){
+							roster.getPlayersOnField().get(0).size() < max_in_pos[0] && 
+							dtm.getValueAt(row, column-1).equals("Yes")){
 						// Ef leikmaður er markmaður (og færri en 11 á vellinum)
 						return true;
 					} else if (roster.getNumberOfPlayersOnField() < 10+roster.getPlayersOnField().get(0).size() &&
-							roster.getPlayersOnField().get(pos_id).size() < max_in_pos[pos_id]){
+							roster.getPlayersOnField().get(pos_id).size() < max_in_pos[pos_id] && 
+							dtm.getValueAt(row, column-1).equals("Yes")){
 						// Ef leikmaður er ekki inná vellinum  (og færri en 10 á vellinum)
 						return true;
 					}
@@ -108,12 +130,13 @@ public class RosterPanel extends JPanel {
 				public Component prepareRenderer(TableCellRenderer renderer,int rowIndex, int vColIndex) {
 					Component c = super.prepareRenderer(renderer, rowIndex, vColIndex);
 					if(vColIndex == IS_ON_FIELD_COLUMN){
-						if (isCellEditable(rowIndex, vColIndex) && dtm.getValueAt(rowIndex, vColIndex).equals(false)){
+						if (isCellEditable(rowIndex, vColIndex) && dtm.getValueAt(rowIndex, vColIndex).equals(false)
+								&& dtm.getValueAt(rowIndex, vColIndex-1).equals("Yes")){
 							c.setBackground(new Color(0,255,0,155));
 						} else {
 							c.setBackground(new Color(255,0,0,155));
 						}
-					} else if (vColIndex == 2 && dtm.getValueAt(rowIndex, vColIndex).equals(" ")) {
+					} else if (vColIndex == 2 && !dtm.getValueAt(rowIndex, vColIndex).equals("")) {
 						c.setBackground(Color.red);
 					} else if (vColIndex == 3 && !dtm.getValueAt(rowIndex, vColIndex).equals("")) {
 						c.setBackground(Color.yellow);
