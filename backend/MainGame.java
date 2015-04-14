@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import is.hi.f1a.FantasyFootballBackend;
+import is.hi.f1a.Player;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidUser;
 import is.hi.f2a.backend.User;
@@ -52,8 +53,9 @@ public class MainGame {
 				//is.hi.f2a.tests.RoundMock.SimRound();
 				round++;
 				updateUserScore();
-				
+				sendPlayersBoughtAndSold();
 			}
+			
 			Main.getInstance().restartFrame();
 		}
 		if(round == 10) {
@@ -99,5 +101,20 @@ public class MainGame {
 			if(user.getScore() > currentUserScore) placement++;
 		}
 		return placement;
+	}
+	
+	private void sendPlayersBoughtAndSold(){
+		for(User user : users){
+			List<Player> playersBought = user.getRoster().getNewlyBought();
+			for(Player player : playersBought){
+				player.playerBought();
+			}
+			
+			List<Player> playersSold = user.getRoster().getNewlySold();
+			for(Player player : playersSold){
+				player.playerSold();
+			}
+		}
+		return;
 	}
 }
