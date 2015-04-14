@@ -62,20 +62,30 @@ public class GraphData extends JPanel {
 				minScore = score;
 			}
 		}
-		int maxscore = (int) (Math.ceil(((double)highscore) /10)*10.0);
+		double maxscore = (Math.ceil(((double)highscore) /10)*10.0);
 		
 		draw.setColor(Color.WHITE);
 		draw.fill(new Rectangle2D.Double(0, 0, width, height));
 		
 		StatsHistory stats = MainGame.getInstance().getStatsHistory();
 		List<Integer> allscores;
+		
+		draw.setColor(new Color(0, 0, 0, 50));
+		draw.setStroke(new BasicStroke(1));
+		for(int i=1; i<10; ++i) {
+			draw.drawLine(i*width/10, 0, i*width/10, height);
+		}
+		double num = height/maxscore*5;
+		for(int i=1; (int) (i*num)<height; ++i) {
+			draw.drawLine(0, (int) (i*num), width,(int) (i*num));
+		}
 
+		draw.setStroke(new BasicStroke(2));
 		for(int i=0; i<numUsers; ++i) {
 			try {
 				allscores = stats.getTotalUserScores(users.get(i));
 		
 				draw.setColor(col[i]);
-		        draw.setStroke(new BasicStroke(2));
 		        GeneralPath line = new GeneralPath();
 		        line.moveTo(0, height+minScore);
 		        for(int k=0; k<allscores.size(); ++k) {
