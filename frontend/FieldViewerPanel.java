@@ -135,13 +135,7 @@ public class FieldViewerPanel extends JPanel {
 	private void drawField(Graphics2D g2, int width, int height, int line_offset) {
 		g2.fill(new Rectangle2D.Double(0, 0, width, height)); 
 	}
-
-/*	
-	@Override
-    public Dimension getPreferredSize() {
-        return Main.getInstance().returnSizeForPanel();
-    }
- */  
+  
 	public void AddToPanels() throws IOException {
 		Iterator<List<Player>> roster_it = this.roster.getPlayersOnField().iterator();
 		int i = 3;

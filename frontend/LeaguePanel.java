@@ -49,15 +49,17 @@ public class LeaguePanel extends JPanel {
 		String[] columnNames2 = {"HomeTeam", "AwayTeam", "Score", "Round","Status"};
 		int numGames = (mainGame.getRound()+showPlan)*5;
 		data = new Object[numGames][];
-		int round = 0;
-		String status = "Finished";
+		int round = mainGame.getRound()+1;
+		String status = "Planned";
+		int k = 0;
 		for(int i=numGames-1; i>=0; --i) {
 			Game current = games.get(i);
-			if((i+1)%5 == 0) round++;
-			if((mainGame.getRound())<round) status = "Planned";
+			if(mainGame.getRound()==round) status = "Finished";
 			Object[] game = new Object[]{current.getHomeTeam().getName(), current.getAwayTeam().getName(), 
 					current.getHomeScore()+" - "+current.getAwayScore(), round, status};
-			data[i] = game;
+			data[k] = game;
+			if((k+1)%5 == 0) round--;
+			k++;
 		}
 		JTable tableGames = new JTable(data, columnNames2);
 		tableGames.setEnabled(false);
