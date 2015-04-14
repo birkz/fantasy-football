@@ -6,6 +6,8 @@ import is.hi.f1a.Player.Position;
 import is.hi.f1a.Team;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.*;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import javax.swing.*;
 import javax.swing.RowSorter.SortKey;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.frontend.ButtonColumn;
@@ -219,7 +222,7 @@ public class MarketPanel extends JPanel {
 	 * get a new JTable object
 	 */
 	private JTable getJTable(String player_searched, String team_searched, String pos_searched){
-		String[] columnNames = {"Player","Team","Position","Price", "Scores",""};
+		String[] columnNames = {"Player","Team","Position","Price", "Score",""};
 		Object[][] data = null;
 		
 		try {
@@ -233,7 +236,7 @@ public class MarketPanel extends JPanel {
 
 			@Override
 		    public Class<?> getColumnClass(int column) {
-		        if (column == 3) {
+		        if (column == 3 || column == 4) {
 		            return Integer.class;
 		        }
 		        return super.getColumnClass(column);
@@ -247,14 +250,26 @@ public class MarketPanel extends JPanel {
 			
 			@Override
 		    public boolean isCellEditable(int row, int column) {
-		    	//all cells false except column 4 (button)
-			    return (column==5);
+				//all cells false except column 5 (button)
+				if(column!=5) return false;
+			    return true;
+		    }
+			
+			public Component prepareRenderer(TableCellRenderer renderer, int rowIndex, int vColIndex) {
+		        Component c = super.prepareRenderer(renderer, rowIndex, vColIndex);
+		        if (rowIndex % 2 == 0 && vColIndex != 5) {
+		          c.setBackground(new Color(0,0,255,32));
+		        } else {
+		          c.setBackground(getBackground());
+		        }
+		        return c;
 		    }
 		};
 		
 		table.setEnabled(true);
-		table.getColumn("Player").setPreferredWidth(140);
-		table.getColumn("Team").setPreferredWidth(140);
+		table.getColumn("Player").setPreferredWidth(120);
+		table.getColumn("Team").setPreferredWidth(160);
+		table.getColumn("Position").setPreferredWidth(110);
 		
 		/*
 		 * Action when the "Buy" or "Sell" buttons are pressed
@@ -321,6 +336,7 @@ public class MarketPanel extends JPanel {
 		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
 		table.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
 		table.setAutoCreateRowSorter(true);
+		table.setShowGrid(false);
 		
 		RowSorter<?> sorter = table.getRowSorter();
 		sorter.setSortKeys(sortkeys);
