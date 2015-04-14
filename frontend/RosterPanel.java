@@ -3,12 +3,8 @@ package is.hi.f2a.frontend;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-
 import java.io.IOException;
-
 import java.awt.GridLayout;
-
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -39,7 +35,7 @@ public class RosterPanel extends JPanel {
 	 */
 	private Roster roster;
 	private JLabel num_players;
-	private final Integer IS_ON_FIELD_COLUMN = 2;
+	private final Integer IS_ON_FIELD_COLUMN = 5;
 	
 	/*
 	 * Constructor
@@ -48,14 +44,7 @@ public class RosterPanel extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		
 		this.roster = MainGame.getInstance().getCurrentUser().getRoster();
-		
-		// Henda út þessu þegar við intergrate-um
-		/*if(roster.getPlayersInRoster().get(0).size() == 0){
-			addRandomPlayersToRoster();
-		}*/
-		
 		List<List<Player>> roster_lists = this.roster.getPlayersInRoster();
-		Iterator<List<Player>> roster_lists_it = roster_lists.iterator();
 		String[] labels = new String[]{"Goalkeepers", "Defenders", "Midfielders", "Forwarders"};
 		Integer j = 0;
 		
@@ -67,22 +56,25 @@ public class RosterPanel extends JPanel {
 		final Integer[] max_in_pos = new Integer[]{1,5,5,3};
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(4, 1, 5, 5));
-		while(roster_lists_it.hasNext()){
-			String[] columnNames = {labels[j], "Price", "On Field"};
-			
-			List<Player> players = roster_lists_it.next();
+		
+		for(List<Player> players : roster_lists){
+			String[] columnNames = {labels[j], "Price", "Cards", "Injury", "Points", "On Field"};
 			
 			int player_size = players.size();
-			Object[][] data = new Object[player_size][3];
+			Object[][] data = new Object[player_size][IS_ON_FIELD_COLUMN+1];
 			
-			Iterator<Player> player_it = players.iterator();
 			int i = 0;
 			
-			while(player_it.hasNext()){
-				Player player = player_it.next();
+			for(Player player : players){
 				data[i][0] = player.getName();
 				data[i][1] = player.getPrice();
-				data[i][2] = roster.isOnField(player);
+				String cards = "";
+				if(player.getRedCards()>0) cards += "Red ";
+				if(player.getYellowCards()>0) cards += player.getYellowCards()+"Yel";
+				data[i][2] = cards;
+				if(player.getInjuryLength()>0) data[i][3] = player.getInjuryLength();
+				data[i][4] = player.getTotalPoints();
+				data[i][IS_ON_FIELD_COLUMN] = roster.isOnField(player);
 				i++;
 			}
 			
