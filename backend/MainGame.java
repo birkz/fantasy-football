@@ -31,6 +31,7 @@ public class MainGame {
 		this.users = null;
 		this.round = 0;
 		this.currentUser = 0;
+		FantasyFootballBackend.getInstance().restart();
 	}
 	
 	public void setNumUsers(List<String> names) throws InvalidPlayer {
