@@ -158,15 +158,15 @@ public class Main {
 		left.setVisible(true);
 	}
 	
-	public void setPanelAsLeague() {
+	public void setPanelAsLeague(boolean isEnd) {
 		BorderLayout layout = (BorderLayout) left.getLayout();
 		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-		left.add(new LeaguePanel(), BorderLayout.CENTER);
+		left.add(new LeaguePanel(isEnd), BorderLayout.CENTER);
 		left.setVisible(false);
 		left.setVisible(true);
 	}
 	
-	public void setEndgamePanel() throws InvalidUser {
+	public void setEndgamePanel(boolean isEnd) throws InvalidUser {
 		frame.getContentPane().removeAll();
 		frame.setMinimumSize(new Dimension(1200,700));
 		frame.setLocationRelativeTo(null);
@@ -175,7 +175,7 @@ public class Main {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1,2,5,5));
 		panel.add(new ScorePanel());
-		panel.add(new LeaguePanel());
+		panel.add(new LeaguePanel(isEnd));
 		frame.add(panel, BorderLayout.CENTER);
 		frame.add(new EndgamePanel(), BorderLayout.SOUTH);
 		

@@ -26,14 +26,16 @@ public class LeaguePanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public LeaguePanel() {
+	public LeaguePanel(boolean isEnd) {
 		MainGame mainGame = MainGame.getInstance();
 		
 		setLayout(new BorderLayout(0, 0)); 
 		String[] columnNames = {"POS", "CLUB", "P", "W", "D", "L", "GF", "GA", "GD", "PTS"};
 		League league = FantasyFootballBackend.getInstance().getLeague();
 
-		ArrayList<Team> teams = league.getTeams();
+		ArrayList<Team> teams = new ArrayList<Team>(league.getTeams());
+		getOrderedTeams(teams);
+
 		Object[][] data = new Object[teams.size()][];
 		for(int i=0; i<teams.size(); ++i) {
 			Team current = teams.get(i);
@@ -63,12 +65,13 @@ public class LeaguePanel extends JPanel {
 		add(new JScrollPane(table), BorderLayout.CENTER);
 		
 		int showPlan = 1; // how long a plan do you want to see 1 round or more
-		if(mainGame.getRound()==10) showPlan = 0;
 		ArrayList<Game> games = league.getGames();
 		String[] columnNames2 = {"HomeTeam", "AwayTeam", "Score", "Round","Status"};
 		int numGames = (mainGame.getRound()+showPlan)*5;
+		if(isEnd) numGames = 50;
 		data = new Object[numGames][];
 		int round = mainGame.getRound()+1;
+		if(isEnd) round = 10;
 		String status = "Planned";
 		int k = 0;
 		for(int i=numGames-1; i>=0; --i) {
@@ -99,5 +102,21 @@ public class LeaguePanel extends JPanel {
 		tableGames.getColumn("Round").setMaxWidth(60);
 		tableGames.setShowGrid(false);
 		add(new JScrollPane(tableGames), BorderLayout.SOUTH);
+	}
+	
+	private void getOrderedTeams(ArrayList<Team> teams) {
+		for(int i=0; i<teams.size(); ++i) {
+			int j = i;
+			while(j>0) {
+				if(teams.get(j-1).getPoints() < teams.get(j).getPoints() ||
+						teams.get(j-1).getGoalsScored()-teams.get(j-1).getGoalsConceded() < 
+						teams.get(j).getGoalsScored()-teams.get(j).getGoalsConceded()) {
+					Team tmp = teams.get(j-1);
+					teams.set(j-1, teams.get(j));
+					teams.set(j, tmp);
+				}
+				--j;
+			}
+		}
 	}
 }

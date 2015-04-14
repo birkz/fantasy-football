@@ -56,7 +56,7 @@ public class MainGame {
 			Main.getInstance().restartFrame();
 		}
 		if(round == 10) {
-			Main.getInstance().setEndgamePanel();
+			Main.getInstance().setEndgamePanel(true);
 		}
 	}
 	

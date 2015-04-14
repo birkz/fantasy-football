@@ -139,7 +139,7 @@ public class PlayerProfile extends JPanel {
 		//label.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 		label.setBackground(new Color(255, 255, 255, 204));
 		label.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
-		label.setPreferredSize(new Dimension(this.diameter, 30));
+		label.setPreferredSize(new Dimension(this.diameter, 24));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setOpaque(true);
 		return label;
