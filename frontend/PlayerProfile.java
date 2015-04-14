@@ -1,7 +1,6 @@
 package is.hi.f2a.frontend;
 
 import is.hi.f2a.backend.FontUtil;
-import is.hi.f2a.tests.InvalidUser;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -39,15 +38,19 @@ public class PlayerProfile extends JPanel {
 	private boolean loadfailed = false;
 	private JLabel name;
 	private int points;
+	private int yellow;
+	private int red;
 	
 	private final int xmargin = 10;
 	private final int ymargin = 28;
 	
 
-	public PlayerProfile(String path, String playername, int points) throws IOException {
+	public PlayerProfile(String path, String playername, int points, int yellow, int red) throws IOException {
 		
 		this.diameter = Main.getInstance().getFieldViewer().profilesize();
 		this.points = points;
+		this.yellow = yellow;
+		this.red = red;
 
 		this.name = createLabel(playername);
 		
@@ -144,7 +147,11 @@ public class PlayerProfile extends JPanel {
 		}
 		g2.setClip(null);
 		
-		g2.setPaint(Color.WHITE);
+		// Paint circle depending on penalty cards
+		if(this.red != 0) g2.setPaint(Color.RED);
+		else if(this.yellow != 0) g2.setPaint(Color.YELLOW);
+		else g2.setPaint(Color.WHITE);
+
 		g2.draw(new Ellipse2D.Double(circleoffset, 0, diameter, diameter));
 		
 		// Calculate number of numbers in points
@@ -163,7 +170,7 @@ public class PlayerProfile extends JPanel {
 		
 		g2.setPaint(new Color(20,110,0,200));
 		g2.fill(new RoundRectangle2D.Double(scaledwidth-labeloffset-(int)(labelheight/3.5), labelypos, labelheight+extralength, labelheight-1, labelheight-2, labelheight-2));
-		
+			
 		g2.setPaint(Color.WHITE);
 		g2.setFont(FontUtil.getFont("kalinga", Font.BOLD, base/8));
 		g2.drawString(Integer.toString(this.points), scaledwidth-labeloffset, labelypos+(int)(labelheight/1.4));

@@ -141,7 +141,11 @@ public class FieldViewerPanel extends JPanel {
 			
 			while(players_in_pos_it.hasNext()){
 				Player player = players_in_pos_it.next();
-				PlayerProfile profile = new PlayerProfile(player.getPhoto(), player.getName(), player.getTotalPoints());
+				PlayerProfile profile = new PlayerProfile(player.getPhoto(), 
+														  player.getName(), 
+														  player.getTotalPoints(),
+														  player.getYellowCards(),
+														  player.getRedCards());
 				players[i].add(profile);
 				//players[i].add(createLabels(player.getName()));
 			}
