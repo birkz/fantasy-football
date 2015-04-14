@@ -219,7 +219,7 @@ public class MarketPanel extends JPanel {
 	 * get a new JTable object
 	 */
 	private JTable getJTable(String player_searched, String team_searched, String pos_searched){
-		String[] columnNames = {"Player","Team","Position","Price",""};
+		String[] columnNames = {"Player","Team","Position","Price", "Scores",""};
 		Object[][] data = null;
 		
 		try {
@@ -248,7 +248,7 @@ public class MarketPanel extends JPanel {
 			@Override
 		    public boolean isCellEditable(int row, int column) {
 		    	//all cells false except column 4 (button)
-			    return (column==4);
+			    return (column==5);
 		    }
 		};
 		
@@ -315,7 +315,7 @@ public class MarketPanel extends JPanel {
 		    }
 		};
 		
-		new ButtonColumn(table, buy_or_sell_action, 4);
+		new ButtonColumn(table, buy_or_sell_action, 5);
 		
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -334,7 +334,7 @@ public class MarketPanel extends JPanel {
 	private Object[][] getTableData() throws InvalidPlayer{
 		this.results = new ArrayList<Player>(710);
 		
-		Object[][] data = new Object[710][5];
+		Object[][] data = new Object[710][6];
 		
 		List<Team> teams = MarketPanel.league.getTeams();
 		
@@ -356,12 +356,13 @@ public class MarketPanel extends JPanel {
 				data[i][1] = team.getName();
 				data[i][2] = positionToString(player.getPosition());
 				data[i][3] = player.getPrice();
+				data[i][4] = player.getTotalPoints();
 				//data[i][3] = String.format("%,d", player.getPrice());
 				
 				if(MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player)){
-					data[i++][4] = "Sell";
+					data[i++][5] = "Sell";
 				} else {
-					data[i++][4] = "Buy";
+					data[i++][5] = "Buy";
 				}
 				results.add(player);
 			}

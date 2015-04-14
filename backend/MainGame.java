@@ -50,6 +50,8 @@ public class MainGame {
 				FantasyFootballBackend.getInstance().getLeague().playNextRound();
 				//is.hi.f2a.tests.RoundMock.SimRound();
 				round++;
+				updateUserScore();
+				
 			}
 			Main.getInstance().restartFrame();
 		}
@@ -60,6 +62,14 @@ public class MainGame {
 	
 	public int getRound() {
 		return round;
+	}
+	
+	public void updateUserScore() throws InvalidUser {
+		for(User temp : users) {
+			int num = temp.getRoster().getRecentRosterScore();
+			temp.setScore(num);
+			stats.addScoreToUser(temp, num);
+		}
 	}
 	
 	public List<User> getUsers() {

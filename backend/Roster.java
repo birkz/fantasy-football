@@ -222,6 +222,18 @@ public class Roster {
 		return names;
 	}
 	
+	public int getRecentRosterScore() {
+		int scores = 0;
+		List<List<Player>> pos = getPlayersOnField();
+		for(int i=0; i<pos.size(); ++i) {
+			List<Player> players = pos.get(i);
+			for(int k=0; k<players.size(); ++k) {
+				scores += players.get(k).getRecentPoints();
+			}
+		}
+		return scores;
+	}
+	
 	/*
 	 * Is this player in roster?
 	 */
