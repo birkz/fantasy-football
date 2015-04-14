@@ -113,13 +113,19 @@ public class RosterPanel extends JPanel {
 						} else {
 							c.setBackground(Color.red);
 						}
-					}
+					} else if (rowIndex % 2 == 0) {
+			          c.setBackground(new Color(0,0,255,32));
+			        } else {
+			          c.setBackground(getBackground());
+			        }
+					
 					return c;
 				}
 			};
 			
 			table.setEnabled(true);
 			table.setFocusable(false);
+			table.setShowGrid(false);
 			table.setRowSelectionAllowed(false);
 			//table.setFillsViewportHeight(true);
 			table.getColumn("On Field").setMaxWidth(60);

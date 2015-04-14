@@ -7,10 +7,14 @@ import is.hi.f1a.Team;
 import is.hi.f2a.backend.MainGame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 
 public class LeaguePanel extends JPanel {
 
@@ -38,9 +42,24 @@ public class LeaguePanel extends JPanel {
 					current.getGoalsConceded(), current.getGoalsScored()- current.getGoalsConceded(), current.getPoints()};
 			data[i] = team;
 		}
-		JTable table = new JTable(data, columnNames);
+		
+		JTable table = new JTable(data, columnNames){
+			private static final long serialVersionUID = 1L;
+			
+			public Component prepareRenderer(TableCellRenderer renderer, int rowIndex, int vColIndex) {
+		        Component c = super.prepareRenderer(renderer, rowIndex, vColIndex);
+		        if (rowIndex % 2 == 0) {
+		          c.setBackground(new Color(0,0,255,32));
+		        } else {
+		          c.setBackground(getBackground());
+		        }
+		        return c;
+		    }
+		};
+		
 		table.setEnabled(false);
 		table.getColumn("CLUB").setPreferredWidth(300);
+		table.setShowGrid(false);
 		add(new JScrollPane(table), BorderLayout.CENTER);
 		
 		int showPlan = 1; // how long a plan do you want to see 1 round or more
@@ -61,10 +80,24 @@ public class LeaguePanel extends JPanel {
 			if((k+1)%5 == 0) round--;
 			k++;
 		}
-		JTable tableGames = new JTable(data, columnNames2);
+		
+		JTable tableGames = new JTable(data, columnNames2){
+			private static final long serialVersionUID = 1L;
+			
+			public Component prepareRenderer(TableCellRenderer renderer, int rowIndex, int vColIndex) {
+		        Component c = super.prepareRenderer(renderer, rowIndex, vColIndex);
+		        if (rowIndex % 2 == 0) {
+		          c.setBackground(new Color(0,0,255,32));
+		        } else {
+		          c.setBackground(getBackground());
+		        }
+		        return c;
+		    }
+		};
 		tableGames.setEnabled(false);
 		tableGames.getColumn("Score").setMaxWidth(60);
 		tableGames.getColumn("Round").setMaxWidth(60);
+		tableGames.setShowGrid(false);
 		add(new JScrollPane(tableGames), BorderLayout.SOUTH);
 	}
 }
