@@ -32,7 +32,7 @@ public class HandleButtons implements ActionListener{
 				e1.printStackTrace();
 			}
 		
-		if(arg == "League") Main.getInstance().setPanelAsLeague();
+		if(arg == "League") Main.getInstance().setPanelAsLeague(false);
 		
 		if(arg == "NEW GAME") {
 			MainGame.getInstance().resetGame();
