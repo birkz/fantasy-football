@@ -35,7 +35,7 @@ public class RosterPanel extends JPanel {
 	 */
 	private Roster roster;
 	private JLabel num_players;
-	private final Integer IS_ON_FIELD_COLUMN = 5;
+	private final Integer IS_ON_FIELD_COLUMN = 6;
 	
 	/*
 	 * Constructor
@@ -59,7 +59,7 @@ public class RosterPanel extends JPanel {
 		panel.setLayout(new GridLayout(4, 1, 5, 5));
 		
 		for(List<Player> players : roster_lists){
-			String[] columnNames = {labels[j], "Price", "Cards", "Injury", "Points", "On Field"};
+			String[] columnNames = {labels[j], "Price", "RC", "YC", "Injury", "Points", "On Field"};
 			
 			int player_size = players.size();
 			Object[][] data = new Object[player_size][IS_ON_FIELD_COLUMN+1];
@@ -70,11 +70,12 @@ public class RosterPanel extends JPanel {
 				data[i][0] = player.getName();
 				data[i][1] = player.getPrice();
 				String cards = "";
-				if(player.getRedCards()>0) cards += "Red ";
-				if(player.getYellowCards()>0) cards += player.getYellowCards()+"Yel";
-				data[i][2] = cards;
-				if(player.getInjuryLength()>0) data[i][3] = player.getInjuryLength();
-				data[i][4] = player.getTotalPoints();
+				if(player.getRedCards()>0) data[i][2] = " ";
+				else data[i][2] = "";
+				if(player.getYellowCards()>0) data[i][3] = player.getYellowCards();
+				else data[i][3] = "";
+				if(player.getInjuryLength()>0) data[i][4] = player.getInjuryLength();
+				data[i][5] = player.getTotalPoints();
 				data[i][IS_ON_FIELD_COLUMN] = roster.isOnField(player);
 				i++;
 			}
@@ -88,14 +89,15 @@ public class RosterPanel extends JPanel {
 				@Override
 			    public boolean isCellEditable(int row, int column) {
 			    	//all cells false except column IS_ON_FIELD_COLUMN
-					if (column == IS_ON_FIELD_COLUMN && dtm.getValueAt(row, column).equals(true)) {
+					if(column != IS_ON_FIELD_COLUMN) return false;
+					else if(dtm.getValueAt(row, column).equals(true)) {
 						// Ef leikmaður er inná vellinum
 						return true;
-					} else if(column == IS_ON_FIELD_COLUMN && pos_id == 0 && roster.getNumberOfPlayersOnField() < 11 &&
+					} else if(pos_id == 0 && roster.getNumberOfPlayersOnField() < 11 &&
 							roster.getPlayersOnField().get(0).size() < max_in_pos[0]){
 						// Ef leikmaður er markmaður (og færri en 11 á vellinum)
 						return true;
-					} else if (column == IS_ON_FIELD_COLUMN && roster.getNumberOfPlayersOnField() < 10 &&
+					} else if (roster.getNumberOfPlayersOnField() < 10+roster.getPlayersOnField().get(0).size() &&
 							roster.getPlayersOnField().get(pos_id).size() < max_in_pos[pos_id]){
 						// Ef leikmaður er ekki inná vellinum  (og færri en 10 á vellinum)
 						return true;
@@ -106,12 +108,15 @@ public class RosterPanel extends JPanel {
 				public Component prepareRenderer(TableCellRenderer renderer,int rowIndex, int vColIndex) {
 					Component c = super.prepareRenderer(renderer, rowIndex, vColIndex);
 					if(vColIndex == IS_ON_FIELD_COLUMN){
-						if (isCellEditable(rowIndex, vColIndex)) {//if first column
-							if(dtm.getValueAt(rowIndex, vColIndex).equals(false))
-								c.setBackground(Color.green);
+						if (isCellEditable(rowIndex, vColIndex) && dtm.getValueAt(rowIndex, vColIndex).equals(false)){
+							c.setBackground(new Color(0,255,0,155));
 						} else {
-							c.setBackground(Color.red);
+							c.setBackground(new Color(255,0,0,155));
 						}
+					} else if (vColIndex == 2 && dtm.getValueAt(rowIndex, vColIndex).equals(" ")) {
+						c.setBackground(Color.red);
+					} else if (vColIndex == 3 && !dtm.getValueAt(rowIndex, vColIndex).equals("")) {
+						c.setBackground(Color.yellow);
 					} else if (rowIndex % 2 == 0) {
 			          c.setBackground(new Color(0,0,255,32));
 			        } else {
@@ -127,7 +132,9 @@ public class RosterPanel extends JPanel {
 			table.setShowGrid(false);
 			table.setRowSelectionAllowed(false);
 			//table.setFillsViewportHeight(true);
-			table.getColumn("On Field").setMaxWidth(60);
+			table.getColumn("On Field").setMaxWidth(50);
+			table.getColumn("RC").setMaxWidth(22);
+			table.getColumn("YC").setMaxWidth(22);
 			
 			TableColumn tc = table.getColumnModel().getColumn(IS_ON_FIELD_COLUMN);
 		    tc.setCellEditor(table.getDefaultEditor(Boolean.class));
@@ -149,13 +156,11 @@ public class RosterPanel extends JPanel {
 							roster.addPlayerToField(player);
 						}
 					} catch (InvalidPlayer e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					try {
 						is.hi.f2a.frontend.Main.getInstance().setPanelAsFieldViewer();
 					} catch (IOException e2) {
-						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
 					try {
