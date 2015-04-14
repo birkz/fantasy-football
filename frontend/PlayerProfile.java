@@ -14,6 +14,7 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -37,14 +38,16 @@ public class PlayerProfile extends JPanel {
 	private URL url;
 	private boolean loadfailed = false;
 	private JLabel name;
+	private int points;
 	
 	private final int xmargin = 10;
 	private final int ymargin = 28;
 	
 
-	public PlayerProfile(String path, String playername) throws IOException {
+	public PlayerProfile(String path, String playername, int points) throws IOException {
 		
 		this.diameter = Main.getInstance().getFieldViewer().profilesize();
+		this.points = points;
 
 		this.name = createLabel(playername);
 		
@@ -120,7 +123,6 @@ public class PlayerProfile extends JPanel {
 		//System.out.println("diameter: " + this.diameter);
 		//System.out.println("north: " + north.getWidth());
 
-	
 		
 		int imgwidth = this.img.getWidth(null);
 		int imgheight = this.img.getHeight(null);
@@ -145,9 +147,20 @@ public class PlayerProfile extends JPanel {
 		g2.setPaint(Color.WHITE);
 		g2.draw(new Ellipse2D.Double(circleoffset, 0, diameter, diameter));
 		
-		//setVisible(true);
-		//validate();
-		//Main.getInstance().refreshRightPanel();
+		//g2.setPaint(Color.GREEN);
+		int numlength;
+		if(this.points == 0) numlength = 1;
+		else numlength = (int)(Math.log10(this.points)+1);
+		int extralength;
+		if(numlength == 1) extralength = -1;
+		else extralength = numlength*5;
+		int labeloffset = 50;
+		g2.setPaint(new Color(20,110,0,200));
+		g2.fill(new RoundRectangle2D.Double(scaledwidth-labeloffset-5, -4, 20+extralength, 19, 18, 18));
+		
+		g2.setPaint(Color.WHITE);
+		g2.setFont(FontUtil.getFont("kalinga", Font.BOLD, 12));
+		g2.drawString(Integer.toString(this.points), scaledwidth-labeloffset, 10);
 		
 	}
 	

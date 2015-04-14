@@ -187,11 +187,11 @@ public class Main {
 		BorderLayout layout = (BorderLayout) right.getLayout();
 		right.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 		right.add(this.field, BorderLayout.CENTER);
-		right.setVisible(false);
-		right.setVisible(true);
 		// Þarf ekki að loada hér í nýjum þræði því hverri mynd fyrir sig er loadað í nýjum þræði
 		// Þá komum við í veg fyrir að völlurinn birtist í sekúndubrot á undan leikmönnum
 		loadFieldProfiles();
+		right.setVisible(false);
+		right.setVisible(true);
 
 	}
 
