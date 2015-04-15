@@ -19,7 +19,7 @@ public class HandleButtons implements ActionListener{
 		
 		
 		if(arg == navbuttonsargs[0]) {
-			Main.getInstance().setPanelAsMarket(null, 0, null, "", "Any", "Any");
+			Main.getInstance().setPanelAsMarket(null, 0, null, "", "Any Team", "Any Position");
 
 		}
 		

@@ -208,13 +208,13 @@ public class MarketPanel extends JPanel {
 		List<Team> teams = MarketPanel.league.getTeams();
 		Iterator<Team> teams_it = teams.iterator();
 		List<String> team_choices = new ArrayList<String>();
-		team_choices.add("Any");
+		team_choices.add("Any Team");
 		
 		while(teams_it.hasNext()){
 			team_choices.add(teams_it.next().getName());
 		}
 
-		List<String> pos_choices = Arrays.asList("Any","Goalkeeper","Defender","Midfielder","Forward");
+		List<String> pos_choices = Arrays.asList("Any Position","Goalkeeper","Defender","Midfielder","Forward");
 		wrapper = new JPanel();
 		wrapper.setBackground(Color.WHITE);
 		wrapper.add(field);
@@ -381,8 +381,8 @@ public class MarketPanel extends JPanel {
 			for(Player player : players_in_team ){
 				// Filter out players
 				if(!player.getName().toLowerCase().contains(player_choice.toLowerCase())
-						|| (!this.team_choice.equals("Any") && !team.getName().equals(this.team_choice))
-						|| (!this.pos_choice.equals("Any") && !positionToString(player.getPosition()).equals(this.pos_choice)))
+						|| (!this.team_choice.equals("Any Team") && !team.getName().equals(this.team_choice))
+						|| (!this.pos_choice.equals("Any Position") && !positionToString(player.getPosition()).equals(this.pos_choice)))
 					continue;
 				
 				// If the values go through the filter, add them to the table.
