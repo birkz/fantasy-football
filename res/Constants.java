@@ -4,14 +4,14 @@ public class Constants {
 	/*
 	 * General constants
 	 */
-	public static final boolean TEST_MODE = true;
+	public static final boolean TEST_MODE = false;
 	public static final boolean VERBOSE = true;
 	
 	
 	/*
 	 * User Constants
 	 */
-	public static final int STARTING_MONEY = 1000000;
+	public static final int STARTING_MONEY = 1000;
 	public static final int MAX_USERS = 8;
 	public static final int MIN_USERS = 1;
 	

@@ -32,7 +32,7 @@ public class User {
 	}
 	
 	public boolean isAffordable(int price){
-		return this.money > price;
+		return this.money >= price;
 	}
 	
 	public void changeMoney(int dMoney) throws Exception {
