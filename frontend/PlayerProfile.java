@@ -47,7 +47,7 @@ public class PlayerProfile extends JPanel {
 
 	public PlayerProfile(String path, String playername, int points, int yellow, int red) throws IOException {
 		
-		this.diameter = Main.getInstance().getFieldViewer().profilesize();
+		this.diameter = Main.getInstance().getFieldViewer().getWidth()/6;
 		this.points = points;
 		this.yellow = yellow;
 		this.red = red;
@@ -120,13 +120,12 @@ public class PlayerProfile extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)); 
 		
-		this.diameter = Main.getInstance().getFieldViewer().profilesize();
+		int height = Main.getInstance().getFieldViewer().getHeight();
+		int limit = height/4-35;
+		int tempdia = Main.getInstance().getFieldViewer().getWidth()/6;
+		if(tempdia <= limit) this.diameter = tempdia;
 		this.setPreferredSize(new Dimension(this.diameter+xmargin, this.diameter+ymargin));
 
-		//System.out.println("diameter: " + this.diameter);
-		//System.out.println("north: " + north.getWidth());
-
-		
 		int imgwidth = this.img.getWidth(null);
 		int imgheight = this.img.getHeight(null);
 		int base = this.diameter+10;

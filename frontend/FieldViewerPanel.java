@@ -152,9 +152,5 @@ public class FieldViewerPanel extends JPanel {
 			i--;
 		}
 	}
-	
-	public int profilesize() {
-		return (this.getWidth()+this.getHeight())/12;
-	}
 
 }
