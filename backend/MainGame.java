@@ -54,9 +54,12 @@ public class MainGame {
 				round++;
 				updateUserScore();
 				sendPlayersBoughtAndSold();
+				Main.getInstance().restartFrame();
 			}
-			
-			Main.getInstance().restartFrame();
+			//Hérna var restartFrame, ég færði það fimmm línur upp
+			//Svo er ég að reyna að fá vinstra panel til að uppfærast með refreshFrame 
+			//en það er bara ekki að ganga
+			Main.getInstance().refreshFrame();
 		}
 		if(round == 10) {
 			Main.getInstance().setEndgamePanel(true);

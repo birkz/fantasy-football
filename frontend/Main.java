@@ -31,6 +31,8 @@ public class Main {
 											   "LEAGUE",};
 	private String endButton = "END TURN";
 	
+	private int buttonON = 1; //Score takkinn
+	
 	private FieldViewerPanel field;
 	
 	private Main() {
@@ -59,6 +61,12 @@ public class Main {
 	
 	public String getEndButtonArg() {
 		return this.endButton;
+	}
+	
+	public void toggleButton(int num) {
+		((CustomButton) arrButtons[this.buttonON]).toggleOFF();
+		((CustomButton) arrButtons[num]).toggleON();
+		buttonON = num;
 	}
 	
 	public void restartGame() {
@@ -146,6 +154,8 @@ public class Main {
 		left.setBackground(Color.WHITE);
 		right.setBackground(Color.WHITE);
 		buttons.setBackground(Color.WHITE);
+		
+		toggleButton(1); // Score takkinn
 
         frame.setVisible(true);
         
@@ -155,6 +165,24 @@ public class Main {
         
         frame.validate();
       
+	}
+	
+	// Er að reyna hérna refresha left panelið eftir hverja turn
+	// Kalla á þetta fall í MainGame
+	public void refreshFrame() throws InvalidUser, IOException {
+		BorderLayout layout = (BorderLayout) right.getLayout();
+		right.remove(layout.getLayoutComponent(BorderLayout.NORTH));
+		right.add(new NameChange(), BorderLayout.NORTH);
+		
+		frame.repaint();
+		
+		left.setVisible(false);
+		left.setVisible(true);
+		
+		setPanelAsFieldViewer();
+		
+		frame.setVisible(true);
+        frame.validate();
 	}
 
 	
@@ -176,6 +204,8 @@ public class Main {
 		BorderLayout layout = (BorderLayout) left.getLayout();
 		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 		left.add(new MarketPanel(scroll, value, sortkeys, pl_choice, team_choice, pos_choice), BorderLayout.CENTER);
+		toggleButton(0);
+		
 		left.setVisible(false);
 		left.setVisible(true);
 	}
@@ -184,6 +214,8 @@ public class Main {
 		BorderLayout layout = (BorderLayout) left.getLayout();
 		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 		left.add(new ScorePanel(), BorderLayout.CENTER);
+		toggleButton(1);
+		
 		left.setVisible(false);
 		left.setVisible(true);
 	}
@@ -192,6 +224,8 @@ public class Main {
 		BorderLayout layout = (BorderLayout) left.getLayout();
 		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 		left.add(new RosterPanel(), BorderLayout.CENTER);
+		toggleButton(2);
+		
 		left.setVisible(false);
 		left.setVisible(true);
 	}
@@ -200,6 +234,8 @@ public class Main {
 		BorderLayout layout = (BorderLayout) left.getLayout();
 		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 		left.add(new LeaguePanel(isEnd), BorderLayout.CENTER);
+		toggleButton(3);
+		
 		left.setVisible(false);
 		left.setVisible(true);
 	}

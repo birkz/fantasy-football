@@ -23,9 +23,7 @@ public class HandleButtons implements ActionListener{
 		
 		if(arg == navbuttonsargs[0]) {
 			Main.getInstance().setPanelAsMarket(null, 0, null, "", "Any", "Any");
-			navbuttons[buttonON].toggleOFF();
-			navbuttons[0].toggleON();
-			buttonON = 0;
+
 		}
 		
 		if(arg == navbuttonsargs[1]) {
@@ -35,9 +33,7 @@ public class HandleButtons implements ActionListener{
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
-			navbuttons[buttonON].toggleOFF();
-			navbuttons[1].toggleON();
-			buttonON = 1;
+
 		}
 		
 		if(arg == navbuttonsargs[2]) {
@@ -46,16 +42,12 @@ public class HandleButtons implements ActionListener{
 			} catch (InvalidPlayer e1) {
 				e1.printStackTrace();
 			}
-			navbuttons[buttonON].toggleOFF();
-			navbuttons[2].toggleON();
-			buttonON = 2;
+
 		}
 		
 		if(arg == navbuttonsargs[3]) {
 			Main.getInstance().setPanelAsLeague(false);
-			navbuttons[buttonON].toggleOFF();
-			navbuttons[3].toggleON();
-			buttonON = 3;
+
 		}
 		
 		if(arg == "NEW GAME") {
