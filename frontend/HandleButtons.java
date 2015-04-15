@@ -55,7 +55,7 @@ public class HandleButtons implements ActionListener{
 		if(arg == endbutton)
 			try {
 				is.hi.f2a.backend.MainGame.getInstance().nextUser();
-			} catch (InvalidUser | IOException e1) {
+			} catch (InvalidUser | IOException | InvalidPlayer e1) {
 				e1.printStackTrace();
 			}
 	}

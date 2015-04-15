@@ -169,16 +169,16 @@ public class Main {
 	
 	// Er að reyna hérna refresha left panelið eftir hverja turn
 	// Kalla á þetta fall í MainGame
-	public void refreshFrame() throws InvalidUser, IOException {
+	public void refreshFrame() throws InvalidUser, IOException, InvalidPlayer {
 		BorderLayout rightlayout = (BorderLayout) right.getLayout();
 		right.remove(rightlayout.getLayoutComponent(BorderLayout.NORTH));
 		right.add(new NameChange(), BorderLayout.NORTH);
 		
-		BorderLayout leftlayout = (BorderLayout) right.getLayout();
-		left.remove(leftlayout.getLayoutComponent(BorderLayout.CENTER));
-		
-		left.setVisible(false);
-		left.setVisible(true);
+
+		if(buttonON == 0) setPanelAsMarket(null, 0, null, "", "Any Team", "Any Position");
+		else if(buttonON == 1) setPanelAsScore();
+		else if(buttonON == 2) setPanelAsRoster();
+		else setPanelAsLeague(false);
 		
 		setPanelAsFieldViewer();
 		

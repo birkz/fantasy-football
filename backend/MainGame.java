@@ -43,7 +43,7 @@ public class MainGame {
 		}
 	}
 	
-	public void nextUser() throws InvalidUser, IOException {
+	public void nextUser() throws InvalidUser, IOException, InvalidPlayer {
 		int numUsers = users.size();
 		if(round<10) {
 			if(currentUser<numUsers) currentUser++;
