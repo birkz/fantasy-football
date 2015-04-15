@@ -77,7 +77,7 @@ public class LeaguePanel extends JPanel {
 		if(isEnd) numGames = 50;
 		data = new Object[numGames][];
 		int round = mainGame.getRound()+1;
-		if(isEnd) round = 10;
+		if(isEnd) round = 18;
 		String status = "Planned";
 		int k = 0;
 		for(int i=numGames-1; i>=0; --i) {

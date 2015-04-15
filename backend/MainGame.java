@@ -45,7 +45,7 @@ public class MainGame {
 	
 	public void nextUser() throws InvalidUser, IOException {
 		int numUsers = users.size();
-		if(round<10) {
+		if(round<18) {
 			if(currentUser<numUsers) currentUser++;
 			if(currentUser==numUsers) {
 				currentUser = 0;
@@ -61,7 +61,7 @@ public class MainGame {
 			//en það er bara ekki að ganga
 			Main.getInstance().refreshFrame();
 		}
-		if(round == 10) {
+		if(round == 18) {
 			Main.getInstance().setEndgamePanel(true);
 		}
 	}
