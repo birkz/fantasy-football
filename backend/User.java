@@ -3,6 +3,7 @@ package is.hi.f2a.backend;
 import java.util.List;
 
 import is.hi.f1a.Player;
+import is.hi.f2a.res.Constants;
 import is.hi.f2a.tests.InvalidPlayer;
 
 public class User {
@@ -20,8 +21,8 @@ public class User {
 		//this.score = new ArrayList<Integer>();
 		this.score = 0;
 		this.roster = new Roster();
-		if (is.hi.f2a.res.Constants.TEST_MODE && this.id==0) addRandomPlayersToRoster();
-		this.money = is.hi.f2a.res.Constants.STARTING_MONEY;
+		if (Constants.TEST_MODE && this.id==0) addRandomPlayersToRoster();
+		this.money = Constants.STARTING_MONEY;
 	}
 	
 	/*

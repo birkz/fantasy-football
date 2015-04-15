@@ -232,7 +232,7 @@ public class MarketPanel extends JPanel {
 	 * get a new JTable object
 	 */
 	private JTable getJTable(String player_searched, String team_searched, String pos_searched){
-		String[] columnNames = {"Player","Team","Position","Price", "Score",""};
+		String[] columnNames = {"Player","Team","Position","Price", "Score", "Avail.",""};
 		Object[][] data = null;
 		
 		try {
@@ -260,14 +260,14 @@ public class MarketPanel extends JPanel {
 			
 			@Override
 		    public boolean isCellEditable(int row, int column) {
-				//all cells false except column 5 (button)
-				if(column!=5) return false;
+				//all cells false except column 6 (button)
+				if(column!=6) return false;
 			    return true;
 		    }
 			
 			public Component prepareRenderer(TableCellRenderer renderer, int rowIndex, int vColIndex) {
 		        Component c = super.prepareRenderer(renderer, rowIndex, vColIndex);
-		        if (rowIndex % 2 == 0 && vColIndex != 5) {
+		        if (rowIndex % 2 == 0 && vColIndex != 6) {
 		          c.setBackground(new Color(0,0,255,32));
 		        } else {
 		          c.setBackground(getBackground());
@@ -282,6 +282,7 @@ public class MarketPanel extends JPanel {
 		table.getColumn("Player").setPreferredWidth(120);
 		table.getColumn("Team").setPreferredWidth(160);
 		table.getColumn("Position").setPreferredWidth(110);
+		table.getColumn("Avail.").setPreferredWidth(50);
 		
 		/*
 		 * Action when the "Buy" or "Sell" buttons are pressed
@@ -342,11 +343,16 @@ public class MarketPanel extends JPanel {
 		    }
 		};
 		
-		new ButtonColumn(table, buy_or_sell_action, 5);
+		new ButtonColumn(table, buy_or_sell_action, 6);
 		
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
 		table.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		table.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+		
 		table.setAutoCreateRowSorter(true);
 		table.setShowGrid(false);
 		
@@ -362,7 +368,7 @@ public class MarketPanel extends JPanel {
 	private Object[][] getTableData() throws InvalidPlayer{
 		this.results = new ArrayList<Player>(710);
 		
-		Object[][] data = new Object[710][6];
+		Object[][] data = new Object[710][7];
 		
 		List<Team> teams = MarketPanel.league.getTeams();
 		
@@ -386,11 +392,16 @@ public class MarketPanel extends JPanel {
 				data[i][3] = player.getPrice();
 				data[i][4] = player.getTotalPoints();
 				//data[i][3] = String.format("%,d", player.getPrice());
+				if(player.isAvailable(false)){
+					data[i][5] = "Yes";
+				} else {
+					data[i][5] = "No";
+				}
 				
 				if(MainGame.getInstance().getCurrentUser().getRoster().isInRoster(player)){
-					data[i++][5] = "Sell";
+					data[i++][6] = "Sell";
 				} else {
-					data[i++][5] = "Buy";
+					data[i++][6] = "Buy";
 				}
 				results.add(player);
 			}
