@@ -170,11 +170,12 @@ public class Main {
 	// Er að reyna hérna refresha left panelið eftir hverja turn
 	// Kalla á þetta fall í MainGame
 	public void refreshFrame() throws InvalidUser, IOException {
-		BorderLayout layout = (BorderLayout) right.getLayout();
-		right.remove(layout.getLayoutComponent(BorderLayout.NORTH));
+		BorderLayout rightlayout = (BorderLayout) right.getLayout();
+		right.remove(rightlayout.getLayoutComponent(BorderLayout.NORTH));
 		right.add(new NameChange(), BorderLayout.NORTH);
 		
-		frame.repaint();
+		BorderLayout leftlayout = (BorderLayout) right.getLayout();
+		left.remove(leftlayout.getLayoutComponent(BorderLayout.CENTER));
 		
 		left.setVisible(false);
 		left.setVisible(true);

@@ -132,7 +132,7 @@ public class GraphData extends JPanel {
 				else numlength = (int)(Math.log10(lastscore)+1);
 				
 				int extralength;
-				if(numlength == 1) extralength = 5;
+				if(numlength == 1) extralength = 8;
 				else extralength = numlength*8;
 				
 				int xoffset = -30;

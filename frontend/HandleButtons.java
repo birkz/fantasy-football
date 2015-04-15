@@ -12,14 +12,11 @@ public class HandleButtons implements ActionListener{
 	
 	private static String[] navbuttonsargs = Main.getInstance().getNavButtonArg();
 	private static String endbutton = Main.getInstance().getEndButtonArg();
-	private static CustomButton[] navbuttons;
-	private static int buttonON;
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String arg = e.getActionCommand();
 		
-		navbuttons = (CustomButton[]) Main.getInstance().getNavButtons();
 		
 		if(arg == navbuttonsargs[0]) {
 			Main.getInstance().setPanelAsMarket(null, 0, null, "", "Any", "Any");
