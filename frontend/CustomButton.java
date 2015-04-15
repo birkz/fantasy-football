@@ -11,7 +11,9 @@ public class CustomButton extends JButton{
 	private Color hoverBackgroundColor;
     private Color pressedBackgroundColor;
     private Color fontColor;
+    private Color backupcolor;
 	private Color hoverFontColor;
+	private boolean isToggled = false;
 
     public CustomButton() {
         this(null);
@@ -39,6 +41,24 @@ public class CustomButton extends JButton{
 
     @Override
     public void setContentAreaFilled(boolean b) {
+    }
+    
+    public void toggleON() {
+    	if(!this.isToggled){
+	    	this.backupcolor = this.fontColor;
+	    	this.setBackground(this.hoverBackgroundColor);
+	    	this.setFontColor(this.hoverFontColor);
+	    	this.isToggled = true;
+    	}
+    }
+    
+    public void toggleOFF() {
+    	if(this.isToggled) {
+	    	this.setBackground(null);
+	    	this.setFontColor(this.backupcolor);
+	    	this.isToggled = false;
+    	}
+    	
     }
     
     public void setFontColor(Color color) {

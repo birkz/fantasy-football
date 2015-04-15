@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import is.hi.f2a.backend.FontUtil;
 import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.frontend.ButtonColumn;
 import is.hi.f2a.res.Constants;
@@ -46,6 +48,8 @@ public class MarketPanel extends JPanel {
 	private String text;
 	private List<Player> results;
 	private List<? extends SortKey> sortkeys;
+	
+	private final int fontsize = 13;
 
 	/**
 	 * Create the panel.
@@ -75,8 +79,10 @@ public class MarketPanel extends JPanel {
 		this.field.setText(pl_choice);
 		
 		setLayout(new BorderLayout(0, 0)); 
+		setBackground(Color.WHITE);
 		
 		field.setPreferredSize(new Dimension(150, 30));
+		field.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
 		field.setFocusable( true );
 		field.addKeyListener(new KeyListener(){
 			
@@ -143,6 +149,8 @@ public class MarketPanel extends JPanel {
 			cb.setSelectedItem(this.pos_choice);
         }
 		
+		cb.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
+		cb.setBackground(Color.WHITE);
 		cb.setVisible(true);
 		cb.addActionListener(new ActionListener() {
             @SuppressWarnings("unchecked")
@@ -187,6 +195,7 @@ public class MarketPanel extends JPanel {
 		}
 		
 		jtable = getJTable(player_choice,team_choice,pos_choice);
+		jtable.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
 		
 		// scroll = new JScrollPane(jtable);
 		jtable.invalidate();
@@ -207,6 +216,7 @@ public class MarketPanel extends JPanel {
 
 		List<String> pos_choices = Arrays.asList("Any","Goalkeeper","Defender","Midfielder","Forward");
 		wrapper = new JPanel();
+		wrapper.setBackground(Color.WHITE);
 		wrapper.add(field);
 		wrapper.add(addComboBox(team_choices,"Team"));
 		wrapper.add(addComboBox(pos_choices,"Pos"));
@@ -266,6 +276,8 @@ public class MarketPanel extends JPanel {
 		    }
 		};
 		
+		//table.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
+		//table.setBackground(Color.WHITE);
 		table.setEnabled(true);
 		table.getColumn("Player").setPreferredWidth(120);
 		table.getColumn("Team").setPreferredWidth(160);

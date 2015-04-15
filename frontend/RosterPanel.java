@@ -3,6 +3,7 @@ package is.hi.f2a.frontend;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.io.IOException;
 import java.awt.GridLayout;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.swing.table.TableColumn;
 
 import is.hi.f1a.Player;
 import is.hi.f2a.tests.InvalidPlayer;
+import is.hi.f2a.backend.FontUtil;
 import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.backend.Roster;
 
@@ -35,12 +37,14 @@ public class RosterPanel extends JPanel {
 	private Roster roster;
 	//private JLabel num_players;
 	private final Integer IS_ON_FIELD_COLUMN = 7;
+	private final int fontsize = 13;
 	
 	/*
 	 * Constructor
 	 */
 	public RosterPanel() throws InvalidPlayer {
 		setLayout(new BorderLayout(0, 0));
+		setBackground(Color.WHITE);
 		
 		this.roster = MainGame.getInstance().getCurrentUser().getRoster();
 		List<List<Player>> roster_lists = this.roster.getPlayersInRoster();
@@ -149,6 +153,7 @@ public class RosterPanel extends JPanel {
 				}
 			};
 			
+			table.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
 			table.setEnabled(true);
 			table.setFocusable(false);
 			table.setShowGrid(false);

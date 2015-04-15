@@ -168,8 +168,8 @@ public class PlayerProfile extends JPanel {
 		if(numlength == 1) extralength = -1;
 		else extralength = numlength*(labelheight/4);
 		
-		g2.setPaint(new Color(20,110,0,200));
-		g2.fill(new RoundRectangle2D.Double(scaledwidth-labeloffset-(int)(labelheight/3.5), labelypos, labelheight+extralength, labelheight-1, labelheight-2, labelheight-2));
+		g2.setPaint(new Color(20,20,0,200));
+		g2.fill(new RoundRectangle2D.Double(scaledwidth-labeloffset-(int)(labelheight/3.1), labelypos, labelheight+extralength, labelheight-1, labelheight-2, labelheight-2));
 			
 		g2.setPaint(Color.WHITE);
 		g2.setFont(FontUtil.getFont("kalinga", Font.BOLD, base/8));

@@ -1,7 +1,10 @@
 package is.hi.f2a.frontend;
 
+import is.hi.f2a.backend.FontUtil;
+
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
@@ -48,12 +51,18 @@ public class ButtonColumn extends AbstractCellEditor
 		this.table = table;
 		this.action = action;
 
+		//DesignedButton.buyStyle(Font.PLAIN, 10)
 		renderButton = new JButton();
 		editButton = new JButton();
 		editButton.setFocusPainted( false );
 		editButton.addActionListener( this );
 		originalBorder = editButton.getBorder();
 		setFocusBorder( new LineBorder(Color.BLUE) );
+		
+		renderButton.setBackground(Color.WHITE);
+		renderButton.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 10));
+		editButton.setBackground(Color.WHITE);
+		editButton.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 10));
 
 		TableColumnModel columnModel = table.getColumnModel();
 		columnModel.getColumn(column).setCellRenderer( this );

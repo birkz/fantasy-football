@@ -3,7 +3,7 @@ package is.hi.f2a.frontend;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.IOException;
@@ -24,6 +24,13 @@ public class Main {
 	private JPanel right;
 	private JPanel left;
 	
+	private JButton[] arrButtons;
+	private String[] navButtons = new String[]{"MARKET", 
+											   "SCORES", 
+											   "ROSTER", 
+											   "LEAGUE",};
+	private String endButton = "END TURN";
+	
 	private FieldViewerPanel field;
 	
 	private Main() {
@@ -40,6 +47,18 @@ public class Main {
 	
 	public void createAndShowGUI() {
 		restartGame();
+	}
+	
+	public String[] getNavButtonArg() {
+		return this.navButtons;
+	}
+	
+	public JButton[] getNavButtons() {
+		return this.arrButtons;
+	}
+	
+	public String getEndButtonArg() {
+		return this.endButton;
 	}
 	
 	public void restartGame() {
@@ -69,33 +88,45 @@ public class Main {
 		frame.setLocationRelativeTo(null);
 		frame.setLayout(new GridLayout(1,2,2,0));
 		
-		JPanel buttons = new JPanel(){
-			private static final long serialVersionUID = 1L;
-			protected void paintComponent(Graphics g) {
-				Image img = new ImageIcon("src/res/Images/logo_standard.png").getImage();
-				g.drawImage(img, 0, 0, this.getSize().width, this.getSize().height , null);
-		    }
-		};
 		left = new JPanel();
 		right = new JPanel();
-		
-		String[] newButtons = new String[]{"Market", "Scoreboard", "Roster", "League", "END TURN"};
-		JButton[] arrButtons = new JButton[newButtons.length];
-		for(int k=0; k<newButtons.length; ++k) {
-			arrButtons[k]= new JButton(newButtons[k]);
-			arrButtons[k].addActionListener(actionList); 
-		}
-		
-		for(int k=0; k<newButtons.length-1; ++k) {
-			buttons.add(arrButtons[k]);
-		}
-        
-        JPanel endPanel = new JPanel();
-        endPanel.setSize(50, 50);
-        endPanel.add(arrButtons[newButtons.length-1]);
         
 		frame.add(left);
 		frame.add(right);
+		
+		
+		///////////////
+		//NAV BUTTONS
+		///////////////
+		JPanel buttons = new JPanel();
+	
+		// Grid for 4 buttons side by side
+		buttons.setLayout(new GridLayout(1,4,2,2));
+		int buttonsheight = 40;
+		buttons.setPreferredSize(new Dimension(left.getWidth(), buttonsheight));
+		
+		arrButtons = new CustomButton[navButtons.length];
+		for(int k=0; k<navButtons.length; ++k) {
+			arrButtons[k] = DesignedButton.orangeStyle(navButtons[k], Font.PLAIN, 20);
+			arrButtons[k].setBackground(Color.WHITE);
+			arrButtons[k].addActionListener(actionList); 
+		}
+		
+		for(int k=0; k<navButtons.length; ++k) {
+			buttons.add(arrButtons[k]);
+		}
+		///////////////////
+        
+		///////////////////
+		// END TURN BUTTON
+		///////////////////
+        //JPanel endPanel = new JPanel();
+        //endPanel.setSize(50, 50);
+        JButton endturn = DesignedButton.endStyle(endButton, Font.PLAIN, 20);
+        endturn.addActionListener(actionList);
+        //endPanel.add(endturn, BorderLayout.CENTER);
+        ///////////////////
+
 		
 		left.setLayout(new BorderLayout(0, 0));
 		left.setBorder(BorderFactory.createEmptyBorder(0,10,5,5)); 
@@ -108,7 +139,13 @@ public class Main {
 		
 		this.field = new FieldViewerPanel();
 		right.add(this.field, BorderLayout.CENTER);
-		right.add(endPanel, BorderLayout.SOUTH);
+		right.add(endturn, BorderLayout.SOUTH);
+		
+		//White backgrounds everywhere
+		frame.getContentPane().setBackground(Color.WHITE);
+		left.setBackground(Color.WHITE);
+		right.setBackground(Color.WHITE);
+		buttons.setBackground(Color.WHITE);
 
         frame.setVisible(true);
         
@@ -119,6 +156,7 @@ public class Main {
         frame.validate();
       
 	}
+
 	
 	public void restartFrame() throws InvalidUser, IOException {
 
@@ -177,7 +215,17 @@ public class Main {
 		panel.add(new ScorePanel());
 		panel.add(new LeaguePanel(isEnd));
 		frame.add(panel, BorderLayout.CENTER);
-		frame.add(new EndgamePanel(), BorderLayout.SOUTH);
+		
+		//////
+		//NEW
+		//////
+		JButton newgame = DesignedButton.newStyle("NEW GAME", Font.PLAIN, 20);
+		frame.add(newgame, BorderLayout.SOUTH);
+		newgame.addActionListener(new HandleButtons());
+		//////
+		
+		//OLD
+		//frame.add(new EndgamePanel(), BorderLayout.SOUTH);
 		
 		frame.setVisible(true);
         frame.validate();
@@ -214,6 +262,12 @@ public class Main {
 		right.setVisible(false);
 		right.setVisible(true);
 		right.validate();
+	}
+	
+	public void refreshLeftPanel() {
+		left.setVisible(false);
+		left.setVisible(true);
+		left.validate();
 	}
 	
 	private class InnerThread extends Thread {

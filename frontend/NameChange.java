@@ -1,6 +1,8 @@
 package is.hi.f2a.frontend;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -9,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import is.hi.f2a.tests.InvalidUser;
+import is.hi.f2a.backend.FontUtil;
 import is.hi.f2a.backend.MainGame;
 
 public class NameChange extends JPanel {
@@ -24,14 +27,23 @@ public class NameChange extends JPanel {
 	 * @throws InvalidUser 
 	 */
 	public NameChange() throws InvalidUser {
-		JLabel explain = new JLabel("Name: ");
+		
+		this.setBackground(Color.WHITE);
+
+		JLabel explain = new JLabel("NAME: ");
+		explain.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 16));
+		
 		name = new JTextField();
 		name.setText(is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getName());
 		name.setPreferredSize(new Dimension(170, 30));
+		name.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 16));
 		addChangeListener();
 		
-		JLabel money = new JLabel("  Money: "+String.format("%,d", MainGame.getInstance().getCurrentUser().getMoney()));
-		JLabel score = new JLabel("  Score: "+MainGame.getInstance().getCurrentUser().getScore());
+		JLabel money = new JLabel("  MONEY: "+String.format("%,d", MainGame.getInstance().getCurrentUser().getMoney()));
+		money.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
+		
+		JLabel score = new JLabel("  SCORE: "+MainGame.getInstance().getCurrentUser().getScore());
+		score.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
 		
 		String placement = "";
 		if(MainGame.getInstance().getRound()!=0){
@@ -43,7 +55,9 @@ public class NameChange extends JPanel {
 		}
 		
 		JLabel placement_label = new JLabel(placement);
-		JLabel round = new JLabel("  Round: "+MainGame.getInstance().getRound());
+		
+		JLabel round = new JLabel("  ROUND: "+MainGame.getInstance().getRound());
+		round.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
 		
 		add(explain);
 		add(name);

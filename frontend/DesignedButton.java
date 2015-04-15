@@ -14,6 +14,7 @@ public class DesignedButton {
 		button.setHoverBackgroundColor(new Color(255, 85, 28));
 		button.setHoverFontColor(Color.WHITE);
 		button.setPressedBackgroundColor(Color.BLACK);
+		button.setFocusPainted(false);
 		
 		return button;
 	}
@@ -26,6 +27,49 @@ public class DesignedButton {
 		button.setHoverBackgroundColor(new Color(255, 0, 0));
 		button.setHoverFontColor(Color.WHITE);
 		button.setPressedBackgroundColor(Color.BLACK);
+		button.setFocusPainted(false);
+		
+		return button;
+	}
+	
+	public static CustomButton endStyle(String text, int style, float size) {
+		CustomButton button = new CustomButton(text);
+		button.setBorder(null);
+		button.setFont(FontUtil.getFont("kalinga", style, size));
+		button.setBackground(new Color(255, 85, 28));
+		button.setFontColor(Color.WHITE);
+		button.setHoverBackgroundColor(new Color(212,32,32));
+		button.setHoverFontColor(Color.WHITE);
+		button.setPressedBackgroundColor(Color.BLACK);
+		button.setFocusPainted(false);
+		
+		return button;
+	}
+	
+	public static CustomButton buyStyle(int style, float size) {
+		CustomButton button = new CustomButton();
+		button.setBorder(null);
+		button.setFont(FontUtil.getFont("kalinga", style, size));
+		button.setBackground(new Color(10, 150, 10));
+		button.setFontColor(Color.WHITE);
+		button.setHoverBackgroundColor(new Color(212,32,32));
+		button.setHoverFontColor(Color.WHITE);
+		button.setPressedBackgroundColor(Color.BLACK);
+		button.setFocusPainted(false);
+		
+		return button;
+	}
+	
+	public static CustomButton newStyle(String text, int style, float size) {
+		CustomButton button = new CustomButton(text);
+		button.setBorder(null);
+		button.setFont(FontUtil.getFont("kalinga", style, size));
+		button.setBackground(new Color(10, 125, 10));
+		button.setFontColor(Color.WHITE);
+		button.setHoverBackgroundColor(new Color(212,32,32));
+		button.setHoverFontColor(Color.WHITE);
+		button.setPressedBackgroundColor(Color.BLACK);
+		button.setFocusPainted(false);
 		
 		return button;
 	}

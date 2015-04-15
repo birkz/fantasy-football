@@ -4,11 +4,13 @@ import is.hi.f1a.FantasyFootballBackend;
 import is.hi.f1a.Game;
 import is.hi.f1a.League;
 import is.hi.f1a.Team;
+import is.hi.f2a.backend.FontUtil;
 import is.hi.f2a.backend.MainGame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -22,6 +24,8 @@ public class LeaguePanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final int fontsize = 13;
 
 	/**
 	 * Create the panel.
@@ -62,6 +66,8 @@ public class LeaguePanel extends JPanel {
 		table.setEnabled(false);
 		table.getColumn("CLUB").setPreferredWidth(300);
 		table.setShowGrid(false);
+		table.setBackground(Color.WHITE);
+		table.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
 		add(new JScrollPane(table), BorderLayout.CENTER);
 		
 		int showPlan = 1; // how long a plan do you want to see 1 round or more
@@ -101,6 +107,7 @@ public class LeaguePanel extends JPanel {
 		tableGames.getColumn("Score").setMaxWidth(60);
 		tableGames.getColumn("Round").setMaxWidth(60);
 		tableGames.setShowGrid(false);
+		tableGames.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
 		add(new JScrollPane(tableGames), BorderLayout.SOUTH);
 	}
 	
