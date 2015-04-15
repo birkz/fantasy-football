@@ -112,12 +112,27 @@ public class LeaguePanel extends JPanel {
 	}
 	
 	private void getOrderedTeams(ArrayList<Team> teams) {
-		for(int i=0; i<teams.size(); ++i) {
+		for (int i=0; i<teams.size(); ++i) {
 			int j = i;
 			while(j>0) {
-				if(teams.get(j-1).getPoints() < teams.get(j).getPoints() ||
+				if(teams.get(j-1).getPoints() < teams.get(j).getPoints()
+						||
+						(teams.get(j-1).getPoints() == teams.get(j).getPoints() &&
 						teams.get(j-1).getGoalsScored()-teams.get(j-1).getGoalsConceded() < 
-						teams.get(j).getGoalsScored()-teams.get(j).getGoalsConceded()) {
+						teams.get(j).getGoalsScored()-teams.get(j).getGoalsConceded()
+						) || (
+						teams.get(j-1).getPoints() == teams.get(j).getPoints() &&
+						teams.get(j-1).getGoalsScored()-teams.get(j-1).getGoalsConceded() == 
+						teams.get(j).getGoalsScored()-teams.get(j).getGoalsConceded() &&
+						teams.get(j-1).getGoalsScored() < teams.get(j).getGoalsScored()
+						) || (
+						teams.get(j-1).getPoints() == teams.get(j).getPoints() &&
+						teams.get(j-1).getGoalsScored()-teams.get(j-1).getGoalsConceded() == 
+						teams.get(j).getGoalsScored()-teams.get(j).getGoalsConceded() &&
+						teams.get(j-1).getGoalsScored() == teams.get(j).getGoalsScored() &&
+						teams.get(j-1).getWins() < teams.get(j).getWins()
+						)
+						) {
 					Team tmp = teams.get(j-1);
 					teams.set(j-1, teams.get(j));
 					teams.set(j, tmp);
@@ -126,4 +141,5 @@ public class LeaguePanel extends JPanel {
 			}
 		}
 	}
+
 }
