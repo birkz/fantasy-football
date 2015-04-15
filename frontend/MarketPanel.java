@@ -268,7 +268,7 @@ public class MarketPanel extends JPanel {
 			public Component prepareRenderer(TableCellRenderer renderer, int rowIndex, int vColIndex) {
 		        Component c = super.prepareRenderer(renderer, rowIndex, vColIndex);
 		        if (rowIndex % 2 == 0 && vColIndex != 6) {
-		          c.setBackground(new Color(0,0,255,32));
+		          c.setBackground(new Color(0,0,255,42));
 		        } else {
 		          c.setBackground(getBackground());
 		        }

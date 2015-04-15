@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
@@ -97,8 +96,8 @@ public class GraphData extends JPanel {
 		
 		draw.setColor(new Color(0, 0, 0, 50));
 		draw.setStroke(new BasicStroke(1));
-		for(int i=1; i<10; ++i) {
-			draw.drawLine(i*width/10, 0, i*width/10, height);
+		for(int i=1; i<18; ++i) {
+			draw.drawLine(i*width/18, 0, i*width/18, height);
 		}
 		double num = height/maxscore*5;
 		for(int i=1; (int) (i*num)<height; ++i) {
@@ -118,11 +117,11 @@ public class GraphData extends JPanel {
 		        line.moveTo(0, height+minScore);
 		        for(int k=0; k<allscores.size(); ++k) 
 		        {
-		        	lastpointx = (k+1)*width/10;
+		        	lastpointx = (k+1)*width/18;
 		        	lastpointy = (int) (height-height/(maxscore-minScore)*(allscores.get(k))+minScore);
 		        	lastscore = allscores.get(k);
 		        	
-		        	line.lineTo((k+1)*width/10, (height-height/(maxscore-minScore)*(allscores.get(k))+minScore));
+		        	line.lineTo((k+1)*width/18, (height-height/(maxscore-minScore)*(allscores.get(k))+minScore));
 		        }
 		        draw.draw(line);
 		        
