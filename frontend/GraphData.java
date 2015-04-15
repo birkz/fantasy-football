@@ -125,24 +125,32 @@ public class GraphData extends JPanel {
 		        }
 		        draw.draw(line);
 		        
-		        // Calculate number of numbers in points
-				int numlength;
-				if(lastscore == 0) numlength = 1;
-				else numlength = (int)(Math.log10(lastscore)+1);
-				
-				int extralength;
-				if(numlength == 1) extralength = 8;
-				else extralength = numlength*8;
-				
-				int xoffset = -30;
-				int labelheight = 20;
-				
-				draw.setPaint(col[i].darker());
-				draw.fill(new RoundRectangle2D.Double(lastpointx+xoffset-6, lastpointy-labelheight, 12+extralength, 20, 20, 20));
-		        
-				draw.setPaint(Color.WHITE);
-		        draw.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
-		        draw.drawString(Integer.toString(lastscore), lastpointx+xoffset, lastpointy-5); //BARA HUGMYND
+		        // Scorelabel at the end of the line
+		        if(allscores.size() > 0) {
+			        // Calculate number of numbers in points
+					int numlength;
+					if(lastscore == 0) numlength = 1;
+					else numlength = (int)(Math.log10(lastscore)+1);
+					
+					int extralength;
+					if(numlength == 1) extralength = 8;
+					else extralength = numlength*8;
+					
+					int xoffset;
+					if(allscores.size() == 1) xoffset = -3;
+					else if(allscores.size() == 18) xoffset = -7-extralength;
+					else xoffset = -10;
+					
+					int labelheight = 20;
+					int labelwidth = extralength+12;
+					
+					draw.setPaint(col[i].darker());
+					draw.fill(new RoundRectangle2D.Double(lastpointx+xoffset-6, lastpointy-labelheight/2, labelwidth, 20, 20, 20));
+			        
+					draw.setPaint(Color.WHITE);
+			        draw.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
+			        draw.drawString(Integer.toString(lastscore), lastpointx+xoffset, lastpointy+5); //BARA HUGMYND
+		        }
 				
 			} catch (InvalidUser e) {
 				e.printStackTrace();
