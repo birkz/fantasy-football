@@ -147,11 +147,13 @@ public class PlayerProfile extends JPanel {
 		}
 		g2.setClip(null);
 		
+		/*
 		// Paint circle depending on penalty cards
 		if(this.red != 0) g2.setPaint(Color.RED);
 		else if(this.yellow != 0) g2.setPaint(Color.YELLOW);
-		else g2.setPaint(Color.WHITE);
-
+		else g2.setPaint(Color.WHITE);*/
+		
+		g2.setPaint(Color.WHITE);
 		g2.draw(new Ellipse2D.Double(circleoffset, 0, diameter, diameter));
 		
 		// Calculate number of numbers in points

@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -50,6 +51,8 @@ public class ScorePanel extends JPanel {
 			players.add(userN);
 			players.add(userS);
 		}
+		
+		setBorder(BorderFactory.createEmptyBorder());
 		
 		add(new GraphData(width, height), BorderLayout.CENTER);
 		//TÓK ÞETTTA BARA AF TIL AÐ FÁ EKKI SCOREPANEL

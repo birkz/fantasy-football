@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -41,7 +42,7 @@ public class GraphData extends JPanel {
 	public GraphData(int width0, int height0) {
 		List<User> users = MainGame.getInstance().getUsers();
 		setBorder(BorderFactory.createLineBorder(Color.black));
-		setLayout(new GridLayout(8,1)); // Breyting
+		//setLayout(new GridLayout(8,1)); // Breyting
 		for (int i=0; i<users.size(); ++i) {
 			JLabel label = new JLabel(users.get(i).getName() + ": " + users.get(i).getScore()); // Breyting
 			label.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 12));
@@ -119,15 +120,30 @@ public class GraphData extends JPanel {
 		        {
 		        	lastpointx = (k+1)*width/10;
 		        	lastpointy = (int) (height-height/(maxscore-minScore)*(allscores.get(k))+minScore);
-		        	lastscore = allscores.get(k); //EKKI TOPPGILDIÐ EFITR LYKKJUNA???
+		        	lastscore = allscores.get(k);
 		        	
 		        	line.lineTo((k+1)*width/10, (height-height/(maxscore-minScore)*(allscores.get(k))+minScore));
 		        }
 		        draw.draw(line);
 		        
-		        ///HUGMYND???
-		        draw.setFont(FontUtil.getFont("kalinga", Font.BOLD, 14));
-		        draw.drawString(Integer.toString(lastpointy), lastpointx-40, lastpointy+20); //BARA HUGMYND
+		        // Calculate number of numbers in points
+				int numlength;
+				if(lastscore == 0) numlength = 1;
+				else numlength = (int)(Math.log10(lastscore)+1);
+				
+				int extralength;
+				if(numlength == 1) extralength = 5;
+				else extralength = numlength*8;
+				
+				int xoffset = -30;
+				int labelheight = 20;
+				
+				draw.setPaint(col[i].darker());
+				draw.fill(new RoundRectangle2D.Double(lastpointx+xoffset-6, lastpointy-labelheight, 12+extralength, 20, 20, 20));
+		        
+				draw.setPaint(Color.WHITE);
+		        draw.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
+		        draw.drawString(Integer.toString(lastscore), lastpointx+xoffset, lastpointy-5); //BARA HUGMYND
 				
 			} catch (InvalidUser e) {
 				e.printStackTrace();
