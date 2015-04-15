@@ -173,7 +173,7 @@ public class Roster {
 	public boolean addPlayerToField(Player player) throws InvalidPlayer{
 		if (this.goalkeepers.contains(player)){
 			if (this.goalkeepersOnField.size() >= MAX_GOALKEEPERS_ON_FIELD || this.goalkeepersOnField.contains(player)
-					|| this.numberOfPlayersOnField >= 11){
+					|| this.numberOfPlayersOnField >= 11 || !player.isAvailable(false)){
 				return false;
 			}
 			this.goalkeepersOnField.add(player);
@@ -182,7 +182,7 @@ public class Roster {
 			
 		} else if (this.defenders.contains(player)){
 			if (this.defendersOnField.size() >= MAX_DEFENDERS_ON_FIELD || this.defendersOnField.contains(player)
-					|| this.numberOfPlayersOnField >= 11){
+					|| this.numberOfPlayersOnField >= 10+this.goalkeepersOnField.size() || !player.isAvailable(false)){
 				return false;
 			}
 			this.defendersOnField.add(player);
@@ -190,7 +190,8 @@ public class Roster {
 			return true;
 			
 		} else if (this.midfielders.contains(player)){
-			if (this.midfieldersOnField.size() >= MAX_MIDFIELDERS_ON_FIELD || this.midfieldersOnField.contains(player) || this.numberOfPlayersOnField >= 11){
+			if (this.midfieldersOnField.size() >= MAX_MIDFIELDERS_ON_FIELD || this.midfieldersOnField.contains(player)
+					|| this.numberOfPlayersOnField >= 10+this.goalkeepersOnField.size() || !player.isAvailable(false)){
 				return false;
 			}
 			this.midfieldersOnField.add(player);
@@ -198,7 +199,8 @@ public class Roster {
 			return true;
 			
 		} else if (this.forwards.contains(player)){
-			if (this.forwardsOnField.size() >= MAX_FORWARDS_ON_FIELD || this.forwardsOnField.contains(player) || this.numberOfPlayersOnField >= 11){
+			if (this.forwardsOnField.size() >= MAX_FORWARDS_ON_FIELD || this.forwardsOnField.contains(player) ||
+					this.numberOfPlayersOnField >= 10+this.goalkeepersOnField.size() || !player.isAvailable(false)){
 				return false;
 			}
 			this.forwardsOnField.add(player);
@@ -206,7 +208,7 @@ public class Roster {
 			return true;
 			
 		}
-		throw new is.hi.f2a.tests.InvalidPlayer(player.getName()+" is currently not in the roster.");
+		throw new InvalidPlayer(player.getName()+" is currently not in the roster.");
 	}
 	
 	// Usage: getPlayersInRoster()
