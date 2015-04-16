@@ -23,27 +23,26 @@ public class Main {
 	private JFrame frame;
 	private JPanel right;
 	private JPanel left;
+	private JPanel buttons;
 	
 	private JButton[] arrButtons;
-	private String[] navButtons = new String[]{"MARKET", 
-											   "SCORES", 
-											   "ROSTER", 
-											   "LEAGUE",};
+	private String[] navButtons = new String[]{"MARKET", "SCORES", "ROSTER", "LEAGUE",};
+	private JButton endturn;
 	private String endButton = "END TURN";
 	
 	private int buttonON = 1; //Score takkinn
 	
 	private FieldViewerPanel field;
 	private StartPanel startpanel;
+	private Image icon;
 	
 	private Main() {
-		basicFrameSetup();
+		this.icon = new ImageIcon("src/is/hi/f2a/res/Images/icon.png").getImage();
 	}
 	
 	private void basicFrameSetup() {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Image icon = new ImageIcon("src/is/hi/f2a/res/Images/icon.png").getImage();
 		frame.setTitle("FANTASY FOOTBALL 2015");
 		frame.setIconImage(icon);
 	}
@@ -53,6 +52,7 @@ public class Main {
 	}
 	
 	public void createAndShowGUI() {
+		basicFrameSetup();
 		newGame();
 	}
 	
@@ -110,7 +110,7 @@ public class Main {
 		frame.setResizable(true);
 		frame.setVisible(false);
 		
-		HandleButtons actionList = new HandleButtons();
+		//HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
 		frame.setMinimumSize(new Dimension(1200,700));
 		
@@ -123,39 +123,8 @@ public class Main {
 		frame.add(left);
 		frame.add(right);
 		
-		
-		///////////////
-		//NAV BUTTONS
-		///////////////
-		JPanel buttons = new JPanel();
-	
-		// Grid for 4 buttons side by side
-		buttons.setLayout(new GridLayout(1,4,2,2));
-		int buttonsheight = 40;
-		buttons.setPreferredSize(new Dimension(left.getWidth(), buttonsheight));
-		
-		arrButtons = new CustomButton[navButtons.length];
-		for(int k=0; k<navButtons.length; ++k) {
-			arrButtons[k] = DesignedButton.orangeStyle(navButtons[k], Font.PLAIN, 20);
-			arrButtons[k].setBackground(Color.WHITE);
-			arrButtons[k].addActionListener(actionList); 
-		}
-		
-		for(int k=0; k<navButtons.length; ++k) {
-			buttons.add(arrButtons[k]);
-		}
-		///////////////////
-        
-		///////////////////
-		// END TURN BUTTON
-		///////////////////
-        //JPanel endPanel = new JPanel();
-        //endPanel.setSize(50, 50);
-        JButton endturn = DesignedButton.endStyle(endButton, Font.PLAIN, 20);
-        endturn.addActionListener(actionList);
-        //endPanel.add(endturn, BorderLayout.CENTER);
-        ///////////////////
-
+		buttons = new JPanel();
+		setupButtons();
 		
 		left.setLayout(new BorderLayout(0, 0));
 		left.setBorder(BorderFactory.createEmptyBorder(0,10,5,5)); 
@@ -168,7 +137,7 @@ public class Main {
 		
 		this.field = new FieldViewerPanel();
 		right.add(this.field, BorderLayout.CENTER);
-		right.add(endturn, BorderLayout.SOUTH);
+		right.add(this.endturn, BorderLayout.SOUTH);
 		
 		//White backgrounds everywhere
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -176,7 +145,7 @@ public class Main {
 		right.setBackground(Color.WHITE);
 		buttons.setBackground(Color.WHITE);
 		
-		toggleButton(1); // Score takkinn
+		toggleButton(1); // Score takkinn innsettur þegar leikur byrjar
 
         frame.setVisible(true);
         
@@ -188,23 +157,54 @@ public class Main {
       
 	}
 	
-	// Er að reyna hérna refresha left panelið eftir hverja turn
-	// Kalla á þetta fall í MainGame
-	public void refreshFrame() throws InvalidUser, IOException, InvalidPlayer {
-		BorderLayout rightlayout = (BorderLayout) right.getLayout();
-		right.remove(rightlayout.getLayoutComponent(BorderLayout.NORTH));
-		right.add(new NameChange(), BorderLayout.NORTH);
+	private void setupButtons() {
 		
+		HandleButtons actionList = new HandleButtons();
+		///////////////
+		//NAV BUTTONS
+		///////////////
+		// Grid for 4 buttons side by side
+		this.buttons.setLayout(new GridLayout(1,4,2,2));
+		int buttonsheight = 40;
+		this.buttons.setPreferredSize(new Dimension(this.left.getWidth(), buttonsheight));
+		
+		this.arrButtons = new CustomButton[navButtons.length];
+		for(int k=0; k<navButtons.length; ++k) {
+			this.arrButtons[k] = DesignedButton.orangeStyle(navButtons[k], Font.PLAIN, 20);
+			this.arrButtons[k].setBackground(Color.WHITE);
+			this.arrButtons[k].addActionListener(actionList); 
+		}
+		
+		for(int k=0; k<navButtons.length; ++k) {
+			this.buttons.add(arrButtons[k]);
+		}	
+		
+		///////////////////
+		// END TURN BUTTON
+		///////////////////
+		this.endturn = DesignedButton.endStyle(endButton, Font.PLAIN, 20);
+		this.endturn.addActionListener(actionList);
 
+	}
+	
+	// Köllum á þetta alltaf eftir "end turn" til að uppfæra GUI
+	public void refreshFrame() throws InvalidUser, IOException, InvalidPlayer {
+		
+		//Vinstri hlið
 		if(buttonON == 0) setPanelAsMarket(null, 0, null, "", "Any Team", "Any Position");
 		else if(buttonON == 1) setPanelAsScore();
 		else if(buttonON == 2) setPanelAsRoster();
 		else setPanelAsLeague(false);
 		
+		//Hægri hlið
+		BorderLayout rightlayout = (BorderLayout) right.getLayout();
+		right.remove(rightlayout.getLayoutComponent(BorderLayout.NORTH));
+		right.add(new NameChange(), BorderLayout.NORTH);
 		setPanelAsFieldViewer();
 		
-		frame.setVisible(true);
-        frame.validate();
+		//frame.setVisible(true);
+        //frame.validate();+
+		// ^^ þetta virðist ekki þurfa
 	}
 
 	
@@ -218,8 +218,9 @@ public class Main {
 		
 		setPanelAsFieldViewer();
 
-        frame.setVisible(true);
-        frame.validate();
+        //frame.setVisible(true);
+        //frame.validate();
+		// ^^ þetta virðist ekki þurfa
 	}
 	
 	public void setPanelAsMarket(JScrollPane scroll, int value, List<? extends SortKey> sortkeys, String pl_choice, String team_choice, String pos_choice) {
