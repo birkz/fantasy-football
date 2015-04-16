@@ -40,11 +40,16 @@ public class StartPanel extends JPanel {
 	private int numEmpty = 1;
 	private JButton startGame;
 	private JButton addPlayer;
+	private Image img;
 
 	/**
 	 * Create the panel.
 	 */
 	public StartPanel() {
+		
+		this.img = new ImageIcon("src/is/hi/f2a/res/Images/logo_standard.png").getImage();
+		JLabel logo = new JLabel(new ImageIcon(this.img), JLabel.CENTER);
+		
 		playername_field = new JTextField();
 		JPanel fieldButt = new JPanel();
 		playername_field.setPreferredSize(new Dimension(200, 30));
@@ -54,7 +59,11 @@ public class StartPanel extends JPanel {
 		playername_field.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 16));
 		
 		addPlayer = DesignedButton.orangeStyle("  ADD PLAYER  ", Font.PLAIN, 20);
-
+		startGame = DesignedButton.orangeStyle("  START GAME  ", Font.PLAIN, 20);
+		
+		//////////////
+		// LISTENERS
+		//////////////
         addPlayer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
@@ -63,6 +72,7 @@ public class StartPanel extends JPanel {
 
             }
         }); 
+        
         playername_field.addKeyListener(new KeyListener(){
         	
 			@Override
@@ -82,14 +92,10 @@ public class StartPanel extends JPanel {
 			
 		});
         
-		startGame = DesignedButton.orangeStyle("  START GAME  ", Font.PLAIN, 20);
-		//Add action listener to button
 		startGame.addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
             {
-            	//removeAll();
-            	cleanPanel();
 				try {
 					Main.getInstance().startGame(names);
 				} catch (InvalidPlayer | InvalidPosition | InvalidUser | IOException e1) {
@@ -99,10 +105,7 @@ public class StartPanel extends JPanel {
 				
             }
         }); 
-		
-		
-		Image img = new ImageIcon("src/is/hi/f2a/res/Images/logo_standard.png").getImage();
-		JLabel logo = new JLabel(new ImageIcon(img), JLabel.CENTER);;
+		//////////////////////////////
 	
 		setLayout(new BorderLayout(0, 0));
 
@@ -115,18 +118,13 @@ public class StartPanel extends JPanel {
 		fieldButt.add(addPlayer);
 		fieldButt.add(startGame);
 		add(logo, BorderLayout.NORTH);
-		add(players, BorderLayout.SOUTH);
 		add(fieldButt, BorderLayout.CENTER);
+		add(players, BorderLayout.SOUTH);
 		
 		// If we don't allow zero players to play, disable the "Start Game" button.
 		if(Constants.MIN_USERS>0){
 			startGame.setEnabled(false);
 		}
-	}
-	
-	private void cleanPanel() {
-		this.setVisible(false);
-	
 	}
 
 	/*
