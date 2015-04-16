@@ -88,7 +88,8 @@ public class StartPanel extends JPanel {
 			 
             public void actionPerformed(ActionEvent e)
             {
-           
+            	//removeAll();
+            	cleanPanel();
 				try {
 					Main.getInstance().startGame(names);
 				} catch (InvalidPlayer | InvalidPosition | InvalidUser | IOException e1) {
@@ -98,6 +99,7 @@ public class StartPanel extends JPanel {
 				
             }
         }); 
+		
 		
 		Image img = new ImageIcon("src/is/hi/f2a/res/Images/logo_standard.png").getImage();
 		JLabel logo = new JLabel(new ImageIcon(img), JLabel.CENTER);;
@@ -120,6 +122,11 @@ public class StartPanel extends JPanel {
 		if(Constants.MIN_USERS>0){
 			startGame.setEnabled(false);
 		}
+	}
+	
+	private void cleanPanel() {
+		this.setVisible(false);
+	
 	}
 
 	/*
