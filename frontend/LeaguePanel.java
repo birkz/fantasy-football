@@ -2,20 +2,25 @@ package is.hi.f2a.frontend;
 
 import is.hi.f1a.FantasyFootballBackend;
 import is.hi.f1a.Game;
+import is.hi.f1a.GameEvent;
 import is.hi.f1a.League;
 import is.hi.f1a.Team;
 import is.hi.f2a.backend.FontUtil;
 import is.hi.f2a.backend.MainGame;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.TableCellRenderer;
 
 public class LeaguePanel extends JPanel {
@@ -33,7 +38,8 @@ public class LeaguePanel extends JPanel {
 	public LeaguePanel(boolean isEnd) {
 		MainGame mainGame = MainGame.getInstance();
 		
-		setLayout(new BorderLayout(0, 0)); 
+		setLayout(new GridLayout(3, 1, 0, 0));
+		
 		String[] columnNames = {"POS", "CLUB", "P", "W", "D", "L", "GF", "GA", "GD", "PTS"};
 		League league = FantasyFootballBackend.getInstance().getLeague();
 
@@ -68,7 +74,7 @@ public class LeaguePanel extends JPanel {
 		table.setShowGrid(false);
 		table.setBackground(Color.WHITE);
 		table.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
-		add(new JScrollPane(table), BorderLayout.CENTER);
+		add(new JScrollPane(table));
 		
 		int showPlan = 1; // how long a plan do you want to see 1 round or more
 		ArrayList<Game> games = league.getGames();
@@ -108,7 +114,54 @@ public class LeaguePanel extends JPanel {
 		tableGames.getColumn("Round").setMaxWidth(60);
 		tableGames.setShowGrid(false);
 		tableGames.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
-		add(new JScrollPane(tableGames), BorderLayout.SOUTH);
+		add(new JScrollPane(tableGames));
+		
+		add(addGameEvents(games, numGames));
+	}
+	
+	private JScrollPane addGameEvents(ArrayList<Game> games, int numGames) {
+		JScrollPane scroll = new JScrollPane();
+		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		JLabel label = new JLabel("Game Events!");
+		label.setFont(FontUtil.getFont("kalinga", Font.BOLD, 20));
+	    label.setHorizontalAlignment(JLabel.CENTER);
+	    label.setVerticalAlignment(JLabel.CENTER);
+		scroll.setColumnHeaderView(label);
+		JPanel wrapper = new JPanel(new GridBagLayout());
+		GridBagConstraints cMain = new GridBagConstraints();
+		cMain.fill = GridBagConstraints.HORIZONTAL;
+		int yRows = 0;
+		for(int i=numGames-1; i>=0; --i) {
+			ArrayList<GameEvent> events = games.get(i).getGameEvents();
+			if(events.size()>0) {
+				cMain.gridx = 0;
+				cMain.gridy = yRows++;
+				JPanel gameEvents = new JPanel(new GridBagLayout());
+				GridBagConstraints c = new GridBagConstraints();
+				c.gridx = 0;
+				c.gridy = 0;
+				JLabel team =new JLabel("In game of "+ games.get(i).getHomeTeam().getName()+ 
+						" and " + games.get(i).getAwayTeam().getName());
+				team.setFont(FontUtil.getFont("kalinga", Font.BOLD, 15));
+				gameEvents.add(team , c);
+				for(int k=0; k<events.size(); ++k) {
+					GameEvent event = events.get(k);
+					if(!event.getEvent().equals(GameEvent.Event.SUBSTITUTION_OFF) && !event.getEvent().equals(GameEvent.Event.SUBSTITUTION_ON) && 
+							!event.getEvent().equals(GameEvent.Event.ASSIST)) {// && !event.getEvent().equals("SUBSTITUTION_OFF")) {
+						c.gridy++;
+						JLabel currentEvent = new JLabel("Player named "+event.getPlayer() +" on "+ event.getMinute() + " minute: " + event.getEvent());
+						gameEvents.setFont(FontUtil.getFont("kalinga", Font.BOLD, 12));
+						gameEvents.add(currentEvent, c);
+					}
+				}
+				c.gridy = c.gridy + 1;
+				gameEvents.add(new JLabel("-----------------------------"), c);
+				wrapper.add(gameEvents, cMain);
+				yRows++;
+			}
+		}
+		scroll.setViewportView(wrapper);
+		return scroll;
 	}
 	
 	private void getOrderedTeams(ArrayList<Team> teams) {
