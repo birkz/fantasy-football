@@ -139,7 +139,7 @@ public class Main {
 		left.setLayout(new BorderLayout(0, 0));
 		left.setBorder(BorderFactory.createEmptyBorder(0,10,5,5)); 
 		left.add(buttons, BorderLayout.NORTH);
-		left.add(new ScorePanel(), BorderLayout.CENTER);
+		left.add(new GraphData(), BorderLayout.CENTER);
 		
 		right.setLayout(new BorderLayout(0, 0));
 		right.setBorder(BorderFactory.createEmptyBorder(0,5,0,10)); 
@@ -214,7 +214,7 @@ public class Main {
 	public void setPanelAsScore() throws InvalidUser {
 		BorderLayout layout = (BorderLayout) left.getLayout();
 		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-		left.add(new ScorePanel(), BorderLayout.CENTER);
+		left.add(new GraphData(), BorderLayout.CENTER);
 		toggleButton(1);
 		
 		left.setVisible(false);
@@ -249,7 +249,7 @@ public class Main {
 		frame.setLayout(new BorderLayout(0, 0));
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1,2,5,5));
-		panel.add(new ScorePanel());
+		panel.add(new GraphData());
 		panel.add(new LeaguePanel(isEnd));
 		frame.add(panel, BorderLayout.CENTER);
 		

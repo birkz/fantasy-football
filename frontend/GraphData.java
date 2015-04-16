@@ -34,19 +34,22 @@ public class GraphData extends JPanel {
 			 new Color(210,105,30), new Color(244,164,96), new Color(188,143,143), new Color(127,255,212), new Color(0,100,0)};
 	
 	private Image background;
+	private JLabel[] labels;
 	
 	/**
 	 * Create the panel.
 	 */
-	public GraphData(int width0, int height0) {
+	public GraphData() {
 		List<User> users = MainGame.getInstance().getUsers();
-		setBorder(BorderFactory.createLineBorder(Color.black));
+		this.labels = new JLabel[users.size()];
+		
+		setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 		//setLayout(new GridLayout(8,1)); // Breyting
 		for (int i=0; i<users.size(); ++i) {
-			JLabel label = new JLabel(users.get(i).getName() + ": " + users.get(i).getScore()); // Breyting
-			label.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 12));
-			label.setForeground (col[i]);
-			add(label);
+			this.labels[i] = new JLabel(users.get(i).getName());// + ": " + users.get(i).getScore());
+			this.labels[i].setFont(FontUtil.getFont("kalinga", Font.PLAIN, 12));
+			this.labels[i].setForeground (col[i]);
+			add(this.labels[i]);
 		}
 		
 		this.background = new ImageIcon("src/is/hi/f2a/res/Images/graphbackground.png").getImage();
@@ -60,8 +63,15 @@ public class GraphData extends JPanel {
 		int width = this.getSize().width;
 		int height = this.getSize().height;
 		super.paintComponent(g);
+		
+		int fontsize = width/40;
+		for(int i = 0; i < labels.length; i++) {
+			//this.labels[i].setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
+		}
+		
 		Graphics2D draw = (Graphics2D) g;
 		draw.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		//draw.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)); 
 		
 		int highscore = 10;
 		int minScore = -20; 
