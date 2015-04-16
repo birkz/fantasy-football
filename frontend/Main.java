@@ -34,8 +34,13 @@ public class Main {
 	private int buttonON = 1; //Score takkinn
 	
 	private FieldViewerPanel field;
+	private StartPanel startpanel;
 	
 	private Main() {
+		basicFrameSetup();
+	}
+	
+	private void basicFrameSetup() {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Image icon = new ImageIcon("src/is/hi/f2a/res/Images/icon.png").getImage();
@@ -48,7 +53,12 @@ public class Main {
 	}
 	
 	public void createAndShowGUI() {
-		restartGame();
+		newGame();
+	}
+	
+	public void restartGame() {
+		disposeFrame();
+		newGame();
 	}
 	
 	public String[] getNavButtonArg() {
@@ -69,10 +79,18 @@ public class Main {
 		buttonON = num;
 	}
 	
-	public void restartGame() {
+	private void disposeFrame() {
+		frame.dispose();
+		basicFrameSetup();
+	}
+	
+	private void newGame() {
 		frame.getContentPane().removeAll();
 		frame.setMinimumSize(new Dimension(800, 150));
-		frame.add(new StartPanel());
+		
+		this.startpanel = new StartPanel();
+		frame.add(this.startpanel);
+		
 		frame.setBackground(Color.WHITE);
 		frame.setVisible(false);
 		frame.pack();
@@ -86,6 +104,8 @@ public class Main {
 	}
 	
 	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser, IOException {
+		disposeFrame(); //Hreinsar allt minni sem frame var að taka og skilar til baka.
+		
 		MainGame.getInstance().setNumUsers(names);
 		frame.setResizable(true);
 		frame.setVisible(false);
@@ -93,6 +113,7 @@ public class Main {
 		HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
 		frame.setMinimumSize(new Dimension(1200,700));
+		
 		frame.setLocationRelativeTo(null);
 		frame.setLayout(new GridLayout(1,2,2,0));
 		
