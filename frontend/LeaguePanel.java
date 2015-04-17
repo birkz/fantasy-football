@@ -14,13 +14,14 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.table.TableCellRenderer;
 
 public class LeaguePanel extends JPanel {
@@ -31,6 +32,7 @@ public class LeaguePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private static final int fontsize = 13;
+	private JScrollPane eventScroll;
 
 	/**
 	 * Create the panel.
@@ -77,10 +79,11 @@ public class LeaguePanel extends JPanel {
 		add(new JScrollPane(table));
 		
 		int showPlan = 1; // how long a plan do you want to see 1 round or more
-		ArrayList<Game> games = league.getGames();
+		final ArrayList<Game> games = league.getGames();
 		String[] columnNames2 = {"HomeTeam", "AwayTeam", "Score", "Round","Status"};
-		int numGames = (mainGame.getRound()+showPlan)*5;
+		final int numGames;
 		if(isEnd) numGames = 50;
+		else numGames = (mainGame.getRound()+showPlan)*5;
 		data = new Object[numGames][];
 		int round = mainGame.getRound()+1;
 		if(isEnd) round = 18;
@@ -96,7 +99,7 @@ public class LeaguePanel extends JPanel {
 			k++;
 		}
 		
-		JTable tableGames = new JTable(data, columnNames2){
+		final JTable tableGames = new JTable(data, columnNames2){
 			private static final long serialVersionUID = 1L;
 			
 			public Component prepareRenderer(TableCellRenderer renderer, int rowIndex, int vColIndex) {
@@ -109,59 +112,75 @@ public class LeaguePanel extends JPanel {
 		        return c;
 		    }
 		};
-		tableGames.setEnabled(false);
+		tableGames.setEnabled(true);
+		tableGames.addMouseListener(new MouseAdapter(){
+			@Override
+		      public void mouseClicked(MouseEvent e) {
+		            int row = tableGames.rowAtPoint(e.getPoint());//get mouse-selected row
+		            System.out.println(row);
+		            addGameEvents(games.get(numGames-row-1));
+		      }
+		});
 		tableGames.getColumn("Score").setMaxWidth(60);
 		tableGames.getColumn("Round").setMaxWidth(60);
 		tableGames.setShowGrid(false);
 		tableGames.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
 		add(new JScrollPane(tableGames));
 		
-		add(addGameEvents(games, numGames));
-	}
-	
-	private JScrollPane addGameEvents(ArrayList<Game> games, int numGames) {
-		JScrollPane scroll = new JScrollPane();
-		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		eventScroll = new JScrollPane();
 		JLabel label = new JLabel("Game Events!");
 		label.setFont(FontUtil.getFont("kalinga", Font.BOLD, 20));
 	    label.setHorizontalAlignment(JLabel.CENTER);
 	    label.setVerticalAlignment(JLabel.CENTER);
-		scroll.setColumnHeaderView(label);
+	    eventScroll.setColumnHeaderView(label);
+	    eventScroll.setViewportView(new JLabel("Click a finished game to see events!"));
+		add(eventScroll);
+	}
+	
+	private void addGameEvents(Game game) {	    
 		JPanel wrapper = new JPanel(new GridBagLayout());
-		GridBagConstraints cMain = new GridBagConstraints();
-		cMain.fill = GridBagConstraints.HORIZONTAL;
-		int yRows = 0;
-		for(int i=numGames-1; i>=0; --i) {
-			ArrayList<GameEvent> events = games.get(i).getGameEvents();
-			if(events.size()>0) {
-				cMain.gridx = 0;
-				cMain.gridy = yRows++;
-				JPanel gameEvents = new JPanel(new GridBagLayout());
-				GridBagConstraints c = new GridBagConstraints();
-				c.gridx = 0;
-				c.gridy = 0;
-				JLabel team =new JLabel("In game of "+ games.get(i).getHomeTeam().getName()+ 
-						" and " + games.get(i).getAwayTeam().getName());
-				team.setFont(FontUtil.getFont("kalinga", Font.BOLD, 15));
-				gameEvents.add(team , c);
-				for(int k=0; k<events.size(); ++k) {
-					GameEvent event = events.get(k);
-					if(!event.getEvent().equals(GameEvent.Event.SUBSTITUTION_OFF) && !event.getEvent().equals(GameEvent.Event.SUBSTITUTION_ON) && 
-							!event.getEvent().equals(GameEvent.Event.ASSIST)) {// && !event.getEvent().equals("SUBSTITUTION_OFF")) {
-						c.gridy++;
-						JLabel currentEvent = new JLabel("Player named "+event.getPlayer() +" on "+ event.getMinute() + " minute: " + event.getEvent());
-						gameEvents.setFont(FontUtil.getFont("kalinga", Font.BOLD, 12));
-						gameEvents.add(currentEvent, c);
+		ArrayList<GameEvent> events = game.getGameEvents();
+		if(events.size()>0) {
+			JPanel gameEvents = new JPanel(new GridBagLayout());
+			GridBagConstraints c = new GridBagConstraints();
+			c.gridx = 0;
+			c.gridy = 0;
+			JLabel team =new JLabel(game.getHomeTeam().getName()+ 
+					" vs " + game.getAwayTeam().getName());
+			team.setFont(FontUtil.getFont("kalinga", Font.BOLD, 15));
+			gameEvents.add(team , c);
+			for(int k=0; k<events.size(); ++k) {
+				GameEvent event = events.get(k);
+				if(!event.getEvent().equals(GameEvent.Event.SUBSTITUTION_OFF) && !event.getEvent().equals(GameEvent.Event.SUBSTITUTION_ON) && 
+						!event.getEvent().equals(GameEvent.Event.ASSIST)) {
+					c.gridy++;
+					JLabel currentEvent;
+					if(event.getEvent().equals(GameEvent.Event.GOAL)){
+						currentEvent = new JLabel(event.getPlayer() +" scored a goal on "+ event.getMinute() + " minute.");
 					}
+					else if(event.getEvent().equals(GameEvent.Event.YELLOW_CARD)){
+						currentEvent = new JLabel(event.getPlayer() +" got a yellow card on " + event.getMinute() + " minute.");
+					}
+					else if(event.getEvent().equals(GameEvent.Event.RED_CARD)){
+						currentEvent = new JLabel(event.getPlayer() +" got a red card on " + event.getMinute() + " minute.");
+					}
+					else if(event.getEvent().equals(GameEvent.Event.OWN_GOAL)){
+						currentEvent = new JLabel(event.getPlayer() +" scored a own goal on "+ event.getMinute() + " minute.");
+					}
+					else {
+						currentEvent = new JLabel("Player named "+event.getPlayer() +" on "+ event.getMinute() + " minute: " + event.getEvent());
+					}
+					gameEvents.setFont(FontUtil.getFont("kalinga", Font.BOLD, 12));
+					gameEvents.add(currentEvent, c);
 				}
-				c.gridy = c.gridy + 1;
-				gameEvents.add(new JLabel("-----------------------------"), c);
-				wrapper.add(gameEvents, cMain);
-				yRows++;
 			}
+			c.gridy = c.gridy + 1;
+			gameEvents.add(new JLabel("-----------------------------"), c);
+			wrapper.add(gameEvents);
+			eventScroll.setViewportView(wrapper);
 		}
-		scroll.setViewportView(wrapper);
-		return scroll;
+		else eventScroll.setViewportView(new JLabel("Click a finished game to see events!"));
+		eventScroll.repaint();
 	}
 	
 	private void getOrderedTeams(ArrayList<Team> teams) {
