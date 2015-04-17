@@ -2,6 +2,7 @@ package is.hi.f2a.frontend;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -17,6 +18,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import is.hi.f1a.Player;
+import is.hi.f2a.backend.FontUtil;
 import is.hi.f2a.backend.Roster;
 
 public class FieldViewerPanel extends JPanel {
@@ -25,22 +27,25 @@ public class FieldViewerPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JPanel[] players = new JPanel[]{new JPanel(), new JPanel(), new JPanel(), new JPanel()};
+	private final JPanel[] players;
 	private Roster roster;
+	private boolean isRosterEmpty;
 
 	/**
 	 * Create the panel.
 	 * @throws IOException 
 	 */
 	public FieldViewerPanel() throws IOException {
-		
-		this.roster = is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster();
+		this.players = new JPanel[]{new JPanel(), new JPanel(), new JPanel(), new JPanel()};
+		//this.roster = is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster();
 	
 	}
 	
 	public void addProfiles() throws IOException {
 		
 		this.roster = is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster();
+		if(this.roster.getNumberOfPlayersOwned() == 0) isRosterEmpty = true;
+		else isRosterEmpty = false;
 		
 		setLayout(new GridLayout(4, 1, 2, 2));
 		AddToPanels();
@@ -77,6 +82,10 @@ public class FieldViewerPanel extends JPanel {
 		g2.setStroke(new BasicStroke(2)); // Þykkt lína
 		drawFieldCenterWithFrame(g2, width, height, line_offset);
 		drawAttackingDefendingAreas(g2, halfwidth, halfheight, line_offset);
+		
+		int signwidth = (int) (width/1.5);
+		int signheight = height/8;
+		if(isRosterEmpty) drawNoPlayersSign(g2, width, height, signwidth, signheight, line_offset);
 
 	}
 	
@@ -127,6 +136,30 @@ public class FieldViewerPanel extends JPanel {
 	
 	private void drawField(Graphics2D g2, int width, int height, int line_offset) {
 		g2.fill(new Rectangle2D.Double(0, 0, width, height)); 
+	}
+	
+	private void drawNoPlayersSign(Graphics2D g2, int width, int height, int signwidth, int signheight, int line_offset) {
+		int xpos = width/2-signwidth/2;
+		int ypos = height/2-signheight/2+line_offset;
+		
+		g2.setPaint(new Color(255, 255, 255, 200));
+		g2.fill(new Rectangle2D.Double(xpos, ypos, signwidth, signheight));
+		
+		g2.setPaint(new Color(75, 75, 75));
+		int fontsize = signwidth/13;
+		g2.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
+		String text1 = "YOU OWN NO PLAYERS";
+		int charoffset = (int) (fontsize/1.55);
+		//System.out.println(fontsize);
+		int text1xpos = width/2-((text1.length()/2)*charoffset)-4;
+		int text1ypos = ypos+signheight/2;
+		g2.drawString(text1, text1xpos, text1ypos);
+		
+		g2.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize/2));
+		String text2 = "- GO TO MARKET TO BUY PLAYERS -";
+		int text2xpos = width/2-((text2.length()/2)*charoffset/2)+12;
+		int text2ypos = ypos+signheight/2+signheight/4;
+		g2.drawString(text2, text2xpos, text2ypos);
 	}
   
 	public void AddToPanels() throws IOException {

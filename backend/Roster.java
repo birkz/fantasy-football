@@ -19,6 +19,7 @@ public class Roster {
 	private List<Player> forwardsOnField;
 	// private Player captain;
 	private int numberOfPlayersOnField;
+	private int numberOfPlayersOwned;
 	
 	private List<Player> newlyBought;
 	private List<Player> newlySold;
@@ -39,6 +40,7 @@ public class Roster {
 	private final int MAX_FORWARDS_ON_FIELD = Constants.MAX_FORWARDS_ON_FIELD;
 	
 	public Roster(){
+		this.numberOfPlayersOwned = 0;
 		this.numberOfPlayersOnField = 0;
 		this.goalkeepers = new ArrayList<Player>(MAX_GOALKEEPERS);
 		this.goalkeepersOnField = new ArrayList<Player>(MAX_GOALKEEPERS_ON_FIELD);
@@ -57,6 +59,13 @@ public class Roster {
 	// After: i is the number of players currently on the field.
 	public int getNumberOfPlayersOnField(){
 		return this.numberOfPlayersOnField;
+	}
+	
+	// Usage: i = getNumberOfPlayersOnField()
+	// Before:Nothing.
+	// After: i is the number of players in the roster.
+	public int getNumberOfPlayersOwned() {
+		return this.numberOfPlayersOwned;
 	}
 	
 	public List<Player> getNewlyBought(){
@@ -78,6 +87,7 @@ public class Roster {
 	// Before: player is of type Player
 	// After: player has been removed from the roster
 	public boolean removePlayerFromRoster(Player player) throws InvalidPlayer{
+		this.numberOfPlayersOwned--;
 		return removePlayer(player, true);
 	}
 	
@@ -141,6 +151,7 @@ public class Roster {
 	//        "Defender", "Midfielder", or "Striker" then InvalidPosition exception is thrown.
 	public boolean addPlayerToRoster(Player player) {
 		Position pos = player.getPosition();
+		this.numberOfPlayersOwned++;
 		
 		if (pos.equals(Position.GOALKEEPER)){
 			if (this.goalkeepers.size() == MAX_GOALKEEPERS) return false;
