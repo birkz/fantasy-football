@@ -61,16 +61,8 @@ public class Main {
 		newGame();
 	}
 	
-	public String[] getNavButtonArg() {
-		return this.navButtons;
-	}
-	
 	public JButton[] getNavButtons() {
 		return this.arrButtons;
-	}
-	
-	public String getEndButtonArg() {
-		return this.endButtonArg;
 	}
 	
 	public JButton getEndTurnButton() {

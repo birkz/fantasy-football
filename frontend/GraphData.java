@@ -151,11 +151,11 @@ public class GraphData extends JPanel {
 					else if(allscores.size() == 18) xoffset = -7-extralength;
 					else xoffset = -10;
 					
-					int labelheight = 20;
+					int labelheight = 16;
 					int labelwidth = extralength+12;
 					
 					draw.setPaint(col[i].darker());
-					draw.fill(new RoundRectangle2D.Double(lastpointx+xoffset-6, lastpointy-labelheight/2, labelwidth, 20, 20, 20));
+					draw.fill(new RoundRectangle2D.Double(lastpointx+xoffset-6, lastpointy-labelheight/2, labelwidth, labelheight, labelheight, labelheight));
 			        
 					draw.setPaint(Color.WHITE);
 			        draw.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
