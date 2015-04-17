@@ -129,12 +129,20 @@ public class LeaguePanel extends JPanel {
 		
 		eventScroll = new JScrollPane();
 		JLabel label = new JLabel("Game Events!");
+		label.setFont(FontUtil.getFont("kalinga", Font.BOLD, 24));
+	    label.setHorizontalAlignment(JLabel.CENTER);
+	    eventScroll.setColumnHeaderView(label);
+	    putInstructions();
+		add(eventScroll);
+	}
+	
+	private void putInstructions() {
+		JLabel label = new JLabel("Click a finished game to see events!");
 		label.setFont(FontUtil.getFont("kalinga", Font.BOLD, 20));
+		label.setForeground(Color.RED);
 	    label.setHorizontalAlignment(JLabel.CENTER);
 	    label.setVerticalAlignment(JLabel.CENTER);
-	    eventScroll.setColumnHeaderView(label);
-	    eventScroll.setViewportView(new JLabel("Click a finished game to see events!"));
-		add(eventScroll);
+		eventScroll.setViewportView(label);
 	}
 	
 	private void addGameEvents(Game game) {	    
@@ -179,7 +187,7 @@ public class LeaguePanel extends JPanel {
 			wrapper.add(gameEvents);
 			eventScroll.setViewportView(wrapper);
 		}
-		else eventScroll.setViewportView(new JLabel("Click a finished game to see events!"));
+		else putInstructions();
 		eventScroll.repaint();
 	}
 	
