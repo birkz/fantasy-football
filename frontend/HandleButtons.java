@@ -4,26 +4,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.JButton;
+
 import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidUser;
 
 public class HandleButtons implements ActionListener{
 	
-	private static String[] navbuttonsargs = Main.getInstance().getNavButtonArg();
-	private static String endbutton = Main.getInstance().getEndButtonArg();
+	//private static String[] navbuttonsargs = Main.getInstance().getNavButtonArg();
+	private static JButton[] navbuttons;
+	private static JButton endbutton;
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String arg = e.getActionCommand();
+		String arg = e.getActionCommand(); // Muna að uppfæra þetta
+		
+		navbuttons = Main.getInstance().getNavButtons();
+		endbutton = Main.getInstance().getEndTurnButton();
 		
 		
-		if(arg == navbuttonsargs[0]) {
+		if(e.getSource().equals(navbuttons[0])) {
 			Main.getInstance().setPanelAsMarket(null, 0, null, "", "Any Team", "Any Position");
 
 		}
 		
-		if(arg == navbuttonsargs[1]) {
+		if(e.getSource().equals(navbuttons[1])) {
 			try {
 				Main.getInstance().setPanelAsScore();
 			} catch (InvalidUser e2) {
@@ -33,7 +39,7 @@ public class HandleButtons implements ActionListener{
 
 		}
 		
-		if(arg == navbuttonsargs[2]) {
+		if(e.getSource().equals(navbuttons[2])) {
 			try {
 				Main.getInstance().setPanelAsRoster();
 			} catch (InvalidPlayer e1) {
@@ -42,7 +48,7 @@ public class HandleButtons implements ActionListener{
 
 		}
 		
-		if(arg == navbuttonsargs[3]) {
+		if(e.getSource().equals(navbuttons[3])) {
 			Main.getInstance().setPanelAsLeague(false);
 
 		}
@@ -52,7 +58,7 @@ public class HandleButtons implements ActionListener{
 			Main.getInstance().restartGame();
 		}
 		
-		if(arg == endbutton)
+		if(e.getSource().equals(endbutton))
 			try {
 				is.hi.f2a.backend.MainGame.getInstance().nextUser();
 			} catch (InvalidUser | IOException | InvalidPlayer e1) {

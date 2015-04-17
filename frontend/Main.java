@@ -27,8 +27,8 @@ public class Main {
 	
 	private JButton[] arrButtons;
 	private String[] navButtons = new String[]{"MARKET", "SCORES", "ROSTER", "LEAGUE",};
-	private JButton endturn;
-	private String endButton = "END TURN";
+	private JButton endTurnButton;
+	private String endButtonArg;
 	
 	private int buttonON = 1; //Score takkinn
 	
@@ -70,7 +70,11 @@ public class Main {
 	}
 	
 	public String getEndButtonArg() {
-		return this.endButton;
+		return this.endButtonArg;
+	}
+	
+	public JButton getEndTurnButton() {
+		return this.endTurnButton;
 	}
 	
 	public void toggleButton(int num) {
@@ -104,7 +108,7 @@ public class Main {
 	}
 	
 	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser, IOException {
-		disposeFrame(); //Hreinsar allt minni sem frame var að taka og skilar til baka.
+		disposeFrame(); //Hreinsar frame og búum til nýjan.
 		
 		MainGame.getInstance().setNumUsers(names);
 		frame.setResizable(true);
@@ -137,7 +141,7 @@ public class Main {
 		
 		this.field = new FieldViewerPanel();
 		right.add(this.field, BorderLayout.CENTER);
-		right.add(this.endturn, BorderLayout.SOUTH);
+		right.add(this.endTurnButton, BorderLayout.SOUTH);
 		
 		//White backgrounds everywhere
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -182,9 +186,23 @@ public class Main {
 		///////////////////
 		// END TURN BUTTON
 		///////////////////
-		this.endturn = DesignedButton.endStyle(endButton, Font.PLAIN, 20);
-		this.endturn.addActionListener(actionList);
+		int playerid = MainGame.getInstance().getCurrendUserID()+1;
+		int numofplayers = MainGame.getInstance().getUsers().size();
+		this.endButtonArg = "END TURN ("+playerid+"/"+numofplayers+")";
+		this.endTurnButton = DesignedButton.endStyle(endButtonArg, Font.PLAIN, 20);
+		this.endTurnButton.addActionListener(actionList);
 
+	}
+	
+	private void updateEndButton() {
+		int playerid = MainGame.getInstance().getCurrendUserID()+1;
+		int numofplayers = MainGame.getInstance().getUsers().size();
+		this.endButtonArg = "END TURN ("+playerid+"/"+numofplayers+")";
+		((CustomButton) this.endTurnButton).changeText(this.endButtonArg);
+		if(playerid == numofplayers) {
+			String hovertext = "NEW ROUND";
+			((CustomButton) this.endTurnButton).changeTextOnHover(hovertext);
+		}
 	}
 	
 	// Köllum á þetta alltaf eftir "end turn" til að uppfæra GUI
@@ -201,6 +219,7 @@ public class Main {
 		right.remove(rightlayout.getLayoutComponent(BorderLayout.NORTH));
 		right.add(new NameChange(), BorderLayout.NORTH);
 		setPanelAsFieldViewer();
+		updateEndButton();
 		
 		//frame.setVisible(true);
         //frame.validate();+
@@ -210,13 +229,15 @@ public class Main {
 	
 	public void restartFrame() throws InvalidUser, IOException {
 
+		// Vinstri hlið
 		setPanelAsScore();
 		
+		// Hægri hlið
 		BorderLayout layout = (BorderLayout) right.getLayout();
 		right.remove(layout.getLayoutComponent(BorderLayout.NORTH));
 		right.add(new NameChange(), BorderLayout.NORTH);
-		
 		setPanelAsFieldViewer();
+		updateEndButton();
 
         //frame.setVisible(true);
         //frame.validate();

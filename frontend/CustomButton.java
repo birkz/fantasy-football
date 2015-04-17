@@ -14,6 +14,9 @@ public class CustomButton extends JButton{
     private Color backupcolor;
 	private Color hoverFontColor;
 	private boolean isToggled = false;
+	private boolean tempHoverTextChangeAllowed = false;
+	private String tempHoverText = "";
+	private String savedText;
 
     public CustomButton() {
         this(null);
@@ -23,6 +26,17 @@ public class CustomButton extends JButton{
         super(text);
         super.setContentAreaFilled(false);
     }
+    
+    public void changeText(String text) {
+    	super.setText(text);
+    	this.tempHoverTextChangeAllowed = false;
+    }
+    
+    public void changeTextOnHover(String text) {
+    	this.savedText = getText();
+    	this.tempHoverText = text;
+    	this.tempHoverTextChangeAllowed = true;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -31,7 +45,13 @@ public class CustomButton extends JButton{
         } else if (getModel().isRollover()) {
             g.setColor(hoverBackgroundColor);
             setForeground(this.hoverFontColor);
+            if(tempHoverTextChangeAllowed) {
+            	super.setText(this.tempHoverText);
+            }
         } else {
+        	if(tempHoverTextChangeAllowed) {
+        		super.setText(this.savedText);
+        	}
             g.setColor(getBackground());
             setForeground(this.fontColor);
         }
