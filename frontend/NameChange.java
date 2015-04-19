@@ -55,6 +55,7 @@ public class NameChange extends JPanel {
 		}
 		
 		JLabel placement_label = new JLabel(placement);
+		placement_label.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
 		
 		JLabel round = new JLabel("  ROUND: "+MainGame.getInstance().getRound());
 		round.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
