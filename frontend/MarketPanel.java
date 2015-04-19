@@ -38,7 +38,8 @@ public class MarketPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JTextField field = new JTextField();
-	private static League league = is.hi.f1a.FantasyFootballBackend.getInstance().getLeague();
+	private static League league = MainGame.getSimulationBackend().getLeague();
+	//private static League league = is.hi.f1a.FantasyFootballBackend.getInstance().getLeague();
 	private String player_choice;
 	private String team_choice;
 	private String pos_choice;

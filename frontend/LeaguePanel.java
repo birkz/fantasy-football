@@ -43,7 +43,8 @@ public class LeaguePanel extends JPanel {
 		setLayout(new GridLayout(3, 1, 0, 0));
 		
 		String[] columnNames = {"POS", "CLUB", "P", "W", "D", "L", "GF", "GA", "GD", "PTS"};
-		League league = FantasyFootballBackend.getInstance().getLeague();
+		League league = mainGame.getSimulationBackend().getLeague();
+		//League league = FantasyFootballBackend.getInstance().getLeague();
 
 		ArrayList<Team> teams = new ArrayList<Team>(league.getTeams());
 		getOrderedTeams(teams);

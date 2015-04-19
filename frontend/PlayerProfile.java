@@ -73,14 +73,9 @@ public class PlayerProfile extends JPanel {
 		}
 	
 		setLayout(new BorderLayout(0, 0));
-		//setOpaque(false);
-		//setBackground(Color.red);
+
 		setPreferredSize(new Dimension(this.diameter+xmargin, this.diameter+ymargin));
-		//setOpaque(false);
-		//north.setOpaque(false);
-		//south.setOpaque(false);
-		//south.add(this.name);
-		
+
 		//add(north, BorderLayout.NORTH);
 		add(this.name, BorderLayout.SOUTH);
 		

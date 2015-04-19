@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import is.hi.f1a.FantasyFootballBackend;
+import is.hi.f1a.League;
 import is.hi.f1a.Player;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidUser;
@@ -14,6 +15,7 @@ import is.hi.f2a.frontend.Main;
 public class MainGame {
 
 	private static final MainGame game = new MainGame();
+	private static FantasyFootballBackend simulation = is.hi.f1a.FantasyFootballBackend.getInstance();
 	private StatsHistory stats;
 	private List<User> users;
 	private int round = 0;
@@ -21,10 +23,18 @@ public class MainGame {
 	
 	private MainGame() {
 		stats = new StatsHistory();
+		
+		// Loadum hermuninu í nýjum þræði þegar forritið er ræst
+        //InnerThread initSimulationBackend = new InnerThread();
+        //initSimulationBackend.start();
 	}
 	
 	public static MainGame getInstance() {
 		return game;
+	}
+	
+	public static FantasyFootballBackend getSimulationBackend() {
+		return simulation;
 	}
 	
 	public void resetGame() {
@@ -32,7 +42,7 @@ public class MainGame {
 		this.users = null;
 		this.round = 0;
 		this.currentUser = 0;
-		FantasyFootballBackend.getInstance().restart();
+		simulation.restart();
 	}
 	
 	public void setNumUsers(List<String> names) throws InvalidPlayer {
@@ -49,7 +59,7 @@ public class MainGame {
 			if(currentUser<numUsers) currentUser++;
 			if(currentUser==numUsers) {
 				currentUser = 0;
-				FantasyFootballBackend.getInstance().getLeague().playNextRound();
+				simulation.getLeague().playNextRound();
 				//is.hi.f2a.tests.RoundMock.SimRound();
 				round++;
 				updateUserScore();
@@ -117,5 +127,15 @@ public class MainGame {
 			}
 		}
 		return;
+	}
+	
+	//////////////////////////////
+	// Thread for loading backend
+	//////////////////////////////
+	private class InnerThread extends Thread {
+		@Override
+		public void run() {
+			simulation = is.hi.f1a.FantasyFootballBackend.getInstance();
+		}
 	}
 }

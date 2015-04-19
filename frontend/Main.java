@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.RowSorter.SortKey;
 
+import is.hi.f1a.FantasyFootballBackend;
 import is.hi.f2a.res.Constants;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidPosition;
@@ -98,6 +99,7 @@ public class Main {
         frame.setVisible(true);
         frame.validate();
         frame.setResizable(false);
+        
 	}
 	
 	public void startGame(List<String> names) throws InvalidPlayer, InvalidPosition, InvalidUser, IOException {
@@ -317,7 +319,7 @@ public class Main {
 		right.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 		right.add(this.field, BorderLayout.CENTER);
 		// Þarf ekki að loada hér í nýjum þræði því hverri mynd fyrir sig er loadað í nýjum þræði
-		// Þá komum við í veg fyrir að völlurinn birtist í sekúndubrot á undan leikmönnum
+		// Þá komum við í veg fyrir að völlurinn birtist(flökktir) í sekúndubrot á undan leikmönnum
 		loadFieldProfiles();
 		right.setVisible(false);
 		right.setVisible(true);
