@@ -23,7 +23,7 @@ public class MainGame {
 	
 	private MainGame() {
 		stats = new StatsHistory();
-		
+		System.out.println("bacon");
 		// Loadum hermuninu í nýjum þræði þegar forritið er ræst
         //InnerThread initSimulationBackend = new InnerThread();
         //initSimulationBackend.start();
