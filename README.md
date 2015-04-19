@@ -1,4 +1,5 @@
 # fantasy-football
+![alt tag](https://raw.githubusercontent.com/birkz/fantasy-football/master/res/Images/screenshot.png)
 Fantasy football project made in two separate parts, one group took care of all backend functionality in the game and we took care of the user interface (UI). The other group's repository is [here](https://github.com/nori/hbv401g-2015v-f1a).
 
 ## Setting up Eclipse (Ubuntu)
