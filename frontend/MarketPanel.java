@@ -73,6 +73,8 @@ public class MarketPanel extends JPanel {
 		}
 		else{
 			this.scroll = new JScrollPane(jtable);
+			this.scroll.getViewport().setBackground(Color.WHITE);
+			this.scroll.setBorder(BorderFactory.createEmptyBorder());
 		}
 		
 		this.wrapper = null;
