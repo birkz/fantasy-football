@@ -61,15 +61,15 @@ public class Main {
 		return this.simstatus;
 	}
 	
-	public void updateSimulationStatus(boolean status) {
-		this.simstatus = status;
+	public void updateSimulationStatus() {
+		this.simstatus = true;
 	}
 	
 	public boolean shouldGameStart() {
 		return this.startgame;
 	}
 	
-	public void updateGameStart(boolean status) {
+	public void updateGameStart() {
 		this.startgame = true;
 	}
 	
@@ -403,7 +403,7 @@ public class Main {
 		@Override
 		public void run() {
 			simulation = is.hi.f1a.FantasyFootballBackend.getInstance();
-			updateSimulationStatus(true);
+			updateSimulationStatus();
 			try {
 				boolean start = shouldGameStart();
 				System.out.println("Start:"+start);
