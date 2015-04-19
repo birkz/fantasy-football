@@ -405,8 +405,6 @@ public class Main {
 			simulation = is.hi.f1a.FantasyFootballBackend.getInstance();
 			updateSimulationStatus();
 			try {
-				boolean start = shouldGameStart();
-				System.out.println("Start:"+start);
 				if(shouldGameStart()) startGame(startpanel.getNames());
 			} catch (InvalidPlayer | InvalidPosition | InvalidUser | IOException e) {
 				// TODO Auto-generated catch block
