@@ -17,6 +17,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -39,7 +40,8 @@ public class LeaguePanel extends JPanel {
 	public LeaguePanel(boolean isEnd) {
 		MainGame mainGame = MainGame.getInstance();
 		
-		setLayout(new GridLayout(3, 1, 0, 0));
+		setLayout(new GridLayout(3, 1, 0, 5));
+		setBackground(Color.WHITE);
 		
 		String[] columnNames = {"POS", "CLUB", "P", "W", "D", "L", "GF", "GA", "GD", "PTS"};
 		League league = MainGame.getSimulationBackend().getLeague();
@@ -76,7 +78,11 @@ public class LeaguePanel extends JPanel {
 		table.setShowGrid(false);
 		table.setBackground(Color.WHITE);
 		table.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
-		add(new JScrollPane(table));
+		
+		JScrollPane scrollLeague = new JScrollPane(table);
+		scrollLeague.getViewport().setBackground(Color.WHITE);
+		scrollLeague.setBorder(BorderFactory.createEmptyBorder());
+		add(scrollLeague);
 		
 		int showPlan = 1; // how long a plan do you want to see 1 round or more
 		final ArrayList<Game> games = league.getGames();
@@ -125,11 +131,17 @@ public class LeaguePanel extends JPanel {
 		tableGames.getColumn("Round").setMaxWidth(60);
 		tableGames.setShowGrid(false);
 		tableGames.setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
-		add(new JScrollPane(tableGames));
+		
+		JScrollPane scrollGames = new JScrollPane(tableGames);
+		scrollGames.getViewport().setBackground(Color.WHITE);
+		scrollGames.setBorder(BorderFactory.createEmptyBorder());
+		add(scrollGames);
 		
 		eventScroll = new JScrollPane();
-		JLabel label = new JLabel("Game Events!");
-		label.setFont(FontUtil.getFont("kalinga", Font.BOLD, 24));
+		eventScroll.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+		
+		JLabel label = new JLabel("GAME EVENTS!");
+		label.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 20));
 	    label.setHorizontalAlignment(JLabel.CENTER);
 	    eventScroll.setColumnHeaderView(label);
 	    putInstructions();
@@ -137,8 +149,8 @@ public class LeaguePanel extends JPanel {
 	}
 	
 	private void putInstructions() {
-		JLabel label = new JLabel("Click a finished game to see events!");
-		label.setFont(FontUtil.getFont("kalinga", Font.BOLD, 20));
+		JLabel label = new JLabel("CLICK A FINISHED GAME ABOVE TO SEE EVENTS");
+		label.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
 		label.setForeground(Color.RED);
 	    label.setHorizontalAlignment(JLabel.CENTER);
 	    label.setVerticalAlignment(JLabel.CENTER);
