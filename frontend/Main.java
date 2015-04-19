@@ -311,6 +311,7 @@ public class Main {
 		
 		frame.setLayout(new BorderLayout(0, 0));
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
 		panel.setLayout(new GridLayout(1,2,5,5));
 		panel.add(new GraphData());
 		panel.add(new LeaguePanel(isEnd));
