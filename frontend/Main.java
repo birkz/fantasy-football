@@ -138,7 +138,8 @@ public class Main {
 		
 		//HandleButtons actionList = new HandleButtons();
 		frame.getContentPane().removeAll();
-		frame.setMinimumSize(new Dimension(1200,700));
+		frame.setMinimumSize(new Dimension(1000, 600));
+		frame.setSize(new Dimension(1200, 700));
 		
 		frame.setLocationRelativeTo(null);
 		frame.setLayout(new GridLayout(1,2,2,0));
