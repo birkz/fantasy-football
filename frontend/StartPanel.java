@@ -98,7 +98,8 @@ public class StartPanel extends JPanel {
             {
             	((CustomButton) startGame).changeText("  LOADING...  ");
             	startGame.setEnabled(false);
-            	Main.getInstance().updateGameStart();
+            	addPlayer.setEnabled(false);
+            	Main.getInstance().updateGameStart(true);
 				try {
 					boolean ready = Main.getInstance().isSimulationReady();
 					if(ready) Main.getInstance().startGame(names);
