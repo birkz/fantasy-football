@@ -39,6 +39,7 @@ public class PlayerProfile extends JPanel {
 	private JLabel name;
 	private int points;
 	
+	// Fine tuning for the panelsize
 	private final int xmargin = 10;
 	private final int ymargin = 28;
 	
@@ -56,10 +57,8 @@ public class PlayerProfile extends JPanel {
 			// Check if image is in the hashmap for fast loading
 			if (photos != null && photos.get(this.url) != null) {
 				this.img = photos.get(this.url);
-				//System.out.println("loaded from hash");
 			}
 			else {
-
 				InnerThread loadImage = new InnerThread();
 				loadImage.start();
 				this.img = new ImageIcon("src/is/hi/f2a/res/Images/playerplaceholder.png").getImage();
@@ -73,10 +72,7 @@ public class PlayerProfile extends JPanel {
 		}
 	
 		setLayout(new BorderLayout(0, 0));
-
 		setPreferredSize(new Dimension(this.diameter+xmargin, this.diameter+ymargin));
-
-		//add(north, BorderLayout.NORTH);
 		add(this.name, BorderLayout.SOUTH);
 		
 	}
@@ -85,7 +81,6 @@ public class PlayerProfile extends JPanel {
 		
 		BufferedImage bufferedImage = ImageIO.read(this.url);
 		this.img = new ImageIcon(bufferedImage).getImage();
-		//ImageIO.write((RenderedImage) this.img, "jpg", new File("src/is/hi/f2a/res/cache/" + playername + ".jpg"));
 		photos.put(this.url, this.img);
 		this.loadfailed = false;
 		Main.getInstance().refreshRightPanel();
@@ -137,12 +132,7 @@ public class PlayerProfile extends JPanel {
 		}
 		g2.setClip(null);
 		
-		/*
-		// Paint circle depending on penalty cards
-		if(this.red != 0) g2.setPaint(Color.RED);
-		else if(this.yellow != 0) g2.setPaint(Color.YELLOW);
-		else g2.setPaint(Color.WHITE);*/
-		
+		// Draw white cirlce around player profile image
 		g2.setPaint(Color.WHITE);
 		g2.draw(new Ellipse2D.Double(circleoffset, 0, diameter, diameter));
 		
@@ -171,7 +161,6 @@ public class PlayerProfile extends JPanel {
 	
 	private JLabel createLabel(String name) {
 		JLabel label = new JLabel("<html><div style=\"text-align: center;\">"+name+"</html>");
-		//label.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 		label.setBackground(new Color(255, 255, 255, 204));
 		label.setFont(FontUtil.getFont("kalinga", Font.PLAIN, 14));
 		label.setPreferredSize(new Dimension(this.diameter, 24));

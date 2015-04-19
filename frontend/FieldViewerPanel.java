@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 
 import is.hi.f1a.Player;
 import is.hi.f2a.backend.FontUtil;
+import is.hi.f2a.backend.MainGame;
 import is.hi.f2a.backend.Roster;
 
 public class FieldViewerPanel extends JPanel {
@@ -37,13 +38,11 @@ public class FieldViewerPanel extends JPanel {
 	 */
 	public FieldViewerPanel() throws IOException {
 		this.players = new JPanel[]{new JPanel(), new JPanel(), new JPanel(), new JPanel()};
-		//this.roster = is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster();
-	
 	}
 	
 	public void addProfiles() throws IOException {
 		
-		this.roster = is.hi.f2a.backend.MainGame.getInstance().getCurrentUser().getRoster();
+		this.roster = MainGame.getInstance().getCurrentUser().getRoster();
 		if(this.roster.getNumberOfPlayersOwned() == 0) isRosterEmpty = true;
 		else isRosterEmpty = false;
 		
@@ -56,6 +55,26 @@ public class FieldViewerPanel extends JPanel {
 		Main.getInstance().refreshRightPanel();
 	}
 	
+	public void AddToPanels() throws IOException {
+		Iterator<List<Player>> roster_it = this.roster.getPlayersOnField().iterator();
+		int i = 3;
+		
+		while(roster_it.hasNext()){
+			List<Player> players_in_pos = roster_it.next();
+			Iterator<Player> players_in_pos_it = players_in_pos.iterator();
+			players[i].removeAll();
+			
+			while(players_in_pos_it.hasNext()){
+				Player player = players_in_pos_it.next();
+				PlayerProfile profile = new PlayerProfile(player.getPhoto(), player.getName(), player.getTotalPoints());
+				players[i].add(profile);
+				//players[i].add(createLabels(player.getName()));
+			}
+			
+			i--;
+		}
+	}
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		int w_offset = 0; 
@@ -65,9 +84,6 @@ public class FieldViewerPanel extends JPanel {
 		int halfwidth = width/2;
 		int halfheight = height/2;
 		int line_offset = 6;
-
-		// Völlurinn sem png mynd
-		//g.drawImage(img, 0, 0, size.width, size.height, null);
 		
 		// Völlurinn teiknaður með java graphics
 		Graphics2D g2 = (Graphics2D) g;
@@ -83,6 +99,7 @@ public class FieldViewerPanel extends JPanel {
 		drawFieldCenterWithFrame(g2, width, height, line_offset);
 		drawAttackingDefendingAreas(g2, halfwidth, halfheight, line_offset);
 		
+		// THE NO PLAYERS OWNED SIGN
 		int signwidth = (int) (width/1.5);
 		int signheight = height/8;
 		if(isRosterEmpty) drawNoPlayersSign(g2, width, height, signwidth, signheight, line_offset);
@@ -161,25 +178,4 @@ public class FieldViewerPanel extends JPanel {
 		int text2ypos = ypos+signheight/2+signheight/4;
 		g2.drawString(text2, text2xpos, text2ypos);
 	}
-  
-	public void AddToPanels() throws IOException {
-		Iterator<List<Player>> roster_it = this.roster.getPlayersOnField().iterator();
-		int i = 3;
-		
-		while(roster_it.hasNext()){
-			List<Player> players_in_pos = roster_it.next();
-			Iterator<Player> players_in_pos_it = players_in_pos.iterator();
-			players[i].removeAll();
-			
-			while(players_in_pos_it.hasNext()){
-				Player player = players_in_pos_it.next();
-				PlayerProfile profile = new PlayerProfile(player.getPhoto(), player.getName(), player.getTotalPoints());
-				players[i].add(profile);
-				//players[i].add(createLabels(player.getName()));
-			}
-			
-			i--;
-		}
-	}
-
 }
