@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import is.hi.f1a.FantasyFootballBackend;
-import is.hi.f1a.League;
 import is.hi.f1a.Player;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidUser;

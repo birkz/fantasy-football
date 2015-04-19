@@ -1,6 +1,5 @@
 package is.hi.f2a.frontend;
 
-import is.hi.f1a.FantasyFootballBackend;
 import is.hi.f1a.Game;
 import is.hi.f1a.GameEvent;
 import is.hi.f1a.League;
@@ -43,7 +42,7 @@ public class LeaguePanel extends JPanel {
 		setLayout(new GridLayout(3, 1, 0, 0));
 		
 		String[] columnNames = {"POS", "CLUB", "P", "W", "D", "L", "GF", "GA", "GD", "PTS"};
-		League league = mainGame.getSimulationBackend().getLeague();
+		League league = MainGame.getSimulationBackend().getLeague();
 		//League league = FantasyFootballBackend.getInstance().getLeague();
 
 		ArrayList<Team> teams = new ArrayList<Team>(league.getTeams());
