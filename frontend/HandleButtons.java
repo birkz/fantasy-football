@@ -25,18 +25,16 @@ public class HandleButtons implements ActionListener{
 		
 		
 		if(e.getSource().equals(navbuttons[0])) {
-			Main.getInstance().setPanelAsMarket(null, 0, null, "", "Any Team", "Any Position");
-
-		}
-		
-		if(e.getSource().equals(navbuttons[1])) {
 			try {
 				Main.getInstance().setPanelAsScore();
 			} catch (InvalidUser e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
-
+		}
+		
+		if(e.getSource().equals(navbuttons[1])) {
+			Main.getInstance().setPanelAsMarket(null, 0, null, "", "Any Team", "Any Position");
 		}
 		
 		if(e.getSource().equals(navbuttons[2])) {

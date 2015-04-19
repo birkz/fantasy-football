@@ -27,11 +27,11 @@ public class Main {
 	private JPanel buttons;
 	
 	private JButton[] arrButtons;
-	private String[] navButtons = new String[]{"MARKET", "SCORES", "ROSTER", "LEAGUE",};
+	private String[] navButtons = new String[]{"SCORES", "MARKET", "ROSTER", "LEAGUE",};
 	private JButton endTurnButton;
 	private String endButtonArg;
 	
-	private int buttonON = 1; //Score takkinn
+	private int buttonON = Constants.SCORE_BUTTON; //Leikur opnast á SCORE
 	
 	private FieldViewerPanel field;
 	private StartPanel startpanel;
@@ -142,7 +142,7 @@ public class Main {
 		right.setBackground(Color.WHITE);
 		buttons.setBackground(Color.WHITE);
 		
-		toggleButton(1); // Score takkinn innsettur þegar leikur byrjar
+		toggleButton(Constants.SCORE_BUTTON); // Score takkinn innsettur þegar leikur byrjar
 
         frame.setVisible(true);
         
@@ -195,9 +195,7 @@ public class Main {
 		((CustomButton) this.endTurnButton).changeText(this.endButtonArg);
 		if(playerid == numofplayers) {
 			
-			System.out.println(round);
-			if(round == Constants.MAX_ROUNDS){
-				
+			if(round == Constants.MAX_ROUNDS){	
 				String hovertext = "END GAME";
 				((CustomButton) this.endTurnButton).changeTextOnHover(hovertext);
 			}
@@ -212,10 +210,10 @@ public class Main {
 	public void refreshFrame() throws InvalidUser, IOException, InvalidPlayer {
 		
 		//Vinstri hlið
-		if(buttonON == 0) setPanelAsMarket(null, 0, null, "", "Any Team", "Any Position");
-		else if(buttonON == 1) setPanelAsScore();
-		else if(buttonON == 2) setPanelAsRoster();
-		else setPanelAsLeague(false);
+		if(buttonON == Constants.SCORE_BUTTON) setPanelAsScore();
+		else if(buttonON == Constants.MARKET_BUTTON) setPanelAsMarket(null, 0, null, "", "Any Team", "Any Position");
+		else if(buttonON == Constants.ROSTER_BUTTON) setPanelAsRoster();
+		else if(buttonON == Constants.LEAGUE_BUTTON)setPanelAsLeague(false);
 		
 		//Hægri hlið
 		BorderLayout rightlayout = (BorderLayout) right.getLayout();
@@ -247,21 +245,21 @@ public class Main {
 		// ^^ þetta virðist ekki þurfa
 	}
 	
-	public void setPanelAsMarket(JScrollPane scroll, int value, List<? extends SortKey> sortkeys, String pl_choice, String team_choice, String pos_choice) {
+	public void setPanelAsScore() throws InvalidUser {
 		BorderLayout layout = (BorderLayout) left.getLayout();
 		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-		left.add(new MarketPanel(scroll, value, sortkeys, pl_choice, team_choice, pos_choice), BorderLayout.CENTER);
-		toggleButton(0);
+		left.add(new GraphData(), BorderLayout.CENTER);
+		toggleButton(Constants.SCORE_BUTTON);
 		
 		left.setVisible(false);
 		left.setVisible(true);
 	}
 	
-	public void setPanelAsScore() throws InvalidUser {
+	public void setPanelAsMarket(JScrollPane scroll, int value, List<? extends SortKey> sortkeys, String pl_choice, String team_choice, String pos_choice) {
 		BorderLayout layout = (BorderLayout) left.getLayout();
 		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-		left.add(new GraphData(), BorderLayout.CENTER);
-		toggleButton(1);
+		left.add(new MarketPanel(scroll, value, sortkeys, pl_choice, team_choice, pos_choice), BorderLayout.CENTER);
+		toggleButton(Constants.MARKET_BUTTON);
 		
 		left.setVisible(false);
 		left.setVisible(true);
@@ -271,7 +269,7 @@ public class Main {
 		BorderLayout layout = (BorderLayout) left.getLayout();
 		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 		left.add(new RosterPanel(), BorderLayout.CENTER);
-		toggleButton(2);
+		toggleButton(Constants.ROSTER_BUTTON);
 		
 		left.setVisible(false);
 		left.setVisible(true);
@@ -281,7 +279,7 @@ public class Main {
 		BorderLayout layout = (BorderLayout) left.getLayout();
 		left.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 		left.add(new LeaguePanel(isEnd), BorderLayout.CENTER);
-		toggleButton(3);
+		toggleButton(Constants.LEAGUE_BUTTON);
 		
 		left.setVisible(false);
 		left.setVisible(true);

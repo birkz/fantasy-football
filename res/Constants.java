@@ -35,4 +35,13 @@ public class Constants {
 	 * Game constants
 	 */
 	public static final int MAX_ROUNDS = 18;
+	
+	/*
+	 * Button constants
+	 */
+	public static final int SCORE_BUTTON = 0;
+	public static final int MARKET_BUTTON = 1;
+	public static final int ROSTER_BUTTON = 2;
+	public static final int LEAGUE_BUTTON = 3;
+	
 }
