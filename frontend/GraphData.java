@@ -64,10 +64,12 @@ public class GraphData extends JPanel {
 		int height = this.getSize().height;
 		super.paintComponent(g);
 		
+		/*
 		int fontsize = width/40;
 		for(int i = 0; i < labels.length; i++) {
 			//this.labels[i].setFont(FontUtil.getFont("kalinga", Font.PLAIN, fontsize));
 		}
+		*/
 		
 		Graphics2D draw = (Graphics2D) g;
 		draw.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

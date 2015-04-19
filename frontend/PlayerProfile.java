@@ -38,19 +38,15 @@ public class PlayerProfile extends JPanel {
 	private boolean loadfailed = false;
 	private JLabel name;
 	private int points;
-	private int yellow;
-	private int red;
 	
 	private final int xmargin = 10;
 	private final int ymargin = 28;
 	
 
-	public PlayerProfile(String path, String playername, int points, int yellow, int red) throws IOException {
+	public PlayerProfile(String path, String playername, int points) throws IOException {
 		
 		this.diameter = Main.getInstance().getFieldViewer().getWidth()/6;
 		this.points = points;
-		this.yellow = yellow;
-		this.red = red;
 
 		this.name = createLabel(playername);
 		
