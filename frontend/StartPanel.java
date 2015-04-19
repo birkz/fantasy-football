@@ -96,8 +96,12 @@ public class StartPanel extends JPanel {
 			 
             public void actionPerformed(ActionEvent e)
             {
+            	((CustomButton) startGame).changeText("  LOADING...  ");
+            	startGame.setEnabled(false);
+            	Main.getInstance().updateGameStart(true);
 				try {
-					Main.getInstance().startGame(names);
+					boolean ready = Main.getInstance().isSimulationReady();
+					if(ready) Main.getInstance().startGame(names);
 				} catch (InvalidPlayer | InvalidPosition | InvalidUser | IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -125,6 +129,10 @@ public class StartPanel extends JPanel {
 		if(Constants.MIN_USERS>0){
 			startGame.setEnabled(false);
 		}
+	}
+	
+	public List<String> getNames() {
+		return names;
 	}
 
 	/*

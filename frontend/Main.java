@@ -22,6 +22,10 @@ import is.hi.f2a.backend.MainGame;
 public class Main {
 	
 	private static final Main instance = new Main();
+	private static FantasyFootballBackend simulation;
+	private boolean simstatus = false;
+	private boolean startgame = false;
+	
 	private JFrame frame;
 	private JPanel right;
 	private JPanel left;
@@ -40,6 +44,33 @@ public class Main {
 	
 	private Main() {
 		this.icon = new ImageIcon("src/is/hi/f2a/res/Images/icon.png").getImage();
+		// Loadum hermuninu í nýjum þræði þegar forritið er ræst
+        InnerThread2 initSimulationBackend = new InnerThread2();
+        initSimulationBackend.start();
+	}
+	
+	public static Main getInstance() {
+		return instance;
+	}
+	
+	public static FantasyFootballBackend getMainSimulation() {
+		return simulation;
+	}
+	
+	public boolean isSimulationReady() {
+		return this.simstatus;
+	}
+	
+	public void updateSimulationStatus(boolean status) {
+		this.simstatus = status;
+	}
+	
+	public boolean shouldGameStart() {
+		return this.startgame;
+	}
+	
+	public void updateGameStart(boolean status) {
+		this.startgame = true;
 	}
 	
 	private void basicFrameSetup() {
@@ -47,10 +78,6 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("FANTASY FOOTBALL 2015");
 		frame.setIconImage(icon);
-	}
-	
-	public static Main getInstance() {
-		return instance;
 	}
 	
 	public void createAndShowGUI() {
@@ -367,6 +394,25 @@ public class Main {
 			}
 		}
 		
+	}
+	
+	////////////////////////////////////////////////
+	// Thread for loading backend and starting game
+	////////////////////////////////////////////////
+	private class InnerThread2 extends Thread {
+		@Override
+		public void run() {
+			simulation = is.hi.f1a.FantasyFootballBackend.getInstance();
+			updateSimulationStatus(true);
+			try {
+				boolean start = shouldGameStart();
+				System.out.println("Start:"+start);
+				if(shouldGameStart()) startGame(startpanel.getNames());
+			} catch (InvalidPlayer | InvalidPosition | InvalidUser | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	///////

@@ -15,7 +15,7 @@ import is.hi.f2a.frontend.Main;
 public class MainGame {
 
 	private static final MainGame game = new MainGame();
-	private static FantasyFootballBackend simulation = is.hi.f1a.FantasyFootballBackend.getInstance();
+	private static FantasyFootballBackend simulation = Main.getMainSimulation();
 	private StatsHistory stats;
 	private List<User> users;
 	private int round = 0;
@@ -23,10 +23,6 @@ public class MainGame {
 	
 	private MainGame() {
 		stats = new StatsHistory();
-		System.out.println("bacon");
-		// Loadum hermuninu í nýjum þræði þegar forritið er ræst
-        //InnerThread initSimulationBackend = new InnerThread();
-        //initSimulationBackend.start();
 	}
 	
 	public static MainGame getInstance() {
@@ -127,15 +123,5 @@ public class MainGame {
 			}
 		}
 		return;
-	}
-	
-	//////////////////////////////
-	// Thread for loading backend
-	//////////////////////////////
-	private class InnerThread extends Thread {
-		@Override
-		public void run() {
-			simulation = is.hi.f1a.FantasyFootballBackend.getInstance();
-		}
 	}
 }
