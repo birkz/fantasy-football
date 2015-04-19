@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.RowSorter.SortKey;
 
+import is.hi.f2a.res.Constants;
 import is.hi.f2a.tests.InvalidPlayer;
 import is.hi.f2a.tests.InvalidPosition;
 import is.hi.f2a.tests.InvalidUser;
@@ -189,11 +190,21 @@ public class Main {
 	private void updateEndButton() {
 		int playerid = MainGame.getInstance().getCurrendUserID()+1;
 		int numofplayers = MainGame.getInstance().getUsers().size();
+		int round = MainGame.getInstance().getRound()+1;
 		this.endButtonArg = "END TURN ("+playerid+"/"+numofplayers+")";
 		((CustomButton) this.endTurnButton).changeText(this.endButtonArg);
 		if(playerid == numofplayers) {
-			String hovertext = "NEW ROUND";
-			((CustomButton) this.endTurnButton).changeTextOnHover(hovertext);
+			
+			System.out.println(round);
+			if(round == Constants.MAX_ROUNDS){
+				
+				String hovertext = "END GAME";
+				((CustomButton) this.endTurnButton).changeTextOnHover(hovertext);
+			}
+			else {
+				String hovertext = "NEW ROUND";
+				((CustomButton) this.endTurnButton).changeTextOnHover(hovertext);
+			}
 		}
 	}
 	

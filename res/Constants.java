@@ -30,4 +30,9 @@ public class Constants {
 	
 	public static final int MAX_FORWARDS = 5;
 	public static final int MAX_FORWARDS_ON_FIELD = 3;
+	
+	/*
+	 * Game constants
+	 */
+	public static final int MAX_ROUNDS = 18;
 }
