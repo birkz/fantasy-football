@@ -251,9 +251,6 @@ public class Main {
 		setPanelAsFieldViewer();
 		updateEndButton();
 		
-		//frame.setVisible(true);
-        //frame.validate();+
-		// ^^ þetta virðist ekki þurfa
 	}
 
 	
@@ -269,9 +266,6 @@ public class Main {
 		setPanelAsFieldViewer();
 		updateEndButton();
 
-        //frame.setVisible(true);
-        //frame.validate();
-		// ^^ þetta virðist ekki þurfa
 	}
 	
 	public void setPanelAsScore() throws InvalidUser {
@@ -280,8 +274,7 @@ public class Main {
 		left.add(new GraphData(), BorderLayout.CENTER);
 		toggleButton(Constants.SCORE_BUTTON);
 		
-		left.setVisible(false);
-		left.setVisible(true);
+		refreshLeftPanel();
 	}
 	
 	public void setPanelAsMarket(JScrollPane scroll, int value, List<? extends SortKey> sortkeys, String pl_choice, String team_choice, String pos_choice) {
@@ -290,8 +283,7 @@ public class Main {
 		left.add(new MarketPanel(scroll, value, sortkeys, pl_choice, team_choice, pos_choice), BorderLayout.CENTER);
 		toggleButton(Constants.MARKET_BUTTON);
 		
-		left.setVisible(false);
-		left.setVisible(true);
+		refreshLeftPanel();
 	}
 	
 	public void setPanelAsRoster() throws InvalidPlayer {
@@ -300,8 +292,7 @@ public class Main {
 		left.add(new RosterPanel(), BorderLayout.CENTER);
 		toggleButton(Constants.ROSTER_BUTTON);
 		
-		left.setVisible(false);
-		left.setVisible(true);
+		refreshLeftPanel();
 	}
 	
 	public void setPanelAsLeague(boolean isEnd) {
@@ -310,8 +301,7 @@ public class Main {
 		left.add(new LeaguePanel(isEnd), BorderLayout.CENTER);
 		toggleButton(Constants.LEAGUE_BUTTON);
 		
-		left.setVisible(false);
-		left.setVisible(true);
+		refreshLeftPanel();
 	}
 	
 	public void setEndgamePanel(boolean isEnd) throws InvalidUser {
@@ -348,9 +338,18 @@ public class Main {
 		// Þarf ekki að loada hér í nýjum þræði því hverri mynd fyrir sig er loadað í nýjum þræði
 		// Þá komum við í veg fyrir að völlurinn birtist(flökktir) í sekúndubrot á undan leikmönnum
 		loadFieldProfiles();
+		refreshRightPanel();
+
+	}
+	
+	public void refreshRightPanel() {
 		right.setVisible(false);
 		right.setVisible(true);
-
+	}
+	
+	public void refreshLeftPanel() {
+		left.setVisible(false);
+		left.setVisible(true);
 	}
 
 	public void packFrame() {
@@ -366,18 +365,6 @@ public class Main {
 	/////////////////////////
 	private void loadFieldProfiles() throws IOException {
 		field.addProfiles();
-	}
-	
-	public void refreshRightPanel() {
-		right.setVisible(false);
-		right.setVisible(true);
-		right.validate();
-	}
-	
-	public void refreshLeftPanel() {
-		left.setVisible(false);
-		left.setVisible(true);
-		left.validate();
 	}
 	
 	private class InnerThread extends Thread {
