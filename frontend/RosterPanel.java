@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.awt.GridLayout;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -60,6 +61,7 @@ public class RosterPanel extends JPanel {
 		final Integer[] max_in_pos = new Integer[]{1,5,5,3};
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(4, 1, 5, 5));
+		panel.setBackground(Color.WHITE);
 		
 		for(List<Player> players : roster_lists){
 			String[] columnNames = {labels[j], "Price", "RC", "YC", "Injury", "Points", "Available", "On Field"};
@@ -200,6 +202,8 @@ public class RosterPanel extends JPanel {
 		    });
 		    
 			JScrollPane scroll = new JScrollPane(table);
+			scroll.getViewport().setBackground(Color.WHITE);
+			scroll.setBorder(BorderFactory.createEmptyBorder());
 			panel.add(scroll,j++);
 		}
 		add(panel, BorderLayout.CENTER);
